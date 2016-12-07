@@ -1,11 +1,12 @@
 package model;
 
-import elements.stage1.C;
-import elements.stage1.Fe;
-import elements.stage1.GeneralElementStage1;
-import elements.stage1.Mn;
-import elements.stage2.CO2;
-import elements.stage2.O2;
+import stage1.elements.C;
+import stage1.elements.Fe;
+import stage1.elements.GeneralElementStage1;
+import stage1.elements.Mn;
+import stage2.elements.CO2;
+import stage2.elements.O2;
+import stage1.ExtraDataStage1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,13 +49,13 @@ public class Container {
 		private Fe fe;
 		private C c;
 		private Mn mn;
-		private InputDataStage1 inputDataStage1;
+		private ExtraDataStage1 extraDataStage1;
 
 		public Stage1() {
 			fe = new Fe();
 			c = new C();
 			mn = new Mn();
-			inputDataStage1 = new InputDataStage1();
+			extraDataStage1 = new ExtraDataStage1();
 			System.out.println("created stage 1 object");
 		}
 
@@ -70,8 +71,8 @@ public class Container {
 			return mn;
 		}
 
-		public InputDataStage1 getInputDataStage1() {
-			return inputDataStage1;
+		public ExtraDataStage1 getExtraDataStage1() {
+			return extraDataStage1;
 		}
 
 		public List<GeneralElementStage1> getAllElements() {

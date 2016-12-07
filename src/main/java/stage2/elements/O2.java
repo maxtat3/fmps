@@ -1,4 +1,4 @@
-package elements.stage2;
+package stage2.elements;
 
 /**
  *

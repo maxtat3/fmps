@@ -1,9 +1,9 @@
-package model;
+package stage1;
 
 /**
  * Дополнительные данные для расчета задачи 1
  */
-public class InputDataStage1 {
+public class ExtraDataStage1 {
 
 	/**
 	 * Давление окружающей среды (Па)
@@ -31,7 +31,7 @@ public class InputDataStage1 {
 	private double time;
 
 
-	public InputDataStage1(int pressureEnv, double surfaceWeldArea, double weightMoltenMetal, int temperature, double time) {
+	public ExtraDataStage1(int pressureEnv, double surfaceWeldArea, double weightMoltenMetal, int temperature, double time) {
 		this.pressureEnv = pressureEnv;
 		this.surfaceWeldArea = surfaceWeldArea;
 		this.weightMoltenMetal = weightMoltenMetal;
@@ -39,7 +39,7 @@ public class InputDataStage1 {
 		this.time = time;
 	}
 
-	public InputDataStage1() {
+	public ExtraDataStage1() {
 	}
 
 

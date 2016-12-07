@@ -1,4 +1,4 @@
-package elements.stage1;
+package stage1.elements;
 
 import com.google.common.collect.ImmutableTable;
 import model.Container;

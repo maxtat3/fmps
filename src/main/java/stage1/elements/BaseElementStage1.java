@@ -1,4 +1,4 @@
-package elements.stage1;
+package stage1.elements;
 
 public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	private double alloyCompWeight;
