@@ -1,5 +1,12 @@
 package db;
 
+import app.SystemUtils;
+
+import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
 public class DBUtils {
 
 	private static final String DB_NAME = "fmps.db";
@@ -34,4 +41,66 @@ public class DBUtils {
 	public static final String ST3_ATM_PRESSURE = "st3_atm_pressure";
 	public static final String ST3_TEMPERATURE = "st3_temperature";
 
+	private static String dbStoredAbsPath;
+
+
+	public DBUtils() {
+		dbStoredAbsPath = SystemUtils.getUserCatalogAbsPath();
+	}
+
+
+	private static void initDatabase() throws Exception {
+		Connection conn;
+		Statement stmt;
+		String dbNameAbsPath = dbStoredAbsPath + "/" + DB_NAME;
+		System.out.println("db name = " + dbNameAbsPath);
+
+		File dbFile = new File(dbNameAbsPath);
+		if (dbFile.exists())
+			return;
+
+		try {
+			Class.forName("org.sqlite.JDBC");
+			conn = DriverManager.getConnection("jdbc:sqlite:" + dbStoredAbsPath + "/" + DB_NAME);
+			System.out.println("Opened database successfully");
+			stmt = conn.createStatement();
+			String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_FMPS_MAIN + " (" +
+				"id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  DEFAULT 1, " +
+				LAST_NAME + " VARCHAR , " +
+				FIRST_NAME + " VARCHAR , " +
+				MIDDLE_NAME + " VARCHAR , " +
+				ST1_PROGRESS + " INTEGER DEFAULT 0, " +
+				ST2_PROGRESS + " INTEGER DEFAULT 0, " +
+				ST3_PROGRESS + " INTEGER DEFAULT 0, " +
+				ST1_FE + " DOUBLE DEFAULT 0, " +
+				ST1_C + " DOUBLE DEFAULT 0, " +
+				ST1_MN + " DOUBLE DEFAULT 0, " +
+				ST1_P_ENV + " INTEGER , " +
+				ST1_F_SURF_WELD_AREA + " DOUBLE , " +
+				ST1_MP_WEIGHT_MOLTEN_METAL + " DOUBLE , " +
+				ST1_TEMPERATURE + " INTEGER , " +
+				ST1_TIME + " DOUBLE , " +
+				ST2_ARGON + " DOUBLE ," +
+				ST2_CO2 + " DOUBLE ," +
+				ST2_O2 + " DOUBLE ," +
+				ST2_CO + " DOUBLE ," +
+				ST2_O + " DOUBLE ," +
+				ST2_C + " DOUBLE ," +
+				ST2_TEMPERATURE + " INTEGER ," +
+				ST3_CO_PARTIAL_PRESSURE + " DOUBLE ," +
+				ST3_O_PARTIAL_PRESSURE + " DOUBLE ," +
+				ST3_O_DISSOLVE + " DOUBLE ," +
+				ST3_ATM_PRESSURE + " INTEGER ," +
+				ST3_TEMPERATURE + " DOUBLE" +
+				");";
+			stmt.execute(sql);
+			System.out.println("Created new db file and executed init sql statement.");
+
+			stmt.close();
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
 }
