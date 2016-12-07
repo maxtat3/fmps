@@ -5,6 +5,8 @@ import domain.User;
 
 import java.io.File;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBUtils {
 
@@ -142,6 +144,46 @@ public class DBUtils {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	/**
+	 * Проверка (по ФИО) есть ли уже такой пользователь в БД
+	 *
+	 * @param userLastName Имя
+	 * @param userFirstName Отчество
+	 * @param userMiddleName Фамилия
+	 * @return <tr>true</tr> такой пользователь уже существует, <tr>false</tr> такого пользователя нет в БД
+	 */
+	private static boolean isUserExist(String userLastName, String userFirstName, String userMiddleName ) {
+		Connection conn;
+		Statement stmt;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			conn = DriverManager.getConnection("jdbc:sqlite:" + dbStoredAbsPath + "/" + DB_NAME);
+			stmt = conn.createStatement();
+
+			ResultSet rs = stmt.executeQuery(
+				"SELECT " + LAST_NAME + DLC + FIRST_NAME + DLC + MIDDLE_NAME + " FROM " + TABLE_FMPS_MAIN
+			);
+			List<User> allUsers = new ArrayList<>();
+			while (rs.next()) {
+				User user = new User(rs.getString(LAST_NAME), rs.getString(FIRST_NAME), rs.getString(MIDDLE_NAME));
+				allUsers.add(user);
+			}
+			for (User user : allUsers) {
+				if (user.getLastName().equals(userLastName) &&
+					user.getFirstName().equals(userFirstName) &&
+					user.getMiddleName().equals(userMiddleName)) {
+					return true;
+				}
+			}
+
+			stmt.close();
+			conn.close();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	/**
