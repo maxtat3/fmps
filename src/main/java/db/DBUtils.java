@@ -216,6 +216,20 @@ public class DBUtils {
 		sqlStatementExecutor(sql);
 	}
 
+	private static void updMsrDataStage2(int userId, double st2Argon, double st2CO2, double st2O2, double st2CO, double st2O, double st2C, double st2Temperature){
+		String sql = "UPDATE " + TABLE_FMPS_MAIN + " SET " +
+			ST2_ARGON + "=" + st2Argon + DLC +
+			ST2_CO2 + "=" + st2CO2 + DLC +
+			ST2_O2 + "=" + st2O2 + DLC +
+			ST2_CO + "=" + st2CO + DLC +
+			ST2_O + "=" + st2O + DLC +
+			ST2_C + "=" + st2C + DLC +
+			ST2_TEMPERATURE + "=" + st2Temperature + " " +
+			"WHERE ID=" + userId;
+
+		sqlStatementExecutor(sql);
+	}
+
 
 	/**
 	 * General method for execute sql statements.
