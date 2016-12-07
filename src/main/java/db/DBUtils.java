@@ -1,12 +1,10 @@
 package db;
 
 import app.SystemUtils;
+import domain.User;
 
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DBUtils {
 
@@ -106,7 +104,7 @@ public class DBUtils {
 	}
 
 	/**
-	 * Добавить нового пользователя
+	 * Добавить нового пользователя.
 	 *
 	 * @param userLastName Имя
 	 * @param userFirstName Отчество
@@ -117,6 +115,33 @@ public class DBUtils {
 			LAST_NAME + DLC + FIRST_NAME + DLC + MIDDLE_NAME +
 			") VALUES (\"" + userLastName + "\"" + DLC + "\"" + userFirstName + "\"" + DLC + "\"" + userMiddleName + "\"" + ");";
 		sqlStatementExecutor(sql);
+	}
+
+	/**
+	 * Получение информации о пользователе из БД.
+	 *
+	 * @param userId id пользователя в БД
+	 * @return пользователь
+	 */
+	private static User getUser(int userId) {
+		String sql = "SELECT "+ LAST_NAME + DLC + FIRST_NAME + DLC + MIDDLE_NAME + " FROM " + TABLE_FMPS_MAIN + " WHERE id=" + userId + ";";
+//		System.out.println("sql = " + sql);
+		Connection conn;
+		Statement stmt;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			conn = DriverManager.getConnection("jdbc:sqlite:" + dbStoredAbsPath + "/" + DB_NAME);
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			User user = new User(rs.getString(LAST_NAME), rs.getString(FIRST_NAME), rs.getString(MIDDLE_NAME));
+			rs.close();
+			stmt.close();
+			conn.close();
+			return user;
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	/**
