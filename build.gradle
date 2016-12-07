@@ -34,4 +34,5 @@ task(runFMPS, dependsOn: 'classes', type: JavaExec) {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'com.google.guava:guava:20.0'
 }
