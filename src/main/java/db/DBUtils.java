@@ -230,6 +230,18 @@ public class DBUtils {
 		sqlStatementExecutor(sql);
 	}
 
+	private static void updMsrDataStage3(int userId, double st3COPartialPrs, double st3OPartialPrs, double st3ODissolve, int st3AtmPrs, double st3Temperature){
+		String sql = "UPDATE " + TABLE_FMPS_MAIN + " SET " +
+			ST3_CO_PARTIAL_PRESSURE + "=" + st3COPartialPrs + DLC +
+			ST3_O_PARTIAL_PRESSURE + "=" + st3OPartialPrs + DLC +
+			ST3_O_DISSOLVE + "=" + st3ODissolve + DLC +
+			ST3_ATM_PRESSURE + "=" + st3AtmPrs + DLC +
+			ST3_TEMPERATURE + "=" + st3Temperature + " " +
+			"WHERE ID=" + userId;
+
+		sqlStatementExecutor(sql);
+	}
+
 
 	/**
 	 * General method for execute sql statements.
