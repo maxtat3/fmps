@@ -1,13 +1,14 @@
 package elements.stage1;
 
 import com.google.common.collect.ImmutableTable;
+import model.Container;
 
 public interface GeneralElementStage1 {
 
 	double TEMPERATURE_EL = 1800; // Celsius degrees
-	String FE = ""; // todo - receive from container
-	String C = ""; // todo - receive from container
-	String MN = ""; // todo - receive from container
+	String FE = Container.getInstance().getStage1().getFe().toString();
+	String C = Container.getInstance().getStage1().getC().toString();
+	String MN = Container.getInstance().getStage1().getMn().toString();
 
 	/**
 	 * Мольная масса (кг/моль)
