@@ -242,6 +242,48 @@ public class DBUtils {
 		sqlStatementExecutor(sql);
 	}
 
+	/**
+	 * Увеличтить прогресс на 1 для задачи stage для пользователя по его id
+	 *
+	 * @param stage номер задачи
+	 * @param userId id пользователя
+	 */
+	private static void incrementProgress(Stage stage, int userId) {
+		String stageProgressColumn = null;
+		switch (stage) {
+			case STAGE_1:
+				stageProgressColumn = ST1_PROGRESS;
+				break;
+
+			case STAGE_2:
+				stageProgressColumn = ST2_PROGRESS;
+				break;
+
+			case STAGE_3:
+				stageProgressColumn = ST3_PROGRESS;
+				break;
+		}
+
+		Connection conn;
+		Statement stmt;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			conn = DriverManager.getConnection("jdbc:sqlite:" + dbStoredAbsPath + "/" + DB_NAME);
+			stmt = conn.createStatement();
+
+			ResultSet rs = stmt.executeQuery("SELECT " + stageProgressColumn + " FROM " + TABLE_FMPS_MAIN + " WHERE ID="+userId);
+			int progress = rs.getInt(userId);
+			stmt.execute("UPDATE " + TABLE_FMPS_MAIN + " SET " + stageProgressColumn + "=" + ++progress + " WHERE ID=" + userId);
+			stmt.execute("SELECT " + stageProgressColumn + " FROM " + TABLE_FMPS_MAIN + " WHERE ID="+userId);
+
+			rs.close();
+			stmt.close();
+			conn.close();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	/**
 	 * Выбор задачи
