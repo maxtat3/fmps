@@ -325,11 +325,8 @@ public class DBUtils {
 	}
 
 
-	/**
-	 * Выбор задачи
-	 */
-	private enum Stage {
-		STAGE_1, STAGE_2, STAGE_3
+	private static void dropMainTable() {
+		sqlStatementExecutor("DROP TABLE " + TABLE_FMPS_MAIN);
 	}
 
 	/**
@@ -352,5 +349,12 @@ public class DBUtils {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Выбор задачи
+	 */
+	private enum Stage {
+		STAGE_1, STAGE_2, STAGE_3
 	}
 }
