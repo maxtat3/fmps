@@ -187,6 +187,17 @@ public class DBUtils {
 	}
 
 	/**
+	 * Стереть пользователя из БД по его id.
+	 * Если такого пользователя нет в БД, то ничего не выполняется.
+	 *
+	 * @param userId id пользователя
+	 */
+	private static void removeUser(int userId) {
+		String sql = "DELETE FROM " + TABLE_FMPS_MAIN + " WHERE ID=" + userId;
+		sqlStatementExecutor(sql);
+	}
+
+	/**
 	 * General method for execute sql statements.
 	 *
 	 * @param sql query
