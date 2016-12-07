@@ -39,6 +39,9 @@ public class InputDataStage1 {
 		this.time = time;
 	}
 
+	public InputDataStage1() {
+	}
+
 
 	public int getPressureEnv() {
 		return pressureEnv;
