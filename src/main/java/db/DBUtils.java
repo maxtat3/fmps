@@ -5,6 +5,7 @@ import app.SystemUtils;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBUtils {
@@ -100,6 +101,28 @@ public class DBUtils {
 			conn.close();
 		} catch (ClassNotFoundException e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * General method for execute sql statements.
+	 *
+	 * @param sql query
+	 */
+	private static void sqlStatementExecutor(String sql) {
+		Connection conn;
+		Statement stmt;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			conn = DriverManager.getConnection("jdbc:sqlite:" + dbStoredAbsPath + "/" + DB_NAME);
+			System.out.println("Opened database successfully");
+
+			stmt = conn.createStatement();
+			stmt.execute(sql);
+			stmt.close();
+			conn.close();
+		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 	}
