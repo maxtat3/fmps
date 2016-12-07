@@ -197,6 +197,26 @@ public class DBUtils {
 		sqlStatementExecutor(sql);
 	}
 
+
+	// todo - для всех методов, которые добавляют/изменяют данные проверять, есть ли данные ФИО пользователя в БД !
+	private static void updMsrDataStage1(int userId, double st1Fe, double st1C, double st1Mn,
+	                                     int st1PEnv, double st1FSurfaceWeldArea, double st1WeightMoltenMetal, int st1Temperature, double st1Time) {
+		String sql = "UPDATE " + TABLE_FMPS_MAIN + " SET " +
+			ST1_FE + "=" + st1Fe + DLC +
+			ST1_C + "=" + st1C + DLC +
+			ST1_MN + "=" + st1Mn + DLC +
+			ST1_P_ENV + "=" + st1PEnv + DLC +
+			ST1_F_SURF_WELD_AREA + "=" + st1FSurfaceWeldArea + DLC +
+			ST1_MP_WEIGHT_MOLTEN_METAL + "=" + st1WeightMoltenMetal + DLC +
+			ST1_TEMPERATURE + "=" + st1Temperature + DLC +
+			ST1_TIME + "=" + st1Time + " " +
+			"WHERE ID=" + userId;
+
+		System.out.println("sql = [" + sql + "]");
+		sqlStatementExecutor(sql);
+	}
+
+
 	/**
 	 * General method for execute sql statements.
 	 *
