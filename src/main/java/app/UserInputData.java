@@ -10,11 +10,12 @@ public class UserInputData {
 	 */
 	public class InputStage1 {
 		// Состав сплава по весу (%)
-		public static final double alloyCompWeightFe = 89.54;
-		public static final double alloyCompWeightAl = 1.37;
-		public static final double alloyCompWeightC = 2.11;
+		public static final double alloyCompWeightFe = 89.9;
+		public static final double alloyCompWeightAl = 1.79;
+		public static final double alloyCompWeightC = 4.89;
 		public static final double alloyCompWeightMn = 5.12;
-		public static final double alloyCompWeightSi = 1.86;
+		public static final double alloyCompWeightSi = 4.21;
+		public static final double alloyCompWeightTi = 4.09;
 
 		// Давление окружающей среды (Па)
 		public static final int envP = 100000;
