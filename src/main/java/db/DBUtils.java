@@ -244,6 +244,13 @@ public class DBUtils {
 
 
 	/**
+	 * Выбор задачи
+	 */
+	private enum Stage {
+		STAGE_1, STAGE_2, STAGE_3
+	}
+
+	/**
 	 * General method for execute sql statements.
 	 *
 	 * @param sql query
