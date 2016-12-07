@@ -106,6 +106,20 @@ public class DBUtils {
 	}
 
 	/**
+	 * Добавить нового пользователя
+	 *
+	 * @param userLastName Имя
+	 * @param userFirstName Отчество
+	 * @param userMiddleName Фамилия
+	 */
+	private static void addNewUser(String userLastName, String userFirstName, String userMiddleName) {
+		String sql = "INSERT INTO " + TABLE_FMPS_MAIN + " (" +
+			LAST_NAME + DLC + FIRST_NAME + DLC + MIDDLE_NAME +
+			") VALUES (\"" + userLastName + "\"" + DLC + "\"" + userFirstName + "\"" + DLC + "\"" + userMiddleName + "\"" + ");";
+		sqlStatementExecutor(sql);
+	}
+
+	/**
 	 * General method for execute sql statements.
 	 *
 	 * @param sql query
