@@ -31,16 +31,17 @@ public class Calc {
 		list.add(fe);
 		list.add(c);
 		list.add(mn);
-		calcMolarMass(list);
+		findMoleFractionOfAlloyElems(list);
 	}
 
 	/**
-	 * Расчет мольной доли всех элементов сплава (%)
+	 * Расчет мольной доли всех элементов сплава (%).
+	 * Результат записывается в каждый элемент.
 	 *
 	 * @param userElements элементы из задания пользователя
 	 */
-	public void calcMolarMass(List<GeneralElementStage1> userElements) {
-//		List<Double> dElem = new ArrayList<>();
+	public void findMoleFractionOfAlloyElems(List<GeneralElementStage1> userElements) {
+		// отношения массовой доли вещества (%) к атомной массе элемента (кг/моль)
 		double[] dElem = new double[userElements.size()];
 		int dElemPointer = 0;
 
@@ -61,7 +62,7 @@ public class Calc {
 		// reset pointer for get saved order elements again.
 		dElemPointer = 0;
 
-		// find sum all elems
+		// find sum
 		double dSum = 0;
 		for (double dNElem : dElem) {
 			dSum += dNElem;
