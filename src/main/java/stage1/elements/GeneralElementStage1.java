@@ -41,7 +41,7 @@ public interface GeneralElementStage1 {
 			.put(TI, MOLAR_MASS, 0.04788)
 
 			.put(FE, HIGH_TEMPER_ENTHALPY, 73.61)
-			.put(C, HIGH_TEMPER_ENTHALPY, 30.63)
+			.put(C, HIGH_TEMPER_ENTHALPY, 30.64)
 			.put(MN, HIGH_TEMPER_ENTHALPY, 77.64)
 			.put(AL, HIGH_TEMPER_ENTHALPY, 54.05)
 			.put(SI, HIGH_TEMPER_ENTHALPY, 89.3)
