@@ -9,6 +9,9 @@ public interface GeneralElementStage1 {
 	String FE = Container.getInstance().getStage1().getFe().toString();
 	String C = Container.getInstance().getStage1().getC().toString();
 	String MN = Container.getInstance().getStage1().getMn().toString();
+	String AL = Container.getInstance().getStage1().getAl().toString();
+	String SI = Container.getInstance().getStage1().getSi().toString();
+	String TI = Container.getInstance().getStage1().getTi().toString();
 
 	/**
 	 * Мольная масса (кг/моль)
@@ -33,12 +36,23 @@ public interface GeneralElementStage1 {
 			.put(FE, MOLAR_MASS, 0.055847)
 			.put(C, MOLAR_MASS, 0.01201)
 			.put(MN, MOLAR_MASS, 0.054938)
+			.put(AL, MOLAR_MASS, 0.02698)
+			.put(SI, MOLAR_MASS, 0.0280855)
+			.put(TI, MOLAR_MASS, 0.04788)
+
 			.put(FE, HIGH_TEMPER_ENTHALPY, 73.61)
 			.put(C, HIGH_TEMPER_ENTHALPY, 30.63)
 			.put(MN, HIGH_TEMPER_ENTHALPY, 77.64)
+			.put(AL, HIGH_TEMPER_ENTHALPY, 54.05)
+			.put(SI, HIGH_TEMPER_ENTHALPY, 89.3)
+			.put(TI, HIGH_TEMPER_ENTHALPY, 57.7)
+
 			.put(FE, THERMAL_CAPACITY, 41.9)
 			.put(C, THERMAL_CAPACITY, 24.9)
 			.put(MN, THERMAL_CAPACITY, 46.0)
+			.put(AL, THERMAL_CAPACITY, 26.3)
+			.put(SI, THERMAL_CAPACITY, 25.6)
+			.put(TI, THERMAL_CAPACITY, 33.5)
 			// write to table
 			.build();
 

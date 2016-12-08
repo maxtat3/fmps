@@ -1,9 +1,6 @@
 package model;
 
-import stage1.elements.C;
-import stage1.elements.Fe;
-import stage1.elements.GeneralElementStage1;
-import stage1.elements.Mn;
+import stage1.elements.*;
 import stage2.elements.CO2;
 import stage2.elements.O2;
 import stage1.ExtraDataStage1;
@@ -49,12 +46,18 @@ public class Container {
 		private Fe fe;
 		private C c;
 		private Mn mn;
+		private Al al;
+		private Si si;
+		private Ti ti;
 		private ExtraDataStage1 extraDataStage1;
 
 		public Stage1() {
 			fe = new Fe();
 			c = new C();
 			mn = new Mn();
+			al = new Al();
+			si = new Si();
+			ti = new Ti();
 			extraDataStage1 = new ExtraDataStage1();
 			System.out.println("created stage 1 object");
 		}
@@ -71,6 +74,18 @@ public class Container {
 			return mn;
 		}
 
+		public Al getAl() {
+			return al;
+		}
+
+		public Si getSi() {
+			return si;
+		}
+
+		public Ti getTi() {
+			return ti;
+		}
+
 		public ExtraDataStage1 getExtraDataStage1() {
 			return extraDataStage1;
 		}
@@ -80,6 +95,9 @@ public class Container {
 			list.add(fe);
 			list.add(c);
 			list.add(mn);
+			list.add(al);
+			list.add(si);
+			list.add(ti);
 			return list;
 		}
 	}
