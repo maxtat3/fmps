@@ -50,19 +50,18 @@ public class Calc {
 	 * @param userElements список элементов из задания пользователя
 	 */
 	public void findMoleFractionOfAlloyElems(List<GeneralElementStage1> userElements) {
-		// отношения массовой доли вещества (%) к атомной массе элемента (кг/моль)
-		double[] dElem = new double[userElements.size()];
+		double gi;
+		double molarMass;
+		double[] relGiAiElems = new double[userElements.size()]; // отношения массовой доли вещества (%) к атомной массе элемента (кг/моль)
 		int dElemPointer = 0;
 
 		for (GeneralElementStage1 userElem : userElements) {
 			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
 				if (userElem.toString().equals(containerElem.toString())) {
-					System.out.println(userElem.toString() + ":" + userElem.getAlloyCompWeight());
-//					containerElem.setMoleFractionAlloyElem(
-					dElem[dElemPointer] = userElem.getAlloyCompWeight() /
-						GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.MOLAR_MASS);
+					gi = userElem.getAlloyCompWeight();
+					molarMass = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.MOLAR_MASS);
+					relGiAiElems[dElemPointer] = gi / molarMass;
 					dElemPointer++;
-//					);
 					break;
 				}
 			}
@@ -72,17 +71,17 @@ public class Calc {
 		dElemPointer = 0;
 
 		// find sum
-		double dSum = 0;
-		for (double dNElem : dElem) {
-			dSum += dNElem;
+		double relGiAiSum = 0;
+		for (double rel : relGiAiElems) {
+			relGiAiSum += rel;
 		}
-		System.out.println("dSum = " + dSum);
+		System.out.println("relGiAiSum = " + relGiAiSum);
 
 		// find molar mass for each element
 		for (GeneralElementStage1 userElem : userElements) {
 			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
 				if (userElem.toString().equals(containerElem.toString())) {
-					containerElem.setMoleFractionAlloyElem(dElem[dElemPointer]/dSum);
+					containerElem.setMoleFractionAlloyElem(relGiAiElems[dElemPointer]/relGiAiSum);
 					dElemPointer++;
 				}
 			}
