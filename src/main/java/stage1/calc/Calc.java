@@ -1,10 +1,7 @@
 package stage1.calc;
 
 import model.Container;
-import stage1.elements.C;
-import stage1.elements.Fe;
-import stage1.elements.GeneralElementStage1;
-import stage1.elements.Mn;
+import stage1.elements.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +19,26 @@ public class Calc {
 //		);
 
 		Fe fe = new Fe();
+		Al al = new Al();
 		C c = new C();
-		Mn mn = new Mn();
-		fe.setAlloyCompWeight(11.1);
-		c.setAlloyCompWeight(22.2);
-		mn.setAlloyCompWeight(33.5);
+		Si si = new Si();
+		Ti ti = new Ti();
+
+		// initial data
+		fe.setAlloyCompWeight(89.9);
+		al.setAlloyCompWeight(1.79);
+		c.setAlloyCompWeight(4.89);
+		si.setAlloyCompWeight(4.21);
+		ti.setAlloyCompWeight(4.09);
+
 		ArrayList<GeneralElementStage1> list = new ArrayList<>();
 		list.add(fe);
+		list.add(al);
 		list.add(c);
-		list.add(mn);
+		list.add(si);
+		list.add(ti);
+
+		// do calculate
 		findMoleFractionOfAlloyElems(list);
 	}
 
@@ -80,9 +88,9 @@ public class Calc {
 			}
 		}
 
-		System.out.println("---");
+		System.out.println("formula 1 results :");
 		for (GeneralElementStage1 elem : Container.getInstance().getStage1().getAllElements()) {
-			System.out.println(elem.getMoleFractionAlloyElem());
+			System.out.println(elem.toString() + ":" + elem.getMoleFractionAlloyElem());
 		}
 	}
 
