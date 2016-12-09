@@ -3,7 +3,7 @@ package model;
 import stage1.elements.*;
 import stage2.elements.CO2;
 import stage2.elements.O2;
-import stage1.ExtraDataStage1;
+import stage1.ExtraInputDataStage1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class Container {
 		private Al al;
 		private Si si;
 		private Ti ti;
-		private ExtraDataStage1 extraDataStage1;
+		private ExtraInputDataStage1 extraInputDataStage1;
 
 		public Stage1() {
 			fe = new Fe();
@@ -58,7 +58,7 @@ public class Container {
 			al = new Al();
 			si = new Si();
 			ti = new Ti();
-			extraDataStage1 = new ExtraDataStage1();
+			extraInputDataStage1 = new ExtraInputDataStage1();
 			System.out.println("created stage 1 object");
 		}
 
@@ -86,8 +86,8 @@ public class Container {
 			return ti;
 		}
 
-		public ExtraDataStage1 getExtraDataStage1() {
-			return extraDataStage1;
+		public ExtraInputDataStage1 getExtraInputDataStage1() {
+			return extraInputDataStage1;
 		}
 
 		public List<GeneralElementStage1> getAllElements() {
