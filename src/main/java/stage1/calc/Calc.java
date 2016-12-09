@@ -115,5 +115,33 @@ public class Calc {
 		}
 	}
 
+	/**
+	 * Расчет энтальпии испарения (КДж/Моль).
+	 *
+	 * @param userElements список элементов из задания пользователя
+	 */
+	public void findEnthalpyVaporization(List<GeneralElementStage1> userElements){
+		double[] ht0minh2980mulni = new double[userElements.size()]; // temp value (HTo-H298o)*Ni for find enthalpy of vaporization
+		int elemPointer = 0;
+		double moleFractionAlloyElem;
+		double thermalCapacity;
+
+		for (GeneralElementStage1 userElem : userElements) {
+			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
+				if (userElem.toString().equals(containerElem.toString())) {
+					moleFractionAlloyElem = containerElem.getMoleFractionAlloyElem();
+					thermalCapacity = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.THERMAL_CAPACITY);
+
+					ht0minh2980mulni[elemPointer] = moleFractionAlloyElem * thermalCapacity;
+					elemPointer++;
+				}
+			}
+		}
+
+		for (double val : ht0minh2980mulni) {
+			System.out.println(val);
+		}
+	}
+
 
 }
