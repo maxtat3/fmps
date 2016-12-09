@@ -38,7 +38,7 @@ public class Calc {
 	 * Расчет мольной доли всех элементов сплава (%).
 	 * Результат записывается в каждый элемент.
 	 *
-	 * @param userElements элементы из задания пользователя
+	 * @param userElements список элементов из задания пользователя
 	 */
 	public void findMoleFractionOfAlloyElems(List<GeneralElementStage1> userElements) {
 		// отношения массовой доли вещества (%) к атомной массе элемента (кг/моль)
@@ -84,5 +84,36 @@ public class Calc {
 			System.out.println(elem.getMoleFractionAlloyElem());
 		}
 	}
+
+	/**
+	 * Расчет энтальпии жидкого сплава (КДж/Моль).
+	 *
+	 * @param userElements список элементов из задания пользователя
+	 */
+	public void findEnthalpyLiquidAlloy(List<GeneralElementStage1> userElements, int temperatureTask, int temperatureConst) {
+		double[] ht0minh2980 = new double[userElements.size()]; // temp value HTo-H298o for find enthalpy of liquid alloy
+		int elemPointer = 0;
+		double highTemprEnthalpy;
+		double thermalCapacity;
+		double deltaTempr;
+
+		for (GeneralElementStage1 userElem : userElements) {
+			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
+				if (userElem.toString().equals(containerElem.toString())) {
+					highTemprEnthalpy = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.HIGH_TEMPER_ENTHALPY);
+					thermalCapacity = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.THERMAL_CAPACITY);
+					deltaTempr = temperatureTask - temperatureConst;
+
+					ht0minh2980[elemPointer] = (highTemprEnthalpy + thermalCapacity*deltaTempr)/1000;
+					elemPointer++;
+				}
+			}
+		}
+
+		for (double v : ht0minh2980) {
+			System.out.println("v = " + v);
+		}
+	}
+
 
 }
