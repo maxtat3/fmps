@@ -24,4 +24,28 @@ public class ExtraCalcDataStage1 {
 	 */
 	private double enthalpyVapor;
 
+
+	public double getEnthalpyLiquidAlloy() {
+		return enthalpyLiquidAlloy;
+	}
+
+	public void setEnthalpyLiquidAlloy(double enthalpyLiquidAlloy) {
+		this.enthalpyLiquidAlloy = enthalpyLiquidAlloy;
+	}
+
+	public double getEnthalpyVaporization() {
+		return enthalpyVaporization;
+	}
+
+	public void setEnthalpyVaporization(double enthalpyVaporization) {
+		this.enthalpyVaporization = enthalpyVaporization;
+	}
+
+	public double getEnthalpyVapor() {
+		return enthalpyVapor;
+	}
+
+	public void setEnthalpyVapor(double enthalpyVapor) {
+		this.enthalpyVapor = enthalpyVapor;
+	}
 }
