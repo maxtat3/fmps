@@ -78,13 +78,13 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	}
 
 	@Override
-	public void setVaporPressureOfPureComps(double val) {
-		vaporPressureOfPureComps = val;
+	public double getVaporPressureOfPureComps() {
+		return vaporPressureOfPureComps;
 	}
 
 	@Override
-	public double getVaporPressureOfPureComps() {
-		return vaporPressureOfPureComps;
+	public void setVaporPressureOfPureComps(double val) {
+		vaporPressureOfPureComps = val;
 	}
 
 	@Override
