@@ -29,6 +29,12 @@ public interface GeneralElementStage1 {
 	String THERMAL_CAPACITY = "thermal_capacity";
 
 	/**
+	 * Скрытая теплота парообразования, deltaHкип0 (кДж/моль)
+	 * Характеристика фазового превращения вещества.
+	 */
+	String HIDDEN_HEAT_VAPORIZATION = "hidden_heat_of_vaporization";
+
+	/**
 	 * Таблица констант элементов.
 	 */
 	ImmutableTable<String, String, Double> CONST_ELEMS =
@@ -53,6 +59,14 @@ public interface GeneralElementStage1 {
 			.put(AL, THERMAL_CAPACITY, 26.3)
 			.put(SI, THERMAL_CAPACITY, 25.6)
 			.put(TI, THERMAL_CAPACITY, 33.5)
+
+			.put(FE, HIDDEN_HEAT_VAPORIZATION, 418.0)
+			.put(C, HIDDEN_HEAT_VAPORIZATION, 814.0)
+			.put(MN, HIDDEN_HEAT_VAPORIZATION, 279.0)
+			.put(AL, HIDDEN_HEAT_VAPORIZATION, 296.0)
+			.put(SI, HIDDEN_HEAT_VAPORIZATION, 469.0)
+			.put(TI, HIDDEN_HEAT_VAPORIZATION, 473.0)
+
 			// write to table
 			.build();
 
