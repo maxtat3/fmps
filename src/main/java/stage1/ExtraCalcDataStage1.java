@@ -30,6 +30,12 @@ public class ExtraCalcDataStage1 {
 	 */
 	private double vaporPressureOverAlloy;
 
+	/**
+	 * Уменьшение массы расплавленного металла за счет испарения (гр/сек)
+	 * Формула 9
+	 */
+	private double decreaseMoltenMetalDueVaporization;
+
 
 	public double getEnthalpyLiquidAlloy() {
 		return enthalpyLiquidAlloy;
@@ -61,5 +67,13 @@ public class ExtraCalcDataStage1 {
 
 	public void setVaporPressureOverAlloy(double vaporPressureOverAlloy) {
 		this.vaporPressureOverAlloy = vaporPressureOverAlloy;
+	}
+
+	public double getDecreaseMoltenMetalDueVaporization() {
+		return decreaseMoltenMetalDueVaporization;
+	}
+
+	public void setDecreaseMoltenMetalDueVaporization(double decreaseMoltenMetalDueVaporization) {
+		this.decreaseMoltenMetalDueVaporization = decreaseMoltenMetalDueVaporization;
 	}
 }

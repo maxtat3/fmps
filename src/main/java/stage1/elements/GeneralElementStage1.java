@@ -155,6 +155,4 @@ public interface GeneralElementStage1 {
 	void setRateVaporizationEachElemOfWeldPool(double val);
 	double getRateVaporizationEachElemOfWeldPool();
 
-	// 9. Скорость уменьшения массы расплавленного металла за счет испарения (гр/сек)
-	// rateDecreaseMoltenMetalDueVaporization
 }

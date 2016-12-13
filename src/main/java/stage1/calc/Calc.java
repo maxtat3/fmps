@@ -49,6 +49,7 @@ public class Calc {
 		findRateVaporizationEachElemOfWeldPool(
 			list, TEMPERATURE_TASK, Container.getInstance().getStage1().getExtraInputDataStage1().getSurfaceWeldArea()
 		);
+		findDecreaseMoltenMetalDueVaporization(list);
 	}
 
 	/**
@@ -362,6 +363,27 @@ public class Calc {
 		for (GeneralElementStage1 el : Container.getInstance().getStage1().getAllElements()) {
 			System.out.println(el.toString() + " : " + "vi = " + el.getRateVaporizationEachElemOfWeldPool());
 		}
+	}
+
+	/**
+	 * Уменьшение массы расплавленного металла за счет испарения (гр/сек)
+	 * Формула 9
+	 *
+	 * @param userElements список элементов из задания пользователя
+	 */
+	public void findDecreaseMoltenMetalDueVaporization(List<GeneralElementStage1> userElements){
+		double sum = 0;
+
+		for (GeneralElementStage1 userElem : userElements) {
+			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
+				if (userElem.toString().equals(containerElem.toString())) {
+					sum += containerElem.getRateVaporizationEachElemOfWeldPool();
+				}
+			}
+		}
+
+		Container.getInstance().getStage1().getExtraCalcDataStage1().setDecreaseMoltenMetalDueVaporization(sum);
+		System.out.println("deltaVm = " + sum);
 	}
 
 }
