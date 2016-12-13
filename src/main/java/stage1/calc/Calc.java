@@ -12,11 +12,9 @@ import java.util.List;
 public class Calc {
 
 	public Calc() {
-//		Container.getInstance().getStage1().getFe().setMoleFractionAlloyElem(
-//			calc.moleFraction(
-//				GeneralElementStage1.CONST_ELEMS.get(GeneralElementStage1.FE, GeneralElementStage1.MOLAR_MASS), 11.7
-//			)
-//		);
+
+		int TEMPERATURE_ELEMENTS = 1800; // temperature elements (in celsius degrees)
+		int TEMPERATURE_TASK = 2273; // defined for user in task (in celsius degrees)
 
 		Fe fe = new Fe();
 		Al al = new Al();
@@ -40,11 +38,11 @@ public class Calc {
 
 		// do calculate
 		findMoleFractionOfAlloyElems(list);
-		findEnthalpyLiquidAlloy(list, 2273, 1800);
+		findEnthalpyLiquidAlloy(list, TEMPERATURE_TASK, TEMPERATURE_ELEMENTS);
 		findEnthalpyVaporization(list);
 		findEnthalpyVapor();
-		findVaporPressureOfPureComps(list, 2273);
-		findPartialPressureCompsOverAlloy(list, 2273);
+		findVaporPressureOfPureComps(list, TEMPERATURE_TASK);
+		findPartialPressureCompsOverAlloy(list, TEMPERATURE_TASK);
 		findVaporPressureOverAlloy(list);
 	}
 

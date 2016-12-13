@@ -5,7 +5,6 @@ import model.Container;
 
 public interface GeneralElementStage1 {
 
-	double TEMPERATURE_EL = 1800; // Celsius degrees
 	String FE = Container.getInstance().getStage1().getFe().toString();
 	String C = Container.getInstance().getStage1().getC().toString();
 	String MN = Container.getInstance().getStage1().getMn().toString();
