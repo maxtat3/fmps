@@ -46,6 +46,12 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	 */
 	private double moleFractionEachElemInVapor;
 
+	/**
+	 * Весовая доля каждого компонента в паре (%)
+	 * Формула 7
+	 */
+	private double weightFractionEachElemInVapor;
+
 
 	@Override
 	public double getAlloyCompWeight() {
@@ -111,5 +117,15 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	@Override
 	public void setMoleFractionEachElemInVapor(double val) {
 		moleFractionEachElemInVapor = val;
+	}
+
+	@Override
+	public double getWeightFractionEachElemInVapor() {
+		return weightFractionEachElemInVapor;
+	}
+
+	@Override
+	public void setWeightFractionEachElemInVapor(double val) {
+		weightFractionEachElemInVapor = val;
 	}
 }

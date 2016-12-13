@@ -147,6 +147,8 @@ public interface GeneralElementStage1 {
 
 	// 7. Весовая доля каждого компонента в паре (%)
 	// weightFractionEachElemInVapor
+	void setWeightFractionEachElemInVapor(double val);
+	double getWeightFractionEachElemInVapor();
 
 	// 8. Скорость испарения из сварочной ванны каждого элемента (гр/сек)
 	// rateVaporizationEachElemOfWeldPool

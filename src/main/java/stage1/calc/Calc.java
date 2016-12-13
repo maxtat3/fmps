@@ -45,6 +45,7 @@ public class Calc {
 		findPartialPressureCompsOverAlloy(list, TEMPERATURE_TASK);
 		findVaporPressureOverAlloy(list);
 		findMoleFractionEachElemInVapor(list);
+		findWeightFractionEachElemInVapor(list);
 	}
 
 	/**
@@ -297,6 +298,40 @@ public class Calc {
 
 		for (GeneralElementStage1 elementStage1 : Container.getInstance().getStage1().getAllElements()) {
 			System.out.println(elementStage1.toString() + " : " + "NviPercent = " + elementStage1.getMoleFractionEachElemInVapor());
+		}
+	}
+
+	/**
+	 * Весовая доля каждого компонента в паре (%)
+	 * Формула 7
+	 *
+	 * @param userElements список элементов из задания пользователя
+	 */
+	public void findWeightFractionEachElemInVapor(List<GeneralElementStage1> userElements){
+		double nvi, ai, nviMulaiSum = 0;
+
+		for (GeneralElementStage1 userElem : userElements) {
+			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
+				if (userElem.toString().equals(containerElem.toString())) {
+					nvi = containerElem.getMoleFractionEachElemInVapor();
+					ai = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.MOLAR_MASS);
+					nviMulaiSum += nvi * ai;
+				}
+			}
+		}
+
+		for (GeneralElementStage1 userElem : userElements) {
+			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
+				if (userElem.toString().equals(containerElem.toString())) {
+					nvi = containerElem.getMoleFractionEachElemInVapor();
+					ai = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.MOLAR_MASS);
+					containerElem.setWeightFractionEachElemInVapor(((nvi * ai) / nviMulaiSum) * 100);
+				}
+			}
+		}
+
+		for (GeneralElementStage1 elementStage1 : Container.getInstance().getStage1().getAllElements()) {
+			System.out.println(elementStage1.toString() + " : " + "gi = " + elementStage1.getWeightFractionEachElemInVapor());
 		}
 	}
 
