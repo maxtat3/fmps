@@ -142,6 +142,8 @@ public interface GeneralElementStage1 {
 
 	// 6. Мольная доля каждого компонента в паре (%)
 	// moleFractionEachElemInVapor
+	void setMoleFractionEachElemInVapor(double val);
+	double getMoleFractionEachElemInVapor();
 
 	// 7. Весовая доля каждого компонента в паре (%)
 	// weightFractionEachElemInVapor

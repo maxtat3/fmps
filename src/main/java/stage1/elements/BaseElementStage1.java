@@ -40,6 +40,12 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	 */
 	private double partialPressureCompsOverAlloy;
 
+	/**
+	 * Мольная доля компонента в паре,
+	 * Формула 6
+	 */
+	private double moleFractionEachElemInVapor;
+
 
 	@Override
 	public double getAlloyCompWeight() {
@@ -95,5 +101,15 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	@Override
 	public void setPartialPressureCompsOverAlloy(double val) {
 		partialPressureCompsOverAlloy = val;
+	}
+
+	@Override
+	public double getMoleFractionEachElemInVapor() {
+		return moleFractionEachElemInVapor;
+	}
+
+	@Override
+	public void setMoleFractionEachElemInVapor(double val) {
+		moleFractionEachElemInVapor = val;
 	}
 }
