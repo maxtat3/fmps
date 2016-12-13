@@ -42,6 +42,7 @@ public class Calc {
 		findMoleFractionOfAlloyElems(list);
 		findEnthalpyLiquidAlloy(list, 2273, 1800);
 		findEnthalpyVaporization(list);
+		findEnthalpyVapor();
 	}
 
 	/**
@@ -171,5 +172,16 @@ public class Calc {
 		System.out.println("enthalpyVaporizationSum = " + enthalpyVaporizationSum);
 	}
 
+	/**
+	 * Энтальпия пара для сплава (КДж/Моль).
+	 * Формула 2.3
+	 */
+	public void findEnthalpyVapor(){
+		double enthalpyLiquidAlloy = Container.getInstance().getStage1().getExtraCalcDataStage1().getEnthalpyLiquidAlloy();
+		double enthalpyVaporization = Container.getInstance().getStage1().getExtraCalcDataStage1().getEnthalpyVaporization();
+		double enthalpyVapor = enthalpyLiquidAlloy + enthalpyVaporization;
+		Container.getInstance().getStage1().getExtraCalcDataStage1().setEnthalpyVapor(enthalpyVapor);
+		System.out.println("enthalpyVapor = " + enthalpyVapor);
+	}
 
 }
