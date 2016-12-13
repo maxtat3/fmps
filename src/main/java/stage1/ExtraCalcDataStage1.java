@@ -19,7 +19,7 @@ public class ExtraCalcDataStage1 {
 	private double enthalpyVaporization;
 
 	/**
-	 * Ээнтальпия пара для сплава (КДж/Моль).
+	 * Энтальпия пара для сплава (КДж/Моль).
 	 * Формула 2.3
 	 */
 	private double enthalpyVapor;
