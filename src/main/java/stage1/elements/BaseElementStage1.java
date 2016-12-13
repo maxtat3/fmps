@@ -1,11 +1,33 @@
 package stage1.elements;
 
 public abstract class BaseElementStage1 implements GeneralElementStage1 {
+
+	/**
+	 * Состав элемента по весу (массовая доля вещества), gi (%)
+	 * Величина задается пользователю в задании.
+	 */
 	private double alloyCompWeight;
+
+	/**
+	 * Мольная доля элемента сплава, Ni (%)
+	 * Формула 1
+	 */
 	private double moleFractionAlloyElem;
-	private double enthalpyLiquidAlloy;
-	private double enthalpyVaporization;
+
+	/**
+	 * Высокотемпературная составляющая энтальпии отдельного вещества, (HT0-H2980)
+	 * Временная величина.
+	 * Формула 2.1.t1
+	 */
 	private double highTemperatureCompEnthalpy;
+
+	/**
+	 * Энтальпия испарения для каждого элемента, (HT0-H2980)*Ni
+	 * Временная величина.
+	 * Формула 2.1.t2
+	 */
+	private double enthalpyVaporization;
+
 
 	@Override
 	public double getAlloyCompWeight() {
@@ -18,42 +40,28 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	}
 
 	@Override
-	public void setMoleFractionAlloyElem(double val) {
-		moleFractionAlloyElem = val;
-	}
-
-	@Override
 	public double getMoleFractionAlloyElem() {
 		return moleFractionAlloyElem;
 	}
 
 	@Override
-	public void setEnthalpyLiquidAlloy(double val) {
-		enthalpyLiquidAlloy = val;
+	public void setMoleFractionAlloyElem(double val) {
+		moleFractionAlloyElem = val;
 	}
 
-	@Override
-	public double getEnthalpyLiquidAlloy() {
-		return enthalpyLiquidAlloy;
+	public double getHighTemperatureCompEnthalpyEachElemTemp() {
+		return highTemperatureCompEnthalpy;
 	}
 
-	@Override
-	public void setEnthalpyVaporization(double val) {
-		enthalpyVaporization = val;
-	}
-
-	@Override
-	public double getEnthalpyVaporization() {
-		return enthalpyVaporization;
-	}
-
-	@Override
 	public void setHighTemperatureCompEnthalpyEachElemTemp(double val) {
 		highTemperatureCompEnthalpy = val;
 	}
 
-	@Override
-	public double getHighTemperatureCompEnthalpyEachElemTemp() {
-		return highTemperatureCompEnthalpy;
+	public double getEnthalpyVaporization() {
+		return enthalpyVaporization;
+	}
+
+	public void setEnthalpyVaporization(double val) {
+		enthalpyVaporization = val;
 	}
 }

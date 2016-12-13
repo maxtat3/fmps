@@ -40,6 +40,7 @@ public class Calc {
 
 		// do calculate
 		findMoleFractionOfAlloyElems(list);
+		findEnthalpyLiquidAlloy(list, 2273, 1800);
 	}
 
 	/**
@@ -100,11 +101,14 @@ public class Calc {
 	 * @param userElements список элементов из задания пользователя
 	 */
 	public void findEnthalpyLiquidAlloy(List<GeneralElementStage1> userElements, int temperatureTask, int temperatureConst) {
-		double[] ht0minh2980 = new double[userElements.size()]; // temp value HTo-H298o for find enthalpy of liquid alloy
+		double[] ht0minh2980 = new double[userElements.size()]; // HT0-H2980 - temp values 1 for find enthalpy of liquid alloy
+		double[] ht0minh2980mulni = new double[userElements.size()]; // (HT0-H2980)*Ni - temp values 2 for find enthalpy of vaporization
 		int elemPointer = 0;
+
 		double highTemprEnthalpy;
 		double thermalCapacity;
 		double deltaTempr;
+		double moleFractionAlloyElem;
 
 		for (GeneralElementStage1 userElem : userElements) {
 			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
@@ -113,15 +117,26 @@ public class Calc {
 					thermalCapacity = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.THERMAL_CAPACITY);
 					deltaTempr = temperatureTask - temperatureConst;
 
-					ht0minh2980[elemPointer] = (highTemprEnthalpy + thermalCapacity*deltaTempr)/1000;
+					ht0minh2980[elemPointer] = (highTemprEnthalpy * 1000 + thermalCapacity * deltaTempr) / 1000;
+
+					moleFractionAlloyElem = containerElem.getMoleFractionAlloyElem();
+					ht0minh2980mulni[elemPointer] = ht0minh2980[elemPointer] * moleFractionAlloyElem;
+
 					elemPointer++;
 				}
 			}
 		}
 
-		for (double v : ht0minh2980) {
+		double enthalpyLiquidAlloySum = 0;
+		for (double val : ht0minh2980mulni) {
+			enthalpyLiquidAlloySum += val;
+		}
+
+		for (double v : ht0minh2980mulni) {
 			System.out.println("v = " + v);
 		}
+
+		System.out.println("enthalpyLiquidAlloySum = " + enthalpyLiquidAlloySum);
 	}
 
 	/**

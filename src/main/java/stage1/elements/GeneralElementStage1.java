@@ -70,24 +70,6 @@ public interface GeneralElementStage1 {
 	double getMoleFractionAlloyElem();
 
 
-	// высокотемпературная составляющая энтальпии отдельного вещества
-	// промежуточная величина
-	void setHighTemperatureCompEnthalpyEachElemTemp(double val);
-	double getHighTemperatureCompEnthalpyEachElemTemp();
-
-	// 2.1. Энтальпию жидкого сплава (КДж/Моль)
-	// enthalpyLiquidAlloy
-	void setEnthalpyLiquidAlloy(double val);
-	double getEnthalpyLiquidAlloy();
-
-
-	// 2.2. энтальпию испарения (КДж/Моль)
-	// enthalpyVaporization
-	void setEnthalpyVaporization(double val);
-	double getEnthalpyVaporization();
-
-
-
 	// 3. Давление пара чистых компонентов (Па)
 	// vaporPressureOfPureComps
 
