@@ -34,6 +34,12 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	 */
 	private double vaporPressureOfPureComps;
 
+	/**
+	 * Парциальное давление компонент над сплавом, Pip (Па)
+	 * Формула 4
+	 */
+	private double partialPressureCompsOverAlloy;
+
 
 	@Override
 	public double getAlloyCompWeight() {
@@ -79,5 +85,15 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	@Override
 	public double getVaporPressureOfPureComps() {
 		return vaporPressureOfPureComps;
+	}
+
+	@Override
+	public double getPartialPressureCompsOverAlloy() {
+		return partialPressureCompsOverAlloy;
+	}
+
+	@Override
+	public void setPartialPressureCompsOverAlloy(double val) {
+		partialPressureCompsOverAlloy = val;
 	}
 }

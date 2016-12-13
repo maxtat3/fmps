@@ -45,6 +45,16 @@ public interface GeneralElementStage1 {
 	String CLAPEYRON_CLAUSIUS_EQUATION_B_FACTOR = "Clapeyron-Clausius_B_factor";
 
 	/**
+	 * Коэфициент A в уравнении нахождения парциального давления компонентов над сплавом
+	 */
+	String A_GAMMA_FACTOR = "A_gamma_factor";
+
+	/**
+	 * Коэфициент B в уравнении нахождения парциального давления компонентов над сплавом
+	 */
+	String B_GAMMA_FACTOR = "B_gamma_factor";
+
+	/**
 	 * Таблица констант элементов.
 	 */
 	ImmutableTable<String, String, Double> CONST_ELEMS =
@@ -91,6 +101,20 @@ public interface GeneralElementStage1 {
 			.put(SI, CLAPEYRON_CLAUSIUS_EQUATION_B_FACTOR, 12.681)
 			.put(TI, CLAPEYRON_CLAUSIUS_EQUATION_B_FACTOR, 11.363)
 
+			.put(FE, A_GAMMA_FACTOR, 0.0)
+			.put(C, A_GAMMA_FACTOR, 0.0)
+			.put(MN, A_GAMMA_FACTOR, 0.0)
+			.put(AL, A_GAMMA_FACTOR, 2251.0)
+			.put(SI, A_GAMMA_FACTOR, 6230.0)
+			.put(TI, A_GAMMA_FACTOR, 3667.0)
+
+			.put(FE, B_GAMMA_FACTOR, 0.0)
+			.put(C, B_GAMMA_FACTOR, 0.0)
+			.put(MN, B_GAMMA_FACTOR, 0.0)
+			.put(AL, B_GAMMA_FACTOR, -0.00109)
+			.put(SI, B_GAMMA_FACTOR, 0.376)
+			.put(TI, B_GAMMA_FACTOR, 0.015)
+
 			// write to table
 			.build();
 
@@ -112,10 +136,9 @@ public interface GeneralElementStage1 {
 	void setVaporPressureOfPureComps(double val);
 	double getVaporPressureOfPureComps();
 
-
-	// 4. Парциальное давление компонент над сплавом (Па)
-	// partialPressureCompsOverAlloy
-	//
+	// 4. Парциальное давление компонент над сплавом, Pip (Па)
+	void setPartialPressureCompsOverAlloy(double val);
+	double getPartialPressureCompsOverAlloy();
 
 	// 5. Давление пара над сплавом (Па)
 	// vaporPressureOverAlloy
