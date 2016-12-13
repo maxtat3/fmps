@@ -35,6 +35,16 @@ public interface GeneralElementStage1 {
 	String HIDDEN_HEAT_VAPORIZATION = "hidden_heat_of_vaporization";
 
 	/**
+	 * Теплота испарения, deltaHисп (кДж/моль)
+	 */
+	String CLAPEYRON_CLAUSIUS_EQUATION_HEAT_OF_VAPORIZATION = "Clapeyron-Clausius_heat_of_vaporization";
+
+	/**
+	 * Коэфициент B в уравнении Клапейрона-Клаузиуса
+	 */
+	String CLAPEYRON_CLAUSIUS_EQUATION_B_FACTOR = "Clapeyron-Clausius_B_factor";
+
+	/**
 	 * Таблица констант элементов.
 	 */
 	ImmutableTable<String, String, Double> CONST_ELEMS =
@@ -67,6 +77,20 @@ public interface GeneralElementStage1 {
 			.put(SI, HIDDEN_HEAT_VAPORIZATION, 469.0)
 			.put(TI, HIDDEN_HEAT_VAPORIZATION, 473.0)
 
+			.put(FE, CLAPEYRON_CLAUSIUS_EQUATION_HEAT_OF_VAPORIZATION, 352.0)
+			.put(C, CLAPEYRON_CLAUSIUS_EQUATION_HEAT_OF_VAPORIZATION, 714.0)
+			.put(MN, CLAPEYRON_CLAUSIUS_EQUATION_HEAT_OF_VAPORIZATION, 220.0)
+			.put(AL, CLAPEYRON_CLAUSIUS_EQUATION_HEAT_OF_VAPORIZATION, 296.0)
+			.put(SI, CLAPEYRON_CLAUSIUS_EQUATION_HEAT_OF_VAPORIZATION, 473.0)
+			.put(TI, CLAPEYRON_CLAUSIUS_EQUATION_HEAT_OF_VAPORIZATION, 427.0)
+
+			.put(FE, CLAPEYRON_CLAUSIUS_EQUATION_B_FACTOR, 10.847)
+			.put(C, CLAPEYRON_CLAUSIUS_EQUATION_B_FACTOR, 13.14)
+			.put(MN, CLAPEYRON_CLAUSIUS_EQUATION_B_FACTOR, 9.98)
+			.put(AL, CLAPEYRON_CLAUSIUS_EQUATION_B_FACTOR, 10.646)
+			.put(SI, CLAPEYRON_CLAUSIUS_EQUATION_B_FACTOR, 12.681)
+			.put(TI, CLAPEYRON_CLAUSIUS_EQUATION_B_FACTOR, 11.363)
+
 			// write to table
 			.build();
 
@@ -84,8 +108,9 @@ public interface GeneralElementStage1 {
 	double getMoleFractionAlloyElem();
 
 
-	// 3. Давление пара чистых компонентов (Па)
-	// vaporPressureOfPureComps
+	// 3. Давление пара чистых компонентов, Pi (Па)
+	void setVaporPressureOfPureComps(double val);
+	double getVaporPressureOfPureComps();
 
 
 	// 4. Парциальное давление компонент над сплавом (Па)

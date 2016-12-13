@@ -28,6 +28,12 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	 */
 	private double enthalpyVaporization;
 
+	/**
+	 * Давление пара чистых компонентов, Pi (Па)
+	 * Формула 3
+	 */
+	private double vaporPressureOfPureComps;
+
 
 	@Override
 	public double getAlloyCompWeight() {
@@ -63,5 +69,15 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 
 	public void setEnthalpyVaporization(double val) {
 		enthalpyVaporization = val;
+	}
+
+	@Override
+	public void setVaporPressureOfPureComps(double val) {
+		vaporPressureOfPureComps = val;
+	}
+
+	@Override
+	public double getVaporPressureOfPureComps() {
+		return vaporPressureOfPureComps;
 	}
 }
