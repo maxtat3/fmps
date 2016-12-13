@@ -46,6 +46,9 @@ public class Calc {
 		findVaporPressureOverAlloy(list);
 		findMoleFractionEachElemInVapor(list);
 		findWeightFractionEachElemInVapor(list);
+		findRateVaporizationEachElemOfWeldPool(
+			list, TEMPERATURE_TASK, Container.getInstance().getStage1().getExtraInputDataStage1().getSurfaceWeldArea()
+		);
 	}
 
 	/**
@@ -332,6 +335,32 @@ public class Calc {
 
 		for (GeneralElementStage1 elementStage1 : Container.getInstance().getStage1().getAllElements()) {
 			System.out.println(elementStage1.toString() + " : " + "gi = " + elementStage1.getWeightFractionEachElemInVapor());
+		}
+	}
+
+	/**
+	 * Скорость испарения из сварочной ванны каждого элемента (гр/сек)
+	 * Формула 8
+	 *
+	 * @param userElements список элементов из задания пользователя
+	 */
+	public void findRateVaporizationEachElemOfWeldPool(List<GeneralElementStage1> userElements,
+	                                                   int temperatureTask, double surfaceWeldArea) {
+		double pip, ai, vi;
+
+		for (GeneralElementStage1 userElem : userElements) {
+			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
+				if (userElem.toString().equals(containerElem.toString())) {
+					pip = containerElem.getPartialPressureCompsOverAlloy();
+					ai = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.MOLAR_MASS);
+					vi = 0.00044 * pip * Math.sqrt(ai / temperatureTask) * surfaceWeldArea;
+					containerElem.setRateVaporizationEachElemOfWeldPool(vi);
+				}
+			}
+		}
+
+		for (GeneralElementStage1 el : Container.getInstance().getStage1().getAllElements()) {
+			System.out.println(el.toString() + " : " + "vi = " + el.getRateVaporizationEachElemOfWeldPool());
 		}
 	}
 

@@ -52,6 +52,12 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	 */
 	private double weightFractionEachElemInVapor;
 
+	/**
+	 * Скорость испарения из сварочной ванны элемента по уравнению Лэнгмюра
+	 * Формула 8
+	 */
+	private double rateVaporizationEachElemOfWeldPool;
+
 
 	@Override
 	public double getAlloyCompWeight() {
@@ -127,5 +133,15 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	@Override
 	public void setWeightFractionEachElemInVapor(double val) {
 		weightFractionEachElemInVapor = val;
+	}
+
+	@Override
+	public double getRateVaporizationEachElemOfWeldPool() {
+		return rateVaporizationEachElemOfWeldPool;
+	}
+
+	@Override
+	public void setRateVaporizationEachElemOfWeldPool(double val) {
+		rateVaporizationEachElemOfWeldPool = val;
 	}
 }

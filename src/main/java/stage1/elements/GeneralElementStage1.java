@@ -152,6 +152,8 @@ public interface GeneralElementStage1 {
 
 	// 8. Скорость испарения из сварочной ванны каждого элемента (гр/сек)
 	// rateVaporizationEachElemOfWeldPool
+	void setRateVaporizationEachElemOfWeldPool(double val);
+	double getRateVaporizationEachElemOfWeldPool();
 
 	// 9. Скорость уменьшения массы расплавленного металла за счет испарения (гр/сек)
 	// rateDecreaseMoltenMetalDueVaporization
