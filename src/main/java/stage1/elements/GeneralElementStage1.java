@@ -140,9 +140,6 @@ public interface GeneralElementStage1 {
 	void setPartialPressureCompsOverAlloy(double val);
 	double getPartialPressureCompsOverAlloy();
 
-	// 5. Давление пара над сплавом (Па)
-	// vaporPressureOverAlloy
-	//
 
 	// 6. Мольная доля каждого компонента в паре (%)
 	// moleFractionEachElemInVapor

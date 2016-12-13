@@ -45,6 +45,7 @@ public class Calc {
 		findEnthalpyVapor();
 		findVaporPressureOfPureComps(list, 2273);
 		findPartialPressureCompsOverAlloy(list, 2273);
+		findVaporPressureOverAlloy(list);
 	}
 
 	/**
@@ -251,6 +252,27 @@ public class Calc {
 		for (double val : pip) {
 			System.out.println("Pip = " + val);
 		}
+	}
+
+	/**
+	 * Давление пара над сплавом (Па)
+	 * Формула 5
+	 *
+	 * @param userElements список элементов из задания пользователя
+	 */
+	public void findVaporPressureOverAlloy(List<GeneralElementStage1> userElements){
+		double vaporPressureOverAlloy = 0;
+
+		for (GeneralElementStage1 userElem : userElements) {
+			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
+				if (userElem.toString().equals(containerElem.toString())) {
+					vaporPressureOverAlloy += containerElem.getPartialPressureCompsOverAlloy();
+				}
+			}
+		}
+
+		Container.getInstance().getStage1().getExtraCalcDataStage1().setVaporPressureOverAlloy(vaporPressureOverAlloy);
+		System.out.println("vaporPressureOverAlloy = " + vaporPressureOverAlloy);
 	}
 
 }

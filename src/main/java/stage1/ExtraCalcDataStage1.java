@@ -24,6 +24,12 @@ public class ExtraCalcDataStage1 {
 	 */
 	private double enthalpyVapor;
 
+	/**
+	 * Давление пара над сплавом (Па).
+	 * Формула 5
+	 */
+	private double vaporPressureOverAlloy;
+
 
 	public double getEnthalpyLiquidAlloy() {
 		return enthalpyLiquidAlloy;
@@ -47,5 +53,13 @@ public class ExtraCalcDataStage1 {
 
 	public void setEnthalpyVapor(double enthalpyVapor) {
 		this.enthalpyVapor = enthalpyVapor;
+	}
+
+	public double getVaporPressureOverAlloy() {
+		return vaporPressureOverAlloy;
+	}
+
+	public void setVaporPressureOverAlloy(double vaporPressureOverAlloy) {
+		this.vaporPressureOverAlloy = vaporPressureOverAlloy;
 	}
 }
