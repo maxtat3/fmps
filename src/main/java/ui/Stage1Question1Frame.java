@@ -1,16 +1,14 @@
 package ui;
 
-import stage1.elements.C;
-import stage1.elements.Fe;
-import stage1.elements.Mn;
+import stage1.elements.*;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.List;
 
 /**
  *
@@ -46,44 +44,41 @@ public class Stage1Question1Frame extends JFrame {
 
 	private PanelsTag panelsTag;
 
-
-	private HashMap<String, JComponent[]> viewRows = new HashMap<>();
+	private List<JTextField> jtfAlloyComWeights = new ArrayList<>();
 
 
 	public Stage1Question1Frame() {
 		super("Stage 1, question 1");
 
-		final HashMap<String, Object> userTaskElementsFromDB = getUserTaskElementsFromDB();
-//		System.out.println(userTaskElementsFromDB.size());
+		// все основные элементы
+//		GeneralElementStage1[] basicElements = new GeneralElementStage1[1];
+		List<GeneralElementStage1> basicElements = new ArrayList<>();
+		basicElements.add(new Fe());
+		basicElements.add(new Mn());
+		basicElements.add(new C());
 
-//		buildElementRows()
-//		JLabel jlDelim = new JLabel(" : ");
-//		JLabel jlEnd = new JLabel(" % ");
+		// все дополнительне элементы
+		List<GeneralElementStage1> accessoryElements = new ArrayList<>();
+		accessoryElements.add(new Al());
+		accessoryElements.add(new Si());
+		accessoryElements.add(new Ti());
 
-		for (Object o : userTaskElementsFromDB.entrySet()) {
-			System.out.println(o.toString());
-			JComponent[] oneRowComponents = new JComponent[4];
-			oneRowComponents[0] = new JLabel(o.toString());
-			oneRowComponents[1] = new JLabel(":");
-			oneRowComponents[2] = new JTextField("****");
-			oneRowComponents[3] = new JLabel("% ");
+		JPanel jpRows = new JPanel();
+		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
 
-			System.out.println(o.toString());
-			viewRows.put(o.toString(), oneRowComponents);
+		jpRows.add(new JLabel("Основные химические элементы:"));
+		for (GeneralElementStage1 basicElement : basicElements) {
+			addRowsToPanel(jpRows, basicElement);
+		}
+
+		jpRows.add(new JLabel("Дополнительные химические элементы:"));
+		for (GeneralElementStage1 accessoryElement : accessoryElements) {
+			addRowsToPanel(jpRows, accessoryElement);
 		}
 
 		// ======== Panel 1 =========
 		jpQuestion1.setLayout(new FlowLayout());
-//		jpQuestion1.add(jlQuestion1);
-//		jpQuestion1.add(jtfAnswer1);
-		for (Map.Entry<String, JComponent[]> roe : viewRows.entrySet()) {
-			for(int i = 0; i < roe.getValue().length; i++) {
-				jpQuestion1.add(roe.getValue()[0]);
-				jpQuestion1.add(roe.getValue()[1]);
-				jpQuestion1.add(roe.getValue()[2]);
-				jpQuestion1.add(roe.getValue()[3]);
-			}
-		}
+		jpQuestion1.add(jpRows);
 
 		// ========= Panel 2 =========
 		jpQuestion2.setLayout(new FlowLayout());
@@ -152,14 +147,28 @@ public class Stage1Question1Frame extends JFrame {
 		jbtnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				checkAnswer();
-				System.out.println(((JTextField) viewRows.get("FE=FE")[2]).getText());
-				System.out.println(((JTextField) viewRows.get("CU=CU")[2]).getText());
-				System.out.println(((JTextField) viewRows.get("C=C")[2]).getText());
-				System.out.println(((JTextField) viewRows.get("MN=MN")[2]).getText());
-				System.out.println(((JTextField) viewRows.get("MG=MG")[2]).getText());
+				for (JTextField jtf : jtfAlloyComWeights) {
+					System.out.println(jtf.getName() + " : " + jtf.getText());
+				}
 			}
 		});
+	}
+
+
+	private void addRowsToPanel(JPanel jpRows, GeneralElementStage1 el) {
+		JLabel jlElementName = new JLabel(el.toString() + " : ");
+		JTextField jtfElementVal = new JTextField();
+		jtfElementVal.setColumns(4);
+		jtfElementVal.setName(el.toString());
+		jtfAlloyComWeights.add(jtfElementVal);
+		JLabel jlPercent = new JLabel(" %");
+
+		JPanel jpItems = new JPanel();
+		jpItems.add(jlElementName);
+		jpItems.add(jtfElementVal);
+		jpItems.add(jlPercent);
+
+		jpRows.add(jpItems);
 	}
 
 	private void checkAnswer() {
@@ -208,25 +217,11 @@ public class Stage1Question1Frame extends JFrame {
 		PANEL_3,
 		PANEL_4,
 		PANEL_5;
-
-
 	}
+
 	private void showOtherViewElements() {
 		jpMain.add(jpDirection);
 		jpMain.add(jpStatusBar);
-	}
-	// NOTE ! This method must be moved to controller !
-	private HashMap<String, Object> getUserTaskElementsFromDB() {
-		Fe fe = new Fe();
-		Mn mn = new Mn();
-		C c = new C();
-
-		HashMap<String, Object> userElements = new HashMap<>();
-		userElements.put(fe.toString(), fe);
-		userElements.put(mn.toString(), mn);
-		userElements.put(c.toString(), c);
-
-		return userElements;
 	}
 
 }
