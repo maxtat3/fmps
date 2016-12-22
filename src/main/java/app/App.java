@@ -1,8 +1,7 @@
 package app;
 
 
-import stage1.calc.Calc;
-import ui.Stage1Question1Frame;
+import ui.UserInitDataStage1Frame;
 
 import javax.swing.*;
 
@@ -20,6 +19,6 @@ public class App {
 	}
 
 	private void startUI() {
-		new Stage1Question1Frame();
+		new UserInitDataStage1Frame();
 	}
 }

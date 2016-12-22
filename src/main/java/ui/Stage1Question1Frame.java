@@ -1,7 +1,5 @@
 package ui;
 
-import stage1.elements.*;
-
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
@@ -50,35 +48,9 @@ public class Stage1Question1Frame extends JFrame {
 	public Stage1Question1Frame() {
 		super("Stage 1, question 1");
 
-		// все основные элементы
-//		GeneralElementStage1[] basicElements = new GeneralElementStage1[1];
-		List<GeneralElementStage1> basicElements = new ArrayList<>();
-		basicElements.add(new Fe());
-		basicElements.add(new Mn());
-		basicElements.add(new C());
-
-		// все дополнительне элементы
-		List<GeneralElementStage1> accessoryElements = new ArrayList<>();
-		accessoryElements.add(new Al());
-		accessoryElements.add(new Si());
-		accessoryElements.add(new Ti());
-
-		JPanel jpRows = new JPanel();
-		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
-
-		jpRows.add(new JLabel("Основные химические элементы:"));
-		for (GeneralElementStage1 basicElement : basicElements) {
-			addRowsToPanel(jpRows, basicElement);
-		}
-
-		jpRows.add(new JLabel("Дополнительные химические элементы:"));
-		for (GeneralElementStage1 accessoryElement : accessoryElements) {
-			addRowsToPanel(jpRows, accessoryElement);
-		}
-
-		// ======== Panel 1 =========
-		jpQuestion1.setLayout(new FlowLayout());
-		jpQuestion1.add(jpRows);
+//		// ======== Panel 1 =========
+//		jpQuestion1.setLayout(new FlowLayout());
+//		jpQuestion1.add(jpRows);
 
 		// ========= Panel 2 =========
 		jpQuestion2.setLayout(new FlowLayout());
@@ -154,22 +126,6 @@ public class Stage1Question1Frame extends JFrame {
 		});
 	}
 
-
-	private void addRowsToPanel(JPanel jpRows, GeneralElementStage1 el) {
-		JLabel jlElementName = new JLabel(el.toString() + " : ");
-		JTextField jtfElementVal = new JTextField();
-		jtfElementVal.setColumns(4);
-		jtfElementVal.setName(el.toString());
-		jtfAlloyComWeights.add(jtfElementVal);
-		JLabel jlPercent = new JLabel(" %");
-
-		JPanel jpItems = new JPanel();
-		jpItems.add(jlElementName);
-		jpItems.add(jtfElementVal);
-		jpItems.add(jlPercent);
-
-		jpRows.add(jpItems);
-	}
 
 	private void checkAnswer() {
 		System.out.println(jtfAnswer2.getText());
