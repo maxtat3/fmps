@@ -1,8 +1,7 @@
 package app;
 
 
-import ui.UserInitDataStage1Frame;
-
+import ui.StartFrame;
 import javax.swing.*;
 
 
@@ -19,6 +18,7 @@ public class App {
 	}
 
 	private void startUI() {
-		new UserInitDataStage1Frame();
+//		new UserInitDataStage1Frame();
+		new StartFrame();
 	}
 }

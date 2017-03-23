@@ -197,8 +197,8 @@ public class DBUtils {
 		sqlStatementExecutor(sql);
 	}
 
-
-	// todo - для всех методов, которые добавляют/изменяют данные проверять, есть ли данные ФИО пользователя в БД !
+	// todo - В запросе должны быть добавлены одинарные кавычки, пример ... UPDATE TABLE7 SET st1_fe='791', ...  !
+	// todo - Для всех методов, которые добавляют/изменяют данные проверять, есть ли данные ФИО пользователя в БД !
 	private static void updMsrDataStage1(int userId, double st1Fe, double st1C, double st1Mn,
 	                                     int st1PEnv, double st1FSurfaceWeldArea, double st1WeightMoltenMetal, int st1Temperature, double st1Time) {
 		String sql = "UPDATE " + TABLE_FMPS_MAIN + " SET " +
