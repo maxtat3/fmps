@@ -15,9 +15,9 @@ public class DBUtils {
 	public static final String DLC = ", ";
 
 	// Columns
-	public static final String LAST_NAME = "lastname";
-	public static final String FIRST_NAME = "firstname";
-	public static final String MIDDLE_NAME = "middlename";
+	public static final String FIRST_NAME = "firstname"; // Имя
+	public static final String MIDDLE_NAME = "middlename"; // Отчество
+	public static final String LAST_NAME = "lastname"; // Фамилия
 	public static final String ST1_PROGRESS = "st1_progress";
 	public static final String ST2_PROGRESS = "st2_progress";
 	public static final String ST3_PROGRESS = "st3_progress";
@@ -45,14 +45,10 @@ public class DBUtils {
 	private static String dbStoredAbsPath;
 
 
-	public DBUtils() {
-		dbStoredAbsPath = SystemUtils.getUserCatalogAbsPath();
-	}
-
-
-	private static void initDatabase() throws Exception {
+	public static void initDatabase(){
 		Connection conn;
 		Statement stmt;
+		dbStoredAbsPath = SystemUtils.getUserCatalogAbsPath();
 		String dbNameAbsPath = dbStoredAbsPath + "/" + DB_NAME;
 		System.out.println("db name = " + dbNameAbsPath);
 
@@ -67,9 +63,9 @@ public class DBUtils {
 			stmt = conn.createStatement();
 			String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_FMPS_MAIN + " (" +
 				"id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  DEFAULT 1, " +
-				LAST_NAME + " VARCHAR , " +
 				FIRST_NAME + " VARCHAR , " +
 				MIDDLE_NAME + " VARCHAR , " +
+				LAST_NAME + " VARCHAR , " +
 				ST1_PROGRESS + " INTEGER DEFAULT 0, " +
 				ST2_PROGRESS + " INTEGER DEFAULT 0, " +
 				ST3_PROGRESS + " INTEGER DEFAULT 0, " +
@@ -102,20 +98,26 @@ public class DBUtils {
 		} catch (ClassNotFoundException e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			e.printStackTrace();
+ 		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
 	/**
 	 * Добавить нового пользователя.
 	 *
-	 * @param userLastName Имя
-	 * @param userFirstName Отчество
-	 * @param userMiddleName Фамилия
+	 * @param userFirstName Имя
+	 * @param userMiddleName Отчество
+	 * @param userLastName Фамилия
 	 */
-	private static void addNewUser(String userLastName, String userFirstName, String userMiddleName) {
+	public static void addNewUser(String userFirstName, String userMiddleName, String userLastName) {
 		String sql = "INSERT INTO " + TABLE_FMPS_MAIN + " (" +
-			LAST_NAME + DLC + FIRST_NAME + DLC + MIDDLE_NAME +
-			") VALUES (\"" + userLastName + "\"" + DLC + "\"" + userFirstName + "\"" + DLC + "\"" + userMiddleName + "\"" + ");";
+			FIRST_NAME + DLC + MIDDLE_NAME + DLC + LAST_NAME +
+			") VALUES (" +
+			"\"" + userFirstName + "\"" + DLC
+			+ "\"" + userMiddleName + "\"" + DLC
+			+ "\"" + userLastName + "\""
+			+ ");";
 		sqlStatementExecutor(sql);
 	}
 
@@ -126,7 +128,7 @@ public class DBUtils {
 	 * @return пользователь
 	 */
 	private static User getUser(int userId) {
-		String sql = "SELECT "+ LAST_NAME + DLC + FIRST_NAME + DLC + MIDDLE_NAME + " FROM " + TABLE_FMPS_MAIN + " WHERE id=" + userId + ";";
+		String sql = "SELECT "+ FIRST_NAME + DLC + MIDDLE_NAME + DLC + LAST_NAME + " FROM " + TABLE_FMPS_MAIN + " WHERE id=" + userId + ";";
 //		System.out.println("sql = " + sql);
 		Connection conn;
 		Statement stmt;
@@ -135,7 +137,7 @@ public class DBUtils {
 			conn = DriverManager.getConnection("jdbc:sqlite:" + dbStoredAbsPath + "/" + DB_NAME);
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			User user = new User(rs.getString(LAST_NAME), rs.getString(FIRST_NAME), rs.getString(MIDDLE_NAME));
+			User user = new User(rs.getString(FIRST_NAME), rs.getString(MIDDLE_NAME), rs.getString(LAST_NAME));
 			rs.close();
 			stmt.close();
 			conn.close();
@@ -149,12 +151,12 @@ public class DBUtils {
 	/**
 	 * Проверка (по ФИО) есть ли уже такой пользователь в БД
 	 *
-	 * @param userLastName Имя
-	 * @param userFirstName Отчество
-	 * @param userMiddleName Фамилия
+	 * @param userFirstName Имя
+	 * @param userMiddleName Отчество
+	 * @param userLastName Фамилия
 	 * @return <tr>true</tr> такой пользователь уже существует, <tr>false</tr> такого пользователя нет в БД
 	 */
-	private static boolean isUserExist(String userLastName, String userFirstName, String userMiddleName ) {
+	private static boolean isUserExist(String userFirstName, String userMiddleName, String userLastName) {
 		Connection conn;
 		Statement stmt;
 		try {
@@ -163,17 +165,17 @@ public class DBUtils {
 			stmt = conn.createStatement();
 
 			ResultSet rs = stmt.executeQuery(
-				"SELECT " + LAST_NAME + DLC + FIRST_NAME + DLC + MIDDLE_NAME + " FROM " + TABLE_FMPS_MAIN
+				"SELECT " + FIRST_NAME + DLC + MIDDLE_NAME +  DLC + LAST_NAME +" FROM " + TABLE_FMPS_MAIN
 			);
 			List<User> allUsers = new ArrayList<>();
 			while (rs.next()) {
-				User user = new User(rs.getString(LAST_NAME), rs.getString(FIRST_NAME), rs.getString(MIDDLE_NAME));
+				User user = new User(rs.getString(FIRST_NAME), rs.getString(MIDDLE_NAME), rs.getString(LAST_NAME));
 				allUsers.add(user);
 			}
 			for (User user : allUsers) {
-				if (user.getLastName().equals(userLastName) &&
-					user.getFirstName().equals(userFirstName) &&
-					user.getMiddleName().equals(userMiddleName)) {
+				if (user.getFirstName().equals(userFirstName) &&
+					user.getMiddleName().equals(userMiddleName) &&
+					user.getLastName().equals(userLastName)) {
 					return true;
 				}
 			}
