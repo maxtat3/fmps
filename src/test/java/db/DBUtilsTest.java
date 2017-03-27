@@ -65,7 +65,8 @@ public class DBUtilsTest {
 	@Test
 	public void testRemoveUser(){
 		int countBefore = DBUtils.countOfRecordsInMainTable();
-		DBUtils.removeUser(countBefore);
+		int id = DBUtils.getLatestUserIdInMainTable();
+		DBUtils.removeUser(id);
 		int countAfter = DBUtils.countOfRecordsInMainTable();
 
 		Assert.assertEquals(--countBefore, countAfter);
