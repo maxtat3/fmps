@@ -127,7 +127,7 @@ public class DBUtils {
 	 * @param userId id пользователя в БД
 	 * @return пользователь
 	 */
-	private static User getUser(int userId) {
+	public static User getUser(int userId) {
 		String sql = "SELECT "+ FIRST_NAME + DLC + MIDDLE_NAME + DLC + LAST_NAME + " FROM " + TABLE_FMPS_MAIN + " WHERE id=" + userId + ";";
 //		System.out.println("sql = " + sql);
 		Connection conn;
@@ -194,7 +194,7 @@ public class DBUtils {
 	 *
 	 * @param userId id пользователя
 	 */
-	private static void removeUser(int userId) {
+	public static void removeUser(int userId) {
 		String sql = "DELETE FROM " + TABLE_FMPS_MAIN + " WHERE ID=" + userId;
 		sqlStatementExecutor(sql);
 	}
@@ -324,6 +324,36 @@ public class DBUtils {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Return of count of records in main table.
+	 *
+	 * @return count of records
+	 */
+	public static int countOfRecordsInMainTable(){
+		Connection conn;
+		Statement stmt;
+		int countRecords = 0;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			conn = DriverManager.getConnection("jdbc:sqlite:" + dbStoredAbsPath + "/" + DB_NAME);
+			stmt = conn.createStatement();
+
+			ResultSet rs = stmt.executeQuery(
+				"SELECT Count(*) FROM " + TABLE_FMPS_MAIN
+			);
+			while (rs.next()) {
+				countRecords = rs.getInt(1);
+			}
+
+			rs.close();
+			stmt.close();
+			conn.close();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		return countRecords;
 	}
 
 
