@@ -9,7 +9,7 @@ import org.junit.*;
 public class DBUtilsTest {
 
 	private static final String firstName = "Alex";
-	private static final String MiddleName = "Vitalievich";
+	private static final String middleName = "Vitalievich";
 	private static final String lastName = "Tkachecnko";
 	public static final int numberOfRecordBook = 7031503;
 
@@ -21,7 +21,7 @@ public class DBUtilsTest {
 
 	@Before
 	public void addNewUser() {
-		DBUtils.addNewUser(firstName, MiddleName, lastName, numberOfRecordBook);
+		DBUtils.addNewUser(firstName, middleName, lastName, numberOfRecordBook);
 	}
 
 
@@ -41,7 +41,7 @@ public class DBUtilsTest {
 
 		assert user != null;
 		Assert.assertEquals(firstName, user.getFirstName());
-		Assert.assertEquals(MiddleName, user.getMiddleName());
+		Assert.assertEquals(middleName, user.getMiddleName());
 		Assert.assertEquals(lastName, user.getLastName());
 		Assert.assertEquals(numberOfRecordBook, user.getNumberOfRecordBook());
 	}
@@ -49,7 +49,7 @@ public class DBUtilsTest {
 	@Test
 	public void testUpdateUserData(){
 		int latestUserId = DBUtils.getLatestUserIdInMainTable();
-		User user = new User(firstName, MiddleName, lastName, numberOfRecordBook);
+		User user = new User(firstName, middleName, lastName, numberOfRecordBook);
 		DBUtils.updateUser(latestUserId, user);
 		user = DBUtils.getUser(latestUserId);
 
@@ -60,7 +60,7 @@ public class DBUtilsTest {
 	@Test
 	public void testUpdateUserDataRv1(){
 		int latestUserId = DBUtils.getLatestUserIdInMainTable();
-		User user = new User("Dmitry", MiddleName, lastName, numberOfRecordBook);
+		User user = new User("Dmitry", middleName, lastName, numberOfRecordBook);
 		DBUtils.updateUser(latestUserId, user);
 		user = DBUtils.getUser(latestUserId);
 
@@ -71,7 +71,7 @@ public class DBUtilsTest {
 	@Test
 	public void testUpdateUserDataRv2(){
 		int latestUserId = DBUtils.getLatestUserIdInMainTable();
-		User user = new User(firstName, MiddleName, lastName, 127);
+		User user = new User(firstName, middleName, lastName, 127);
 		DBUtils.updateUser(latestUserId, user);
 		user = DBUtils.getUser(latestUserId);
 
