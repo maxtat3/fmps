@@ -254,6 +254,33 @@ public class DBUtils {
 	}
 
 	/**
+	 * Получить прогресс пользователя для конкретной задачи.
+	 *
+	 * @param stage номер задачи
+	 * @param userId id пользователя
+	 * @return прогресс пользователя, по умолчанию возвразется -1 - запрос не выполнен.
+	 */
+	public static int getProgress(Stage stage, int userId) {
+		int progress = -1;
+		String stageProgressColumn = getStage(stage);
+
+		Statement stmt = sqlExecutor(SqlAction.PREPARE);
+		if (stmt != null) {
+			try {
+				ResultSet rs = stmt.executeQuery("SELECT " + stageProgressColumn + " FROM " + TABLE_FMPS_MAIN + " WHERE ID=" + userId);
+				while (rs.next()) {
+					progress = rs.getInt(1);
+				}
+				rs.close();
+				sqlExecutor(SqlAction.CLOSE);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return progress;
+	}
+
+	/**
 	 * Сбросить прогресс конкретного пользователя для задачи stage
 	 *
 	 * @param stage номер задачи
@@ -368,7 +395,7 @@ public class DBUtils {
 	/**
 	 * Выбор задачи
 	 */
-	private enum Stage {
+	public enum Stage {
 		STAGE_1, STAGE_2, STAGE_3
 	}
 

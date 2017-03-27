@@ -72,5 +72,28 @@ public class DBUtilsTest {
 		Assert.assertEquals(--countBefore, countAfter);
 	}
 
+	/**
+	 * @see {@link DBUtils#ST1_PROGRESS}, {@link DBUtils#ST2_PROGRESS}, {@link DBUtils#ST3_PROGRESS}
+	 */
+	@Test
+	public void testGetProgressStage1(){
+		int id = DBUtils.getLatestUserIdInMainTable();
+		int progress = DBUtils.getProgress(DBUtils.Stage.STAGE_1, id);
+		Assert.assertEquals(0, progress);
+	}
+
+	@Test
+	public void testGetProgressStage2(){
+		int id = DBUtils.getLatestUserIdInMainTable();
+		int progress = DBUtils.getProgress(DBUtils.Stage.STAGE_2, id);
+		Assert.assertEquals(0, progress);
+	}
+
+	@Test
+	public void testGetProgressStage3(){
+		int id = DBUtils.getLatestUserIdInMainTable();
+		int progress = DBUtils.getProgress(DBUtils.Stage.STAGE_3, id);
+		Assert.assertEquals(0, progress);
+	}
 
 }
