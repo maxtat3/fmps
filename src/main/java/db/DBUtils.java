@@ -281,24 +281,18 @@ public class DBUtils {
 	 * @param stage номер задачи
 	 * @param userId id пользователя
 	 */
-	private static void resetProgress(Stage stage, int userId) {
+	public static void resetProgress(Stage stage, int userId) {
 		String stageProgressColumn = getStage(stage);
 
-		Connection conn;
-		Statement stmt;
-		try {
-			Class.forName("org.sqlite.JDBC");
-			conn = DriverManager.getConnection("jdbc:sqlite:" + dbStoredAbsPath + "/" + DB_NAME);
-			stmt = conn.createStatement();
-
-			stmt.execute(
-				"UPDATE " + TABLE_FMPS_MAIN + " SET " +stageProgressColumn + " = " + "0" + " WHERE ID="+userId
-			);
-
-			stmt.close();
-			conn.close();
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+		Statement stmt = sqlExecutor(SqlAction.PREPARE);
+		if (stmt != null) {
+			try {
+				stmt.execute("UPDATE " + TABLE_FMPS_MAIN + " SET " + stageProgressColumn + " = " + "0" + " WHERE ID=" + userId);
+				stmt.close();
+				sqlExecutor(SqlAction.CLOSE);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

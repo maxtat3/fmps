@@ -146,4 +146,43 @@ public class DBUtilsTest {
 		Assert.assertEquals(progressBefore, progressAfter);
 	}
 
+	@Test
+	public void testResetProgressStage1(){
+		int id = DBUtils.getLatestUserIdInMainTable();
+
+		DBUtils.incrementProgress(DBUtils.Stage.STAGE_1, id);
+		DBUtils.incrementProgress(DBUtils.Stage.STAGE_1, id);
+		DBUtils.incrementProgress(DBUtils.Stage.STAGE_1, id);
+		DBUtils.resetProgress(DBUtils.Stage.STAGE_1, id);
+		int progressAfter = DBUtils.getProgress(DBUtils.Stage.STAGE_1, id);
+
+		Assert.assertEquals(0, progressAfter);
+	}
+
+	@Test
+	public void testResetProgressStage2(){
+		int id = DBUtils.getLatestUserIdInMainTable();
+
+		DBUtils.incrementProgress(DBUtils.Stage.STAGE_2, id);
+		DBUtils.resetProgress(DBUtils.Stage.STAGE_2, id);
+		int progressAfter = DBUtils.getProgress(DBUtils.Stage.STAGE_2, id);
+
+		Assert.assertEquals(0, progressAfter);
+	}
+
+	@Test
+	public void testResetProgressStage3(){
+		int id = DBUtils.getLatestUserIdInMainTable();
+
+		DBUtils.incrementProgress(DBUtils.Stage.STAGE_3, id);
+		DBUtils.incrementProgress(DBUtils.Stage.STAGE_3, id);
+		DBUtils.incrementProgress(DBUtils.Stage.STAGE_3, id);
+		DBUtils.incrementProgress(DBUtils.Stage.STAGE_3, id);
+		DBUtils.incrementProgress(DBUtils.Stage.STAGE_3, id);
+		DBUtils.resetProgress(DBUtils.Stage.STAGE_3, id);
+		int progressAfter = DBUtils.getProgress(DBUtils.Stage.STAGE_3, id);
+
+		Assert.assertEquals(0, progressAfter);
+	}
+
 }
