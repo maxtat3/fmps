@@ -42,64 +42,52 @@ public class DBUtils {
 	public static final String ST3_ATM_PRESSURE = "st3_atm_pressure";
 	public static final String ST3_TEMPERATURE = "st3_temperature";
 
-	private static String dbStoredAbsPath;
+	private static String dbStoredAbsPath = SystemUtils.getUserCatalogAbsPath();
+	private static String dbNameAbsPath = dbStoredAbsPath + "/" + DB_NAME;
 
 
 	public static void initDatabase(){
-		Connection conn;
-		Statement stmt;
-		dbStoredAbsPath = SystemUtils.getUserCatalogAbsPath();
-		String dbNameAbsPath = dbStoredAbsPath + "/" + DB_NAME;
-		System.out.println("db name = " + dbNameAbsPath);
-
 		File dbFile = new File(dbNameAbsPath);
 		if (dbFile.exists())
 			return;
 
-		try {
-			Class.forName("org.sqlite.JDBC");
-			conn = DriverManager.getConnection("jdbc:sqlite:" + dbStoredAbsPath + "/" + DB_NAME);
-			System.out.println("Opened database successfully");
-			stmt = conn.createStatement();
-			String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_FMPS_MAIN + " (" +
-				"id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  DEFAULT 1, " +
-				FIRST_NAME + " VARCHAR , " +
-				MIDDLE_NAME + " VARCHAR , " +
-				LAST_NAME + " VARCHAR , " +
-				ST1_PROGRESS + " INTEGER DEFAULT 0, " +
-				ST2_PROGRESS + " INTEGER DEFAULT 0, " +
-				ST3_PROGRESS + " INTEGER DEFAULT 0, " +
-				ST1_FE + " DOUBLE DEFAULT 0, " +
-				ST1_C + " DOUBLE DEFAULT 0, " +
-				ST1_MN + " DOUBLE DEFAULT 0, " +
-				ST1_P_ENV + " INTEGER , " +
-				ST1_F_SURF_WELD_AREA + " DOUBLE , " +
-				ST1_MP_WEIGHT_MOLTEN_METAL + " DOUBLE , " +
-				ST1_TEMPERATURE + " INTEGER , " +
-				ST1_TIME + " DOUBLE , " +
-				ST2_ARGON + " DOUBLE ," +
-				ST2_CO2 + " DOUBLE ," +
-				ST2_O2 + " DOUBLE ," +
-				ST2_CO + " DOUBLE ," +
-				ST2_O + " DOUBLE ," +
-				ST2_C + " DOUBLE ," +
-				ST2_TEMPERATURE + " INTEGER ," +
-				ST3_CO_PARTIAL_PRESSURE + " DOUBLE ," +
-				ST3_O_PARTIAL_PRESSURE + " DOUBLE ," +
-				ST3_O_DISSOLVE + " DOUBLE ," +
-				ST3_ATM_PRESSURE + " INTEGER ," +
-				ST3_TEMPERATURE + " DOUBLE" +
-				");";
-			stmt.execute(sql);
-			System.out.println("Created new db file and executed init sql statement.");
-
-			stmt.close();
-			conn.close();
-		} catch (ClassNotFoundException e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			e.printStackTrace();
- 		} catch (SQLException e) {
-			e.printStackTrace();
+		Statement stmt = sqlExecutor(SqlAction.PREPARE);
+		if (stmt != null) {
+			try {
+				String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_FMPS_MAIN + " (" +
+					"id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  DEFAULT 1, " +
+					FIRST_NAME + " VARCHAR , " +
+					MIDDLE_NAME + " VARCHAR , " +
+					LAST_NAME + " VARCHAR , " +
+					ST1_PROGRESS + " INTEGER DEFAULT 0, " +
+					ST2_PROGRESS + " INTEGER DEFAULT 0, " +
+					ST3_PROGRESS + " INTEGER DEFAULT 0, " +
+					ST1_FE + " DOUBLE DEFAULT 0, " +
+					ST1_C + " DOUBLE DEFAULT 0, " +
+					ST1_MN + " DOUBLE DEFAULT 0, " +
+					ST1_P_ENV + " INTEGER , " +
+					ST1_F_SURF_WELD_AREA + " DOUBLE , " +
+					ST1_MP_WEIGHT_MOLTEN_METAL + " DOUBLE , " +
+					ST1_TEMPERATURE + " INTEGER , " +
+					ST1_TIME + " DOUBLE , " +
+					ST2_ARGON + " DOUBLE ," +
+					ST2_CO2 + " DOUBLE ," +
+					ST2_O2 + " DOUBLE ," +
+					ST2_CO + " DOUBLE ," +
+					ST2_O + " DOUBLE ," +
+					ST2_C + " DOUBLE ," +
+					ST2_TEMPERATURE + " INTEGER ," +
+					ST3_CO_PARTIAL_PRESSURE + " DOUBLE ," +
+					ST3_O_PARTIAL_PRESSURE + " DOUBLE ," +
+					ST3_O_DISSOLVE + " DOUBLE ," +
+					ST3_ATM_PRESSURE + " INTEGER ," +
+					ST3_TEMPERATURE + " DOUBLE" +
+					");";
+				stmt.execute(sql);
+				sqlExecutor(SqlAction.CLOSE);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -129,20 +117,17 @@ public class DBUtils {
 	 */
 	public static User getUser(int userId) {
 		String sql = "SELECT "+ FIRST_NAME + DLC + MIDDLE_NAME + DLC + LAST_NAME + " FROM " + TABLE_FMPS_MAIN + " WHERE id=" + userId + ";";
-//		System.out.println("sql = " + sql);
-		Connection conn;
-		Statement stmt;
+		User user = null;
 		try {
-			Class.forName("org.sqlite.JDBC");
-			conn = DriverManager.getConnection("jdbc:sqlite:" + dbStoredAbsPath + "/" + DB_NAME);
-			stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			User user = new User(rs.getString(FIRST_NAME), rs.getString(MIDDLE_NAME), rs.getString(LAST_NAME));
-			rs.close();
-			stmt.close();
-			conn.close();
+			Statement stmt = sqlExecutor(SqlAction.PREPARE);
+			if (stmt != null) {
+				ResultSet rs = stmt.executeQuery(sql);
+				user = new User(rs.getString(FIRST_NAME), rs.getString(MIDDLE_NAME), rs.getString(LAST_NAME));
+				rs.close();
+				sqlExecutor(SqlAction.CLOSE);
+			}
 			return user;
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -156,34 +141,29 @@ public class DBUtils {
 	 * @param userLastName Фамилия
 	 * @return <tr>true</tr> такой пользователь уже существует, <tr>false</tr> такого пользователя нет в БД
 	 */
-	private static boolean isUserExist(String userFirstName, String userMiddleName, String userLastName) {
-		Connection conn;
-		Statement stmt;
-		try {
-			Class.forName("org.sqlite.JDBC");
-			conn = DriverManager.getConnection("jdbc:sqlite:" + dbStoredAbsPath + "/" + DB_NAME);
-			stmt = conn.createStatement();
-
-			ResultSet rs = stmt.executeQuery(
-				"SELECT " + FIRST_NAME + DLC + MIDDLE_NAME +  DLC + LAST_NAME +" FROM " + TABLE_FMPS_MAIN
-			);
-			List<User> allUsers = new ArrayList<>();
-			while (rs.next()) {
-				User user = new User(rs.getString(FIRST_NAME), rs.getString(MIDDLE_NAME), rs.getString(LAST_NAME));
-				allUsers.add(user);
-			}
-			for (User user : allUsers) {
-				if (user.getFirstName().equals(userFirstName) &&
-					user.getMiddleName().equals(userMiddleName) &&
-					user.getLastName().equals(userLastName)) {
-					return true;
+	public static boolean isUserExist(String userFirstName, String userMiddleName, String userLastName) {
+		String sql = "SELECT " + FIRST_NAME + DLC + MIDDLE_NAME + DLC + LAST_NAME + " FROM " + TABLE_FMPS_MAIN;
+		Statement stmt = sqlExecutor(SqlAction.PREPARE);
+		if (stmt != null) {
+			try {
+				ResultSet rs = stmt.executeQuery(sql);
+				List<User> allUsers = new ArrayList<>();
+				while (rs.next()) {
+					User user = new User(rs.getString(FIRST_NAME), rs.getString(MIDDLE_NAME), rs.getString(LAST_NAME));
+					allUsers.add(user);
 				}
+				for (User user : allUsers) {
+					if (user.getFirstName().equals(userFirstName) &&
+						user.getMiddleName().equals(userMiddleName) &&
+						user.getLastName().equals(userLastName)) {
+						return true;
+					}
+				}
+				rs.close();
+				sqlExecutor(SqlAction.CLOSE);
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-
-			stmt.close();
-			conn.close();
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
 		}
 		return false;
 	}
@@ -332,28 +312,43 @@ public class DBUtils {
 	 * @return count of records
 	 */
 	public static int countOfRecordsInMainTable(){
-		Connection conn;
-		Statement stmt;
+		Statement stmt = sqlExecutor(SqlAction.PREPARE);
 		int countRecords = 0;
-		try {
-			Class.forName("org.sqlite.JDBC");
-			conn = DriverManager.getConnection("jdbc:sqlite:" + dbStoredAbsPath + "/" + DB_NAME);
-			stmt = conn.createStatement();
 
-			ResultSet rs = stmt.executeQuery(
-				"SELECT Count(*) FROM " + TABLE_FMPS_MAIN
-			);
-			while (rs.next()) {
-				countRecords = rs.getInt(1);
+		if (stmt != null) {
+			try {
+				ResultSet rs = stmt.executeQuery(
+					"SELECT Count(*) FROM " + TABLE_FMPS_MAIN
+				);
+				while (rs.next()) {
+					countRecords = rs.getInt(1);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-
-			rs.close();
-			stmt.close();
-			conn.close();
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
 		}
+
 		return countRecords;
+	}
+
+	public static int getLatestUserIdInMainTable(){
+		int id = -1;
+		Statement stmt = sqlExecutor(SqlAction.PREPARE);
+		ResultSet rs;
+
+		if (stmt != null) {
+			try {
+				rs = stmt.executeQuery("SELECT id FROM " + TABLE_FMPS_MAIN);
+				while (rs.next()) {
+					id = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return id;
 	}
 
 
@@ -367,19 +362,14 @@ public class DBUtils {
 	 * @param sql query
 	 */
 	private static void sqlStatementExecutor(String sql) {
-		Connection conn;
-		Statement stmt;
-		try {
-			Class.forName("org.sqlite.JDBC");
-			conn = DriverManager.getConnection("jdbc:sqlite:" + dbStoredAbsPath + "/" + DB_NAME);
-			System.out.println("Opened database successfully");
-
-			stmt = conn.createStatement();
-			stmt.execute(sql);
-			stmt.close();
-			conn.close();
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+		Statement stmt = sqlExecutor(SqlAction.PREPARE);
+		if (stmt != null) {
+			try {
+				stmt.execute(sql);
+				sqlExecutor(SqlAction.CLOSE);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -388,5 +378,50 @@ public class DBUtils {
 	 */
 	private enum Stage {
 		STAGE_1, STAGE_2, STAGE_3
+	}
+
+
+	/**
+	 * Prepare sql to execute connection.
+	 * See available actions in {@link SqlAction}:
+	 * {@link SqlAction#PREPARE} - open db and prepare connection,
+	 * {@link SqlAction#CLOSE} - close {@link Statement} and {@link Connection} if it are early open
+	 *
+	 * @param action
+	 * @return Statement reference
+	 */
+	private static Statement sqlExecutor(SqlAction action) {
+		Connection conn = null;
+		Statement stmt = null;
+
+		if (action == SqlAction.PREPARE) {
+			try {
+				Class.forName("org.sqlite.JDBC");
+				conn = DriverManager.getConnection("jdbc:sqlite:" + dbStoredAbsPath + "/" + DB_NAME);
+				stmt = conn.createStatement();
+				return stmt;
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			}
+
+		} else if (action == SqlAction.CLOSE) {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return null;
+	}
+
+	private enum SqlAction {
+		PREPARE, // init and return resultSet object
+		CLOSE // close connection
 	}
 }

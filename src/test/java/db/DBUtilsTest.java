@@ -32,12 +32,10 @@ public class DBUtilsTest {
 	}
 
 	@Test
-	public void test2ReadUserData(){
+	public void testReadUserData(){
 		DBUtils.addNewUser(firstName, MiddleName, lastName);
-		int latestUserId = DBUtils.countOfRecordsInMainTable();
-		System.out.println("latestUserId = " + latestUserId);
-
-		User user = DBUtils.getUser(3); // get latest user
+		int latestUserId = DBUtils.getLatestUserIdInMainTable();
+		User user = DBUtils.getUser(latestUserId); // get latest user
 
 		assert user != null;
 		Assert.assertEquals(firstName, user.getFirstName());
@@ -47,13 +45,25 @@ public class DBUtilsTest {
 
 	@Ignore
 	@Test
-	public void test3UpdateUserData(){
+	public void testUpdateUserData(){
 		int records = DBUtils.countOfRecordsInMainTable();
 		// todo - add method <updateUserData> in DBUtils
 	}
 
 	@Test
-	public void test4RemoveUser(){
+	public void testIsUserExist(){
+		final String firstName = "TestUserFirstName0";
+		final String middleName = "TestUserMiddleName0";
+		final String lastName = "TestUserLastName0";
+
+		DBUtils.addNewUser(firstName, middleName, lastName);
+
+		boolean isUserExist = DBUtils.isUserExist(firstName, middleName, lastName);
+		Assert.assertEquals(true, isUserExist);
+	}
+
+	@Test
+	public void testRemoveUser(){
 		int countBefore = DBUtils.countOfRecordsInMainTable();
 		DBUtils.removeUser(countBefore);
 		int countAfter = DBUtils.countOfRecordsInMainTable();
