@@ -4,12 +4,14 @@ public class User {
 	private String firstName; // Имя
 	private String middleName; // Отчество
 	private String lastName; // Фамилия
+	private int numberOfRecordBook; // Номер зачетной книжки
 
 
-	public User(String firstName, String middleName, String lastName) {
+	public User(String firstName, String middleName, String lastName, int numberOfRecordBook) {
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
+		this.numberOfRecordBook = numberOfRecordBook;
 	}
 
 
@@ -35,5 +37,13 @@ public class User {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public int getNumberOfRecordBook() {
+		return numberOfRecordBook;
+	}
+
+	public void setNumberOfRecordBook(int numberOfRecordBook) {
+		this.numberOfRecordBook = numberOfRecordBook;
 	}
 }

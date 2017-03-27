@@ -18,6 +18,7 @@ public class DBUtils {
 	public static final String FIRST_NAME = "firstname"; // Имя
 	public static final String MIDDLE_NAME = "middlename"; // Отчество
 	public static final String LAST_NAME = "lastname"; // Фамилия
+	public static final String NUM_OF_RECORD_BOOK = "num_of_record_book"; // Номер зачетной книжки
 	public static final String ST1_PROGRESS = "st1_progress";
 	public static final String ST2_PROGRESS = "st2_progress";
 	public static final String ST3_PROGRESS = "st3_progress";
@@ -59,6 +60,7 @@ public class DBUtils {
 					FIRST_NAME + " VARCHAR , " +
 					MIDDLE_NAME + " VARCHAR , " +
 					LAST_NAME + " VARCHAR , " +
+					NUM_OF_RECORD_BOOK + " INT , " +
 					ST1_PROGRESS + " INTEGER DEFAULT 0, " +
 					ST2_PROGRESS + " INTEGER DEFAULT 0, " +
 					ST3_PROGRESS + " INTEGER DEFAULT 0, " +
@@ -97,14 +99,16 @@ public class DBUtils {
 	 * @param userFirstName Имя
 	 * @param userMiddleName Отчество
 	 * @param userLastName Фамилия
+	 * @param numOfRecordBook Номер зачетной книжки
 	 */
-	public static void addNewUser(String userFirstName, String userMiddleName, String userLastName) {
-		String sql = "INSERT INTO " + TABLE_FMPS_MAIN + " (" +
-			FIRST_NAME + DLC + MIDDLE_NAME + DLC + LAST_NAME +
-			") VALUES (" +
-			"\"" + userFirstName + "\"" + DLC
+	public static void addNewUser(String userFirstName, String userMiddleName, String userLastName, int numOfRecordBook) {
+		String sql = "INSERT INTO " + TABLE_FMPS_MAIN + " ("
+			+ FIRST_NAME + DLC + MIDDLE_NAME + DLC + LAST_NAME + DLC + NUM_OF_RECORD_BOOK
+			+ ") VALUES ("
+			+ "\"" + userFirstName + "\"" + DLC
 			+ "\"" + userMiddleName + "\"" + DLC
-			+ "\"" + userLastName + "\""
+			+ "\"" + userLastName + "\"" + DLC
+			+ "\"" + numOfRecordBook + "\""
 			+ ");";
 		sqlStatementExecutor(sql);
 	}
@@ -116,13 +120,14 @@ public class DBUtils {
 	 * @return пользователь
 	 */
 	public static User getUser(int userId) {
-		String sql = "SELECT "+ FIRST_NAME + DLC + MIDDLE_NAME + DLC + LAST_NAME + " FROM " + TABLE_FMPS_MAIN + " WHERE id=" + userId + ";";
+		String sql = "SELECT "+ FIRST_NAME + DLC + MIDDLE_NAME + DLC + LAST_NAME + DLC + NUM_OF_RECORD_BOOK
+			+ " FROM " + TABLE_FMPS_MAIN + " WHERE id=" + userId + ";";
 		User user = null;
 		try {
 			Statement stmt = sqlExecutor(SqlAction.PREPARE);
 			if (stmt != null) {
 				ResultSet rs = stmt.executeQuery(sql);
-				user = new User(rs.getString(FIRST_NAME), rs.getString(MIDDLE_NAME), rs.getString(LAST_NAME));
+				user = new User(rs.getString(FIRST_NAME), rs.getString(MIDDLE_NAME), rs.getString(LAST_NAME), rs.getInt(NUM_OF_RECORD_BOOK));
 				rs.close();
 				sqlExecutor(SqlAction.CLOSE);
 			}
@@ -141,21 +146,23 @@ public class DBUtils {
 	 * @param userLastName Фамилия
 	 * @return <tr>true</tr> такой пользователь уже существует, <tr>false</tr> такого пользователя нет в БД
 	 */
-	public static boolean isUserExist(String userFirstName, String userMiddleName, String userLastName) {
-		String sql = "SELECT " + FIRST_NAME + DLC + MIDDLE_NAME + DLC + LAST_NAME + " FROM " + TABLE_FMPS_MAIN;
+	public static boolean isUserExist(String userFirstName, String userMiddleName, String userLastName, int numOfRecordBook) {
+		String sql = "SELECT " + FIRST_NAME + DLC + MIDDLE_NAME + DLC + LAST_NAME  + DLC + NUM_OF_RECORD_BOOK + " FROM " + TABLE_FMPS_MAIN;
 		Statement stmt = sqlExecutor(SqlAction.PREPARE);
 		if (stmt != null) {
 			try {
 				ResultSet rs = stmt.executeQuery(sql);
 				List<User> allUsers = new ArrayList<>();
 				while (rs.next()) {
-					User user = new User(rs.getString(FIRST_NAME), rs.getString(MIDDLE_NAME), rs.getString(LAST_NAME));
+					User user = new User(rs.getString(FIRST_NAME), rs.getString(MIDDLE_NAME), rs.getString(LAST_NAME),
+						rs.getInt(NUM_OF_RECORD_BOOK));
 					allUsers.add(user);
 				}
 				for (User user : allUsers) {
 					if (user.getFirstName().equals(userFirstName) &&
 						user.getMiddleName().equals(userMiddleName) &&
-						user.getLastName().equals(userLastName)) {
+						user.getLastName().equals(userLastName) &&
+						user.getNumberOfRecordBook() == numOfRecordBook) {
 						return true;
 					}
 				}

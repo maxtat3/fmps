@@ -11,6 +11,7 @@ public class DBUtilsTest {
 	private static final String firstName = "Alex";
 	private static final String MiddleName = "Vitalievich";
 	private static final String lastName = "Tkachecnko";
+	public static final int numberOfRecordBook = 7031503;
 
 
 	@BeforeClass
@@ -20,14 +21,14 @@ public class DBUtilsTest {
 
 	@Before
 	public void addNewUser() {
-		DBUtils.addNewUser(firstName, MiddleName, lastName);
+		DBUtils.addNewUser(firstName, MiddleName, lastName, numberOfRecordBook);
 	}
 
 
 	@Test
 	public void testCreateNewUser(){
 		int countBefore = DBUtils.countOfRecordsInMainTable();
-		DBUtils.addNewUser("UserFirstName", "UserMiddleName", "UserLastName");
+		DBUtils.addNewUser("UserFirstName", "UserMiddleName", "UserLastName", 10577);
 		int countAfter = DBUtils.countOfRecordsInMainTable();
 
 		Assert.assertEquals(++countBefore, countAfter);
@@ -42,6 +43,7 @@ public class DBUtilsTest {
 		Assert.assertEquals(firstName, user.getFirstName());
 		Assert.assertEquals(MiddleName, user.getMiddleName());
 		Assert.assertEquals(lastName, user.getLastName());
+		Assert.assertEquals(numberOfRecordBook, user.getNumberOfRecordBook());
 	}
 
 	@Ignore
@@ -56,10 +58,11 @@ public class DBUtilsTest {
 		final String firstName = "TestUserFirstName0";
 		final String middleName = "TestUserMiddleName0";
 		final String lastName = "TestUserLastName0";
+		final int num = 7071505;
 
-		DBUtils.addNewUser(firstName, middleName, lastName);
+		DBUtils.addNewUser(firstName, middleName, lastName, num);
 
-		boolean isUserExist = DBUtils.isUserExist(firstName, middleName, lastName);
+		boolean isUserExist = DBUtils.isUserExist(firstName, middleName, lastName, num);
 		Assert.assertEquals(true, isUserExist);
 	}
 
