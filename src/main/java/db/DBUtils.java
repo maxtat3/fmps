@@ -138,6 +138,50 @@ public class DBUtils {
 		return null;
 	}
 
+	public static void updateUser(int userId, User updUserData) {
+		Statement stmt = sqlExecutor(SqlAction.PREPARE);
+		if (stmt != null) {
+			try {
+				ResultSet rs = stmt.executeQuery("SELECT " + FIRST_NAME + DLC + MIDDLE_NAME + DLC + LAST_NAME + DLC
+					+ NUM_OF_RECORD_BOOK + " FROM " + TABLE_FMPS_MAIN + " WHERE ID=" + userId);
+				User oldUserData = new User(rs.getString(FIRST_NAME), rs.getString(MIDDLE_NAME), rs.getString(LAST_NAME),
+					rs.getInt(NUM_OF_RECORD_BOOK));
+
+				String updFName = updUserData.getFirstName();
+				String updMName = updUserData.getMiddleName();
+				String updLName = updUserData.getLastName();
+				int updBookNum = updUserData.getNumberOfRecordBook();
+
+				if (!userDataValidator(oldUserData.getFirstName(), updFName)) updFName = oldUserData.getFirstName();
+				if (!userDataValidator(oldUserData.getMiddleName(), updMName)) updMName = oldUserData.getMiddleName();
+				if (!userDataValidator(oldUserData.getLastName(), updLName)) updLName = oldUserData.getLastName();
+				if (!userDataValidator(oldUserData.getNumberOfRecordBook(), updBookNum))
+					updBookNum = oldUserData.getNumberOfRecordBook();
+
+				stmt.execute("UPDATE " + TABLE_FMPS_MAIN + " SET "
+					+ FIRST_NAME + "=" + "'" + updFName + "'" + DLC
+					+ MIDDLE_NAME + "=" + "'" + updMName + "'" + DLC
+					+ LAST_NAME + "=" + "'" + updLName + "'" + DLC
+					+ NUM_OF_RECORD_BOOK + "=" + "'" + updBookNum + "'"
+					+ " WHERE ID = " + userId);
+				rs.close();
+				sqlExecutor(SqlAction.CLOSE);
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private static boolean userDataValidator(String oldUserField, String newUserField) {
+		return newUserField != null && !newUserField.equals("") && !newUserField.equals(" ")
+			&& newUserField.length() > 1 && !oldUserField.equals(newUserField);
+	}
+
+	private static boolean userDataValidator(int oldUserField, int newUserField) {
+		return oldUserField != newUserField && newUserField > 0;
+	}
+
 	/**
 	 * Проверка (по ФИО) есть ли уже такой пользователь в БД
 	 *

@@ -46,11 +46,55 @@ public class DBUtilsTest {
 		Assert.assertEquals(numberOfRecordBook, user.getNumberOfRecordBook());
 	}
 
-	@Ignore
 	@Test
 	public void testUpdateUserData(){
-		int records = DBUtils.countOfRecordsInMainTable();
-		// todo - add method <updateUserData> in DBUtils
+		int latestUserId = DBUtils.getLatestUserIdInMainTable();
+		User user = new User(firstName, MiddleName, lastName, numberOfRecordBook);
+		DBUtils.updateUser(latestUserId, user);
+		user = DBUtils.getUser(latestUserId);
+
+		assert user != null;
+		Assert.assertEquals(firstName, user.getFirstName());
+	}
+
+	@Test
+	public void testUpdateUserDataRv1(){
+		int latestUserId = DBUtils.getLatestUserIdInMainTable();
+		User user = new User("Dmitry", MiddleName, lastName, numberOfRecordBook);
+		DBUtils.updateUser(latestUserId, user);
+		user = DBUtils.getUser(latestUserId);
+
+		assert user != null;
+		Assert.assertEquals("Dmitry", user.getFirstName());
+	}
+
+	@Test
+	public void testUpdateUserDataRv2(){
+		int latestUserId = DBUtils.getLatestUserIdInMainTable();
+		User user = new User(firstName, MiddleName, lastName, 127);
+		DBUtils.updateUser(latestUserId, user);
+		user = DBUtils.getUser(latestUserId);
+
+		assert user != null;
+		Assert.assertEquals(127, user.getNumberOfRecordBook());
+	}
+
+	@Test
+	public void testUpdateUserDataRv3(){
+		String firstName = "Andrew";
+		String middleName = "Timofeevich";
+		int numOfRecBook = 1250071;
+
+		int latestUserId = DBUtils.getLatestUserIdInMainTable();
+		User user = new User(firstName, middleName, lastName, numOfRecBook);
+		DBUtils.updateUser(latestUserId, user);
+		user = DBUtils.getUser(latestUserId);
+
+		assert user != null;
+		Assert.assertEquals(firstName, user.getFirstName());
+		Assert.assertEquals(middleName, user.getMiddleName());
+		Assert.assertEquals(lastName, user.getLastName());
+		Assert.assertEquals(numOfRecBook, user.getNumberOfRecordBook());
 	}
 
 	@Test
