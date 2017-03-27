@@ -259,7 +259,7 @@ public class DBUtils {
 	 * @param stage номер задачи
 	 * @param userId id пользователя
 	 */
-	private static void resetStageProgress(Stage stage, int userId) {
+	private static void resetProgress(Stage stage, int userId) {
 		String stageProgressColumn = getStage(stage);
 
 		Connection conn;
