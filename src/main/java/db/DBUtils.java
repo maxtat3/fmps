@@ -230,7 +230,7 @@ public class DBUtils {
 	 * @param stage номер задачи
 	 * @param userId id пользователя
 	 */
-	private static void incrementProgress(Stage stage, int userId) {
+	public static void incrementProgress(Stage stage, int userId) {
 		String stageProgressColumn = getStage(stage);
 
 		Connection conn;

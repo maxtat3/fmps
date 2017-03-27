@@ -1,31 +1,33 @@
 package db;
 
 import domain.User;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 
 /**
- *
+ * Test SQLite DB methods.
  */
 public class DBUtilsTest {
 
+	private static final String firstName = "Alex";
+	private static final String MiddleName = "Vitalievich";
+	private static final String lastName = "Tkachecnko";
 
-	@Before
-	public void init(){
+
+	@BeforeClass
+	public static void initDB(){
 		DBUtils.initDatabase();
-
 	}
 
-	String firstName = "Alex";
-	String MiddleName = "Vitalievich";
-	String lastName = "Tkachecnko";
+	@Before
+	public void addNewUser() {
+		DBUtils.addNewUser(firstName, MiddleName, lastName);
+	}
+
 
 	@Test
 	public void testCreateNewUser(){
 		int countBefore = DBUtils.countOfRecordsInMainTable();
-		DBUtils.addNewUser(firstName, MiddleName, lastName);
+		DBUtils.addNewUser("UserFirstName", "UserMiddleName", "UserLastName");
 		int countAfter = DBUtils.countOfRecordsInMainTable();
 
 		Assert.assertEquals(++countBefore, countAfter);
@@ -33,7 +35,6 @@ public class DBUtilsTest {
 
 	@Test
 	public void testReadUserData(){
-		DBUtils.addNewUser(firstName, MiddleName, lastName);
 		int latestUserId = DBUtils.getLatestUserIdInMainTable();
 		User user = DBUtils.getUser(latestUserId); // get latest user
 
