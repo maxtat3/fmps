@@ -231,20 +231,7 @@ public class DBUtils {
 	 * @param userId id пользователя
 	 */
 	private static void incrementProgress(Stage stage, int userId) {
-		String stageProgressColumn = null;
-		switch (stage) {
-			case STAGE_1:
-				stageProgressColumn = ST1_PROGRESS;
-				break;
-
-			case STAGE_2:
-				stageProgressColumn = ST2_PROGRESS;
-				break;
-
-			case STAGE_3:
-				stageProgressColumn = ST3_PROGRESS;
-				break;
-		}
+		String stageProgressColumn = getStage(stage);
 
 		Connection conn;
 		Statement stmt;
@@ -273,20 +260,7 @@ public class DBUtils {
 	 * @param userId id пользователя
 	 */
 	private static void resetStageProgress(Stage stage, int userId) {
-		String stageProgressColumn = null;
-		switch (stage) {
-			case STAGE_1:
-				stageProgressColumn = ST1_PROGRESS;
-				break;
-
-			case STAGE_2:
-				stageProgressColumn = ST2_PROGRESS;
-				break;
-
-			case STAGE_3:
-				stageProgressColumn = ST3_PROGRESS;
-				break;
-		}
+		String stageProgressColumn = getStage(stage);
 
 		Connection conn;
 		Statement stmt;
@@ -304,6 +278,24 @@ public class DBUtils {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private static String getStage(Stage stage) {
+		String stageProgressColumn = null;
+		switch (stage) {
+			case STAGE_1:
+				stageProgressColumn = ST1_PROGRESS;
+				break;
+
+			case STAGE_2:
+				stageProgressColumn = ST2_PROGRESS;
+				break;
+
+			case STAGE_3:
+				stageProgressColumn = ST3_PROGRESS;
+				break;
+		}
+		return stageProgressColumn;
 	}
 
 	/**
