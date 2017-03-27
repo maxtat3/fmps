@@ -110,7 +110,7 @@ public class DBUtils {
 	}
 
 	/**
-	 * Получение информации о пользователе из БД.
+	 * Получение ФИО пользователя.
 	 *
 	 * @param userId id пользователя в БД
 	 * @return пользователь
@@ -325,9 +325,7 @@ public class DBUtils {
 
 		if (stmt != null) {
 			try {
-				ResultSet rs = stmt.executeQuery(
-					"SELECT Count(*) FROM " + TABLE_FMPS_MAIN
-				);
+				ResultSet rs = stmt.executeQuery("SELECT Count(*) FROM " + TABLE_FMPS_MAIN);
 				while (rs.next()) {
 					countRecords = rs.getInt(1);
 				}
