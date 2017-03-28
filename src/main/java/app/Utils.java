@@ -28,6 +28,12 @@ public class Utils {
 		return strChars.length == boolNumbers.size();
 	}
 
+	/**
+	 * Check is string do not contained any symbols.
+	 *
+	 * @param text validated text
+	 * @return <tt>true</tt> - if string do not contains everybody symbols
+	 */
 	public static boolean isEmpty(String text) {
 		return (text.equals("") || text.equals(" ") || text.equals("  "));
 	}

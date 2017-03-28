@@ -53,6 +53,38 @@ public class UtilsTest {
 		Assert.assertEquals(false, actual);
 	}
 
+	// Tests for Utils.isEmpty method
+
+	@Test
+	public void testIsEmptyOnlyText(){
+		boolean actual = Utils.isEmpty("Place");
+		Assert.assertEquals(false, actual);
+	}
+
+	@Test
+	public void testIsEmptyTextWithWhitespace(){
+		boolean actual = Utils.isEmpty("Component A");
+		Assert.assertEquals(false, actual);
+	}
+
+	@Test
+	public void testIsEmptyOnlySpecSymbols(){
+		boolean actual = Utils.isEmpty("!@#%&+_=/");
+		Assert.assertEquals(false, actual);
+	}
+
+	@Test
+	public void testIsEmptyEmptyStr(){
+		boolean actual = Utils.isEmpty("");
+		Assert.assertEquals(true, actual);
+	}
+
+	@Test
+	public void testIsEmptyWhitespace(){
+		boolean actual = Utils.isEmpty(" ");
+		Assert.assertEquals(true, actual);
+	}
+
 	// Tests for Utils.isLettersOnly method
 
 	@Test
