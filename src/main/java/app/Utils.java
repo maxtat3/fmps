@@ -30,4 +30,14 @@ public class Utils {
 	public static boolean isEmpty(String text) {
 		return (text.equals("") || text.equals(" ") || text.equals("  "));
 	}
+
+	/**
+	 * Check is text contains only cyrillic and latin letters.
+	 *
+	 * @param text validate text
+	 * @return <tt>true</tt> - text contained only letters
+	 */
+	public static boolean isLettersOnly(String text) {
+		return text.matches("[a-zA-Zа-яА-Я]+");
+	}
 }
