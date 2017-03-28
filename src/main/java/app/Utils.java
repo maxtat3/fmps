@@ -9,6 +9,7 @@ public class Utils {
 
 	/**
 	 * Check is only number contains in string.
+	 * Allow only positive numbers.
 	 * Average performance run time = 0.1 ms.
 	 *
 	 * @param strNum number in string
