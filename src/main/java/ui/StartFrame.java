@@ -1,5 +1,7 @@
 package ui;
 
+import app.Utils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,9 +9,10 @@ import java.awt.event.ActionEvent;
 /**
  *
  */
-public class StartFrame {
+public class StartFrame implements SignInDialog.SignInDialogCallback{
 
 	private JFrame frameStart;
+	private StartFrame startFrame = this;
 
 	public StartFrame() {
 		frameStart = new JFrame("FMPS");
@@ -30,7 +33,7 @@ public class StartFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("move to next frame0");
-				new SignInDialog(frameStart);
+				new SignInDialog(frameStart, startFrame);
 //				closeThisWindow();
 			}
 		});
@@ -42,5 +45,15 @@ public class StartFrame {
 	private void closeThisWindow(){
 		frameStart.setVisible(false);
 		frameStart.dispose();
+	}
+
+
+	@Override
+	public void userSignInData(String lastName, char[] numOfRecBook) {
+		System.out.println("lastName = " + lastName);
+		String strNum = new String(numOfRecBook);
+		if (Utils.isNumber(strNum)) {
+			System.out.println("Number of record book = " + Integer.parseInt(strNum));
+		}
 	}
 }
