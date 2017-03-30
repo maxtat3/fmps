@@ -232,4 +232,37 @@ public class DBUtilsTest {
 		Assert.assertEquals(0, progressAfter);
 	}
 
+	@Test
+	public void testFindUser(){
+		String firstName = "Vitaly";
+		String middleName = "Andreevich";
+		String lastName = "Trifonov";
+		int numOfRecBook = 1553011;
+		DBUtils.addNewUser(firstName, middleName, lastName, numOfRecBook);
+		boolean isUserFound = DBUtils.findUser(lastName, numOfRecBook);
+		Assert.assertEquals(true, isUserFound);
+	}
+
+	@Test
+	public void testFindUserRv1(){
+		String firstName = "Vitaly";
+		String middleName = "Andreevich";
+		String lastName = "Trifonov";
+		int numOfRecBook = 1553011;
+		DBUtils.addNewUser(firstName, middleName, lastName, numOfRecBook);
+		boolean isUserFound = DBUtils.findUser(lastName, 711); // other num of rec book
+		Assert.assertEquals(false, isUserFound);
+	}
+
+	@Test
+	public void testFindUserRv2(){
+		String firstName = "Vitaly";
+		String middleName = "Andreevich";
+		String lastName = "Trifonov";
+		int numOfRecBook = 1553011;
+		DBUtils.addNewUser(firstName, middleName, lastName, numOfRecBook);
+		boolean isUserFound = DBUtils.findUser("Alexandr", numOfRecBook); // other user last name
+		Assert.assertEquals(false, isUserFound);
+	}
+	
 }

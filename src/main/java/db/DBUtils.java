@@ -138,6 +138,40 @@ public class DBUtils {
 		return null;
 	}
 
+	/**
+	 * Find is user before registered in this app.
+	 *
+	 * @param lastName user last name
+	 * @param numberOfRecordBook user number of record book
+	 * @return <tt>true</tt> if searched user is present in db
+	 */
+	public static boolean findUser(String lastName, int numberOfRecordBook){
+		String sql = "SELECT "+ LAST_NAME + DLC + NUM_OF_RECORD_BOOK + " FROM " + TABLE_FMPS_MAIN ;
+		Statement stmt = sqlExecutor(SqlAction.PREPARE);
+		if (stmt != null) {
+			try {
+				ResultSet rs = stmt.executeQuery(sql);
+				List<User> allUsers = new ArrayList<>();
+				while (rs.next()) {
+					User user = new User(rs.getString(LAST_NAME), rs.getInt(NUM_OF_RECORD_BOOK));
+					allUsers.add(user);
+				}
+				for (User user : allUsers) {
+					if (
+						user.getLastName().equals(lastName) &&
+						user.getNumberOfRecordBook() == numberOfRecordBook) {
+						return true;
+					}
+				}
+				rs.close();
+				sqlExecutor(SqlAction.CLOSE);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
 	public static void updateUser(int userId, User updUserData) {
 		Statement stmt = sqlExecutor(SqlAction.PREPARE);
 		if (stmt != null) {

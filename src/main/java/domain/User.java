@@ -14,6 +14,11 @@ public class User {
 		this.numberOfRecordBook = numberOfRecordBook;
 	}
 
+	public User(String lastName, int numOfRecBook) {
+		this.lastName = lastName;
+		this.numberOfRecordBook = numOfRecBook;
+	}
+
 
 	public String getFirstName() {
 		return firstName;
