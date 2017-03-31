@@ -27,7 +27,7 @@ public class SignInDialog extends JPanel {
 		}
 	}
 
-	interface SignInDialogCallback {
+	public interface SignInDialogCallback {
 		void userSignInData(String lastName, char[] numberOfRecordBook);
 	}
 }

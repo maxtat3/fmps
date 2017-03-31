@@ -1,6 +1,6 @@
 package ui;
 
-import app.Utils;
+import controller.StartFrameController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,18 +9,20 @@ import java.awt.event.ActionEvent;
 /**
  *
  */
-public class StartFrame implements SignInDialog.SignInDialogCallback{
+public class StartFrame implements StartFrameController.StartFrameCallback{
 
-	private JFrame frameStart;
-	private StartFrame startFrame = this;
+	private JFrame frameStart = new JFrame("FMPS");
+	private JLabel jlMsg = new JLabel();
+	private StartFrameController controller;
 
 	public StartFrame() {
-		frameStart = new JFrame("FMPS");
 		frameStart.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		addComponentToPane(frameStart.getContentPane());
 		frameStart.pack();
 		frameStart.setLocationRelativeTo(null);
 		frameStart.setVisible(true);
+
+		controller = new StartFrameController(frameStart, this);
 	}
 
 	private void addComponentToPane(Container contentPane) {
@@ -32,13 +34,12 @@ public class StartFrame implements SignInDialog.SignInDialogCallback{
 		jbtnSignIn.addActionListener(new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("move to next frame0");
-				new SignInDialog(frameStart, startFrame);
-//				closeThisWindow();
+				controller.showDialog();
 			}
 		});
 
 		jpMain.add(jbtnSignIn);
+		jpMain.add(jlMsg);
 		contentPane.add(jpMain, BorderLayout.PAGE_START);
 	}
 
@@ -49,11 +50,13 @@ public class StartFrame implements SignInDialog.SignInDialogCallback{
 
 
 	@Override
-	public void userSignInData(String lastName, char[] numOfRecBook) {
-		System.out.println("lastName = " + lastName);
-		String strNum = new String(numOfRecBook);
-		if (Utils.isNumber(strNum)) {
-			System.out.println("Number of record book = " + Integer.parseInt(strNum));
-		}
+	public void closeThisFrame() {
+		closeThisWindow();
+	}
+
+	@Override
+	public void setMsg(String msg) {
+		jlMsg.setText(msg);
+		frameStart.pack();
 	}
 }
