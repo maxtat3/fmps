@@ -1,5 +1,6 @@
 package ui;
 
+import app.Utils;
 import controller.StudentCardFrameController;
 import stage1.elements.GeneralElementStage1;
 
@@ -53,7 +54,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 
 		studentCardFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		addComponentToPane(studentCardFrame.getContentPane());
-		studentCardFrame.setPreferredSize(new Dimension(500, 500));
+		studentCardFrame.setPreferredSize(new Dimension(500, 750));
 		studentCardFrame.pack();
 		studentCardFrame.setLocationRelativeTo(null);
 		studentCardFrame.setVisible(true);
@@ -115,10 +116,10 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		JPanel jpTime = new JPanel();
 
 		final JTextField jtfPressureEnv = new JTextField(4);
-		JTextField jtfSurfaceWeldArea = new JTextField(4);
-		JTextField jtfWeightMoltenMetal = new JTextField(4);
-		JTextField jtfTemperature = new JTextField(4);
-		JTextField jtfTime = new JTextField(4);
+		final JTextField jtfSurfaceWeldArea = new JTextField(4);
+		final JTextField jtfWeightMoltenMetal = new JTextField(4);
+		final JTextField jtfTemperature = new JTextField(4);
+		final JTextField jtfTime = new JTextField(4);
 
 		jtfPressureEnv.setName(TXT_PRESSURE_ENV);
 		jtfSurfaceWeldArea.setName(TXT_SURFACE_WELD_AREA);
@@ -158,7 +159,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				for (JTextField jtf : jtfAlloyComWeightsStage1) {
-					System.out.println(jtf.getName() + " : " + jtf.getText());
+					if (Utils.isEmpty(jtf.getText())) jtf.setText("0");
 				}
 
 				if (isShowWarning(controller.validateInputData(jtfLastName, StudentCardFrameController.ValidatorVariant.IS_TEXT)))
@@ -175,6 +176,14 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 				}
 
 				if (isShowWarning(controller.validateInputData(jtfPressureEnv, StudentCardFrameController.ValidatorVariant.IS_NUMBER)))
+					return;
+				if (isShowWarning(controller.validateInputData(jtfSurfaceWeldArea, StudentCardFrameController.ValidatorVariant.IS_NUMBER)))
+					return;
+				if (isShowWarning(controller.validateInputData(jtfWeightMoltenMetal, StudentCardFrameController.ValidatorVariant.IS_NUMBER)))
+					return;
+				if (isShowWarning(controller.validateInputData(jtfTemperature, StudentCardFrameController.ValidatorVariant.IS_NUMBER)))
+					return;
+				if (isShowWarning(controller.validateInputData(jtfTime, StudentCardFrameController.ValidatorVariant.IS_NUMBER)))
 					return;
 				System.out.println("start tasks frame");
 			}
