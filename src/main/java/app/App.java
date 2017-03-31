@@ -21,7 +21,6 @@ public class App {
 	}
 
 	private void startUI() {
-//		new UserInitDataStage1Frame();
 		new StartFrame();
 	}
 }

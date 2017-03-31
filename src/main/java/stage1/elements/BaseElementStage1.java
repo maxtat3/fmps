@@ -3,6 +3,11 @@ package stage1.elements;
 public abstract class BaseElementStage1 implements GeneralElementStage1 {
 
 	/**
+	 * Determine is basic element or not. Used in {@link ui.StudentCardFrame} only.
+	 */
+	private boolean isBasic;
+
+	/**
 	 * Состав элемента по весу (массовая доля вещества), gi (%)
 	 * Величина задается пользователю в задании.
 	 */
@@ -58,6 +63,14 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	 */
 	private double rateVaporizationEachElemOfWeldPool;
 
+
+	public boolean isBasic() {
+		return isBasic;
+	}
+
+	public void setBasic(boolean basic) {
+		isBasic = basic;
+	}
 
 	@Override
 	public double getAlloyCompWeight() {

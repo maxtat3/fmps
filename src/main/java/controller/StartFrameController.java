@@ -4,6 +4,7 @@ import app.Utils;
 import db.DBUtils;
 import ui.SignInDialog;
 import ui.StartFrame;
+import ui.StudentCardFrame;
 
 import javax.swing.*;
 
@@ -33,7 +34,7 @@ public class StartFrameController implements SignInDialog.SignInDialogCallback {
 		if (isCorrectInputData) {
 			boolean isUserPresentInDB = DBUtils.findUser(lastName, Integer.parseInt(new String(numberOfRecordBook)));
 			if (isUserPresentInDB) {
-				System.out.println("open select task frame.");
+				new StudentCardFrame();
 				uiFrame.closeThisFrame();
 			} else {
 				uiFrame.setMsg(TXT_USER_DOT_PREV_REGISTERED);
