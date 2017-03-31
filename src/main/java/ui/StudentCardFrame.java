@@ -104,6 +104,14 @@ public class StudentCardFrame {
 			}
 		});
 
+		jbtnCancel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				closeThisWindow();
+				new StartFrame();
+			}
+		});
+
 		// set settings for created panels
 		jpElementsStage1.setBorder(BorderFactory.createTitledBorder(
 			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), TXT_STAGE_1_MAIN_PANEL_NAME
@@ -145,5 +153,10 @@ public class StudentCardFrame {
 		jpItems.add(jlPercent);
 
 		jpRows.add(jpItems);
+	}
+
+	private void closeThisWindow(){
+		studentCardFrame.setVisible(false);
+		studentCardFrame.dispose();
 	}
 }
