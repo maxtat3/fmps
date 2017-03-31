@@ -56,15 +56,16 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 	}
 
 	private void addComponentToPane(final Container contentPane) {
-		final JTextField jtfFirstName = new JTextField(10); // Имя
-		final JTextField jtfMiddleName = new JTextField(12); // Отчество
-		final JTextField jtfLastName = new JTextField(12); // Фамилия
-		final JTextField jtfNumOfRecBook = new JTextField(10);
 		JPanel jpMsg = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JPanel jpFirstName = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JPanel jpMiddleName = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JPanel jpLastName = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JPanel jpNumOfRecBook = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+		final JTextField jtfFirstName = new JTextField(10); // Имя
+		final JTextField jtfMiddleName = new JTextField(12); // Отчество
+		final JTextField jtfLastName = new JTextField(12); // Фамилия
+		final JTextField jtfNumOfRecBook = new JTextField(10);
 
 		jtfFirstName.setName(TXT_USER_FIRST_NAME);
 		jtfMiddleName.setName(TXT_USER_MIDDLE_NAME);
