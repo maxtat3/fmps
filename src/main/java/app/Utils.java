@@ -8,7 +8,9 @@ import java.util.ArrayList;
 public class Utils {
 
 	/**
-	 * Check is only number contains in string.
+	 * Check is only integer or float number contains in string.
+	 * Double numbers may be in format: [integer part].(,)[float part](d,f).
+	 * For examples: 7.5 , 7,5 , 7.5d , 7,5d , 7.d , 7,d , 7,f .
 	 * Allow only positive numbers.
 	 * Average performance run time = 0.1 ms.
 	 *
@@ -18,11 +20,28 @@ public class Utils {
 	public static boolean isNumber(final String strNum) {
 		if(strNum == null || strNum.isEmpty()) return false;
 
+		int dotCommaSym = 0, fdSym = 0;
 		ArrayList<Boolean> boolNumbers = new ArrayList<>(strNum.length());
 		char[] strChars = strNum.toCharArray();
 		for (char c : strChars) {
 			if (Character.isDigit(c)) {
 				boolNumbers.add(true);
+			}
+			if (dotCommaSym == 0 && c == '.') {
+				boolNumbers.add(true);
+				dotCommaSym ++;
+			}
+			if (dotCommaSym == 0 && c == ',') {
+				boolNumbers.add(true);
+				dotCommaSym ++;
+			}
+			if (fdSym == 0 && c == 'd') {
+				boolNumbers.add(true);
+				fdSym ++;
+			}
+			if (fdSym == 0 && c == 'f') {
+				boolNumbers.add(true);
+				fdSym ++;
 			}
 		}
 		return strChars.length == boolNumbers.size();

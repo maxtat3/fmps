@@ -53,6 +53,84 @@ public class UtilsTest {
 		Assert.assertEquals(false, actual);
 	}
 
+	@Test
+	public void testIsNumberFloatFormat(){
+		boolean actual = Utils.isNumber("7.1");
+		Assert.assertEquals(true, actual);
+	}
+
+	@Test
+	public void testIsNumberFloatFormatRv1(){
+		boolean actual = Utils.isNumber("7.1f");
+		Assert.assertEquals(true, actual);
+	}
+
+	@Test
+	public void testIsNumberFloatFormatRv2(){
+		boolean actual = Utils.isNumber("7.1d");
+		Assert.assertEquals(true, actual);
+	}
+
+	@Test
+	public void testIsNumberFloatFormatRv3(){
+		boolean actual = Utils.isNumber("7,1");
+		Assert.assertEquals(true, actual);
+	}
+
+	@Test
+	public void testIsNumberFloatFormatRv4(){
+		boolean actual = Utils.isNumber("7,1f");
+		Assert.assertEquals(true, actual);
+	}
+
+	@Test
+	public void testIsNumberFloatFormatRv5(){
+		boolean actual = Utils.isNumber("8,1d");
+		Assert.assertEquals(true, actual);
+	}
+
+	@Test
+	public void testIsNumberFloatFormatRv6(){
+		boolean actual = Utils.isNumber("8.d");
+		Assert.assertEquals(true, actual);
+	}
+
+	@Test
+	public void testIsNumberFloatFormatRv7(){
+		boolean actual = Utils.isNumber("8,d");
+		Assert.assertEquals(true, actual);
+	}
+
+	@Test
+	public void testIsNumberFloatFormatRv8(){
+		boolean actual = Utils.isNumber("15.n"); //any symbol
+		Assert.assertEquals(false, actual);
+	}
+
+	@Test
+	public void testIsNumberFloatWrongFormat(){
+		boolean actual = Utils.isNumber("1..d");
+		Assert.assertEquals(false, actual);
+	}
+
+	@Test
+	public void testIsNumberFloatWrongFormatRv1(){
+		boolean actual = Utils.isNumber("1,,.d");
+		Assert.assertEquals(false, actual);
+	}
+
+	@Test
+	public void testIsNumberFloatWrongFormatRv2(){
+		boolean actual = Utils.isNumber("1,.d");
+		Assert.assertEquals(false, actual);
+	}
+
+	@Test
+	public void testIsNumberFloatWrongFormatRv3(){
+		boolean actual = Utils.isNumber("1,,,,5");
+		Assert.assertEquals(false, actual);
+	}
+
 	// Tests for Utils.isEmpty method
 
 	@Test
