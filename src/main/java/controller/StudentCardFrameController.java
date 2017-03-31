@@ -63,16 +63,17 @@ public class StudentCardFrameController {
 	 */
 	public String validateInputData(JTextField data, ValidatorVariant variant) {
 		String content = data.getText();
+		String name = data.getName().replace(":", "");
 
-		if (Utils.isEmpty(content)) return "<html><font color=red>Поле <i>" + data.getName() + "</i> не должно быть пустым !</font></html>";
+		if (Utils.isEmpty(content)) return "<html><font color=red>Поле <i>" + name + "</i> не должно быть пустым !</font></html>";
 
 		switch (variant) {
 			case IS_TEXT:
-				if (!Utils.isLettersOnly(content)) return "<html><font color=red>В поле <i>" + data.getName() + "</i> разрешены только буквы !</font></html>";
+				if (!Utils.isLettersOnly(content)) return "<html><font color=red>В поле <i>" + name + "</i> разрешены только буквы !</font></html>";
 				break;
 
 			case IS_NUMBER:
-				if (!Utils.isNumber(content)) return "<html><font color=red>В поле <i>" + data.getName() + "</i> разрешены только цифры !</font></html>";
+				if (!Utils.isNumber(content)) return "<html><font color=red>В поле <i>" + name + "</i> разрешены только цифры !</font></html>";
 				break;
 		}
 		return "0";
