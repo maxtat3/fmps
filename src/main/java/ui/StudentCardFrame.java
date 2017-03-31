@@ -15,7 +15,7 @@ import java.util.List;
 /**
  *
  */
-public class StudentCardFrame implements StudentCardFrameController.StudentCardFrameCallback{
+public class StudentCardFrame implements StudentCardFrameController.StudentCardFrameCallback {
 
 	public static final String TXT_STUDENT_CARD = "Карточка студента";
 	public static final String TXT_MAIN_ELEMENTS = "Основные элементы:";
@@ -39,6 +39,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 	private JPanel jpDirection = new JPanel();
 	private JButton jbtnOk = new JButton("Ok");
 	private JButton jbtnCancel = new JButton("Cancel");
+	private JLabel jlMsg = new JLabel();
 
 	private java.util.List<JTextField> jtfAlloyComWeights = new ArrayList<>();
 
@@ -54,16 +55,23 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		studentCardFrame.setVisible(true);
 	}
 
-	private void addComponentToPane(Container contentPane) {
-		JTextField jtfFirstName = new JTextField(10); // Имя
-		JTextField jtfMiddleName = new JTextField(12); // Отчество
-		JTextField jtfLastName = new JTextField(12); // Фамилия
-		JTextField jtfNumOfRecBook = new JTextField(10);
+	private void addComponentToPane(final Container contentPane) {
+		final JTextField jtfFirstName = new JTextField(10); // Имя
+		final JTextField jtfMiddleName = new JTextField(12); // Отчество
+		final JTextField jtfLastName = new JTextField(12); // Фамилия
+		final JTextField jtfNumOfRecBook = new JTextField(10);
+		JPanel jpMsg = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JPanel jpFirstName = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JPanel jpMiddleName = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JPanel jpLastName = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JPanel jpNumOfRecBook = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
+		jtfFirstName.setName(TXT_USER_FIRST_NAME);
+		jtfMiddleName.setName(TXT_USER_MIDDLE_NAME);
+		jtfLastName.setName(TXT_USER_LAST_NAME);
+		jtfNumOfRecBook.setName(TXT_USER_NUM_OF_REC_BOOK);
+
+		jpMsg.add(jlMsg);
 		jpFirstName.add(new JLabel(TXT_USER_FIRST_NAME));
 		jpFirstName.add(jtfFirstName);
 		jpMiddleName.add(new JLabel(TXT_USER_MIDDLE_NAME));
@@ -74,6 +82,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		jpNumOfRecBook.add(jtfNumOfRecBook);
 
 		jpUserData.setLayout(new BoxLayout(jpUserData, BoxLayout.Y_AXIS));
+		jpUserData.add(jpMsg);
 		jpUserData.add(jpLastName);
 		jpUserData.add(jpMiddleName);
 		jpUserData.add(jpFirstName);
@@ -107,6 +116,20 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 				for (JTextField jtf : jtfAlloyComWeights) {
 					System.out.println(jtf.getName() + " : " + jtf.getText());
 				}
+
+				if (isShowWarning(controller.validateInputData(jtfLastName, StudentCardFrameController.ValidatorVariant.IS_TEXT)))
+					return;
+				if (isShowWarning(controller.validateInputData(jtfFirstName, StudentCardFrameController.ValidatorVariant.IS_TEXT)))
+					return;
+				if (isShowWarning(controller.validateInputData(jtfMiddleName, StudentCardFrameController.ValidatorVariant.IS_TEXT)))
+					return;
+				if (isShowWarning(controller.validateInputData(jtfNumOfRecBook, StudentCardFrameController.ValidatorVariant.IS_NUMBER)))
+					return;
+
+				for (JTextField jtf : jtfAlloyComWeights) {
+					if (isShowWarning(controller.validateInputData(jtf, StudentCardFrameController.ValidatorVariant.IS_NUMBER))) return;
+				}
+
 			}
 		});
 
@@ -150,7 +173,22 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		jpRows.add(jpItems);
 	}
 
-	private void closeThisWindow(){
+	/**
+	 * Check is showed warning massage in this frame.
+	 *
+	 * @param text warning massage
+	 * @return <tt>true</tt> if massage will be shown
+	 */
+	private boolean isShowWarning(String text) {
+		if (!text.equals("0")) {
+			jlMsg.setText(text);
+			studentCardFrame.pack();
+			return true;
+		}
+		return false;
+	}
+
+	private void closeThisWindow() {
 		studentCardFrame.setVisible(false);
 		studentCardFrame.dispose();
 	}
