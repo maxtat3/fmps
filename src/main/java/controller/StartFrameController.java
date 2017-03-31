@@ -12,8 +12,15 @@ import javax.swing.*;
  */
 public class StartFrameController implements SignInDialog.SignInDialogCallback {
 
+	public static final String TXT_USER_DOT_PREV_REGISTERED = "Такой пользователь ранее не был зарегестрирован !";
+	public static final String TXT_LAST_NAME_IS_EMPTY = "Поле Фамилия не должно быть пустым !";
+	public static final String TXT_NUM_OF_REC_BOOK_IS_EMPTY = "Поле Номер зачетной книжки не должно быть пустым !";
+	public static final String TXT_IN_LAST_NAME_ALLOW_LETTERS = "В поле Фамилия разрешены только буквы !";
+	public static final String IN_NUM_OF_REC_BOOK_ALLOW_NUMBERS = "В поле Номер зачетной книжки разрешены только цифры !";
+
 	private JFrame jFrame;
 	private StartFrame uiFrame;
+
 
 	public StartFrameController(JFrame jFrame, StartFrame uiFrame) {
 		this.jFrame = jFrame;
@@ -29,26 +36,26 @@ public class StartFrameController implements SignInDialog.SignInDialogCallback {
 				System.out.println("open select task frame.");
 				uiFrame.closeThisFrame();
 			} else {
-				uiFrame.setMsg("Такой пользователь ранее не был зарегестрирован !");
+				uiFrame.setMsg(TXT_USER_DOT_PREV_REGISTERED);
 			}
 		}
 	}
 
 	private boolean validateSigInUserInputData(String name, String number) {
 		if (Utils.isEmpty(name)) {
-			uiFrame.setMsg("Поле Фамилия не должно быть пустым !");
+			uiFrame.setMsg(TXT_LAST_NAME_IS_EMPTY);
 			return false;
 		}
 		if (Utils.isEmpty(number)) {
-			uiFrame.setMsg("Поле Номер зачетной книжки не должно быть пустым !");
+			uiFrame.setMsg(TXT_NUM_OF_REC_BOOK_IS_EMPTY);
 			return false;
 		}
 		if (!Utils.isLettersOnly(name)) {
-			uiFrame.setMsg("В поле Фамилия разрешены только буквы !");
+			uiFrame.setMsg(TXT_IN_LAST_NAME_ALLOW_LETTERS);
 			return false;
 		}
 		if (!Utils.isNumber(number)) {
-			uiFrame.setMsg("В поле Номер зачетной книжки разрешены только цифры !");
+			uiFrame.setMsg(IN_NUM_OF_REC_BOOK_ALLOW_NUMBERS);
 			return false;
 		}
 		return true;

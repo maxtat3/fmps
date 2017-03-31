@@ -11,9 +11,15 @@ import java.awt.event.ActionEvent;
  */
 public class StartFrame implements StartFrameController.StartFrameCallback{
 
-	private JFrame frameStart = new JFrame("FMPS");
+	public static final String FRAME_NAME = "FMPS";
+	public static final String TXT_SIGN_IN = "Войти";
+	public static final String TXT_NEW_REGISTER_NEW_STUDENT = "Новый студент";
+	public static final String TXT_HELP = "Помощь";
+
+	private JFrame frameStart = new JFrame(FRAME_NAME);
 	private JLabel jlMsg = new JLabel();
 	private StartFrameController controller;
+
 
 	public StartFrame() {
 		frameStart.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -28,9 +34,9 @@ public class StartFrame implements StartFrameController.StartFrameCallback{
 	private void addComponentToPane(Container contentPane) {
 		JPanel jpMain = new JPanel();
 		jpMain.setLayout(new BoxLayout(jpMain, BoxLayout.Y_AXIS));
-		JButton jbtnSignIn = new JButton("Войти");
-		JButton jbtnNewStudent = new JButton("Новый студент");
-		JButton jbtnHelp = new JButton("Помощь");
+		JButton jbtnSignIn = new JButton(TXT_SIGN_IN);
+		JButton jbtnNewStudent = new JButton(TXT_NEW_REGISTER_NEW_STUDENT);
+		JButton jbtnHelp = new JButton(TXT_HELP);
 
 		jbtnSignIn.addActionListener(new AbstractAction() {
 			@Override
