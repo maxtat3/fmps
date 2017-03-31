@@ -27,6 +27,7 @@ public class StartFrame implements StartFrameController.StartFrameCallback{
 
 	private void addComponentToPane(Container contentPane) {
 		JPanel jpMain = new JPanel();
+		jpMain.setLayout(new BoxLayout(jpMain, BoxLayout.Y_AXIS));
 		JButton jbtnSignIn = new JButton("Войти");
 		JButton jbtnNewStudent = new JButton("Новый студент");
 		JButton jbtnHelp = new JButton("Помощь");
