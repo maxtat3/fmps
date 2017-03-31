@@ -34,7 +34,7 @@ public class StartFrameController implements SignInDialog.SignInDialogCallback {
 		if (isCorrectInputData) {
 			boolean isUserPresentInDB = DBUtils.findUser(lastName, Integer.parseInt(new String(numberOfRecordBook)));
 			if (isUserPresentInDB) {
-				new StudentCardFrame();
+				// start stage selector frame
 				uiFrame.closeThisFrame();
 			} else {
 				uiFrame.setMsg(TXT_USER_DOT_PREV_REGISTERED);

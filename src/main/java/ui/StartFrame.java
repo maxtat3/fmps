@@ -5,6 +5,7 @@ import controller.StartFrameController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -45,7 +46,24 @@ public class StartFrame implements StartFrameController.StartFrameCallback{
 			}
 		});
 
+		jbtnNewStudent.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new StudentCardFrame();
+				closeThisWindow();
+			}
+		});
+
+		jbtnHelp.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// start help frame
+			}
+		});
+
 		jpMain.add(jbtnSignIn);
+		jpMain.add(jbtnNewStudent);
+		jpMain.add(jbtnHelp);
 		jpMain.add(jlMsg);
 		contentPane.add(jpMain, BorderLayout.PAGE_START);
 	}
