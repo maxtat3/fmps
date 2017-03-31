@@ -26,6 +26,11 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 	public static final String TXT_STAGE_1_MAIN_PANEL_NAME = "Химический состав элементов";
 	public static final String TXT_TAB_1_NAME = "Задача 1";
 	public static final String TXT_TAB_1_TOOL_TIP = "Расчет процессов испарения металлов при сварке плавлением";
+	public static final String TXT_PRESSURE_ENV = "Давление окружающей среды (Па): ";
+	public static final String TXT_SURFACE_WELD_AREA = "Площадь свободной поверхности сварочной ванны (см2): ";
+	public static final String TXT_WEIGHT_MOLTEN_METAL = "Масса расплавленного металла (гр.): ";
+	public static final String TXT_TEMPERATURE = "Температура расчета (град. Цельсия °C): ";
+	public static final String TXT_TIME = "Время нахождения сплава в жидком состоянии (c): ";
 
 	private JFrame studentCardFrame = new JFrame(TXT_STUDENT_CARD);
 	private StudentCardFrameController controller;
@@ -103,8 +108,47 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		}
 
 
+		JPanel jpPressureEnv = new JPanel();
+		JPanel jpSurfaceWeldArea = new JPanel();
+		JPanel jpWeightMoltenMetal = new JPanel();
+		JPanel jpTemperature = new JPanel();
+		JPanel jpTime = new JPanel();
+
+		final JTextField jtfPressureEnv = new JTextField(4);
+		JTextField jtfSurfaceWeldArea = new JTextField(4);
+		JTextField jtfWeightMoltenMetal = new JTextField(4);
+		JTextField jtfTemperature = new JTextField(4);
+		JTextField jtfTime = new JTextField(4);
+
+		jtfPressureEnv.setName(TXT_PRESSURE_ENV);
+		jtfSurfaceWeldArea.setName(TXT_SURFACE_WELD_AREA);
+		jtfWeightMoltenMetal.setName(TXT_WEIGHT_MOLTEN_METAL);
+		jtfTemperature.setName(TXT_TEMPERATURE);
+		jtfTime.setName(TXT_TIME);
+
+		jpPressureEnv.add(new JLabel(TXT_PRESSURE_ENV));
+		jpPressureEnv.add(jtfPressureEnv);
+		jpSurfaceWeldArea.add(new JLabel(TXT_SURFACE_WELD_AREA));
+		jpSurfaceWeldArea.add(jtfSurfaceWeldArea);
+		jpWeightMoltenMetal.add(new JLabel(TXT_WEIGHT_MOLTEN_METAL));
+		jpWeightMoltenMetal.add(jtfWeightMoltenMetal);
+		jpTemperature.add(new JLabel(TXT_TEMPERATURE));
+		jpTemperature.add(jtfTemperature);
+		jpTime.add(new JLabel(TXT_TIME));
+		jpTime.add(jtfTime);
+
+		JPanel jpExtraInputData = new JPanel();
+		jpExtraInputData.setLayout(new BoxLayout(jpExtraInputData, BoxLayout.Y_AXIS));
+		jpExtraInputData.add(jpPressureEnv);
+		jpExtraInputData.add(jpSurfaceWeldArea);
+		jpExtraInputData.add(jpWeightMoltenMetal);
+		jpExtraInputData.add(jpTemperature);
+		jpExtraInputData.add(jpTime);
+
+
 		jpElementsStage1.setLayout(new FlowLayout());
 		jpElementsStage1.add(jpRows);
+		jpElementsStage1.add(jpExtraInputData);
 
 		jpDirection.setLayout(new FlowLayout());
 		jpDirection.add(jbtnOk);
@@ -129,6 +173,9 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 				for (JTextField jtf : jtfAlloyComWeightsStage1) {
 					if (isShowWarning(controller.validateInputData(jtf, StudentCardFrameController.ValidatorVariant.IS_NUMBER))) return;
 				}
+
+				if (isShowWarning(controller.validateInputData(jtfPressureEnv, StudentCardFrameController.ValidatorVariant.IS_NUMBER)))
+					return;
 				System.out.println("start tasks frame");
 			}
 		});
