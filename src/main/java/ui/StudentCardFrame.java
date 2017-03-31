@@ -19,12 +19,19 @@ public class StudentCardFrame {
 	public static final String TXT_STUDENT_CARD = "Карточка студента";
 	public static final String TXT_MAIN_ELEMENTS = "Основные элементы:";
 	public static final String TXT_ACCESSORY_ELEMENTS = "Дополнительные элементы:";
+	public static final String TXT_USER_FIRST_NAME = "Имя: ";
+	public static final String TXT_USER_MIDDLE_NAME = "Отчество: ";
+	public static final String TXT_USER_LAST_NAME = "Фамилия: ";
+	public static final String TXT_USER_NUM_OF_REC_BOOK = "Номер группы: ";
+	public static final String TXT_STAGE_1_MAIN_PANEL_NAME = "Химический состав элементов";
+	public static final String TXT_TAB_1_NAME = "Задача 1";
+	public static final String TXT_TAB_1_TOOL_TIP = "Расчет процессов испарения металлов при сварке плавлением";
 
 	private JFrame studentCardFrame = new JFrame(TXT_STUDENT_CARD);
 	private StudentCardFrameController controller;
 
-	private JPanel jpMain = new JPanel();
-	private JPanel jpElements = new JPanel();
+	private JPanel jpUserData = new JPanel();
+	private JPanel jpElementsStage1 = new JPanel();
 	private JPanel jpDirection = new JPanel();
 	private JButton jbtnOk = new JButton("Ok");
 	private JButton jbtnCancel = new JButton("Cancel");
@@ -32,18 +39,31 @@ public class StudentCardFrame {
 	private java.util.List<JTextField> jtfAlloyComWeights = new ArrayList<>();
 
 
-	public StudentCardFrame() {
-		studentCardFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		addComponentToPane(studentCardFrame.getContentPane());
-		studentCardFrame.setPreferredSize(new Dimension(500, 500));
-		studentCardFrame.pack();
-		studentCardFrame.setLocationRelativeTo(null);
-		studentCardFrame.setVisible(true);
-
-		controller = new StudentCardFrameController(studentCardFrame, this);
-	}
-
 	private void addComponentToPane(Container contentPane) {
+		JTextField jtfFirstName = new JTextField(10); // Имя
+		JTextField jtfMiddleName = new JTextField(12); // Отчество
+		JTextField jtfLastName = new JTextField(12); // Фамилия
+		JTextField jtfNumOfRecBook = new JTextField(10);
+		JPanel jpFirstName = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel jpMiddleName = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel jpLastName = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel jpNumOfRecBook = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+		jpFirstName.add(new JLabel(TXT_USER_FIRST_NAME));
+		jpFirstName.add(jtfFirstName);
+		jpMiddleName.add(new JLabel(TXT_USER_MIDDLE_NAME));
+		jpMiddleName.add(jtfMiddleName);
+		jpLastName.add(new JLabel(TXT_USER_LAST_NAME));
+		jpLastName.add(jtfLastName);
+		jpNumOfRecBook.add(new JLabel(TXT_USER_NUM_OF_REC_BOOK));
+		jpNumOfRecBook.add(jtfNumOfRecBook);
+
+		jpUserData.setLayout(new BoxLayout(jpUserData, BoxLayout.Y_AXIS));
+		jpUserData.add(jpLastName);
+		jpUserData.add(jpMiddleName);
+		jpUserData.add(jpFirstName);
+		jpUserData.add(jpNumOfRecBook);
+
 		java.util.List<GeneralElementStage1> basicElements = new ArrayList<>(); // все основные элементы
 		java.util.List<GeneralElementStage1> accessoryElements = new ArrayList<>(); // все дополнительне элементы
 		for(GeneralElementStage1 el : model.Container.getInstance().getStage1().getAllElements()) {
@@ -68,8 +88,8 @@ public class StudentCardFrame {
 		}
 
 
-		jpElements.setLayout(new FlowLayout());
-		jpElements.add(jpRows);
+		jpElementsStage1.setLayout(new FlowLayout());
+		jpElementsStage1.add(jpRows);
 
 		jpDirection.setLayout(new FlowLayout());
 		jpDirection.add(jbtnOk);
@@ -85,17 +105,30 @@ public class StudentCardFrame {
 		});
 
 		// set settings for created panels
-		jpElements.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Химический состав элементов"
+		jpElementsStage1.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), TXT_STAGE_1_MAIN_PANEL_NAME
 		));
 
-
-		jpMain.add(jpElements, BorderLayout.CENTER);
-		jpMain.add(jpDirection, BorderLayout.CENTER);
+		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane.addTab(TXT_TAB_1_NAME, null, jpElementsStage1, TXT_TAB_1_TOOL_TIP);
+//		tabbedPane.addTab("Задача 2", null, jpUserData, "tooltip tab 2");
+//		tabbedPane.addTab("Задача 3", null, panelTab3, "tooltip tab 3");
 
 		// add main panel to main frame
-		jpMain.setLayout(new BoxLayout(jpMain, BoxLayout.Y_AXIS));
-		contentPane.add(jpMain);
+		contentPane.add(jpUserData, BorderLayout.NORTH);
+		contentPane.add(tabbedPane, BorderLayout.CENTER);
+		contentPane.add(jpDirection, BorderLayout.SOUTH);
+	}
+
+	public StudentCardFrame() {
+		studentCardFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		addComponentToPane(studentCardFrame.getContentPane());
+		studentCardFrame.setPreferredSize(new Dimension(500, 500));
+		studentCardFrame.pack();
+		studentCardFrame.setLocationRelativeTo(null);
+		studentCardFrame.setVisible(true);
+
+		controller = new StudentCardFrameController(studentCardFrame, this);
 	}
 
 	private void addRowsToPanel(JPanel jpRows, GeneralElementStage1 el) {
