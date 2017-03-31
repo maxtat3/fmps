@@ -9,12 +9,13 @@ import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.List;
 
 /**
  *
  */
-public class StudentCardFrame {
+public class StudentCardFrame implements StudentCardFrameController.StudentCardFrameCallback{
 
 	public static final String TXT_STUDENT_CARD = "Карточка студента";
 	public static final String TXT_MAIN_ELEMENTS = "Основные элементы:";
@@ -30,6 +31,9 @@ public class StudentCardFrame {
 	private JFrame studentCardFrame = new JFrame(TXT_STUDENT_CARD);
 	private StudentCardFrameController controller;
 
+	private List<GeneralElementStage1> basicElementsStage1;
+	private List<GeneralElementStage1> accessoryElementsStage1;
+
 	private JPanel jpUserData = new JPanel();
 	private JPanel jpElementsStage1 = new JPanel();
 	private JPanel jpDirection = new JPanel();
@@ -38,6 +42,17 @@ public class StudentCardFrame {
 
 	private java.util.List<JTextField> jtfAlloyComWeights = new ArrayList<>();
 
+
+	public StudentCardFrame() {
+		controller = new StudentCardFrameController(studentCardFrame, this);
+
+		studentCardFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		addComponentToPane(studentCardFrame.getContentPane());
+		studentCardFrame.setPreferredSize(new Dimension(500, 500));
+		studentCardFrame.pack();
+		studentCardFrame.setLocationRelativeTo(null);
+		studentCardFrame.setVisible(true);
+	}
 
 	private void addComponentToPane(Container contentPane) {
 		JTextField jtfFirstName = new JTextField(10); // Имя
@@ -64,27 +79,18 @@ public class StudentCardFrame {
 		jpUserData.add(jpFirstName);
 		jpUserData.add(jpNumOfRecBook);
 
-		java.util.List<GeneralElementStage1> basicElements = new ArrayList<>(); // все основные элементы
-		java.util.List<GeneralElementStage1> accessoryElements = new ArrayList<>(); // все дополнительне элементы
-		for(GeneralElementStage1 el : model.Container.getInstance().getStage1().getAllElements()) {
-			if (((BaseElementStage1) el).isBasic()) {
-				basicElements.add(el);
-			} else {
-				accessoryElements.add(el);
-			}
-		}
 
 		JPanel jpRows = new JPanel();
 		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
 
 		jpRows.add(new JLabel(TXT_MAIN_ELEMENTS));
-		for (GeneralElementStage1 basicElement : basicElements) {
-			addRowsToPanel(jpRows, basicElement);
+		for (GeneralElementStage1 el : basicElementsStage1) {
+			addRowsToPanel(jpRows, el);
 		}
 
 		jpRows.add(new JLabel(TXT_ACCESSORY_ELEMENTS));
-		for (GeneralElementStage1 accessoryElement : accessoryElements) {
-			addRowsToPanel(jpRows, accessoryElement);
+		for (GeneralElementStage1 el : accessoryElementsStage1) {
+			addRowsToPanel(jpRows, el);
 		}
 
 
@@ -128,17 +134,6 @@ public class StudentCardFrame {
 		contentPane.add(jpDirection, BorderLayout.SOUTH);
 	}
 
-	public StudentCardFrame() {
-		studentCardFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		addComponentToPane(studentCardFrame.getContentPane());
-		studentCardFrame.setPreferredSize(new Dimension(500, 500));
-		studentCardFrame.pack();
-		studentCardFrame.setLocationRelativeTo(null);
-		studentCardFrame.setVisible(true);
-
-		controller = new StudentCardFrameController(studentCardFrame, this);
-	}
-
 	private void addRowsToPanel(JPanel jpRows, GeneralElementStage1 el) {
 		JLabel jlElementName = new JLabel(el.toString() + " : ");
 		JTextField jtfElementVal = new JTextField();
@@ -158,5 +153,15 @@ public class StudentCardFrame {
 	private void closeThisWindow(){
 		studentCardFrame.setVisible(false);
 		studentCardFrame.dispose();
+	}
+
+	@Override
+	public void receiveAllBasicElementsStage1(List<GeneralElementStage1> elements) {
+		basicElementsStage1 = elements;
+	}
+
+	@Override
+	public void receiveAllAccessoryElementsStage1(List<GeneralElementStage1> elements) {
+		accessoryElementsStage1 = elements;
 	}
 }
