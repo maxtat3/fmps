@@ -39,6 +39,10 @@ public class StartFrameController implements SignInDialog.SignInDialogCallback {
 			uiFrame.setMsg("Поле Фамилия не должно быть пустым !");
 			return false;
 		}
+		if (Utils.isEmpty(number)) {
+			uiFrame.setMsg("Поле Номер зачетной книжки не должно быть пустым !");
+			return false;
+		}
 		if (!Utils.isLettersOnly(name)) {
 			uiFrame.setMsg("В поле Фамилия разрешены только буквы !");
 			return false;
