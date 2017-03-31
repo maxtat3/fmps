@@ -1,7 +1,6 @@
 package ui;
 
 import controller.StudentCardFrameController;
-import stage1.elements.BaseElementStage1;
 import stage1.elements.GeneralElementStage1;
 
 import javax.swing.*;
@@ -41,7 +40,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 	private JButton jbtnCancel = new JButton("Cancel");
 	private JLabel jlMsg = new JLabel();
 
-	private java.util.List<JTextField> jtfAlloyComWeights = new ArrayList<>();
+	private java.util.List<JTextField> jtfAlloyComWeightsStage1 = new ArrayList<>();
 
 
 	public StudentCardFrame() {
@@ -114,7 +113,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		jbtnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for (JTextField jtf : jtfAlloyComWeights) {
+				for (JTextField jtf : jtfAlloyComWeightsStage1) {
 					System.out.println(jtf.getName() + " : " + jtf.getText());
 				}
 
@@ -127,10 +126,10 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 				if (isShowWarning(controller.validateInputData(jtfNumOfRecBook, StudentCardFrameController.ValidatorVariant.IS_NUMBER)))
 					return;
 
-				for (JTextField jtf : jtfAlloyComWeights) {
+				for (JTextField jtf : jtfAlloyComWeightsStage1) {
 					if (isShowWarning(controller.validateInputData(jtf, StudentCardFrameController.ValidatorVariant.IS_NUMBER))) return;
 				}
-
+				System.out.println("start tasks frame");
 			}
 		});
 
@@ -163,7 +162,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		JTextField jtfElementVal = new JTextField();
 		jtfElementVal.setColumns(4);
 		jtfElementVal.setName(el.toString());
-		jtfAlloyComWeights.add(jtfElementVal);
+		jtfAlloyComWeightsStage1.add(jtfElementVal);
 		JLabel jlPercent = new JLabel(" %");
 
 		JPanel jpItems = new JPanel();
