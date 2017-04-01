@@ -40,13 +40,13 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 	private List<GeneralElementStage1> accessoryElementsStage1;
 
 	private JPanel jpUserData = new JPanel();
-	private JPanel jpElementsStage1 = new JPanel();
+	private JPanel jpInputDataStage1 = new JPanel();
 	private JPanel jpDirection = new JPanel();
 	private JButton jbtnOk = new JButton("Ok");
 	private JButton jbtnCancel = new JButton("Cancel");
 	private JLabel jlMsg = new JLabel();
 
-	private java.util.List<JTextField> jtfAlloyComWeightsStage1 = new ArrayList<>();
+	private java.util.List<JTextField> jtfList = new ArrayList<>();
 
 
 	public StudentCardFrame() {
@@ -102,12 +102,12 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 
 		jpRows.add(new JLabel(TXT_MAIN_ELEMENTS));
 		for (GeneralElementStage1 el : basicElementsStage1) {
-			addRowsToPanel(jpRows, el);
+			addRowsInputDataToPanel(jpRows, jtfList, el);
 		}
 
 		jpRows.add(new JLabel(TXT_ACCESSORY_ELEMENTS));
 		for (GeneralElementStage1 el : accessoryElementsStage1) {
-			addRowsToPanel(jpRows, el);
+			addRowsInputDataToPanel(jpRows, jtfList, el);
 		}
 
 		// Extra input data for stage 1 (tab 1)
@@ -148,10 +148,10 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		jpExtraInputData.add(jpTemperature);
 		jpExtraInputData.add(jpTime);
 
-		jpElementsStage1.setLayout(new FlowLayout());
-		jpElementsStage1.add(jpRows);
-		jpElementsStage1.add(jpExtraInputData);
-		jpElementsStage1.setBorder(BorderFactory.createTitledBorder(
+		jpInputDataStage1.setLayout(new FlowLayout());
+		jpInputDataStage1.add(jpRows);
+		jpInputDataStage1.add(jpExtraInputData);
+		jpInputDataStage1.setBorder(BorderFactory.createTitledBorder(
 			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), TXT_STAGE_1_MAIN_PANEL_NAME
 		));
 
@@ -164,7 +164,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		jbtnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for (JTextField jtf : jtfAlloyComWeightsStage1) {
+				for (JTextField jtf : jtfList) {
 					if (Utils.isEmpty(jtf.getText())) jtf.setText("0");
 				}
 
@@ -177,7 +177,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 				if (isShowWarning(controller.validateInputData(jtfNumOfRecBook, StudentCardFrameController.ValidatorVariant.IS_NUMBER)))
 					return;
 
-				for (JTextField jtf : jtfAlloyComWeightsStage1) {
+				for (JTextField jtf : jtfList) {
 					if (isShowWarning(controller.validateInputData(jtf, StudentCardFrameController.ValidatorVariant.IS_NUMBER))) return;
 				}
 
@@ -206,7 +206,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 
 		// Forming tabs for each stage
 		JTabbedPane tabbedPane = new JTabbedPane();
-		tabbedPane.addTab(TXT_TAB_1_NAME, null, jpElementsStage1, TXT_TAB_1_TOOL_TIP);
+		tabbedPane.addTab(TXT_TAB_1_NAME, null, jpInputDataStage1, TXT_TAB_1_TOOL_TIP);
 //		tabbedPane.addTab("Задача 2", null, jpUserData, "tooltip tab 2");
 //		tabbedPane.addTab("Задача 3", null, panelTab3, "tooltip tab 3");
 
@@ -216,17 +216,17 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		contentPane.add(jpDirection, BorderLayout.SOUTH);
 	}
 
-	private void addRowsToPanel(JPanel jpRows, GeneralElementStage1 el) {
-		JLabel jlElementName = new JLabel(el.toString() + " : ");
-		JTextField jtfElementVal = new JTextField();
-		jtfElementVal.setColumns(4);
-		jtfElementVal.setName(el.toString());
-		jtfAlloyComWeightsStage1.add(jtfElementVal);
+	private void addRowsInputDataToPanel(JPanel jpRows, List<JTextField> jtfList, GeneralElementStage1 el) {
+		JLabel jlElName = new JLabel(el.toString() + " : ");
+		JTextField jtfElVal = new JTextField();
+		jtfElVal.setColumns(4);
+		jtfElVal.setName(el.toString());
+		jtfList.add(jtfElVal);
 		JLabel jlPercent = new JLabel(" %");
 
 		JPanel jpItems = new JPanel();
-		jpItems.add(jlElementName);
-		jpItems.add(jtfElementVal);
+		jpItems.add(jlElName);
+		jpItems.add(jtfElVal);
 		jpItems.add(jlPercent);
 
 		jpRows.add(jpItems);
