@@ -1,12 +1,12 @@
 package stage2.elements;
 
 /**
- * Углерод
+ * Кислород
  */
-public class C {
+public class O {
 
 	@Override
 	public String toString() {
-		return "C";
+		return "O";
 	}
 }
