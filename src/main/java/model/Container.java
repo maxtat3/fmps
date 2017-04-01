@@ -3,8 +3,9 @@ package model;
 import stage1.CalcDataStage1;
 import stage1.ExtraInputDataStage1;
 import stage1.elements.*;
-import stage2.elements.CO2;
-import stage2.elements.O2;
+import stage2.CalcDataStage2;
+import stage2.ExtraInputDataStage2;
+import stage2.elements.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,7 @@ public class Container {
 
 	public class Stage1 {
 		private Fe fe;
-		private C c;
+		private stage1.elements.C c; // todo - may be renamed to cSt2 in order avoid with C element in stage 1
 		private Mn mn;
 		private Al al;
 		private Si si;
@@ -55,7 +56,7 @@ public class Container {
 
 		public Stage1() {
 			fe = new Fe();
-			c = new C();
+			c = new stage1.elements.C();
 			mn = new Mn();
 			al = new Al();
 			si = new Si();
@@ -68,7 +69,7 @@ public class Container {
 			return fe;
 		}
 
-		public C getC() {
+		public stage1.elements.C getC() {
 			return c;
 		}
 
@@ -109,22 +110,69 @@ public class Container {
 	}
 
 	public class Stage2 {
-		private O2 o2;
+		private Ar ar;
 		private CO2 co2;
+		private O2 o2;
+		private CO co;
+		private O o;
+		private stage2.elements.C c;
+		ExtraInputDataStage2 extraInputDataStage2;
+		CalcDataStage2 calcDataStage2;
 
 		public Stage2() {
-			o2 = new O2();
+			ar = new Ar();
 			co2 = new CO2();
-			System.out.println("created stage 2 object");
+			o2 = new O2();
+			co = new CO();
+			o = new O();
+			c = new stage2.elements.C();
+			extraInputDataStage2 = new ExtraInputDataStage2();
+			calcDataStage2 = new CalcDataStage2();
+		}
+
+		public Ar getAr() {
+			return ar;
+		}
+
+		public CO2 getCo2() {
+			return co2;
 		}
 
 		public O2 getO2() {
 			return o2;
 		}
 
-		public CO2 getCo2() {
-			return co2;
+		public CO getCo() {
+			return co;
 		}
+
+		public O getO() {
+			return o;
+		}
+
+		public stage2.elements.C getC() {
+			return c;
+		}
+
+		public ExtraInputDataStage2 getExtraInputDataStage2() {
+			return extraInputDataStage2;
+		}
+
+		public CalcDataStage2 getCalcDataStage2() {
+			return calcDataStage2;
+		}
+
+		public List<GeneralElementStage2> getAllElements() {
+			List<GeneralElementStage2> list = new ArrayList<>();
+			list.add(ar);
+			list.add(co2);
+			list.add(o2);
+			list.add(co);
+			list.add(o);
+			list.add(c);
+			return list;
+		}
+
 	}
 
 }
