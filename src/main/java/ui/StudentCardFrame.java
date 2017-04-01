@@ -61,6 +61,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 	}
 
 	private void addComponentToPane(final Container contentPane) {
+		// User data
 		JPanel jpMsg = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JPanel jpFirstName = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JPanel jpMiddleName = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -95,6 +96,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		jpUserData.add(jpNumOfRecBook);
 
 
+		// Elements for stage 1 (tab 1)
 		JPanel jpRows = new JPanel();
 		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
 
@@ -108,7 +110,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 			addRowsToPanel(jpRows, el);
 		}
 
-
+		// Extra input data for stage 1 (tab 1)
 		JPanel jpPressureEnv = new JPanel();
 		JPanel jpSurfaceWeldArea = new JPanel();
 		JPanel jpWeightMoltenMetal = new JPanel();
@@ -146,15 +148,19 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		jpExtraInputData.add(jpTemperature);
 		jpExtraInputData.add(jpTime);
 
-
 		jpElementsStage1.setLayout(new FlowLayout());
 		jpElementsStage1.add(jpRows);
 		jpElementsStage1.add(jpExtraInputData);
+		jpElementsStage1.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), TXT_STAGE_1_MAIN_PANEL_NAME
+		));
 
+		// Directions - buttons Ok and Cancel
 		jpDirection.setLayout(new FlowLayout());
 		jpDirection.add(jbtnOk);
 		jpDirection.add(jbtnCancel);
 
+		// Add listeners to directions buttons
 		jbtnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -197,11 +203,8 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 			}
 		});
 
-		// set settings for created panels
-		jpElementsStage1.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), TXT_STAGE_1_MAIN_PANEL_NAME
-		));
 
+		// Forming tabs for each stage
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.addTab(TXT_TAB_1_NAME, null, jpElementsStage1, TXT_TAB_1_TOOL_TIP);
 //		tabbedPane.addTab("Задача 2", null, jpUserData, "tooltip tab 2");
