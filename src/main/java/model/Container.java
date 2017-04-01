@@ -62,8 +62,6 @@ public class Container {
 			ti = new Ti();
 			extraInputDataStage1 = new ExtraInputDataStage1();
 			extraCalcDataStage1 = new ExtraCalcDataStage1();
-			extraInputDataStage1.setSurfaceWeldArea(4.6);
-			System.out.println("created stage 1 object");
 		}
 
 		public Fe getFe() {
