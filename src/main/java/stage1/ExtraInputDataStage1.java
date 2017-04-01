@@ -21,12 +21,12 @@ public class ExtraInputDataStage1 {
 	private double weightMoltenMetal;
 
 	/**
-	 * Температура расчета (граж. Цельсия)
+	 * Температура расчета (град. Цельсия)
 	 */
 	private int temperature;
 
 	/**
-	 * Температура расчета (c)
+	 * Время нахождения сплава в жидком состоянии (с)
 	 */
 	private double time;
 
