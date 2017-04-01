@@ -143,7 +143,7 @@ public class Calc {
 		for (double v : ht0minh2980mulni) {
 			enthalpyLiquidAlloySum += v;
 		}
-		Container.getInstance().getStage1().getExtraCalcDataStage1().setEnthalpyLiquidAlloy(enthalpyLiquidAlloySum);
+		Container.getInstance().getStage1().getCalcDataStage1().setEnthalpyLiquidAlloy(enthalpyLiquidAlloySum);
 		System.out.println("enthalpyLiquidAlloySum = " + enthalpyLiquidAlloySum);
 	}
 
@@ -175,7 +175,7 @@ public class Calc {
 		for (double v : deHboil0mulNi) {
 			enthalpyVaporizationSum += v;
 		}
-		Container.getInstance().getStage1().getExtraCalcDataStage1().setEnthalpyVaporization(enthalpyVaporizationSum);
+		Container.getInstance().getStage1().getCalcDataStage1().setEnthalpyVaporization(enthalpyVaporizationSum);
 		System.out.println("enthalpyVaporizationSum = " + enthalpyVaporizationSum);
 	}
 
@@ -184,10 +184,10 @@ public class Calc {
 	 * Формула 2.3
 	 */
 	public void findEnthalpyVapor(){
-		double enthalpyLiquidAlloy = Container.getInstance().getStage1().getExtraCalcDataStage1().getEnthalpyLiquidAlloy();
-		double enthalpyVaporization = Container.getInstance().getStage1().getExtraCalcDataStage1().getEnthalpyVaporization();
+		double enthalpyLiquidAlloy = Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyLiquidAlloy();
+		double enthalpyVaporization = Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyVaporization();
 		double enthalpyVapor = enthalpyLiquidAlloy + enthalpyVaporization;
-		Container.getInstance().getStage1().getExtraCalcDataStage1().setEnthalpyVapor(enthalpyVapor);
+		Container.getInstance().getStage1().getCalcDataStage1().setEnthalpyVapor(enthalpyVapor);
 		System.out.println("enthalpyVapor = " + enthalpyVapor);
 	}
 
@@ -275,7 +275,7 @@ public class Calc {
 			}
 		}
 
-		Container.getInstance().getStage1().getExtraCalcDataStage1().setVaporPressureOverAlloy(vaporPressureOverAlloy);
+		Container.getInstance().getStage1().getCalcDataStage1().setVaporPressureOverAlloy(vaporPressureOverAlloy);
 		System.out.println("vaporPressureOverAlloy = " + vaporPressureOverAlloy);
 	}
 
@@ -286,7 +286,7 @@ public class Calc {
 	 * @param userElements список элементов из задания пользователя
 	 */
 	public void findMoleFractionEachElemInVapor(List<GeneralElementStage1> userElements){
-		double vaporPressureOverAlloy = Container.getInstance().getStage1().getExtraCalcDataStage1().getVaporPressureOverAlloy();
+		double vaporPressureOverAlloy = Container.getInstance().getStage1().getCalcDataStage1().getVaporPressureOverAlloy();
 		double partialPressureCompsOverAlloy;
 		double moleFractionEachElemInVapor; // find value
 
@@ -382,7 +382,7 @@ public class Calc {
 			}
 		}
 
-		Container.getInstance().getStage1().getExtraCalcDataStage1().setDecreaseMoltenMetalDueVaporization(sum);
+		Container.getInstance().getStage1().getCalcDataStage1().setDecreaseMoltenMetalDueVaporization(sum);
 		System.out.println("deltaVm = " + sum);
 	}
 

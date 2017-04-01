@@ -1,6 +1,6 @@
 package model;
 
-import stage1.ExtraCalcDataStage1;
+import stage1.CalcDataStage1;
 import stage1.elements.*;
 import stage2.elements.CO2;
 import stage2.elements.O2;
@@ -51,7 +51,7 @@ public class Container {
 		private Si si;
 		private Ti ti;
 		private ExtraInputDataStage1 extraInputDataStage1;
-		private ExtraCalcDataStage1 extraCalcDataStage1;
+		private CalcDataStage1 calcDataStage1;
 
 		public Stage1() {
 			fe = new Fe();
@@ -61,7 +61,7 @@ public class Container {
 			si = new Si();
 			ti = new Ti();
 			extraInputDataStage1 = new ExtraInputDataStage1();
-			extraCalcDataStage1 = new ExtraCalcDataStage1();
+			calcDataStage1 = new CalcDataStage1();
 		}
 
 		public Fe getFe() {
@@ -92,8 +92,8 @@ public class Container {
 			return extraInputDataStage1;
 		}
 
-		public ExtraCalcDataStage1 getExtraCalcDataStage1() {
-			return extraCalcDataStage1;
+		public CalcDataStage1 getCalcDataStage1() {
+			return calcDataStage1;
 		}
 
 		public List<GeneralElementStage1> getAllElements() {
