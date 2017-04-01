@@ -18,7 +18,7 @@ public class Utils {
 	 * @return <tt>true<tt/> - is string contains only digits
 	 */
 	public static boolean isNumber(final String strNum) {
-		if(strNum == null || strNum.isEmpty()) return false;
+		if(strNum == null) return false;
 
 		int dotCommaSym = 0, fdSym = 0;
 		ArrayList<Boolean> boolNumbers = new ArrayList<>(strNum.length());
