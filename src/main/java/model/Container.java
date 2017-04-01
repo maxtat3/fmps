@@ -1,10 +1,10 @@
 package model;
 
 import stage1.CalcDataStage1;
+import stage1.ExtraInputDataStage1;
 import stage1.elements.*;
 import stage2.elements.CO2;
 import stage2.elements.O2;
-import stage1.ExtraInputDataStage1;
 
 import java.util.ArrayList;
 import java.util.List;
