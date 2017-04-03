@@ -26,8 +26,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 	public static final String TXT_USER_MIDDLE_NAME = "Отчество: ";
 	public static final String TXT_USER_LAST_NAME = "Фамилия: ";
 	public static final String TXT_USER_NUM_OF_REC_BOOK = "Номер группы: ";
-	public static final String TXT_STAGE_1_MAIN_PANEL_NAME = "Химический состав элементов";
-	public static final String TXT_STAGE_2_MAIN_PANEL_NAME = "Входные данные";
+	public static final String TXT_TABS_PANEL_NAME = "Входные данные";
 	public static final String TXT_TAB_1_NAME = "Задача 1";
 	public static final String TXT_TAB_2_NAME = "Задача 2";
 	public static final String TXT_TAB_1_TOOL_TIP = "Расчет процессов испарения металлов при сварке плавлением";
@@ -162,7 +161,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		jpInputDataStage1.add(jpRows);
 		jpInputDataStage1.add(jpExtraInputData);
 		jpInputDataStage1.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), TXT_STAGE_1_MAIN_PANEL_NAME
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), TXT_TABS_PANEL_NAME
 		));
 
 
@@ -192,7 +191,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		jpInputDataStage2.add(jpRowsStage2);
 		jpInputDataStage2.add(jpExtraInputDataStage2);
 		jpInputDataStage2.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), TXT_STAGE_2_MAIN_PANEL_NAME
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), TXT_TABS_PANEL_NAME
 		));
 
 
