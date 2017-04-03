@@ -53,7 +53,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 	private JLabel jlMsg = new JLabel();
 
 	/**
-	 * Added {@link JTextField} in this list used for validate input data only !
+	 * Added {@link JTextField} in this list used for validate input data only for all stages !
 	 */
 	private java.util.List<JTextField> jtfList = new ArrayList<>();
 
@@ -177,7 +177,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		// Extra input data for stage 2 (tab 2)
 		JPanel jpTemperatureStage2 = new JPanel();
 
-		JTextField jtfTemperatureStage2 = new JTextField(4);
+		final JTextField jtfTemperatureStage2 = new JTextField(4);
 		jtfTemperatureStage2.setName(TXT_TEMPERATURE);
 
 		jpTemperatureStage2.add(new JLabel(TXT_TEMPERATURE));
@@ -204,10 +204,12 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		jbtnOk.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// Set default values [0] in elements, gases fields
 				for (JTextField jtf : jtfList) {
 					if (Utils.isEmpty(jtf.getText())) jtf.setText("0");
 				}
 
+				// Validations user input data
 				if (isShowWarning(controller.validateInputData(jtfLastName, StudentCardFrameController.ValidatorVariant.IS_TEXT)))
 					return;
 				if (isShowWarning(controller.validateInputData(jtfFirstName, StudentCardFrameController.ValidatorVariant.IS_TEXT)))
@@ -217,10 +219,12 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 				if (isShowWarning(controller.validateInputData(jtfNumOfRecBook, StudentCardFrameController.ValidatorVariant.IS_NUMBER)))
 					return;
 
+				// Validations input fields for all stages
 				for (JTextField jtf : jtfList) {
 					if (isShowWarning(controller.validateInputData(jtf, StudentCardFrameController.ValidatorVariant.IS_NUMBER))) return;
 				}
 
+				// Validations extra input fields for stage 1
 				if (isShowWarning(controller.validateInputData(jtfPressureEnv, StudentCardFrameController.ValidatorVariant.IS_NUMBER)))
 					return;
 				if (isShowWarning(controller.validateInputData(jtfSurfaceWeldArea, StudentCardFrameController.ValidatorVariant.IS_NUMBER)))
@@ -231,7 +235,12 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 					return;
 				if (isShowWarning(controller.validateInputData(jtfTime, StudentCardFrameController.ValidatorVariant.IS_NUMBER)))
 					return;
-				System.out.println("start tasks frame");
+
+				// Validations extra input fields for stage 2
+				if (isShowWarning(controller.validateInputData(jtfTemperatureStage2, StudentCardFrameController.ValidatorVariant.IS_NUMBER)))
+					return;
+
+				System.out.println("If all input data is correct - start tasks frame");
 			}
 		});
 
