@@ -423,6 +423,12 @@ public class DBUtils {
 		return countRecords;
 	}
 
+	// todo - refactoring - simplify at next sql "SELECT id FROM " + TABLE_FMPS_MAIN + " WHERE id = (SELECT MAX(id) FROM " + TABLE_FMPS_MAIN + ")";
+	/**
+	 * Get last user id in table {@link #TABLE_FMPS_MAIN}.
+	 *
+	 * @return last user id
+	 */
 	public static int getLatestUserIdInMainTable(){
 		int id = -1;
 		Statement stmt = sqlExecutor(SqlAction.PREPARE);
