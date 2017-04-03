@@ -1,6 +1,8 @@
 package controller;
 
 import app.Utils;
+import db.DBUtils;
+import domain.User;
 import model.Container;
 import stage1.elements.BaseElementStage1;
 import stage1.elements.GeneralElementStage1;
@@ -98,6 +100,13 @@ public class StudentCardFrameController {
 
 	public enum ValidatorVariant {
 		IS_TEXT, IS_NUMBER
+	}
+
+	/**
+	 * Save user data in internal app DB
+	 */
+	public void saveUser(User user){
+		DBUtils.addNewUser(user.getFirstName(), user.getMiddleName(), user.getLastName(), user.getNumberOfRecordBook());
 	}
 
 

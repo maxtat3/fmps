@@ -2,6 +2,7 @@ package ui;
 
 import app.Utils;
 import controller.StudentCardFrameController;
+import domain.User;
 import stage1.elements.GeneralElementStage1;
 import stage2.elements.GeneralElementStage2;
 
@@ -241,6 +242,8 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 					return;
 
 				System.out.println("If all input data is correct - start tasks frame");
+				controller.saveUser( new User(jtfFirstName.getText(), jtfMiddleName.getText(), jtfLastName.getText(),
+					Integer.parseInt(jtfNumOfRecBook.getText())) );
 			}
 		});
 
