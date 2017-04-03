@@ -7,6 +7,14 @@ public class User {
 	private int numberOfRecordBook; // Номер зачетной книжки
 
 
+	/**
+	 * User of this app
+	 *
+	 * @param firstName Имя
+	 * @param middleName Отчество
+	 * @param lastName Фамилия
+	 * @param numberOfRecordBook Номер зачетной книжки
+	 */
 	public User(String firstName, String middleName, String lastName, int numberOfRecordBook) {
 		this.firstName = firstName;
 		this.middleName = middleName;
@@ -14,6 +22,12 @@ public class User {
 		this.numberOfRecordBook = numberOfRecordBook;
 	}
 
+	/**
+	 * User of this app
+	 *
+	 * @param lastName Фамилия
+	 * @param numOfRecBook Номер зачетной книжки
+	 */
 	public User(String lastName, int numOfRecBook) {
 		this.lastName = lastName;
 		this.numberOfRecordBook = numOfRecBook;
