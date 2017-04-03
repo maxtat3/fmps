@@ -1,12 +1,15 @@
 package controller;
 
 import app.Utils;
+import model.Container;
 import stage1.elements.BaseElementStage1;
 import stage1.elements.GeneralElementStage1;
+import stage2.elements.GeneralElementStage2;
 import ui.StudentCardFrame;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -26,14 +29,21 @@ public class StudentCardFrameController {
 	 */
 	private java.util.List<GeneralElementStage1> accessoryElementsStage1;
 
+	/**
+	 * Элементы (смеси газов) для задачи 2
+	 */
+	private List<GeneralElementStage2> gasesStage2;
+
 
 	public StudentCardFrameController(JFrame jFrame, StudentCardFrame studentCardFrame) {
 		this.jFrame = jFrame;
 		this.studentCardFrame = studentCardFrame;
 
 		receiveAllElementsStage1();
+		receiveGasesStage2();
 		studentCardFrame.receiveAllBasicElementsStage1(basicElementsStage1);
 		studentCardFrame.receiveAllAccessoryElementsStage1(accessoryElementsStage1);
+		studentCardFrame.receiveAllGasesStage2(gasesStage2);
 	}
 
 	/**
@@ -48,6 +58,13 @@ public class StudentCardFrameController {
 			} else {
 				accessoryElementsStage1.add(el);
 			}
+		}
+	}
+
+	private void receiveGasesStage2() {
+		gasesStage2 = new ArrayList<>();
+		for (GeneralElementStage2 el : Container.getInstance().getStage2().getAllElements()) {
+			gasesStage2.add(el);
 		}
 	}
 
@@ -87,6 +104,7 @@ public class StudentCardFrameController {
 	public interface StudentCardFrameCallback {
 		void receiveAllBasicElementsStage1(java.util.List<GeneralElementStage1> elements);
 		void receiveAllAccessoryElementsStage1(java.util.List<GeneralElementStage1> elements);
+		void receiveAllGasesStage2(java.util.List<GeneralElementStage2> gases);
 	}
 
 }

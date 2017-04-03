@@ -3,13 +3,14 @@ package ui;
 import app.Utils;
 import controller.StudentCardFrameController;
 import stage1.elements.GeneralElementStage1;
+import stage2.elements.GeneralElementStage2;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,13 +21,17 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 	public static final String TXT_STUDENT_CARD = "Карточка студента";
 	public static final String TXT_MAIN_ELEMENTS = "Основные элементы:";
 	public static final String TXT_ACCESSORY_ELEMENTS = "Дополнительные элементы:";
+	public static final String TXT_GASES_STAGE_2 = "Для защиты сварочной ванны используется смесь газов:";
 	public static final String TXT_USER_FIRST_NAME = "Имя: ";
 	public static final String TXT_USER_MIDDLE_NAME = "Отчество: ";
 	public static final String TXT_USER_LAST_NAME = "Фамилия: ";
 	public static final String TXT_USER_NUM_OF_REC_BOOK = "Номер группы: ";
 	public static final String TXT_STAGE_1_MAIN_PANEL_NAME = "Химический состав элементов";
+	public static final String TXT_STAGE_2_MAIN_PANEL_NAME = "Входные данные";
 	public static final String TXT_TAB_1_NAME = "Задача 1";
+	public static final String TXT_TAB_2_NAME = "Задача 2";
 	public static final String TXT_TAB_1_TOOL_TIP = "Расчет процессов испарения металлов при сварке плавлением";
+	public static final String TXT_TAB_2_TOOL_TIP = "Расчет химического состава активной защитной газовой смеси";
 	public static final String TXT_PRESSURE_ENV = "Давление окружающей среды (Па): ";
 	public static final String TXT_SURFACE_WELD_AREA = "Площадь свободной поверхности сварочной ванны (см2): ";
 	public static final String TXT_WEIGHT_MOLTEN_METAL = "Масса расплавленного металла (гр.): ";
@@ -38,14 +43,19 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 
 	private List<GeneralElementStage1> basicElementsStage1;
 	private List<GeneralElementStage1> accessoryElementsStage1;
+	private List<GeneralElementStage2> gasesStage2;
 
 	private JPanel jpUserData = new JPanel();
 	private JPanel jpInputDataStage1 = new JPanel();
+	private JPanel jpInputDataStage2 = new JPanel();
 	private JPanel jpDirection = new JPanel();
 	private JButton jbtnOk = new JButton("Ok");
 	private JButton jbtnCancel = new JButton("Cancel");
 	private JLabel jlMsg = new JLabel();
 
+	/**
+	 * Added {@link JTextField} in this list used for validate input data only !
+	 */
 	private java.util.List<JTextField> jtfList = new ArrayList<>();
 
 
@@ -155,6 +165,37 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), TXT_STAGE_1_MAIN_PANEL_NAME
 		));
 
+
+		// Elements (gases) for stage 2 (tab 2)
+		JPanel jpRowsStage2 = new JPanel();
+		jpRowsStage2.setLayout(new BoxLayout(jpRowsStage2, BoxLayout.Y_AXIS));
+
+		jpRowsStage2.add(new JLabel(TXT_GASES_STAGE_2));
+		for (GeneralElementStage2 el : gasesStage2) {
+			addRowsInputDataToPanelStage2(jpRowsStage2, jtfList, el);
+		}
+
+		// Extra input data for stage 2 (tab 2)
+		JPanel jpTemperatureStage2 = new JPanel();
+
+		JTextField jtfTemperatureStage2 = new JTextField(4);
+		jtfTemperatureStage2.setName(TXT_TEMPERATURE);
+
+		jpTemperatureStage2.add(new JLabel(TXT_TEMPERATURE));
+		jpTemperatureStage2.add(jtfTemperatureStage2);
+
+		JPanel jpExtraInputDataStage2 = new JPanel();
+		jpExtraInputDataStage2.setLayout(new BoxLayout(jpExtraInputDataStage2, BoxLayout.Y_AXIS));
+		jpExtraInputDataStage2.add(jpTemperatureStage2);
+
+		jpInputDataStage2.setLayout(new FlowLayout());
+		jpInputDataStage2.add(jpRowsStage2);
+		jpInputDataStage2.add(jpExtraInputDataStage2);
+		jpInputDataStage2.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), TXT_STAGE_2_MAIN_PANEL_NAME
+		));
+
+
 		// Directions - buttons Ok and Cancel
 		jpDirection.setLayout(new FlowLayout());
 		jpDirection.add(jbtnOk);
@@ -207,7 +248,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		// Forming tabs for each stage
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.addTab(TXT_TAB_1_NAME, null, jpInputDataStage1, TXT_TAB_1_TOOL_TIP);
-//		tabbedPane.addTab("Задача 2", null, jpUserData, "tooltip tab 2");
+		tabbedPane.addTab(TXT_TAB_2_NAME, null, jpInputDataStage2, TXT_TAB_2_TOOL_TIP);
 //		tabbedPane.addTab("Задача 3", null, panelTab3, "tooltip tab 3");
 
 		// add main panel to main frame
@@ -217,6 +258,22 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 	}
 
 	private void addRowsInputDataToPanel(JPanel jpRows, List<JTextField> jtfList, GeneralElementStage1 el) {
+		JLabel jlElName = new JLabel(el.toString() + " : ");
+		JTextField jtfElVal = new JTextField();
+		jtfElVal.setColumns(4);
+		jtfElVal.setName(el.toString());
+		jtfList.add(jtfElVal);
+		JLabel jlPercent = new JLabel(" %");
+
+		JPanel jpItems = new JPanel();
+		jpItems.add(jlElName);
+		jpItems.add(jtfElVal);
+		jpItems.add(jlPercent);
+
+		jpRows.add(jpItems);
+	}
+
+	private void addRowsInputDataToPanelStage2(JPanel jpRows, List<JTextField> jtfList, GeneralElementStage2 el) {
 		JLabel jlElName = new JLabel(el.toString() + " : ");
 		JTextField jtfElVal = new JTextField();
 		jtfElVal.setColumns(4);
@@ -260,5 +317,10 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 	@Override
 	public void receiveAllAccessoryElementsStage1(List<GeneralElementStage1> elements) {
 		accessoryElementsStage1 = elements;
+	}
+
+	@Override
+	public void receiveAllGasesStage2(List<GeneralElementStage2> gases) {
+		gasesStage2 = gases;
 	}
 }
