@@ -2,6 +2,8 @@ package db;
 
 import app.SystemUtils;
 import domain.User;
+import model.Container;
+import stage1.ExtraInputDataStage1;
 
 import java.io.File;
 import java.sql.*;
@@ -216,6 +218,7 @@ public class DBUtils {
 		return oldUserField != newUserField && newUserField > 0;
 	}
 
+	//todo - may be changed signature method to pass only User object
 	/**
 	 * Проверка (по ФИО) есть ли уже такой пользователь в БД
 	 *
@@ -266,21 +269,80 @@ public class DBUtils {
 
 	// todo - В запросе должны быть добавлены одинарные кавычки, пример ... UPDATE TABLE7 SET st1_fe='791', ...  !
 	// todo - Для всех методов, которые добавляют/изменяют данные проверять, есть ли данные ФИО пользователя в БД !
-	private static void updMsrDataStage1(int userId, double st1Fe, double st1C, double st1Mn,
-	                                     int st1PEnv, double st1FSurfaceWeldArea, double st1WeightMoltenMetal, int st1Temperature, double st1Time) {
+	public static void updMsrDataStage1(int userId, Container.Stage1 st1, ExtraInputDataStage1 extra) {
 		String sql = "UPDATE " + TABLE_FMPS_MAIN + " SET " +
-			ST1_FE + "=" + st1Fe + DLC +
-			ST1_C + "=" + st1C + DLC +
-			ST1_MN + "=" + st1Mn + DLC +
-			ST1_P_ENV + "=" + st1PEnv + DLC +
-			ST1_F_SURF_WELD_AREA + "=" + st1FSurfaceWeldArea + DLC +
-			ST1_MP_WEIGHT_MOLTEN_METAL + "=" + st1WeightMoltenMetal + DLC +
-			ST1_TEMPERATURE + "=" + st1Temperature + DLC +
-			ST1_TIME + "=" + st1Time + " " +
+			ST1_FE + "=" + st1.getFe().getAlloyCompWeight() + DLC +
+			ST1_C + "=" + st1.getC().getAlloyCompWeight() + DLC +
+			ST1_MN + "=" + st1.getMn().getAlloyCompWeight() + DLC +
+			ST1_P_ENV + "=" + extra.getPressureEnv() + DLC +
+			ST1_F_SURF_WELD_AREA + "=" + extra.getSurfaceWeldArea() + DLC +
+			ST1_MP_WEIGHT_MOLTEN_METAL + "=" + extra.getWeightMoltenMetal() + DLC +
+			ST1_TEMPERATURE + "=" + extra.getTemperature() + DLC +
+			ST1_TIME + "=" + extra.getTime() + " " +
 			"WHERE ID=" + userId;
-
-		System.out.println("sql = [" + sql + "]");
 		sqlStatementExecutor(sql);
+	}
+
+	/**
+	 * Retrieve chemical elements for stage 1 from user id.
+	 *
+	 * @param userId user id which data will be retrieved
+	 * @return chemical elements
+	 */
+	public static Container.Stage1 getMainMsrDataStage1(int userId) {
+		Container.Stage1 st1 = new Container().new Stage1();
+
+		String sql = "SELECT " + ST1_FE + DLC + ST1_C + DLC + ST1_MN
+			+ " FROM " + TABLE_FMPS_MAIN + " WHERE ID = " + userId;
+		Statement stmt = sqlExecutor(SqlAction.PREPARE);
+		if (stmt != null) {
+			try {
+				ResultSet rs = stmt.executeQuery(sql);
+				while (rs.next()) {
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_FE));
+					st1.getC().setAlloyCompWeight(rs.getDouble(ST1_C));
+					st1.getMn().setAlloyCompWeight(rs.getDouble(ST1_MN));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return st1;
+	}
+
+	/**
+	 * Retrieve additional user input parameters for stage 1.
+	 *
+	 * @param userId user id which data will be retrieved
+	 * @return additional user input parameters
+	 */
+	public static ExtraInputDataStage1 getExtraMsrDataStage1(int userId) {
+		ExtraInputDataStage1 extData = new ExtraInputDataStage1();
+
+		String sql = "SELECT " + ST1_P_ENV + DLC +
+			ST1_F_SURF_WELD_AREA + DLC +
+			ST1_MP_WEIGHT_MOLTEN_METAL + DLC +
+			ST1_TEMPERATURE + DLC +
+			ST1_TIME +
+			" FROM " + TABLE_FMPS_MAIN + " WHERE ID = " + userId;
+		Statement stmt = sqlExecutor(SqlAction.PREPARE);
+		if (stmt != null) {
+			try {
+				ResultSet rs = stmt.executeQuery(sql);
+				while (rs.next()) {
+					extData.setPressureEnv(rs.getInt(ST1_P_ENV));
+					extData.setSurfaceWeldArea(rs.getDouble(ST1_F_SURF_WELD_AREA));
+					extData.setWeightMoltenMetal(rs.getDouble(ST1_MP_WEIGHT_MOLTEN_METAL));
+					extData.setTemperature(rs.getInt(ST1_TEMPERATURE));
+					extData.setTime(rs.getDouble(ST1_TIME));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return extData;
 	}
 
 	private static void updMsrDataStage2(int userId, double st2Argon, double st2CO2, double st2O2, double st2CO, double st2O, double st2C, double st2Temperature){
@@ -424,6 +486,7 @@ public class DBUtils {
 	}
 
 	// todo - refactoring - simplify at next sql "SELECT id FROM " + TABLE_FMPS_MAIN + " WHERE id = (SELECT MAX(id) FROM " + TABLE_FMPS_MAIN + ")";
+	// todo - refactoring - move this method up
 	/**
 	 * Get last user id in table {@link #TABLE_FMPS_MAIN}.
 	 *

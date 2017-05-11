@@ -1,7 +1,11 @@
 package db;
 
 import domain.User;
-import org.junit.*;
+import model.Container;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import stage1.ExtraInputDataStage1;
 
 /**
  * Test SQLite DB methods.
@@ -17,10 +21,7 @@ public class DBUtilsTest {
 	@BeforeClass
 	public static void initDB(){
 		DBUtils.initDatabase();
-	}
-
-	@Before
-	public void addNewUser() {
+		// Add new user because we do not know which next method will be performed first.
 		DBUtils.addNewUser(firstName, middleName, lastName, numberOfRecordBook);
 	}
 
@@ -110,6 +111,7 @@ public class DBUtilsTest {
 		Assert.assertEquals(true, isUserExist);
 	}
 
+	// TODO: before remove user may be need new user because new user create once before run all test methods !
 	@Test
 	public void testRemoveUser(){
 		int countBefore = DBUtils.countOfRecordsInMainTable();
@@ -123,9 +125,13 @@ public class DBUtilsTest {
 	/**
 	 * @see {@link DBUtils#ST1_PROGRESS}, {@link DBUtils#ST2_PROGRESS}, {@link DBUtils#ST3_PROGRESS}
 	 */
+	// TODO: in next 3 methods initial progress value may be differ from 0 ! 
 	@Test
 	public void testGetProgressStage1(){
 		int id = DBUtils.getLatestUserIdInMainTable();
+		// reset progress to 0 when some other method may be change progress value for this stage
+		DBUtils.resetProgress(DBUtils.Stage.STAGE_1, id);
+
 		int progress = DBUtils.getProgress(DBUtils.Stage.STAGE_1, id);
 		Assert.assertEquals(0, progress);
 	}
@@ -133,6 +139,9 @@ public class DBUtilsTest {
 	@Test
 	public void testGetProgressStage2(){
 		int id = DBUtils.getLatestUserIdInMainTable();
+		// reset progress to 0 when some other method may be change progress value for this stage
+		DBUtils.resetProgress(DBUtils.Stage.STAGE_2, id);
+
 		int progress = DBUtils.getProgress(DBUtils.Stage.STAGE_2, id);
 		Assert.assertEquals(0, progress);
 	}
@@ -140,6 +149,9 @@ public class DBUtilsTest {
 	@Test
 	public void testGetProgressStage3(){
 		int id = DBUtils.getLatestUserIdInMainTable();
+		// reset progress to 0 when some other method may be change progress value for this stage
+		DBUtils.resetProgress(DBUtils.Stage.STAGE_3, id);
+
 		int progress = DBUtils.getProgress(DBUtils.Stage.STAGE_3, id);
 		Assert.assertEquals(0, progress);
 	}
@@ -264,5 +276,57 @@ public class DBUtilsTest {
 		boolean isUserFound = DBUtils.findUser("Alexandr", numOfRecBook); // other user last name
 		Assert.assertEquals(false, isUserFound);
 	}
-	
+
+	@Test
+	public void testUpdDataStage1(){
+		final double delta = 0.5; // TODO: moved to external constants which denote error
+		final double fe = 55.1;
+		final double c = 12.5;
+		final double mn = 79;
+		final int pEnv = 1000;
+		final double weldArea = 15.345;
+		final double weightMoltenMetal = 22.75;
+		final int temperature = 1100;
+		final double time = 5.5;
+
+		int id = DBUtils.getLatestUserIdInMainTable();
+
+		Container.Stage1 st1 = Container.getInstance().getStage1();
+		st1.getFe().setAlloyCompWeight(fe);
+		st1.getC().setAlloyCompWeight(c);
+		st1.getMn().setAlloyCompWeight(mn);
+
+		ExtraInputDataStage1 extra = new ExtraInputDataStage1();
+		extra.setPressureEnv(pEnv);
+		extra.setSurfaceWeldArea(weldArea);
+		extra.setWeightMoltenMetal(weightMoltenMetal);
+		extra.setTemperature(temperature);
+		extra.setTime(time);
+
+		// make update data
+		DBUtils.updMsrDataStage1(id, st1, extra);
+
+		// check main data
+		Container.Stage1 mainFromDB = DBUtils.getMainMsrDataStage1(id);
+		double actualAlloyCompWeightFe = mainFromDB.getFe().getAlloyCompWeight();
+		double actualAlloyCompWeightC = mainFromDB.getC().getAlloyCompWeight();
+		double actualAlloyCompWeightMn = mainFromDB.getMn().getAlloyCompWeight();
+		Assert.assertEquals(fe, actualAlloyCompWeightFe, delta);
+		Assert.assertEquals(c, actualAlloyCompWeightC, delta);
+		Assert.assertEquals(mn, actualAlloyCompWeightMn, delta);
+
+		// check extra data
+		ExtraInputDataStage1 extraFromDB = DBUtils.getExtraMsrDataStage1(id);
+		int actualPEnv = extraFromDB.getPressureEnv();
+		double actualWeldArea = extraFromDB.getSurfaceWeldArea();
+		double actualWeightMoltenMetal = extraFromDB.getWeightMoltenMetal();
+		int actualTmpr = extraFromDB.getTemperature();
+		double actualTime = extraFromDB.getTime();
+		Assert.assertEquals(pEnv, actualPEnv);
+		Assert.assertEquals(weldArea, actualWeldArea, delta);
+		Assert.assertEquals(weightMoltenMetal, actualWeightMoltenMetal, delta);
+		Assert.assertEquals(temperature, actualTmpr);
+		Assert.assertEquals(time, actualTime, delta);
+	}
+
 }
