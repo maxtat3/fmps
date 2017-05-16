@@ -125,7 +125,6 @@ public class DBUtilsTest {
 	/**
 	 * @see {@link DBUtils#ST1_PROGRESS}, {@link DBUtils#ST2_PROGRESS}, {@link DBUtils#ST3_PROGRESS}
 	 */
-	// TODO: in next 3 methods initial progress value may be differ from 0 ! 
 	@Test
 	public void testGetProgressStage1(){
 		int id = DBUtils.getLatestUserIdInMainTable();

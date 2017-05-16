@@ -4,6 +4,7 @@ import app.SystemUtils;
 import domain.User;
 import model.Container;
 import stage1.ExtraInputDataStage1;
+import stage2.ExtraInputDataStage2;
 
 import java.io.File;
 import java.sql.*;
@@ -95,6 +96,7 @@ public class DBUtils {
 		}
 	}
 
+	// TODO: signature this method may be change to User object only
 	/**
 	 * Добавить нового пользователя.
 	 *
@@ -345,15 +347,15 @@ public class DBUtils {
 		return extData;
 	}
 
-	private static void updMsrDataStage2(int userId, double st2Argon, double st2CO2, double st2O2, double st2CO, double st2O, double st2C, double st2Temperature){
+	private static void updMsrDataStage2(int userId, Container.Stage2 st2, ExtraInputDataStage2 extra){
 		String sql = "UPDATE " + TABLE_FMPS_MAIN + " SET " +
-			ST2_ARGON + "=" + st2Argon + DLC +
-			ST2_CO2 + "=" + st2CO2 + DLC +
-			ST2_O2 + "=" + st2O2 + DLC +
-			ST2_CO + "=" + st2CO + DLC +
-			ST2_O + "=" + st2O + DLC +
-			ST2_C + "=" + st2C + DLC +
-			ST2_TEMPERATURE + "=" + st2Temperature + " " +
+			ST2_ARGON + "=" + st2.getAr() + DLC +
+			ST2_CO2 + "=" + st2.getCo2() + DLC +
+			ST2_O2 + "=" + st2.getO2() + DLC +
+			ST2_CO + "=" + st2.getCo() + DLC +
+			ST2_O + "=" + st2.getO() + DLC +
+			ST2_C + "=" + st2.getC() + DLC +
+			ST2_TEMPERATURE + "=" + extra.getTemperature() + " " +
 			"WHERE ID=" + userId;
 
 		sqlStatementExecutor(sql);
