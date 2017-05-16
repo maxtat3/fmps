@@ -347,14 +347,59 @@ public class DBUtils {
 		return extData;
 	}
 
-	private static void updMsrDataStage2(int userId, Container.Stage2 st2, ExtraInputDataStage2 extra){
+	public static Container.Stage2 getMainMsrDataStage2(int userId) {
+		Container.Stage2 st2 = new Container().new Stage2();
+
+		String sql = "SELECT " + ST2_ARGON + DLC + ST2_CO2 + DLC + ST2_O2 + DLC + ST2_CO + DLC + ST2_O + DLC + ST2_C
+			+ " FROM " + TABLE_FMPS_MAIN + " WHERE ID = " + userId;
+		Statement stmt = sqlExecutor(SqlAction.PREPARE);
+		if (stmt != null) {
+			try {
+				ResultSet rs = stmt.executeQuery(sql);
+				while (rs.next()) {
+					st2.getAr().setGasMole(rs.getDouble(ST2_ARGON));
+					st2.getCo2().setGasMole(rs.getDouble(ST2_CO2));
+					st2.getO2().setGasMole(rs.getDouble(ST2_O2));
+					st2.getCo().setGasMole(rs.getDouble(ST2_CO));
+					st2.getO().setGasMole(rs.getDouble(ST2_O));
+					st2.getC().setGasMole(rs.getDouble(ST2_C));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return st2;
+	}
+
+	public static ExtraInputDataStage2 getExtraMsrDataStage2(int userId) {
+		ExtraInputDataStage2 extData = new ExtraInputDataStage2();
+
+		String sql = "SELECT " + ST2_TEMPERATURE +
+			" FROM " + TABLE_FMPS_MAIN + " WHERE ID = " + userId;
+		Statement stmt = sqlExecutor(SqlAction.PREPARE);
+		if (stmt != null) {
+			try {
+				ResultSet rs = stmt.executeQuery(sql);
+				while (rs.next()) {
+					extData.setTemperature(rs.getInt(ST2_TEMPERATURE));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return extData;
+	}
+
+	public static void updMsrDataStage2(int userId, Container.Stage2 st2, ExtraInputDataStage2 extra){
 		String sql = "UPDATE " + TABLE_FMPS_MAIN + " SET " +
-			ST2_ARGON + "=" + st2.getAr() + DLC +
-			ST2_CO2 + "=" + st2.getCo2() + DLC +
-			ST2_O2 + "=" + st2.getO2() + DLC +
-			ST2_CO + "=" + st2.getCo() + DLC +
-			ST2_O + "=" + st2.getO() + DLC +
-			ST2_C + "=" + st2.getC() + DLC +
+			ST2_ARGON + "=" + st2.getAr().getGasMole() + DLC +
+			ST2_CO2 + "=" + st2.getCo2().getGasMole() + DLC +
+			ST2_O2 + "=" + st2.getO2().getGasMole() + DLC +
+			ST2_CO + "=" + st2.getCo().getGasMole() + DLC +
+			ST2_O + "=" + st2.getO().getGasMole() + DLC +
+			ST2_C + "=" + st2.getC().getGasMole() + DLC +
 			ST2_TEMPERATURE + "=" + extra.getTemperature() + " " +
 			"WHERE ID=" + userId;
 

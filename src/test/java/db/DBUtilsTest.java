@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import stage1.ExtraInputDataStage1;
+import stage2.ExtraInputDataStage2;
 
 /**
  * Test SQLite DB methods.
@@ -326,6 +327,58 @@ public class DBUtilsTest {
 		Assert.assertEquals(weightMoltenMetal, actualWeightMoltenMetal, delta);
 		Assert.assertEquals(temperature, actualTmpr);
 		Assert.assertEquals(time, actualTime, delta);
+	}
+
+	/**
+	 * Tested 3 methods: {@link DBUtils#updMsrDataStage2} ,
+	 * {@link DBUtils#getMainMsrDataStage2} , {@link DBUtils#getExtraMsrDataStage2(int)}
+	 */
+	@Test
+	public void testUpdDataStage2(){
+		final double delta = 0.5;
+		final double Ar = 0.75;
+		final double CO2 = 0.05;
+		final double O2 = 0.01;
+		final double CO = 0.01;
+		final double O = 0.08;
+		final double C = 0.1;
+		final int temperature = 5500;
+
+		Container.Stage2 st2 = Container.getInstance().getStage2();
+		st2.getAr().setGasMole(Ar);
+		st2.getCo2().setGasMole(CO2);
+		st2.getO2().setGasMole(O2);
+		st2.getCo().setGasMole(CO);
+		st2.getO().setGasMole(O);
+		st2.getC().setGasMole(C);
+
+		ExtraInputDataStage2 extra = new ExtraInputDataStage2();
+		extra.setTemperature(temperature);
+
+		int id = DBUtils.getLatestUserIdInMainTable();
+
+		// make update data
+		DBUtils.updMsrDataStage2(id, st2, extra);
+
+		// check main data
+		Container.Stage2 mainMsrDB = DBUtils.getMainMsrDataStage2(id);
+		double gmAr = mainMsrDB.getAr().getGasMole();
+		double gmCO2 = mainMsrDB.getCo2().getGasMole();
+		double gmO2 = mainMsrDB.getO2().getGasMole();
+		double gmCO = mainMsrDB.getCo().getGasMole();
+		double gsO = mainMsrDB.getO().getGasMole();
+		double gmC = mainMsrDB.getC().getGasMole();
+		Assert.assertEquals(Ar, gmAr, delta);
+		Assert.assertEquals(CO2, gmCO2, delta);
+		Assert.assertEquals(O2, gmO2, delta);
+		Assert.assertEquals(CO, gmCO, delta);
+		Assert.assertEquals(O, gsO, delta);
+		Assert.assertEquals(C, gmC, delta);
+
+		// check extra data
+		ExtraInputDataStage2 extraMsrDB = DBUtils.getExtraMsrDataStage2(id);
+		int tmpr = extraMsrDB.getTemperature();
+		Assert.assertEquals(temperature, tmpr);
 	}
 
 }
