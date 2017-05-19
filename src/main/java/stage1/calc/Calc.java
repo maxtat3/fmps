@@ -1,80 +1,54 @@
 package stage1.calc;
 
 import model.Container;
-import stage1.elements.*;
+import stage1.elements.GeneralElementStage1;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Расчеты на основании входных данных для задачи №1
+ * Расчеты для задачи №1
  */
 public class Calc {
 
 	public Calc() {
 
-		int TEMPERATURE_ELEMENTS = 1800; // temperature elements (in celsius degrees)
-		int TEMPERATURE_TASK = 2273; // defined for user in task (in celsius degrees)
 
-		Fe fe = new Fe();
-		Al al = new Al();
-		C c = new C();
-		Si si = new Si();
-		Ti ti = new Ti();
-
-		// initial data
-		fe.setAlloyCompWeight(89.9);
-		al.setAlloyCompWeight(1.79);
-		c.setAlloyCompWeight(4.89);
-		si.setAlloyCompWeight(4.21);
-		ti.setAlloyCompWeight(4.09);
-
-		ArrayList<GeneralElementStage1> list = new ArrayList<>();
-		list.add(fe);
-		list.add(al);
-		list.add(c);
-		list.add(si);
-		list.add(ti);
 
 		// do calculate
-		findMoleFractionOfAlloyElems(list);
-		findEnthalpyLiquidAlloy(list, TEMPERATURE_TASK, TEMPERATURE_ELEMENTS);
-		findEnthalpyVaporization(list);
-		findEnthalpyVapor();
-		findVaporPressureOfPureComps(list, TEMPERATURE_TASK);
-		findPartialPressureCompsOverAlloy(list, TEMPERATURE_TASK);
-		findVaporPressureOverAlloy(list);
-		findMoleFractionEachElemInVapor(list);
-		findWeightFractionEachElemInVapor(list);
-		findRateVaporizationEachElemOfWeldPool(
-			list, TEMPERATURE_TASK, Container.getInstance().getStage1().getExtraInputDataStage1().getSurfaceWeldArea()
-		);
-		findDecreaseMoltenMetalDueVaporization(list);
+//		findMoleFractionOfAlloyElems(list);
+//		findEnthalpyLiquidAlloy(list, TEMPERATURE_TASK, TEMPERATURE_ELEMENTS);
+//		findEnthalpyVaporization(list);
+//		findEnthalpyVapor();
+//		findVaporPressureOfPureComps(list, TEMPERATURE_TASK);
+//		findPartialPressureCompsOverAlloy(list, TEMPERATURE_TASK);
+//		findVaporPressureOverAlloy(list);
+//		findMoleFractionEachElemInVapor(list);
+//		findWeightFractionEachElemInVapor(list);
+//		findRateVaporizationEachElemOfWeldPool(
+//			list, TEMPERATURE_TASK, Container.getInstance().getStage1().getExtraInputDataStage1().getSurfaceWeldArea()
+//		);
+//		findDecreaseMoltenMetalDueVaporization(list);
 	}
 
 	/**
-	 * Расчет мольной доли всех элементов сплава (%).
-	 * Результат записывается в каждый элемент.
+	 * Расчет мольной доли всех элементов сплава.
+	 * Результат записывается в каждый элемент в переданной коллекции.
+	 * Результат представлен в долях вещества [0 ... 1) . Для получения результат в % нужно умножить на 100.
 	 * Формула 1.
 	 *
 	 * @param userElements список элементов из задания пользователя
 	 */
 	public void findMoleFractionOfAlloyElems(List<GeneralElementStage1> userElements) {
-		double gi;
-		double molarMass;
-		double[] relGiAiElems = new double[userElements.size()]; // отношения массовой доли вещества (%) к атомной массе элемента (кг/моль)
+		double gi; // массовая доля вещества
+		double aiFraction; // атомная доля элемента
+		double[] relGiToAi = new double[userElements.size()]; // отношения массовой доли вещества (%) к атомной массе элемента (кг/моль)
 		int dElemPointer = 0;
 
-		for (GeneralElementStage1 userElem : userElements) {
-			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
-				if (userElem.toString().equals(containerElem.toString())) {
-					gi = userElem.getAlloyCompWeight();
-					molarMass = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.MOLAR_MASS);
-					relGiAiElems[dElemPointer] = gi / molarMass;
-					dElemPointer++;
-					break;
-				}
-			}
+		for (GeneralElementStage1 el : userElements) {
+			gi = el.getAlloyCompWeight();
+			aiFraction = GeneralElementStage1.CONST_ELEMS.get(el.toString(), GeneralElementStage1.ATOMIC_FRACTION);
+			relGiToAi[dElemPointer] = gi / aiFraction;
+			dElemPointer++;
 		}
 
 		// reset pointer for get saved order elements again.
@@ -82,24 +56,13 @@ public class Calc {
 
 		// find sum
 		double relGiAiSum = 0;
-		for (double rel : relGiAiElems) {
-			relGiAiSum += rel;
-		}
-		System.out.println("relGiAiSum = " + relGiAiSum);
-
-		// find molar mass for each element
-		for (GeneralElementStage1 userElem : userElements) {
-			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
-				if (userElem.toString().equals(containerElem.toString())) {
-					containerElem.setMoleFractionAlloyElem(relGiAiElems[dElemPointer]/relGiAiSum);
-					dElemPointer++;
-				}
-			}
+		for (double val : relGiToAi) {
+			relGiAiSum += val;
 		}
 
-		System.out.println("formula 1 results :");
-		for (GeneralElementStage1 elem : Container.getInstance().getStage1().getAllElements()) {
-			System.out.println(elem.toString() + ":" + elem.getMoleFractionAlloyElem());
+		for (GeneralElementStage1 el : userElements) {
+			el.setMoleFractionAlloyElem(relGiToAi[dElemPointer]/relGiAiSum);
+			dElemPointer++;
 		}
 	}
 
@@ -318,7 +281,7 @@ public class Calc {
 			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
 				if (userElem.toString().equals(containerElem.toString())) {
 					nvi = containerElem.getMoleFractionEachElemInVapor();
-					ai = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.MOLAR_MASS);
+					ai = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.ATOMIC_FRACTION);
 					nviMulaiSum += nvi * ai;
 				}
 			}
@@ -328,7 +291,7 @@ public class Calc {
 			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
 				if (userElem.toString().equals(containerElem.toString())) {
 					nvi = containerElem.getMoleFractionEachElemInVapor();
-					ai = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.MOLAR_MASS);
+					ai = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.ATOMIC_FRACTION);
 					containerElem.setWeightFractionEachElemInVapor(((nvi * ai) / nviMulaiSum) * 100);
 				}
 			}
@@ -353,7 +316,7 @@ public class Calc {
 			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
 				if (userElem.toString().equals(containerElem.toString())) {
 					pip = containerElem.getPartialPressureCompsOverAlloy();
-					ai = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.MOLAR_MASS);
+					ai = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.ATOMIC_FRACTION);
 					vi = 0.00044 * pip * Math.sqrt(ai / temperatureTask) * surfaceWeldArea;
 					containerElem.setRateVaporizationEachElemOfWeldPool(vi);
 				}

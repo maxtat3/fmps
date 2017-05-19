@@ -15,7 +15,7 @@ public interface GeneralElementStage1 {
 	/**
 	 * Мольная масса (кг/моль)
 	 */
-	String MOLAR_MASS = "molar_mass";
+	String ATOMIC_FRACTION = "atomic_fraction_of_element";
 
 	/**
 	 * Высокотемпературные составляющие энтальпии,  HTo-H298o (Кдж/моль)
@@ -58,12 +58,12 @@ public interface GeneralElementStage1 {
 	 */
 	ImmutableTable<String, String, Double> CONST_ELEMS =
 		new ImmutableTable.Builder<String, String, Double>()
-			.put(FE, MOLAR_MASS, 0.055847)
-			.put(C, MOLAR_MASS, 0.01201)
-			.put(MN, MOLAR_MASS, 0.054938)
-			.put(AL, MOLAR_MASS, 0.02698)
-			.put(SI, MOLAR_MASS, 0.0280855)
-			.put(TI, MOLAR_MASS, 0.04788)
+			.put(FE, ATOMIC_FRACTION, 0.055847)
+			.put(C, ATOMIC_FRACTION, 0.01201)
+			.put(MN, ATOMIC_FRACTION, 0.054938)
+			.put(AL, ATOMIC_FRACTION, 0.02698)
+			.put(SI, ATOMIC_FRACTION, 0.0280855)
+			.put(TI, ATOMIC_FRACTION, 0.04788)
 
 			.put(FE, HIGH_TEMPER_ENTHALPY, 73.61)
 			.put(C, HIGH_TEMPER_ENTHALPY, 30.64)
