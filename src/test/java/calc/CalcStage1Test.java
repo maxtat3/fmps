@@ -2,6 +2,7 @@ package calc;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import stage1.calc.Calc;
 import stage1.elements.*;
@@ -61,6 +62,13 @@ public class CalcStage1Test {
 		siExp.setMoleFractionAlloyElem(0.0646);
 		tiExp.setMoleFractionAlloyElem(0.0368);
 
+		// expected data for formula 3
+		feExp.setVaporPressureOfPureComps(575.7606);
+		alExp.setVaporPressureOfPureComps(7010.8656);
+		cExp.setVaporPressureOfPureComps(0.0005);
+		siExp.setVaporPressureOfPureComps(65.2257);
+		tiExp.setVaporPressureOfPureComps(35.7447);
+
 		//fill elements
 		expectedList.addAll(Arrays.asList(feExp, alExp, cExp, siExp, tiExp));
 
@@ -119,14 +127,29 @@ public class CalcStage1Test {
 		}
 	}
 
+	@Ignore
 	@Test
 	public void findEnthalpyVaporFormula2p3Test(){
-
 	}
 
 	@Test
 	public void findVaporPressureOfPureCompsFormula3Test(){
+		new Calc().findVaporPressureOfPureComps(userElements, TEMPERATURE_TASK);
 
+		for (GeneralElementStage1 uEl : userElements) {
+			for (GeneralElementStage1 eEl : expectedList) {
+				if (uEl.toString().equals(eEl.toString())) {
+					Assert.assertEquals(eEl.getVaporPressureOfPureComps(), uEl.getVaporPressureOfPureComps(), DOUBLE_DELTA);
+				}
+			}
+		}
+
+		if (isEnableLog) {
+			System.out.println("3. Давление пара чистых компонентов (Па): ");
+			for (GeneralElementStage1 elem : userElements) {
+				System.out.println(elem.toString() + " : " + elem.getVaporPressureOfPureComps());
+			}
+		}
 	}
 
 	@Test

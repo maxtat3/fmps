@@ -135,45 +135,41 @@ public class Calc {
 		return enthalpyVaporizationSum;
 	}
 
+	// TODO: 19.05.17 нужен ли этот метод, тут же только сложение чилел ?
 	/**
 	 * Энтальпия пара для сплава (КДж/Моль).
 	 * Формула 2.3
 	 */
-	public void findEnthalpyVapor(){
+	public double findEnthalpyVapor(){
 		double enthalpyLiquidAlloy = Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyLiquidAlloy();
 		double enthalpyVaporization = Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyVaporization();
-		double enthalpyVapor = enthalpyLiquidAlloy + enthalpyVaporization;
-		Container.getInstance().getStage1().getCalcDataStage1().setEnthalpyVapor(enthalpyVapor);
-		System.out.println("enthalpyVapor = " + enthalpyVapor);
+		return enthalpyLiquidAlloy + enthalpyVaporization;
 	}
 
 	/**
-	 * Давление пара чистых компонентов (Па)
+	 * Давление пара чистых компонентов (Па).
+	 * Высесленные значения записывабтся по ссылке в каждый элемент.
 	 * Формула 3
 	 */
 	public void findVaporPressureOfPureComps(List<GeneralElementStage1> userElements, int temperatureTask){
-		double dividerConst = 19.15; // общий делитель
+		double divider = 19.15; // общий делитель, коэффициент в формуле нахождения lgPi
 		double lgPi[] = new double[userElements.size()];
 		double pi[] = new double[userElements.size()];
 		int elemPointer = 0;
 
-		for (GeneralElementStage1 userElem : userElements) {
-			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
-				if (userElem.toString().equals(containerElem.toString())) {
-					double heatOfVaporization = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.CLAPEYRON_CLAUSIUS_EQUATION_HEAT_OF_VAPORIZATION);
-					double bfactor = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.CLAPEYRON_CLAUSIUS_EQUATION_B_FACTOR);
+		for (GeneralElementStage1 el : userElements) {
+			double heatOfVaporization = GeneralElementStage1.CONST_ELEMS.get(
+				el.toString(), GeneralElementStage1.CLAPEYRON_CLAUSIUS_EQUATION_HEAT_OF_VAPORIZATION
+			);
+			double bfactor = GeneralElementStage1.CONST_ELEMS.get(
+				el.toString(), GeneralElementStage1.CLAPEYRON_CLAUSIUS_EQUATION_B_FACTOR
+			);
 
-					lgPi[elemPointer] = -((heatOfVaporization * 1000)/(dividerConst * temperatureTask)) + bfactor;
-					pi[elemPointer] = Math.pow(10, lgPi[elemPointer]);
+			lgPi[elemPointer] = -((heatOfVaporization * 1000)/(divider * temperatureTask)) + bfactor;
+			pi[elemPointer] = Math.pow(10, lgPi[elemPointer]);
 
-					containerElem.setVaporPressureOfPureComps(pi[elemPointer]);
-					elemPointer++;
-				}
-			}
-		}
-
-		for (double v : pi) {
-			System.out.println("pi = " + v);
+			el.setVaporPressureOfPureComps(pi[elemPointer]);
+			elemPointer++;
 		}
 	}
 
