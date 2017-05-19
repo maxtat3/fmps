@@ -93,13 +93,32 @@ public class CalcStage1Test {
 
 	@Test
 	public void findEnthalpyLiquidAlloyFormula2p1Test(){
+		// for calculate this result must be calculate formula 1
+		new Calc().findMoleFractionOfAlloyElems(userElements);
+		double result = new Calc().findEnthalpyLiquidAlloy(userElements, TEMPERATURE_TASK, TEMPERATURE_ELEMENTS);
 
+		double expectedResult = 83.48332;
+		Assert.assertEquals(expectedResult, result, DOUBLE_DELTA);
+
+		if (isEnableLog) {
+			System.out.print("2.1. Энтальпия жидкого сплава (КДж/Моль): " + result);
+		}
 	}
 
 	@Test
 	public void findEnthalpyVaporizationFormula2p2Test(){
+		// for calculate this result must be calculate formula 1
+		new Calc().findMoleFractionOfAlloyElems(userElements);
+		double result = new Calc().findEnthalpyVaporization(userElements);
 
+		double expectedValue = 489.373;
+		Assert.assertEquals(expectedValue, result, DOUBLE_DELTA);
+
+		if (isEnableLog) {
+			System.out.print("2.2. Энтальпия испарения (КДж/Моль): " + result);
+		}
 	}
+
 	@Test
 	public void findEnthalpyVaporFormula2p3Test(){
 
