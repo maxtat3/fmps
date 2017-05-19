@@ -91,4 +91,52 @@ public class CalcStage1Test {
 		}
 	}
 
+	@Test
+	public void findEnthalpyLiquidAlloyFormula2p1Test(){
+
+	}
+
+	@Test
+	public void findEnthalpyVaporizationFormula2p2Test(){
+
+	}
+	@Test
+	public void findEnthalpyVaporFormula2p3Test(){
+
+	}
+
+	@Test
+	public void findVaporPressureOfPureCompsFormula3Test(){
+
+	}
+
+	@Test
+	public void findPartialPressureCompsOverAlloyFormula4Test(){
+
+	}
+
+	@Test
+	public void findVaporPressureOverAlloyFormula5Test(){
+
+	}
+
+	@Test
+	public void findMoleFractionEachElemInVaporFormula6Test(){
+
+	}
+
+	@Test
+	public void findWeightFractionEachElemInVaporFormula7Test(){
+
+	}
+
+	@Test
+	public void findRateVaporizationEachElemOfWeldPoolFormula8Test(){
+
+	}
+
+	@Test
+	public void findDecreaseMoltenMetalDueVaporizationFormula9Test(){
+
+	}
 }
