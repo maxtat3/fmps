@@ -69,6 +69,13 @@ public class CalcStage1Test {
 		siExp.setVaporPressureOfPureComps(65.2257);
 		tiExp.setVaporPressureOfPureComps(35.7447);
 
+		// expected data for formula 4
+		feExp.setPartialPressureCompsOverAlloy(399.7415);
+		alExp.setPartialPressureCompsOverAlloy(20.4620);
+		cExp.setPartialPressureCompsOverAlloy(0.0001);
+		siExp.setPartialPressureCompsOverAlloy(0.0182);
+		tiExp.setPartialPressureCompsOverAlloy(0.0332);
+
 		//fill elements
 		expectedList.addAll(Arrays.asList(feExp, alExp, cExp, siExp, tiExp));
 
@@ -154,7 +161,25 @@ public class CalcStage1Test {
 
 	@Test
 	public void findPartialPressureCompsOverAlloyFormula4Test(){
+		// after calculate this must be calculate several formula - see in this method dependencies
+		new Calc().findPartialPressureCompsOverAlloy(userElements,  TEMPERATURE_TASK);
 
+		for (GeneralElementStage1 uEl : userElements) {
+			for (GeneralElementStage1 eEl : expectedList) {
+				if (uEl.toString().equals(eEl.toString())) {
+					Assert.assertEquals(
+						eEl.getPartialPressureCompsOverAlloy(), uEl.getPartialPressureCompsOverAlloy(), DOUBLE_DELTA
+					);
+				}
+			}
+		}
+
+		if (isEnableLog) {
+			System.out.println("4. Парциальное давление компонент над сплавом (Па): ");
+			for (GeneralElementStage1 elem : userElements) {
+				System.out.println(elem.toString() + " : " + elem.getPartialPressureCompsOverAlloy());
+			}
+		}
 	}
 
 	@Test

@@ -177,36 +177,35 @@ public class Calc {
 	 * Парциальное давление компонент над сплавом (Па)
 	 * Формула 4
 	 *
+	 * Formula dependencies:
+	 *      - {@link #findMoleFractionOfAlloyElems(List)} - formula 1
+	 *      - {@link #findVaporPressureOfPureComps(List, int)} - formula 3
 	 * @param userElements список элементов из задания пользователя
 	 * @param temperatureTask температура расчета (град. Цельсия)
 	 */
 	public void findPartialPressureCompsOverAlloy(List<GeneralElementStage1> userElements, int temperatureTask){
+		// After calculate this must be calculated next formulas
+		findMoleFractionOfAlloyElems(userElements);
+		findVaporPressureOfPureComps(userElements, temperatureTask);
+
 		double aGamma, bGamma, ni, pi;
 		double lgGamma[] = new double[userElements.size()];
 		double gamma[] = new double[userElements.size()];
 		double pip[] = new double[userElements.size()];
 		int elemPointer = 0;
 
-		for (GeneralElementStage1 userElem : userElements) {
-			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
-				if (userElem.toString().equals(containerElem.toString())) {
-					aGamma = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.A_GAMMA_FACTOR);
-					bGamma = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.B_GAMMA_FACTOR);
-					ni = containerElem.getMoleFractionAlloyElem(); // formula 1
-					pi = containerElem.getVaporPressureOfPureComps(); // formula 3
+		for (GeneralElementStage1 el : userElements) {
+			aGamma = GeneralElementStage1.CONST_ELEMS.get(el.toString(), GeneralElementStage1.A_GAMMA_FACTOR);
+			bGamma = GeneralElementStage1.CONST_ELEMS.get(el.toString(), GeneralElementStage1.B_GAMMA_FACTOR);
+			ni = el.getMoleFractionAlloyElem(); // formula 1
+			pi = el.getVaporPressureOfPureComps(); // formula 3
 
-					lgGamma[elemPointer] = -(aGamma / temperatureTask) + bGamma;
-					gamma[elemPointer] = Math.pow(10, lgGamma[elemPointer]);
+			lgGamma[elemPointer] = -(aGamma / temperatureTask) + bGamma;
+			gamma[elemPointer] = Math.pow(10, lgGamma[elemPointer]);
 
-					pip[elemPointer] = gamma[elemPointer] * ni * pi;
-					containerElem.setPartialPressureCompsOverAlloy(pip[elemPointer]);
-					elemPointer++;
-				}
-			}
-		}
-
-		for (double val : pip) {
-			System.out.println("Pip = " + val);
+			pip[elemPointer] = gamma[elemPointer] * ni * pi;
+			el.setPartialPressureCompsOverAlloy(pip[elemPointer]);
+			elemPointer++;
 		}
 	}
 
