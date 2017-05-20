@@ -75,6 +75,13 @@ public class CalcStage1Test {
 		siExp.setPartialPressureCompsOverAlloy(0.0182);
 		tiExp.setPartialPressureCompsOverAlloy(0.0332);
 
+		// expected data for formula 6
+		feExp.setMoleFractionEachElemInVapor(0.95);
+		alExp.setMoleFractionEachElemInVapor(0.048);
+		cExp.setMoleFractionEachElemInVapor(0); // TODO: 20.05.17 как быть пользователю с такими мпленькими значениями, даже в % ?
+		siExp.setMoleFractionEachElemInVapor(0);
+		tiExp.setMoleFractionEachElemInVapor(0);
+
 		//fill elements
 		expectedList.addAll(Arrays.asList(feExp, alExp, cExp, siExp, tiExp));
 
@@ -163,7 +170,6 @@ public class CalcStage1Test {
 
 	@Test
 	public void findPartialPressureCompsOverAlloyFormula4Test(){
-		// after calculate this must be calculate several formula - see in this method dependencies
 		new Calc().findPartialPressureCompsOverAlloy(userElements,  TEMPERATURE_TASK);
 
 		for (GeneralElementStage1 uEl : userElements) {
@@ -198,7 +204,22 @@ public class CalcStage1Test {
 
 	@Test
 	public void findMoleFractionEachElemInVaporFormula6Test(){
+		new Calc().findMoleFractionEachElemInVapor(userElements,  TEMPERATURE_TASK);
 
+		for (GeneralElementStage1 uEl : userElements) {
+			for (GeneralElementStage1 eEl : expectedList) {
+				if (uEl.toString().equals(eEl.toString())) {
+					Assert.assertEquals(eEl.getMoleFractionEachElemInVapor(), uEl.getMoleFractionEachElemInVapor(), DOUBLE_DELTA);
+				}
+			}
+		}
+
+		if (isEnableLog) {
+			System.out.println("6. Мольная доля каждого компонента в паре (доли): ");
+			for (GeneralElementStage1 elem : userElements) {
+				System.out.println(elem.toString() + " : " + elem.getMoleFractionEachElemInVapor());
+			}
+		}
 	}
 
 	@Test

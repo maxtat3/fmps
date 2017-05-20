@@ -247,28 +247,18 @@ public class Calc {
 	}
 
 	/**
-	 * Мольная доля каждого компонента в паре (%)
+	 * Мольная доля каждого компонента в паре (доли)
 	 * Формула 6
 	 *
+	 * Formula dependencies:
+	 *      - {@link #findVaporPressureOverAlloy(List, int)} - formula 5
 	 * @param userElements список элементов из задания пользователя
 	 */
-	public void findMoleFractionEachElemInVapor(List<GeneralElementStage1> userElements){
-		double vaporPressureOverAlloy = Container.getInstance().getStage1().getCalcDataStage1().getVaporPressureOverAlloy();
-		double partialPressureCompsOverAlloy;
-		double moleFractionEachElemInVapor; // find value
+	public void findMoleFractionEachElemInVapor(List<GeneralElementStage1> userElements, int temperatureTask){
+		double vaporPressureOverAlloy = findVaporPressureOverAlloy(userElements, temperatureTask);
 
-		for (GeneralElementStage1 userElem : userElements) {
-			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
-				if (userElem.toString().equals(containerElem.toString())) {
-					partialPressureCompsOverAlloy = containerElem.getPartialPressureCompsOverAlloy();
-					moleFractionEachElemInVapor = (partialPressureCompsOverAlloy / vaporPressureOverAlloy) * 100;
-					containerElem.setMoleFractionEachElemInVapor(moleFractionEachElemInVapor);
-				}
-			}
-		}
-
-		for (GeneralElementStage1 elementStage1 : Container.getInstance().getStage1().getAllElements()) {
-			System.out.println(elementStage1.toString() + " : " + "NviPercent = " + elementStage1.getMoleFractionEachElemInVapor());
+		for (GeneralElementStage1 el : userElements) {
+			el.setMoleFractionEachElemInVapor(el.getPartialPressureCompsOverAlloy() / vaporPressureOverAlloy);
 		}
 	}
 
