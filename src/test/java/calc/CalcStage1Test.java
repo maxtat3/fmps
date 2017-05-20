@@ -82,6 +82,13 @@ public class CalcStage1Test {
 		siExp.setMoleFractionEachElemInVapor(0);
 		tiExp.setMoleFractionEachElemInVapor(0);
 
+		// expected data for formula 7
+		feExp.setWeightFractionEachElemInVapor(97.577);
+		alExp.setWeightFractionEachElemInVapor(2.41);
+		cExp.setWeightFractionEachElemInVapor(0);
+		siExp.setWeightFractionEachElemInVapor(0);
+		tiExp.setWeightFractionEachElemInVapor(0);
+
 		//fill elements
 		expectedList.addAll(Arrays.asList(feExp, alExp, cExp, siExp, tiExp));
 
@@ -224,7 +231,22 @@ public class CalcStage1Test {
 
 	@Test
 	public void findWeightFractionEachElemInVaporFormula7Test(){
+		new Calc().findWeightFractionEachElemInVapor(userElements,  TEMPERATURE_TASK);
 
+		for (GeneralElementStage1 uEl : userElements) {
+			for (GeneralElementStage1 eEl : expectedList) {
+				if (uEl.toString().equals(eEl.toString())) {
+					Assert.assertEquals(eEl.getWeightFractionEachElemInVapor(), uEl.getWeightFractionEachElemInVapor(), DOUBLE_DELTA);
+				}
+			}
+		}
+
+		if (isEnableLog) {
+			System.out.println("7. Весовая доля каждого компонента в паре (%): ");
+			for (GeneralElementStage1 elem : userElements) {
+				System.out.println(elem.toString() + " : " + elem.getWeightFractionEachElemInVapor());
+			}
+		}
 	}
 
 	@Test

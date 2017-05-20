@@ -266,33 +266,25 @@ public class Calc {
 	 * Весовая доля каждого компонента в паре (%)
 	 * Формула 7
 	 *
+	 * Formula dependencies:
+	 *      - {@link #findVaporPressureOverAlloy(List, int)} - formula 6
 	 * @param userElements список элементов из задания пользователя
 	 */
-	public void findWeightFractionEachElemInVapor(List<GeneralElementStage1> userElements){
-		double nvi, ai, nviMulaiSum = 0;
+	public void findWeightFractionEachElemInVapor(List<GeneralElementStage1> userElements, int temperatureTask){
+		findMoleFractionEachElemInVapor(userElements, temperatureTask);
 
-		for (GeneralElementStage1 userElem : userElements) {
-			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
-				if (userElem.toString().equals(containerElem.toString())) {
-					nvi = containerElem.getMoleFractionEachElemInVapor();
-					ai = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.ATOMIC_FRACTION);
-					nviMulaiSum += nvi * ai;
-				}
-			}
+		double nvi, ai, nviMulAiSum = 0;
+
+		for (GeneralElementStage1 el : userElements) {
+			nvi = el.getMoleFractionEachElemInVapor();
+			ai = GeneralElementStage1.CONST_ELEMS.get(el.toString(), GeneralElementStage1.ATOMIC_FRACTION);
+			nviMulAiSum += nvi * ai;
 		}
 
-		for (GeneralElementStage1 userElem : userElements) {
-			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
-				if (userElem.toString().equals(containerElem.toString())) {
-					nvi = containerElem.getMoleFractionEachElemInVapor();
-					ai = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.ATOMIC_FRACTION);
-					containerElem.setWeightFractionEachElemInVapor(((nvi * ai) / nviMulaiSum) * 100);
-				}
-			}
-		}
-
-		for (GeneralElementStage1 elementStage1 : Container.getInstance().getStage1().getAllElements()) {
-			System.out.println(elementStage1.toString() + " : " + "gi = " + elementStage1.getWeightFractionEachElemInVapor());
+		for (GeneralElementStage1 el : userElements) {
+			nvi = el.getMoleFractionEachElemInVapor();
+			ai = GeneralElementStage1.CONST_ELEMS.get(el.toString(), GeneralElementStage1.ATOMIC_FRACTION);
+			el.setWeightFractionEachElemInVapor(((nvi * ai) / nviMulAiSum) * 100);
 		}
 	}
 
