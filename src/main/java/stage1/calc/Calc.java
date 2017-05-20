@@ -146,18 +146,20 @@ public class Calc {
 		return enthalpyVaporizationSum;
 	}
 
-	// TODO: 19.05.17 нужен ли этот метод, тут же только сложение чилел ?
 	/**
 	 * Энтальпия пара для сплава (КДж/Моль).
 	 * Формула 2.3
 	 * Formula dependencies:
 	 *      - {@link #findEnthalpyLiquidAlloy(List, int, int)} - formula 2.1
 	 *      - {@link #findEnthalpyVaporization(List)} - formula 2.2
+	 * @param userElements список элементов из задания пользователя
+	 * @param temperatureTask
+	 * @param temperatureElements
+	 * @return энтальпия пара для сплава
 	 */
-	public double findEnthalpyVapor(){
-
-		double enthalpyLiquidAlloy = Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyLiquidAlloy();
-		double enthalpyVaporization = Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyVaporization();
+	public double findEnthalpyVapor(List<GeneralElementStage1> userElements, int temperatureTask, int temperatureElements){
+		double enthalpyLiquidAlloy = findEnthalpyLiquidAlloy(userElements, temperatureTask, temperatureElements);
+		double enthalpyVaporization = findEnthalpyVaporization(userElements);
 		return enthalpyLiquidAlloy + enthalpyVaporization;
 	}
 

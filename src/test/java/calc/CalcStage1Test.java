@@ -2,7 +2,6 @@ package calc;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import stage1.calc.Calc;
 import stage1.elements.*;
@@ -130,9 +129,16 @@ public class CalcStage1Test {
 		}
 	}
 
-	@Ignore
 	@Test
 	public void findEnthalpyVaporFormula2p3Test(){
+		double result = new Calc().findEnthalpyVapor(userElements, TEMPERATURE_TASK, TEMPERATURE_ELEMENTS);
+
+		double expectedValue = 572.85648;
+		Assert.assertEquals(expectedValue, result, DOUBLE_DELTA);
+
+		if (isEnableLog) {
+			System.out.println("2.3. энтальпию пара (КДж/Моль): " + result);
+		}
 	}
 
 	@Test
