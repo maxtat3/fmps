@@ -184,7 +184,14 @@ public class CalcStage1Test {
 
 	@Test
 	public void findVaporPressureOverAlloyFormula5Test(){
+		double result = new Calc().findVaporPressureOverAlloy(userElements, TEMPERATURE_TASK);
 
+		double expectedValue = 420.26;
+		Assert.assertEquals(expectedValue, result, DOUBLE_DELTA);
+
+		if (isEnableLog) {
+			System.out.print("5. Давление пара над сплавом (Па): " + result);
+		}
 	}
 
 	@Test

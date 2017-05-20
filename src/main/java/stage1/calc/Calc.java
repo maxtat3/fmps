@@ -213,21 +213,20 @@ public class Calc {
 	 * Давление пара над сплавом (Па)
 	 * Формула 5
 	 *
+	 * Formula dependencies:
+	 *      - {@link #findPartialPressureCompsOverAlloy(List, int)} - formula 4
 	 * @param userElements список элементов из задания пользователя
+	 * @return давление пара над сплавом в Па
 	 */
-	public void findVaporPressureOverAlloy(List<GeneralElementStage1> userElements){
+	public double findVaporPressureOverAlloy(List<GeneralElementStage1> userElements, int temperatureTask){
+		// After calculate this must be calculated next formula
+		findPartialPressureCompsOverAlloy(userElements, temperatureTask);
+
 		double vaporPressureOverAlloy = 0;
-
-		for (GeneralElementStage1 userElem : userElements) {
-			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
-				if (userElem.toString().equals(containerElem.toString())) {
-					vaporPressureOverAlloy += containerElem.getPartialPressureCompsOverAlloy();
-				}
-			}
+		for (GeneralElementStage1 el : userElements) {
+			vaporPressureOverAlloy += el.getPartialPressureCompsOverAlloy();
 		}
-
-		Container.getInstance().getStage1().getCalcDataStage1().setVaporPressureOverAlloy(vaporPressureOverAlloy);
-		System.out.println("vaporPressureOverAlloy = " + vaporPressureOverAlloy);
+		return vaporPressureOverAlloy;
 	}
 
 	/**
