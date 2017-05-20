@@ -68,12 +68,17 @@ public class Calc {
 	 * Расчет энтальпии жидкого сплава (КДж/Моль).
 	 * Формула 2.1
 	 *
+	 * Formula dependencies:
+	 *      - {@link #findMoleFractionOfAlloyElems(List)} - formula 1
 	 * @param userElements список элементов из задания пользователя
 	 * @param temperatureTask // TODO: 19.05.17 уточнить что за температура ?
 	 * @param temperatureElements // TODO: 19.05.17 уточнить что за температура ?
 	 * @return энтальпия жидкого сплава в КДж/Моль
 	 */
 	public double findEnthalpyLiquidAlloy(List<GeneralElementStage1> userElements, int temperatureTask, int temperatureElements) {
+		// after calculate this must be calculate formula 1 - see in this method dependencies
+		findMoleFractionOfAlloyElems(userElements);
+
 		// HT0-H2980 - temp values 1 high temperature component enthalpy of each element
 		double[] ht0minh2980 = new double[userElements.size()];
 
@@ -111,9 +116,15 @@ public class Calc {
 	 * Расчет энтальпии испарения (КДж/Моль).
 	 * Формула 2.2
 	 *
+	 * Formula dependencies:
+	 *      - {@link #findMoleFractionOfAlloyElems(List)} - formula 1
 	 * @param userElements список элементов из задания пользователя
+	 * @return значение энтальпии испарения в КДж/Моль
 	 */
 	public double findEnthalpyVaporization(List<GeneralElementStage1> userElements){
+		// after calculate this must be calculate formula 1 - see in this method dependencies
+		new Calc().findMoleFractionOfAlloyElems(userElements);
+
 		// temp value deHкип0*Ni for find enthalpy of vaporization
 		double[] deHboil0mulNi = new double[userElements.size()];
 		int elemPointer = 0;
@@ -139,8 +150,12 @@ public class Calc {
 	/**
 	 * Энтальпия пара для сплава (КДж/Моль).
 	 * Формула 2.3
+	 * Formula dependencies:
+	 *      - {@link #findEnthalpyLiquidAlloy(List, int, int)} - formula 2.1
+	 *      - {@link #findEnthalpyVaporization(List)} - formula 2.2
 	 */
 	public double findEnthalpyVapor(){
+
 		double enthalpyLiquidAlloy = Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyLiquidAlloy();
 		double enthalpyVaporization = Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyVaporization();
 		return enthalpyLiquidAlloy + enthalpyVaporization;

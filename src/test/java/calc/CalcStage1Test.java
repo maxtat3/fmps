@@ -108,8 +108,6 @@ public class CalcStage1Test {
 
 	@Test
 	public void findEnthalpyLiquidAlloyFormula2p1Test(){
-		// for calculate this result must be calculate formula 1
-		new Calc().findMoleFractionOfAlloyElems(userElements);
 		double result = new Calc().findEnthalpyLiquidAlloy(userElements, TEMPERATURE_TASK, TEMPERATURE_ELEMENTS);
 
 		double expectedResult = 83.48332;
@@ -122,8 +120,6 @@ public class CalcStage1Test {
 
 	@Test
 	public void findEnthalpyVaporizationFormula2p2Test(){
-		// for calculate this result must be calculate formula 1
-		new Calc().findMoleFractionOfAlloyElems(userElements);
 		double result = new Calc().findEnthalpyVaporization(userElements);
 
 		double expectedValue = 489.373;
