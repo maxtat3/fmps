@@ -124,6 +124,7 @@ public class CalcStage1Test {
 			for (GeneralElementStage1 elem : userElements) {
 				System.out.println(elem.toString() + " : " + elem.getMoleFractionAlloyElem());
 			}
+			System.out.println();
 		}
 	}
 
@@ -135,7 +136,7 @@ public class CalcStage1Test {
 		Assert.assertEquals(expectedResult, result, DOUBLE_DELTA);
 
 		if (isEnableLog) {
-			System.out.print("2.1. Энтальпия жидкого сплава (КДж/Моль): " + result);
+			System.out.print("2.1. Энтальпия жидкого сплава (КДж/Моль): " + result + "\n\n");
 		}
 	}
 
@@ -147,7 +148,7 @@ public class CalcStage1Test {
 		Assert.assertEquals(expectedValue, result, DOUBLE_DELTA);
 
 		if (isEnableLog) {
-			System.out.print("2.2. Энтальпия испарения (КДж/Моль): " + result);
+			System.out.print("2.2. Энтальпия испарения (КДж/Моль): " + result + "\n\n");
 		}
 	}
 
@@ -159,7 +160,7 @@ public class CalcStage1Test {
 		Assert.assertEquals(expectedValue, result, DOUBLE_DELTA);
 
 		if (isEnableLog) {
-			System.out.println("2.3. энтальпию пара (КДж/Моль): " + result);
+			System.out.println("2.3. энтальпию пара (КДж/Моль): " + result + "\n\n");
 		}
 	}
 
@@ -180,6 +181,7 @@ public class CalcStage1Test {
 			for (GeneralElementStage1 elem : userElements) {
 				System.out.println(elem.toString() + " : " + elem.getVaporPressureOfPureComps());
 			}
+			System.out.println();
 		}
 	}
 
@@ -202,6 +204,7 @@ public class CalcStage1Test {
 			for (GeneralElementStage1 elem : userElements) {
 				System.out.println(elem.toString() + " : " + elem.getPartialPressureCompsOverAlloy());
 			}
+			System.out.println();
 		}
 	}
 
@@ -213,7 +216,7 @@ public class CalcStage1Test {
 		Assert.assertEquals(expectedValue, result, DOUBLE_DELTA);
 
 		if (isEnableLog) {
-			System.out.print("5. Давление пара над сплавом (Па): " + result);
+			System.out.print("5. Давление пара над сплавом (Па): " + result + "\n\n");
 		}
 	}
 
@@ -234,6 +237,7 @@ public class CalcStage1Test {
 			for (GeneralElementStage1 elem : userElements) {
 				System.out.println(elem.toString() + " : " + elem.getMoleFractionEachElemInVapor());
 			}
+			System.out.println();
 		}
 	}
 
@@ -254,6 +258,7 @@ public class CalcStage1Test {
 			for (GeneralElementStage1 elem : userElements) {
 				System.out.println(elem.toString() + " : " + elem.getWeightFractionEachElemInVapor());
 			}
+			System.out.println();
 		}
 	}
 
@@ -274,6 +279,7 @@ public class CalcStage1Test {
 			for (GeneralElementStage1 elem : userElements) {
 				System.out.println(elem.toString() + " : " + elem.getRateVaporizationEachElemOfWeldPool());
 			}
+			System.out.println();
 		}
 	}
 
@@ -284,6 +290,6 @@ public class CalcStage1Test {
 		double expectedValue = 4.1E-3;
 		Assert.assertEquals(expectedValue, result, DOUBLE_DELTA);
 
-		if (isEnableLog) System.out.println("Уменьшение массы расплавленного металла за счет испарения (гр/сек): " + result);
+		if (isEnableLog) System.out.println("9. Скорость уменьшения массы расплавленного металла за счет испарения (гр/сек): " + result + "\n\n");
 	}
 }
