@@ -1,6 +1,5 @@
 package stage1.calc;
 
-import model.Container;
 import stage1.elements.GeneralElementStage1;
 
 import java.util.List;
@@ -316,21 +315,18 @@ public class Calc {
 	 * Уменьшение массы расплавленного металла за счет испарения (гр/сек)
 	 * Формула 9
 	 *
+	 * Formula dependencies:
+	 *      - {@link #findRateVaporizationEachElemOfWeldPool(List, int, double)} - formula 8
 	 * @param userElements список элементов из задания пользователя
+	 * @return значение массы расплавленного металла за счет испарения
 	 */
-	public void findDecreaseMoltenMetalDueVaporization(List<GeneralElementStage1> userElements){
+	public double findDecreaseMoltenMetalDueVaporization(List<GeneralElementStage1> userElements,
+	                                                     int temperatureTask, double surfaceWeldArea){
+		findRateVaporizationEachElemOfWeldPool(userElements, temperatureTask, surfaceWeldArea);
 		double sum = 0;
-
-		for (GeneralElementStage1 userElem : userElements) {
-			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
-				if (userElem.toString().equals(containerElem.toString())) {
-					sum += containerElem.getRateVaporizationEachElemOfWeldPool();
-				}
-			}
+		for (GeneralElementStage1 el : userElements) {
+			sum += el.getRateVaporizationEachElemOfWeldPool();
 		}
-
-		Container.getInstance().getStage1().getCalcDataStage1().setDecreaseMoltenMetalDueVaporization(sum);
-		System.out.println("deltaVm = " + sum);
+		return sum;
 	}
-
 }

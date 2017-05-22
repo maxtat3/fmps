@@ -279,6 +279,11 @@ public class CalcStage1Test {
 
 	@Test
 	public void findDecreaseMoltenMetalDueVaporizationFormula9Test(){
+		double result = new Calc().findDecreaseMoltenMetalDueVaporization(userElements, TEMPERATURE_TASK, SURFACE_WELD_AREA);
 
+		double expectedValue = 4.1E-3;
+		Assert.assertEquals(expectedValue, result, DOUBLE_DELTA);
+
+		if (isEnableLog) System.out.println("Уменьшение массы расплавленного металла за счет испарения (гр/сек): " + result);
 	}
 }
