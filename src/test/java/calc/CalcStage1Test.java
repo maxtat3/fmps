@@ -20,6 +20,7 @@ public class CalcStage1Test {
 
 	private final int TEMPERATURE_ELEMENTS = 1800; // temperature elements (in Celsius degrees)
 	private final int TEMPERATURE_TASK = 2273; // temperature defined for user in task (in Celsius degrees)
+	private final double SURFACE_WELD_AREA = 4.6;
 	private static List<GeneralElementStage1> userElements;
 	private static List<GeneralElementStage1> expectedList;
 
@@ -88,6 +89,13 @@ public class CalcStage1Test {
 		cExp.setWeightFractionEachElemInVapor(0);
 		siExp.setWeightFractionEachElemInVapor(0);
 		tiExp.setWeightFractionEachElemInVapor(0);
+
+		// expected data for formula 8
+		feExp.setRateVaporizationEachElemOfWeldPool(0.0040);
+		alExp.setRateVaporizationEachElemOfWeldPool(1.423E-4);
+		cExp.setRateVaporizationEachElemOfWeldPool(4.456E-10);
+		siExp.setRateVaporizationEachElemOfWeldPool(1.295E-7);
+		tiExp.setRateVaporizationEachElemOfWeldPool(3.085E-7);
 
 		//fill elements
 		expectedList.addAll(Arrays.asList(feExp, alExp, cExp, siExp, tiExp));
@@ -251,7 +259,22 @@ public class CalcStage1Test {
 
 	@Test
 	public void findRateVaporizationEachElemOfWeldPoolFormula8Test(){
+		new Calc().findRateVaporizationEachElemOfWeldPool(userElements, TEMPERATURE_TASK, SURFACE_WELD_AREA);
 
+		for (GeneralElementStage1 uEl : userElements) {
+			for (GeneralElementStage1 eEl : expectedList) {
+				if (uEl.toString().equals(eEl.toString())) {
+					Assert.assertEquals(eEl.getRateVaporizationEachElemOfWeldPool(), uEl.getRateVaporizationEachElemOfWeldPool(), DOUBLE_DELTA);
+				}
+			}
+		}
+
+		if (isEnableLog) {
+			System.out.println("8. Скорость испарения из сварочной ванны каждого элемента (гр/сек): ");
+			for (GeneralElementStage1 elem : userElements) {
+				System.out.println(elem.toString() + " : " + elem.getRateVaporizationEachElemOfWeldPool());
+			}
+		}
 	}
 
 	@Test

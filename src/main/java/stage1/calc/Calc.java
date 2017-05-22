@@ -292,25 +292,23 @@ public class Calc {
 	 * Скорость испарения из сварочной ванны каждого элемента (гр/сек)
 	 * Формула 8
 	 *
+	 * Formula dependencies:
+	 *      - {@link #findPartialPressureCompsOverAlloy(List, int)} - formula 4
 	 * @param userElements список элементов из задания пользователя
+	 * @param temperatureTask температура расчета (град. Цельсия)
+	 * @param surfaceWeldArea площадь свободной поверхности сварочной ванны (см2)
 	 */
 	public void findRateVaporizationEachElemOfWeldPool(List<GeneralElementStage1> userElements,
 	                                                   int temperatureTask, double surfaceWeldArea) {
+		findPartialPressureCompsOverAlloy(userElements, temperatureTask);
+
 		double pip, ai, vi;
 
-		for (GeneralElementStage1 userElem : userElements) {
-			for (GeneralElementStage1 containerElem : Container.getInstance().getStage1().getAllElements()) {
-				if (userElem.toString().equals(containerElem.toString())) {
-					pip = containerElem.getPartialPressureCompsOverAlloy();
-					ai = GeneralElementStage1.CONST_ELEMS.get(containerElem.toString(), GeneralElementStage1.ATOMIC_FRACTION);
-					vi = 0.00044 * pip * Math.sqrt(ai / temperatureTask) * surfaceWeldArea;
-					containerElem.setRateVaporizationEachElemOfWeldPool(vi);
-				}
-			}
-		}
-
-		for (GeneralElementStage1 el : Container.getInstance().getStage1().getAllElements()) {
-			System.out.println(el.toString() + " : " + "vi = " + el.getRateVaporizationEachElemOfWeldPool());
+		for (GeneralElementStage1 el : userElements) {
+			pip = el.getPartialPressureCompsOverAlloy();
+			ai = GeneralElementStage1.CONST_ELEMS.get(el.toString(), GeneralElementStage1.ATOMIC_FRACTION);
+			vi = 0.00044 * pip * Math.sqrt(ai / temperatureTask) * surfaceWeldArea;
+			el.setRateVaporizationEachElemOfWeldPool(vi);
 		}
 	}
 
