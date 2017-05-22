@@ -9,24 +9,6 @@ import java.util.List;
  */
 public class Calc {
 
-	public Calc() {
-
-
-
-		// do calculate
-//		findEnthalpyVaporization(list);
-//		findEnthalpyVapor();
-//		findVaporPressureOfPureComps(list, TEMPERATURE_TASK);
-//		findPartialPressureCompsOverAlloy(list, TEMPERATURE_TASK);
-//		findVaporPressureOverAlloy(list);
-//		findMoleFractionEachElemInVapor(list);
-//		findWeightFractionEachElemInVapor(list);
-//		findRateVaporizationEachElemOfWeldPool(
-//			list, TEMPERATURE_TASK, Container.getInstance().getStage1().getExtraInputDataStage1().getSurfaceWeldArea()
-//		);
-//		findDecreaseMoltenMetalDueVaporization(list);
-	}
-
 	/**
 	 * Расчет мольной доли всех элементов сплава.
 	 * Результат записывается в каждый элемент в переданной коллекции.
@@ -75,7 +57,6 @@ public class Calc {
 	 * @return энтальпия жидкого сплава в КДж/Моль
 	 */
 	public double findEnthalpyLiquidAlloy(List<GeneralElementStage1> userElements, int temperatureTask, int temperatureElements) {
-		// after calculate this must be calculate formula 1 - see in this method dependencies
 		findMoleFractionOfAlloyElems(userElements);
 
 		// HT0-H2980 - temp values 1 high temperature component enthalpy of each element
@@ -107,7 +88,6 @@ public class Calc {
 		for (double val : ht0minh2980mulni) {
 			enthalpyLiquidAlloySum += val;
 		}
-//		Container.getInstance().getStage1().getCalcDataStage1().setEnthalpyLiquidAlloy(enthalpyLiquidAlloySum);
 		return enthalpyLiquidAlloySum;
 	}
 
@@ -121,7 +101,6 @@ public class Calc {
 	 * @return значение энтальпии испарения в КДж/Моль
 	 */
 	public double findEnthalpyVaporization(List<GeneralElementStage1> userElements){
-		// after calculate this must be calculate formula 1 - see in this method dependencies
 		new Calc().findMoleFractionOfAlloyElems(userElements);
 
 		// temp value deHкип0*Ni for find enthalpy of vaporization
@@ -200,7 +179,6 @@ public class Calc {
 	 * @param temperatureTask температура расчета (град. Цельсия)
 	 */
 	public void findPartialPressureCompsOverAlloy(List<GeneralElementStage1> userElements, int temperatureTask){
-		// After calculate this must be calculated next formulas
 		findMoleFractionOfAlloyElems(userElements);
 		findVaporPressureOfPureComps(userElements, temperatureTask);
 
@@ -235,7 +213,6 @@ public class Calc {
 	 * @return давление пара над сплавом в Па
 	 */
 	public double findVaporPressureOverAlloy(List<GeneralElementStage1> userElements, int temperatureTask){
-		// After calculate this must be calculated next formula
 		findPartialPressureCompsOverAlloy(userElements, temperatureTask);
 
 		double vaporPressureOverAlloy = 0;
