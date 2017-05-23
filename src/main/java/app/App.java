@@ -2,7 +2,7 @@ package app;
 
 
 import db.DBUtils;
-import ui.StartFrame;
+import ui.StudentCardFrame;
 
 import javax.swing.*;
 
@@ -20,7 +20,8 @@ public class App {
 	}
 
 	private void startUI() {
-		new StartFrame();
+//		new StartFrame();
 //		new Stage1QuestionFrame(new User("Имя..........", "Отчество.......", "Фамилия......" , 17554187));
+		new StudentCardFrame();
 	}
 }

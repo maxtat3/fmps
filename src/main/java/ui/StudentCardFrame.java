@@ -17,7 +17,7 @@ import java.util.List;
 /**
  *
  */
-public class StudentCardFrame implements StudentCardFrameController.StudentCardFrameCallback {
+public class StudentCardFrame {
 
 	public static final String TXT_STUDENT_CARD = "Карточка студента";
 	public static final String TXT_MAIN_ELEMENTS = "Основные элементы:";
@@ -41,9 +41,9 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 	private JFrame studentCardFrame = new JFrame(TXT_STUDENT_CARD);
 	private StudentCardFrameController controller;
 
-	private List<GeneralElementStage1> basicElementsStage1;
-	private List<GeneralElementStage1> accessoryElementsStage1;
-	private List<GeneralElementStage2> gasesStage2;
+//	private List<GeneralElementStage1> basicElementsStage1;
+//	private List<GeneralElementStage1> accessoryElementsStage1;
+//	private List<GeneralElementStage2> gasesStage2;
 
 	private JPanel jpUserData = new JPanel();
 	private JPanel jpInputDataStage1 = new JPanel();
@@ -60,7 +60,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 
 
 	public StudentCardFrame() {
-		controller = new StudentCardFrameController(studentCardFrame, this);
+		controller = new StudentCardFrameController(); // TODO: 23.05.17 refactored constructor
 
 		studentCardFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		addComponentToPane(studentCardFrame.getContentPane());
@@ -111,12 +111,12 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
 
 		jpRows.add(new JLabel(TXT_MAIN_ELEMENTS));
-		for (GeneralElementStage1 el : basicElementsStage1) {
+		for (GeneralElementStage1 el : controller.receiveBasicElementsStage1()) {
 			addRowsInputDataToPanel(jpRows, jtfList, el);
 		}
 
 		jpRows.add(new JLabel(TXT_ACCESSORY_ELEMENTS));
-		for (GeneralElementStage1 el : accessoryElementsStage1) {
+		for (GeneralElementStage1 el : controller.receiveAccessoryElementsStage1()) {
 			addRowsInputDataToPanel(jpRows, jtfList, el);
 		}
 
@@ -171,7 +171,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		jpRowsStage2.setLayout(new BoxLayout(jpRowsStage2, BoxLayout.Y_AXIS));
 
 		jpRowsStage2.add(new JLabel(TXT_GASES_STAGE_2));
-		for (GeneralElementStage2 el : gasesStage2) {
+		for (GeneralElementStage2 el : controller.receiveGasesStage2()) {
 			addRowsInputDataToPanelStage2(jpRowsStage2, jtfList, el);
 		}
 
@@ -268,6 +268,7 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		contentPane.add(jpDirection, BorderLayout.SOUTH);
 	}
 
+	// TODO: 23.05.17 renamed ...Stage1
 	private void addRowsInputDataToPanel(JPanel jpRows, List<JTextField> jtfList, GeneralElementStage1 el) {
 		JLabel jlElName = new JLabel(el.toString() + " : ");
 		JTextField jtfElVal = new JTextField();
@@ -320,18 +321,4 @@ public class StudentCardFrame implements StudentCardFrameController.StudentCardF
 		studentCardFrame.dispose();
 	}
 
-	@Override
-	public void receiveAllBasicElementsStage1(List<GeneralElementStage1> elements) {
-		basicElementsStage1 = elements;
-	}
-
-	@Override
-	public void receiveAllAccessoryElementsStage1(List<GeneralElementStage1> elements) {
-		accessoryElementsStage1 = elements;
-	}
-
-	@Override
-	public void receiveAllGasesStage2(List<GeneralElementStage2> gases) {
-		gasesStage2 = gases;
-	}
 }

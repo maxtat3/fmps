@@ -7,7 +7,6 @@ import model.Container;
 import stage1.elements.BaseElementStage1;
 import stage1.elements.GeneralElementStage1;
 import stage2.elements.GeneralElementStage2;
-import ui.StudentCardFrame;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -17,9 +16,6 @@ import java.util.List;
  *
  */
 public class StudentCardFrameController {
-
-	private JFrame jFrame;
-	private StudentCardFrame studentCardFrame;
 
 	/**
 	 * Все основные элементы задачи 1
@@ -37,19 +33,14 @@ public class StudentCardFrameController {
 	private List<GeneralElementStage2> gasesStage2;
 
 
-	public StudentCardFrameController(JFrame jFrame, StudentCardFrame studentCardFrame) {
-		this.jFrame = jFrame;
-		this.studentCardFrame = studentCardFrame;
-
+	public StudentCardFrameController() {
 		receiveAllElementsStage1();
-		receiveGasesStage2();
-		studentCardFrame.receiveAllBasicElementsStage1(basicElementsStage1);
-		studentCardFrame.receiveAllAccessoryElementsStage1(accessoryElementsStage1);
-		studentCardFrame.receiveAllGasesStage2(gasesStage2);
+		receiveAllGasesStage2();
 	}
 
+
 	/**
-	 * Получение всех элементов для задачи 1 из БД
+	 * Получение всех химических элементов из контейнера для задачи 1
 	 */
 	private void receiveAllElementsStage1(){
 		basicElementsStage1 = new ArrayList<>();
@@ -63,11 +54,23 @@ public class StudentCardFrameController {
 		}
 	}
 
-	private void receiveGasesStage2() {
+	private void receiveAllGasesStage2() {
 		gasesStage2 = new ArrayList<>();
 		for (GeneralElementStage2 el : Container.getInstance().getStage2().getAllElements()) {
 			gasesStage2.add(el);
 		}
+	}
+
+	public List<GeneralElementStage1> receiveBasicElementsStage1() {
+		return basicElementsStage1;
+	}
+
+	public List<GeneralElementStage1> receiveAccessoryElementsStage1() {
+		return accessoryElementsStage1;
+	}
+
+	public List<GeneralElementStage2> receiveGasesStage2() {
+		return gasesStage2;
 	}
 
 	/**
@@ -108,12 +111,4 @@ public class StudentCardFrameController {
 	public void saveUser(User user){
 		DBUtils.addNewUser(user.getFirstName(), user.getMiddleName(), user.getLastName(), user.getNumberOfRecordBook());
 	}
-
-
-	public interface StudentCardFrameCallback {
-		void receiveAllBasicElementsStage1(java.util.List<GeneralElementStage1> elements);
-		void receiveAllAccessoryElementsStage1(java.util.List<GeneralElementStage1> elements);
-		void receiveAllGasesStage2(java.util.List<GeneralElementStage2> gases);
-	}
-
 }
