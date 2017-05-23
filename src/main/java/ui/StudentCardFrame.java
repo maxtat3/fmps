@@ -41,10 +41,6 @@ public class StudentCardFrame {
 	private JFrame studentCardFrame = new JFrame(TXT_STUDENT_CARD);
 	private StudentCardFrameController controller;
 
-//	private List<GeneralElementStage1> basicElementsStage1;
-//	private List<GeneralElementStage1> accessoryElementsStage1;
-//	private List<GeneralElementStage2> gasesStage2;
-
 	private JPanel jpUserData = new JPanel();
 	private JPanel jpInputDataStage1 = new JPanel();
 	private JPanel jpInputDataStage2 = new JPanel();
@@ -60,7 +56,7 @@ public class StudentCardFrame {
 
 
 	public StudentCardFrame() {
-		controller = new StudentCardFrameController(); // TODO: 23.05.17 refactored constructor
+		controller = new StudentCardFrameController();
 
 		studentCardFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		addComponentToPane(studentCardFrame.getContentPane());
@@ -112,12 +108,12 @@ public class StudentCardFrame {
 
 		jpRows.add(new JLabel(TXT_MAIN_ELEMENTS));
 		for (GeneralElementStage1 el : controller.receiveBasicElementsStage1()) {
-			addRowsInputDataToPanel(jpRows, jtfList, el);
+			addRowsInputDataToPanelStage1(jpRows, jtfList, el);
 		}
 
 		jpRows.add(new JLabel(TXT_ACCESSORY_ELEMENTS));
 		for (GeneralElementStage1 el : controller.receiveAccessoryElementsStage1()) {
-			addRowsInputDataToPanel(jpRows, jtfList, el);
+			addRowsInputDataToPanelStage1(jpRows, jtfList, el);
 		}
 
 		// Extra input data for stage 1 (tab 1)
@@ -268,8 +264,7 @@ public class StudentCardFrame {
 		contentPane.add(jpDirection, BorderLayout.SOUTH);
 	}
 
-	// TODO: 23.05.17 renamed ...Stage1
-	private void addRowsInputDataToPanel(JPanel jpRows, List<JTextField> jtfList, GeneralElementStage1 el) {
+	private void addRowsInputDataToPanelStage1(JPanel jpRows, List<JTextField> jtfList, GeneralElementStage1 el) {
 		JLabel jlElName = new JLabel(el.toString() + " : ");
 		JTextField jtfElVal = new JTextField();
 		jtfElVal.setColumns(4);
