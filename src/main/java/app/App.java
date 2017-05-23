@@ -9,9 +9,7 @@ import javax.swing.*;
 
 public class App {
 	public static void main(String[] args) {
-//		new Calc();
 		DBUtils.initDatabase();
-//		DBUtils.addNewUser("Alex", "Semenovich", "Tanvov", 15701);
 
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
