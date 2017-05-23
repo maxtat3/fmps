@@ -1,11 +1,13 @@
 package ui;
 
+import domain.User;
+
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +16,7 @@ import java.util.List;
 public class Stage1Question1Frame extends JFrame {
 
 	private JPanel jpMain = new JPanel();
+	private JPanel jpTitle = new JPanel(new FlowLayout(FlowLayout.CENTER));
 	private JPanel jpQuestion1 = new JPanel();
 	private JPanel jpQuestion2 = new JPanel();
 	private JPanel jpQuestion3 = new JPanel();
@@ -21,8 +24,9 @@ public class Stage1Question1Frame extends JFrame {
 	private JPanel jpQuestion5 = new JPanel();
 	private JPanel jpQuestion6 = new JPanel();
 	private JPanel jpQuestion7 = new JPanel();
-	private JPanel jpDirection = new JPanel();
-	private JPanel jpStatusBar = new JPanel();
+	private JPanel jpQuestion8 = new JPanel();
+	private JPanel jpQuestion9 = new JPanel();
+	private JPanel jpStatusAndDirection = new JPanel();
 
 	private JLabel jlQuestion1 = new JLabel("2 + 3 = ");
 	private JTextField jtfAnswer1 = new JTextField("5");
@@ -35,22 +39,33 @@ public class Stage1Question1Frame extends JFrame {
 	private JLabel jlQuestion5 = new JLabel("3 * 8 = ");
 	private JTextField jtfAnswer5 = new JTextField("    ");
 
-	private JButton jbtnOk = new JButton("Ok");
-	private JButton jbtnCancel = new JButton("Cancel");
+	private JButton jBtnExit = new JButton("Выход");
+	private JButton jBtnNext = new JButton("Далее >>>");
 
-	private JLabel jlStatusMsg = new JLabel("info");
+	private JLabel jlUserFirstName = new JLabel(); // Имя
+	private JLabel jlUserMiddleName = new JLabel(); // Отчество
+	private JLabel jlUserLastName = new JLabel(); // Фамилия
+
+	private JLabel jlStatusMsg = new JLabel("Правильных ответов: ");
 
 	private PanelsTag panelsTag;
 
 	private List<JTextField> jtfAlloyComWeights = new ArrayList<>();
 
 
-	public Stage1Question1Frame() {
-		super("Stage 1, question 1");
+	public Stage1Question1Frame(User user) {
+		super("Stage 1, question n");
+
+		// Settings main frame this app
+		jpMain.setLayout(new BorderLayout());
+
+		jpTitle.add(new JLabel("Задача 1. Расчет процессов испарения металлов при сварку плавлением."));
+		jpMain.add(jpTitle, BorderLayout.PAGE_START);
 
 //		// ======== Panel 1 =========
-//		jpQuestion1.setLayout(new FlowLayout());
-//		jpQuestion1.add(jpRows);
+		jpQuestion1.setLayout(new FlowLayout());
+		jpQuestion1.add(jlQuestion1);
+		jpQuestion1.add(jtfAnswer1);
 
 		// ========= Panel 2 =========
 		jpQuestion2.setLayout(new FlowLayout());
@@ -72,40 +87,64 @@ public class Stage1Question1Frame extends JFrame {
 		jpQuestion5.add(jlQuestion5);
 		jpQuestion5.add(jtfAnswer5);
 
-		jpDirection.setLayout(new FlowLayout());
-		jpDirection.add(jbtnOk);
-		jpDirection.add(jbtnCancel);
+		// Settings for status and directions panel
+		jpStatusAndDirection.setLayout(new BoxLayout(jpStatusAndDirection, BoxLayout.Y_AXIS));
+		// add direction buttons
+		JPanel jpDirBtns = new JPanel(new FlowLayout());
+		jBtnExit.setPreferredSize(new Dimension(100, 25));
+		jBtnNext.setPreferredSize(new Dimension(500, 25));
+		jpDirBtns.add(jBtnExit);
+		jpDirBtns.add(jBtnNext);
+		jpStatusAndDirection.add(jpDirBtns);
+		// add
+		JPanel jpStatAndDir = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		jpStatAndDir.add(jlStatusMsg);
+		jpStatusAndDirection.add(jpStatAndDir);
+		// add FIO labels
+		JPanel jpUserFIO = new JPanel(new FlowLayout());
+		jpUserFIO.add(jlUserLastName); // Ф
+		jpUserFIO.add(jlUserFirstName); // И
+		jpUserFIO.add(jlUserMiddleName); // О
+		jpStatusAndDirection.add(jpUserFIO);
+		jlUserFirstName.setText(user.getFirstName());
+		jlUserMiddleName.setText(user.getMiddleName());
+		jlUserLastName.setText(user.getLastName());
 
-		jpStatusBar.setLayout(new FlowLayout());
-		jpStatusBar.add(jlStatusMsg);
+		jlStatusMsg.setText(jlStatusMsg.getText() + "1/8");
+
 
 		// other panels
-		// Settings main frame this app
-		jpMain.setLayout(new BoxLayout(jpMain, BoxLayout.Y_AXIS));
-
-
 		// set settings for created panels
 		jpQuestion1.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "panel 1"
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 1"
 		));
 		jpQuestion2.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "panel 2"
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 2"
 		));
 		jpQuestion3.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "panel 3"
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 3"
 		));
 		jpQuestion4.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "panel 4"
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 4"
 		));
 		jpQuestion5.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "panel 5"
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 5"
 		));
+
+		jpQuestion1.add(new JLabel("Мольная доля всех элементов сплава (%): "));
+		jpQuestion2.add(new JLabel("Энтальпия жидкого сплава, энтальпия испарения, энтальпия пара (кДж/моль): ")); //2.1, 2.2, 2.3
+		jpQuestion3.add(new JLabel("Давление пара чистых компонентов (Па): "));
+		jpQuestion4.add(new JLabel("Парциальное давление компонент над сплавом (Па): "));
+		jpQuestion5.add(new JLabel("Давление пара над сплавом (Па): "));
+		jpQuestion6.add(new JLabel("Мольная доля каждого компонента в паре (%): "));
+		jpQuestion7.add(new JLabel("Весовая доля каждого компонента в паре (%): "));
+		jpQuestion8.add(new JLabel("Скорость испарения из сварочной ванны каждого элемента (гр/сек): "));
+		jpQuestion9.add(new JLabel("Скорость уменьшения массы расплавленного металла за счет испарения (гр/сек): "));
 
 		panelsTag = PanelsTag.PANEL_1;
 		showNextPanel();
 		showOtherViewElements();
 
-		// add main panel to main frame
 		add(jpMain);
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -116,7 +155,7 @@ public class Stage1Question1Frame extends JFrame {
 
 //		addComponentsListeners();
 
-		jbtnOk.addActionListener(new ActionListener() {
+		jBtnNext.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				for (JTextField jtf : jtfAlloyComWeights) {
@@ -176,8 +215,7 @@ public class Stage1Question1Frame extends JFrame {
 	}
 
 	private void showOtherViewElements() {
-		jpMain.add(jpDirection);
-		jpMain.add(jpStatusBar);
+		jpMain.add(jpStatusAndDirection, BorderLayout.PAGE_END);
 	}
 
 }

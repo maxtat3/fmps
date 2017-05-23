@@ -3,6 +3,7 @@ package app;
 
 import db.DBUtils;
 import ui.StartFrame;
+
 import javax.swing.*;
 
 
@@ -22,5 +23,6 @@ public class App {
 
 	private void startUI() {
 		new StartFrame();
+//		new Stage1Question1Frame(new User("Имя..........", "Отчество.......", "Фамилия......" , 17554187));
 	}
 }
