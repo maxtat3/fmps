@@ -13,7 +13,7 @@ import java.util.List;
 /**
  *
  */
-public class Stage1Question1Frame extends JFrame {
+public class Stage1QuestionFrame extends JFrame {
 
 	private JPanel jpMain = new JPanel();
 	private JPanel jpTitle = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -53,7 +53,7 @@ public class Stage1Question1Frame extends JFrame {
 	private List<JTextField> jtfAlloyComWeights = new ArrayList<>();
 
 
-	public Stage1Question1Frame(User user) {
+	public Stage1QuestionFrame(User user) {
 		super("Stage 1, question n");
 
 		// Settings main frame this app
