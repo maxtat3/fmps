@@ -174,7 +174,7 @@ public class Stage1QuestionFrame extends JFrame {
 				int correctInputDataCounter = 0;
 				for (JTextField jtf : jtfInputData) {
 					String res = controller.validateInputData(jtf, InputDataController.ValidatorVariant.IS_NUMBER);
-					if (!res.equals("0")) {
+					if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
 						jlStatusMsg.setText(res);
 						return;
 					}

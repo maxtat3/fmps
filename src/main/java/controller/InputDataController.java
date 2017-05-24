@@ -130,10 +130,12 @@ public class InputDataController {
 				if (!Utils.isNumber(content)) return "<html><font color=red>В поле <i>" + name + "</i> разрешены только цифры !</font></html>";
 				break;
 		}
-		return "0";
+		return SUCCESS_VALIDATE;
 	}
 
 	public enum ValidatorVariant {
 		IS_TEXT, IS_NUMBER
 	}
+
+	public static final String SUCCESS_VALIDATE = "0";
 }
