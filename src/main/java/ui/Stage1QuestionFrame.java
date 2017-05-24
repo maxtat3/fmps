@@ -1,6 +1,9 @@
 package ui;
 
+import controller.InputDataController;
+import controller.Stage1QuestionFrameController;
 import domain.User;
+import stage1.elements.GeneralElementStage1;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -50,11 +53,14 @@ public class Stage1QuestionFrame extends JFrame {
 
 	private PanelsTag panelsTag;
 
-	private List<JTextField> jtfAlloyComWeights = new ArrayList<>();
+	private Stage1QuestionFrameController controller;
+	private java.util.List<JTextField> jtfInputData = new ArrayList<>(); //for validate user input data only
 
 
 	public Stage1QuestionFrame(User user) {
 		super("Stage 1, question n");
+
+		controller = new Stage1QuestionFrameController();
 
 		// Settings main frame this app
 		jpMain.setLayout(new BorderLayout());
@@ -62,10 +68,15 @@ public class Stage1QuestionFrame extends JFrame {
 		jpTitle.add(new JLabel("Задача 1. Расчет процессов испарения металлов при сварку плавлением."));
 		jpMain.add(jpTitle, BorderLayout.PAGE_START);
 
-//		// ======== Panel 1 =========
-		jpQuestion1.setLayout(new FlowLayout());
-		jpQuestion1.add(jlQuestion1);
-		jpQuestion1.add(jtfAnswer1);
+		// ======== Panel 1 =========
+		jpQuestion1.setLayout(new BoxLayout(jpQuestion1, BoxLayout.Y_AXIS));
+		JPanel jpRows = new JPanel();
+		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
+		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
+			addRowsInputDataToPanel(jpRows, jtfInputData, el);
+		}
+		jpQuestion1.add(jpRows);
+
 
 		// ========= Panel 2 =========
 		jpQuestion2.setLayout(new FlowLayout());
@@ -141,6 +152,7 @@ public class Stage1QuestionFrame extends JFrame {
 		jpQuestion8.add(new JLabel("Скорость испарения из сварочной ванны каждого элемента (гр/сек): "));
 		jpQuestion9.add(new JLabel("Скорость уменьшения массы расплавленного металла за счет испарения (гр/сек): "));
 
+		// show question 1
 		panelsTag = PanelsTag.PANEL_1;
 		showNextPanel();
 		showOtherViewElements();
@@ -158,13 +170,38 @@ public class Stage1QuestionFrame extends JFrame {
 		jBtnNext.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for (JTextField jtf : jtfAlloyComWeights) {
-					System.out.println(jtf.getName() + " : " + jtf.getText());
+				// validate entered data
+				int correctInputDataCounter = 0;
+				for (JTextField jtf : jtfInputData) {
+					String res = controller.validateInputData(jtf, InputDataController.ValidatorVariant.IS_NUMBER);
+					if (!res.equals("0")) {
+						jlStatusMsg.setText(res);
+						return;
+					}
+					correctInputDataCounter++;
+					if (correctInputDataCounter == jtfInputData.size()) {
+						jlStatusMsg.setText("");
+					}
 				}
 			}
 		});
 	}
 
+	private void addRowsInputDataToPanel(JPanel jpRows, List<JTextField> jtfList, GeneralElementStage1 el) {
+		JLabel jlName = new JLabel(el.toString() + " : ");
+		JTextField jtfVal = new JTextField();
+		jtfVal.setColumns(4);
+		jtfVal.setName(el.toString());
+		jtfList.add(jtfVal);
+		JLabel jlPercent = new JLabel(" %");
+
+		JPanel jpItems = new JPanel();
+		jpItems.add(jlName);
+		jpItems.add(jtfVal);
+		jpItems.add(jlPercent);
+
+		jpRows.add(jpItems);
+	}
 
 	private void checkAnswer() {
 		System.out.println(jtfAnswer2.getText());
@@ -185,7 +222,6 @@ public class Stage1QuestionFrame extends JFrame {
 	}
 
 	private void showNextPanel() {
-		System.out.println("show");
 		switch (panelsTag) {
 			case PANEL_1:
 				jpMain.add(jpQuestion1, BorderLayout.CENTER);
@@ -195,7 +231,6 @@ public class Stage1QuestionFrame extends JFrame {
 				jpMain.add(jpQuestion2, BorderLayout.CENTER);
 				break;
 			case PANEL_3:
-				System.out.println("show panel 3");
 				jpMain.remove(jpQuestion2);
 				jpMain.add(jpQuestion3, BorderLayout.CENTER);
 				break;
