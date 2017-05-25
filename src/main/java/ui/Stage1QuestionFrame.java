@@ -41,6 +41,19 @@ public class Stage1QuestionFrame extends JFrame {
 	private JTextField jtfAnswer4 = new JTextField("    ");
 	private JLabel jlQuestion5 = new JLabel("3 * 8 = ");
 	private JTextField jtfAnswer5 = new JTextField("    ");
+	// Elements for question 2
+	// 2.1 Расчет энтальпии жидкого сплава (кДж/моль) Enthalpy liquid alloy
+	private JLabel jlEntLqAll = new JLabel("<html>Расчет энтальпии жидкого сплава H<sub>L</sub><sup>0</sup>: </html>");
+	private JTextField jtfEntLqAll = new JTextField();
+	private JLabel jlEntLqAllUnits = new JLabel(" кДж/моль");
+	// 2.2 Расчет энтальпии испарения (кДж/моль) Enthalpy vaporization
+	private JLabel jlEntVaporization = new JLabel("<html>Расчет энтальпии испарения &Delta;H<sub>кип</sub>: </html>");
+	private JTextField jtfEntVaporization = new JTextField();
+	private JLabel jlEntVaporizationUnits = new JLabel(" кДж/моль");
+	// 2.3 Энтальпия пара для сплава (кДж/моль) Enthalpy vapour
+	private JLabel jlEntVapour = new JLabel("<html>Расчет энтальпии пара для сплава H<sub>g</sub>: </html>");
+	private JTextField jtfEntVapour = new JTextField();
+	private JLabel jlEntVapourUnits = new JLabel(" кДж/моль");
 
 	private JButton jBtnExit = new JButton("Выход");
 	private JButton jBtnNext = new JButton("Далее >>>");
@@ -89,9 +102,28 @@ public class Stage1QuestionFrame extends JFrame {
 
 
 		// ========= Panel 2 =========
-		jpQuestion2.setLayout(new FlowLayout());
-		jpQuestion2.add(jlQuestion2);
-		jpQuestion2.add(jtfAnswer2);
+		jpQuestion2.setLayout(new BoxLayout(jpQuestion2, BoxLayout.Y_AXIS));
+		JPanel jpRowQ2p1 = new JPanel();
+		JPanel jpRowQ2p2 = new JPanel();
+		JPanel jpRowQ2p3 = new JPanel();
+		jtfEntLqAll.setName("H<sub>L</sub><sup>0</sup>");
+		jtfEntVaporization.setName("&Delta;H<sub>кип</sub>");
+		jtfEntVapour.setName("H<sub>g</sub>");
+		jpRowQ2p1.add(jlEntLqAll);
+		jpRowQ2p1.add(jtfEntLqAll);
+		jpRowQ2p1.add(jlEntLqAllUnits);
+		jpRowQ2p2.add(jlEntVaporization);
+		jpRowQ2p2.add(jtfEntVaporization);
+		jpRowQ2p2.add(jlEntVaporizationUnits);
+		jpRowQ2p3.add(jlEntVapour);
+		jpRowQ2p3.add(jtfEntVapour);
+		jpRowQ2p3.add(jlEntVapourUnits);
+		jtfEntLqAll.setColumns(4);
+		jtfEntVaporization.setColumns(4);
+		jtfEntVapour.setColumns(4);
+		jpQuestion2.add(jpRowQ2p1);
+		jpQuestion2.add(jpRowQ2p2);
+		jpQuestion2.add(jpRowQ2p3);
 
 		// ========== Panel 3 ===============
 		jpQuestion3.setLayout(new FlowLayout());
@@ -154,7 +186,7 @@ public class Stage1QuestionFrame extends JFrame {
 
 
 		// show question 1
-		panelsTag = PanelsTag.PANEL_1;
+		panelsTag = PanelsTag.PANEL_2;
 		showNextPanel();
 		showOtherViewElements();
 
@@ -184,6 +216,27 @@ public class Stage1QuestionFrame extends JFrame {
 						jlStatusMsg.setText("");
 					}
 				}
+
+				// validate entered data for question 2.1, 2.2, 2.3
+				String res = controller.validateInputData(jtfEntLqAll, InputDataController.ValidatorVariant.IS_NUMBER);
+				if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
+					jlStatusMsg.setText(res);
+					return;
+				}
+
+				res = controller.validateInputData(jtfEntVaporization, InputDataController.ValidatorVariant.IS_NUMBER);
+				if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
+					jlStatusMsg.setText(res);
+					return;
+				}
+
+				res = controller.validateInputData(jtfEntVapour, InputDataController.ValidatorVariant.IS_NUMBER);
+				if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
+					jlStatusMsg.setText(res);
+					return;
+				}
+
+				jlStatusMsg.setText("");
 			}
 		});
 	}
