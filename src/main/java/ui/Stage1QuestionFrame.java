@@ -54,6 +54,10 @@ public class Stage1QuestionFrame extends JFrame {
 	private JLabel jlEntVapour = new JLabel("<html>Расчет энтальпии пара для сплава H<sub>g</sub>: </html>");
 	private JTextField jtfEntVapour = new JTextField();
 	private JLabel jlEntVapourUnits = new JLabel(" кДж/моль");
+	// Elements for question 5
+	private JLabel jlVapPresOverAlloy = new JLabel("<html>Давление пара над сплавом P<sup>p</sup>: </html>");
+	private JTextField jtfVapPresOverAlloy = new JTextField();
+	private JLabel jlVapPresOverAlloyUnits = new JLabel(" Па");
 
 	private JButton jBtnExit = new JButton("Выход");
 	private JButton jBtnNext = new JButton("Далее >>>");
@@ -143,9 +147,14 @@ public class Stage1QuestionFrame extends JFrame {
 		jpQuestion4.add(jpRows);
 
 		// ========= panel 5 ============
-		jpQuestion5.setLayout(new FlowLayout());
-		jpQuestion5.add(jlQuestion5);
-		jpQuestion5.add(jtfAnswer5);
+		jpQuestion5.setLayout(new BoxLayout(jpQuestion5, BoxLayout.Y_AXIS));
+		JPanel jpRowQ5 = new JPanel();
+		jtfVapPresOverAlloy.setName("P<sup>p</sup>");
+		jpRowQ5.add(jlVapPresOverAlloy);
+		jpRowQ5.add(jtfVapPresOverAlloy);
+		jpRowQ5.add(jlVapPresOverAlloyUnits);
+		jtfVapPresOverAlloy.setColumns(4);
+		jpQuestion5.add(jpRowQ5);
 
 		// Settings for status and directions panel
 		jpStatusAndDirection.setLayout(new BoxLayout(jpStatusAndDirection, BoxLayout.Y_AXIS));
@@ -193,7 +202,7 @@ public class Stage1QuestionFrame extends JFrame {
 
 
 		// show question 1
-		panelsTag = PanelsTag.PANEL_4;
+		panelsTag = PanelsTag.PANEL_2;
 		showNextPanel();
 		showOtherViewElements();
 
@@ -298,6 +307,10 @@ public class Stage1QuestionFrame extends JFrame {
 			case PANEL_4:
 				jpMain.remove(jpQuestion3);
 				jpMain.add(jpQuestion4, BorderLayout.CENTER);
+				break;
+			case PANEL_5:
+				jpMain.remove(jpQuestion4);
+				jpMain.add(jpQuestion5, BorderLayout.CENTER);
 				break;
 		}
 		showOtherViewElements();
