@@ -134,9 +134,13 @@ public class Stage1QuestionFrame extends JFrame {
 		jpQuestion3.add(jpRows);
 
 		// ========= panel 4 ============
-		jpQuestion4.setLayout(new FlowLayout());
-		jpQuestion4.add(jlQuestion4);
-		jpQuestion4.add(jtfAnswer4);
+		jpQuestion4.setLayout(new BoxLayout(jpQuestion4, BoxLayout.Y_AXIS));
+		JPanel jpRowsQ4 = new JPanel();
+		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
+		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
+			addRowsInputDataToPanel(jpRowsQ4, jtfInputData, el);
+		}
+		jpQuestion4.add(jpRows);
 
 		// ========= panel 5 ============
 		jpQuestion5.setLayout(new FlowLayout());
@@ -189,7 +193,7 @@ public class Stage1QuestionFrame extends JFrame {
 
 
 		// show question 1
-		panelsTag = PanelsTag.PANEL_3;
+		panelsTag = PanelsTag.PANEL_4;
 		showNextPanel();
 		showOtherViewElements();
 
@@ -290,6 +294,10 @@ public class Stage1QuestionFrame extends JFrame {
 			case PANEL_3:
 				jpMain.remove(jpQuestion2);
 				jpMain.add(jpQuestion3, BorderLayout.CENTER);
+				break;
+			case PANEL_4:
+				jpMain.remove(jpQuestion3);
+				jpMain.add(jpQuestion4, BorderLayout.CENTER);
 				break;
 		}
 		showOtherViewElements();
