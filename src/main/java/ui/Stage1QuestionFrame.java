@@ -58,6 +58,11 @@ public class Stage1QuestionFrame extends JFrame {
 	private JLabel jlVapPresOverAlloy = new JLabel("<html>Давление пара над сплавом P<sup>p</sup>: </html>");
 	private JTextField jtfVapPresOverAlloy = new JTextField();
 	private JLabel jlVapPresOverAlloyUnits = new JLabel(" Па");
+	// Elements for question 9
+	private JLabel jlDecrMoltenMetalDueVap = new JLabel("<html>Уменьшение массы расплавленного металла за счет " +
+		"испарения &Delta;<i>v</i><sub>m</sub> : </html>");
+	private JTextField jtfDecrMoltenMetalDueVap = new JTextField();
+	private JLabel jlDecrMoltenMetalDueVapUnits = new JLabel(" гр/сек");
 
 	private JButton jBtnExit = new JButton("Выход");
 	private JButton jBtnNext = new JButton("Далее >>>");
@@ -183,6 +188,16 @@ public class Stage1QuestionFrame extends JFrame {
 		}
 		jpQuestion8.add(jpRows);
 
+		// ========= panel 9 ==========
+		jpQuestion9.setLayout(new BoxLayout(jpQuestion9, BoxLayout.Y_AXIS));
+		JPanel jpRowsQ9 = new JPanel();
+		jtfVapPresOverAlloy.setName("&Delta;<i>v</i><sup>m</sup>");
+		jpRowsQ9.add(jlDecrMoltenMetalDueVap);
+		jpRowsQ9.add(jtfDecrMoltenMetalDueVap);
+		jpRowsQ9.add(jlDecrMoltenMetalDueVapUnits);
+		jtfDecrMoltenMetalDueVap.setColumns(4);
+		jpQuestion9.add(jpRowsQ9);
+
 
 		// Settings for status and directions panel
 		jpStatusAndDirection.setLayout(new BoxLayout(jpStatusAndDirection, BoxLayout.Y_AXIS));
@@ -242,7 +257,7 @@ public class Stage1QuestionFrame extends JFrame {
 
 
 		// show question 1
-		panelsTag = PanelsTag.PANEL_8;
+		panelsTag = PanelsTag.PANEL_9;
 		showNextPanel();
 		showOtherViewElements();
 
@@ -363,6 +378,10 @@ public class Stage1QuestionFrame extends JFrame {
 			case PANEL_8:
 				jpMain.remove(jpQuestion7);
 				jpMain.add(jpQuestion8, BorderLayout.CENTER);
+				break;
+			case PANEL_9:
+				jpMain.remove(jpQuestion8);
+				jpMain.add(jpQuestion9, BorderLayout.CENTER);
 				break;
 		}
 		showOtherViewElements();
