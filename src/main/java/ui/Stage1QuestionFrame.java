@@ -165,6 +165,15 @@ public class Stage1QuestionFrame extends JFrame {
 		}
 		jpQuestion6.add(jpRows);
 
+		// ========= panel 7 ==========
+		jpQuestion7.setLayout(new BoxLayout(jpQuestion7, BoxLayout.Y_AXIS));
+		JPanel jpRowsQ7 = new JPanel();
+		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
+		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
+			addRowsInputDataToPanel(jpRowsQ7, jtfInputData, el);
+		}
+		jpQuestion7.add(jpRows);
+
 
 		// Settings for status and directions panel
 		jpStatusAndDirection.setLayout(new BoxLayout(jpStatusAndDirection, BoxLayout.Y_AXIS));
@@ -209,10 +218,22 @@ public class Stage1QuestionFrame extends JFrame {
 		jpQuestion5.setBorder(BorderFactory.createTitledBorder(
 			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 5"
 		));
+		jpQuestion6.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 6"
+		));
+		jpQuestion7.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 7"
+		));
+		jpQuestion8.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 8"
+		));
+		jpQuestion9.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 9"
+		));
 
 
 		// show question 1
-		panelsTag = PanelsTag.PANEL_6;
+		panelsTag = PanelsTag.PANEL_7;
 		showNextPanel();
 		showOtherViewElements();
 
@@ -325,6 +346,10 @@ public class Stage1QuestionFrame extends JFrame {
 			case PANEL_6:
 				jpMain.remove(jpQuestion5);
 				jpMain.add(jpQuestion6, BorderLayout.CENTER);
+				break;
+			case PANEL_7:
+				jpMain.remove(jpQuestion6);
+				jpMain.add(jpQuestion7, BorderLayout.CENTER);
 				break;
 		}
 		showOtherViewElements();
