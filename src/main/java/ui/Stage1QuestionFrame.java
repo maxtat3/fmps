@@ -156,6 +156,16 @@ public class Stage1QuestionFrame extends JFrame {
 		jtfVapPresOverAlloy.setColumns(4);
 		jpQuestion5.add(jpRowQ5);
 
+		// ========= panel 6 ==========
+		jpQuestion6.setLayout(new BoxLayout(jpQuestion6, BoxLayout.Y_AXIS));
+		JPanel jpRowsQ6 = new JPanel();
+		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
+		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
+			addRowsInputDataToPanel(jpRowsQ6, jtfInputData, el);
+		}
+		jpQuestion6.add(jpRows);
+
+
 		// Settings for status and directions panel
 		jpStatusAndDirection.setLayout(new BoxLayout(jpStatusAndDirection, BoxLayout.Y_AXIS));
 		// add direction buttons
@@ -202,7 +212,7 @@ public class Stage1QuestionFrame extends JFrame {
 
 
 		// show question 1
-		panelsTag = PanelsTag.PANEL_2;
+		panelsTag = PanelsTag.PANEL_6;
 		showNextPanel();
 		showOtherViewElements();
 
@@ -312,6 +322,10 @@ public class Stage1QuestionFrame extends JFrame {
 				jpMain.remove(jpQuestion4);
 				jpMain.add(jpQuestion5, BorderLayout.CENTER);
 				break;
+			case PANEL_6:
+				jpMain.remove(jpQuestion5);
+				jpMain.add(jpQuestion6, BorderLayout.CENTER);
+				break;
 		}
 		showOtherViewElements();
 		revalidate();
@@ -320,11 +334,7 @@ public class Stage1QuestionFrame extends JFrame {
 	}
 
 	private enum PanelsTag {
-		PANEL_1,
-		PANEL_2,
-		PANEL_3,
-		PANEL_4,
-		PANEL_5;
+		PANEL_1, PANEL_2, PANEL_3, PANEL_4, PANEL_5, PANEL_6, PANEL_7, PANEL_8, PANEL_9
 	}
 
 	private void showOtherViewElements() {
