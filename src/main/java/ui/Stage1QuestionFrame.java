@@ -100,7 +100,6 @@ public class Stage1QuestionFrame extends JFrame {
 		}
 		jpQuestion1.add(jpRows);
 
-
 		// ========= Panel 2 =========
 		jpQuestion2.setLayout(new BoxLayout(jpQuestion2, BoxLayout.Y_AXIS));
 		JPanel jpRowQ2p1 = new JPanel();
@@ -126,9 +125,13 @@ public class Stage1QuestionFrame extends JFrame {
 		jpQuestion2.add(jpRowQ2p3);
 
 		// ========== Panel 3 ===============
-		jpQuestion3.setLayout(new FlowLayout());
-		jpQuestion3.add(jlQuestion3);
-		jpQuestion3.add(jtfAnswer3);
+		jpQuestion3.setLayout(new BoxLayout(jpQuestion3, BoxLayout.Y_AXIS));
+		JPanel jpRowsQ3 = new JPanel();
+		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
+		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
+			addRowsInputDataToPanel(jpRowsQ3, jtfInputData, el);
+		}
+		jpQuestion3.add(jpRows);
 
 		// ========= panel 4 ============
 		jpQuestion4.setLayout(new FlowLayout());
@@ -186,7 +189,7 @@ public class Stage1QuestionFrame extends JFrame {
 
 
 		// show question 1
-		panelsTag = PanelsTag.PANEL_2;
+		panelsTag = PanelsTag.PANEL_3;
 		showNextPanel();
 		showOtherViewElements();
 
@@ -203,7 +206,7 @@ public class Stage1QuestionFrame extends JFrame {
 		jBtnNext.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// validate entered data
+				// validate entered data which chemical elements involved.
 				int correctInputDataCounter = 0;
 				for (JTextField jtf : jtfInputData) {
 					String res = controller.validateInputData(jtf, InputDataController.ValidatorVariant.IS_NUMBER);
