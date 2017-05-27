@@ -31,16 +31,6 @@ public class Stage1QuestionFrame extends JFrame {
 	private JPanel jpQuestion9 = new JPanel();
 	private JPanel jpStatusAndDirection = new JPanel();
 
-	private JLabel jlQuestion1 = new JLabel("2 + 3 = ");
-	private JTextField jtfAnswer1 = new JTextField("5");
-	private JLabel jlQuestion2 = new JLabel("5 - 1 = ");
-	private JTextField jtfAnswer2 = new JTextField("    ");
-	private JLabel jlQuestion3 = new JLabel("11 - 7 = ");
-	private JTextField jtfAnswer3 = new JTextField("    ");
-	private JLabel jlQuestion4 = new JLabel("15 - 10 = ");
-	private JTextField jtfAnswer4 = new JTextField("    ");
-	private JLabel jlQuestion5 = new JLabel("3 * 8 = ");
-	private JTextField jtfAnswer5 = new JTextField("    ");
 	// Elements for question 2
 	// 2.1 Расчет энтальпии жидкого сплава (кДж/моль) Enthalpy liquid alloy
 	private JLabel jlEntLqAll = new JLabel("<html>Расчет энтальпии жидкого сплава H<sub>L</sub><sup>0</sup>: </html>");
@@ -83,6 +73,34 @@ public class Stage1QuestionFrame extends JFrame {
 		super("Stage 1, question n");
 
 		controller = new Stage1QuestionFrameController();
+
+		jpQuestion1.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 1"
+		));
+		jpQuestion2.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 2"
+		));
+		jpQuestion3.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 3"
+		));
+		jpQuestion4.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 4"
+		));
+		jpQuestion5.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 5"
+		));
+		jpQuestion6.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 6"
+		));
+		jpQuestion7.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 7"
+		));
+		jpQuestion8.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 8"
+		));
+		jpQuestion9.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 9"
+		));
 
 		jpQuestion1.add(new JLabel("Мольная доля всех элементов сплава (%): "));
 		jpQuestion2.add(new JLabel("Энтальпия жидкого сплава, энтальпия испарения, энтальпия пара (кДж/моль): ")); //2.1, 2.2, 2.3
@@ -127,37 +145,6 @@ public class Stage1QuestionFrame extends JFrame {
 		jlUserLastName.setText(user.getLastName());
 
 		jlStatusMsg.setText(jlStatusMsg.getText() + "1/8");
-
-
-		// other panels
-		// set settings for created panels
-		jpQuestion1.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 1"
-		));
-		jpQuestion2.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 2"
-		));
-		jpQuestion3.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 3"
-		));
-		jpQuestion4.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 4"
-		));
-		jpQuestion5.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 5"
-		));
-		jpQuestion6.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 6"
-		));
-		jpQuestion7.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 7"
-		));
-		jpQuestion8.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 8"
-		));
-		jpQuestion9.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 9"
-		));
 
 
 		// show question 1
@@ -336,23 +323,23 @@ public class Stage1QuestionFrame extends JFrame {
 		jpRows.add(jpItems);
 	}
 
-	private void checkAnswer() {
-		System.out.println(jtfAnswer2.getText());
-		if (jtfAnswer1.getText().equals("5") && panelsTag == PanelsTag.PANEL_1) {
-			panelsTag = PanelsTag.PANEL_2;
-
-		} else if (jtfAnswer2.getText().equals("4") && panelsTag == PanelsTag.PANEL_2) {
-			panelsTag = PanelsTag.PANEL_3;
-			System.out.println("correct answer 2");
-
-		} else if (jtfAnswer3.getText().equals("8") && panelsTag == PanelsTag.PANEL_3){
-			panelsTag = PanelsTag.PANEL_4;
-		}
-		else {
-			JOptionPane.showMessageDialog(rootPane, "Не правильный ответ", "Info", JOptionPane.INFORMATION_MESSAGE);
-		}
-		switchQuestionPanel();
-	}
+//	private void checkAnswer() {
+//		System.out.println(jtfAnswer2.getText());
+//		if (jtfAnswer1.getText().equals("5") && panelsTag == PanelsTag.PANEL_1) {
+//			panelsTag = PanelsTag.PANEL_2;
+//
+//		} else if (jtfAnswer2.getText().equals("4") && panelsTag == PanelsTag.PANEL_2) {
+//			panelsTag = PanelsTag.PANEL_3;
+//			System.out.println("correct answer 2");
+//
+//		} else if (jtfAnswer3.getText().equals("8") && panelsTag == PanelsTag.PANEL_3){
+//			panelsTag = PanelsTag.PANEL_4;
+//		}
+//		else {
+//			JOptionPane.showMessageDialog(rootPane, "Не правильный ответ", "Info", JOptionPane.INFORMATION_MESSAGE);
+//		}
+//		switchQuestionPanel();
+//	}
 
 	private void switchQuestionPanel() {
 		switch (panelsTag) {
