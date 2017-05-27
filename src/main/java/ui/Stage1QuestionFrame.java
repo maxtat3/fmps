@@ -70,7 +70,7 @@ public class Stage1QuestionFrame extends JFrame {
 	private JLabel jlUserMiddleName = new JLabel(); // Отчество
 	private JLabel jlUserLastName = new JLabel(); // Фамилия
 
-	private JLabel jlStatusMsg = new JLabel("Правильных ответов: ");
+	private JLabel jlStatusMsg = new JLabel("");
 
 	private PanelsTag panelsTag;
 
@@ -130,20 +130,19 @@ public class Stage1QuestionFrame extends JFrame {
 		// TODO: 26.05.17 May be remove all elements before load next panel from jpRows
 
 
-		// Settings for status and directions panel
 		jpStatusAndDirection.setLayout(new BoxLayout(jpStatusAndDirection, BoxLayout.Y_AXIS));
-		// add direction buttons
-		JPanel jpDirBtns = new JPanel(new FlowLayout());
+
 		jBtnExit.setPreferredSize(new Dimension(100, 25));
 		jBtnNext.setPreferredSize(new Dimension(500, 25));
+		JPanel jpDirBtns = new JPanel(new FlowLayout());
 		jpDirBtns.add(jBtnExit);
 		jpDirBtns.add(jBtnNext);
 		jpStatusAndDirection.add(jpDirBtns);
-		// add
+
 		JPanel jpStatAndDir = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		jpStatAndDir.add(jlStatusMsg);
 		jpStatusAndDirection.add(jpStatAndDir);
-		// add FIO labels
+
 		JPanel jpUserFIO = new JPanel(new FlowLayout());
 		jpUserFIO.add(jlUserLastName); // Ф
 		jpUserFIO.add(jlUserFirstName); // И
@@ -152,8 +151,6 @@ public class Stage1QuestionFrame extends JFrame {
 		jlUserFirstName.setText(user.getFirstName());
 		jlUserMiddleName.setText(user.getMiddleName());
 		jlUserLastName.setText(user.getLastName());
-
-		jlStatusMsg.setText(jlStatusMsg.getText() + "1/8");
 
 
 		// show question 1
