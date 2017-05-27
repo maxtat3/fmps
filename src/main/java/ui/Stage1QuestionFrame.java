@@ -111,15 +111,15 @@ public class Stage1QuestionFrame extends JFrame {
 			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 9"
 		));
 
-		jpQuestion1.add(new JLabel("Мольная доля всех элементов сплава (%): "));
-		jpQuestion2.add(new JLabel("Энтальпия жидкого сплава, энтальпия испарения, энтальпия пара (кДж/моль): ")); //2.1, 2.2, 2.3
-		jpQuestion3.add(new JLabel("Давление пара чистых компонентов (Па): "));
-		jpQuestion4.add(new JLabel("Парциальное давление компонент над сплавом (Па): "));
-		jpQuestion5.add(new JLabel("Давление пара над сплавом (Па): "));
-		jpQuestion6.add(new JLabel("Мольная доля каждого компонента в паре (%): "));
-		jpQuestion7.add(new JLabel("Весовая доля каждого компонента в паре (%): "));
-		jpQuestion8.add(new JLabel("Скорость испарения из сварочной ванны каждого элемента (гр/сек): "));
-		jpQuestion9.add(new JLabel("Скорость уменьшения массы расплавленного металла за счет испарения (гр/сек): "));
+		jpQuestion1.add(new JLabel("Мольная доля всех элементов сплава: "));
+		jpQuestion2.add(new JLabel("Энтальпия жидкого сплава, энтальпия испарения, энтальпия пара: ")); //2.1, 2.2, 2.3
+		jpQuestion3.add(new JLabel("Давление пара чистых компонентов: "));
+		jpQuestion4.add(new JLabel("Парциальное давление компонент над сплавом: "));
+		jpQuestion5.add(new JLabel("Давление пара над сплавом: "));
+		jpQuestion6.add(new JLabel("Мольная доля каждого компонента в паре: "));
+		jpQuestion7.add(new JLabel("Весовая доля каждого компонента в паре: "));
+		jpQuestion8.add(new JLabel("Скорость испарения из сварочной ванны каждого элемента: "));
+		jpQuestion9.add(new JLabel("Скорость уменьшения массы расплавленного металла за счет испарения: "));
 
 		jpTitle.add(new JLabel("Задача 1. Расчет процессов испарения металлов при сварке плавлением"));
 		jpTitle.setLayout(new FlowLayout(FlowLayout.CENTER));
