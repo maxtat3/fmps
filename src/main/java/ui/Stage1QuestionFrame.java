@@ -97,8 +97,10 @@ public class Stage1QuestionFrame extends JFrame {
 		// Settings main frame this app
 		jpMain.setLayout(new BorderLayout());
 
-		jpTitle.add(new JLabel("Задача 1. Расчет процессов испарения металлов при сварку плавлением."));
+		jpTitle.add(new JLabel("Задача 1. Расчет процессов испарения металлов при сварке плавлением."));
 		jpMain.add(jpTitle, BorderLayout.PAGE_START);
+
+		// TODO: 26.05.17 May be remove all elements before load next panel from jpRows
 
 		// ======== Panel 1 =========
 		jpQuestion1.setLayout(new BoxLayout(jpQuestion1, BoxLayout.Y_AXIS));
