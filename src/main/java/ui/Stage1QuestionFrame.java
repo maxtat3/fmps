@@ -19,7 +19,7 @@ import java.util.List;
 public class Stage1QuestionFrame extends JFrame {
 
 	private JPanel jpMain = new JPanel();
-	private JPanel jpTitle = new JPanel(new FlowLayout(FlowLayout.CENTER));
+	private JPanel jpTitle = new JPanel();
 	private JPanel jpQuestion1 = new JPanel();
 	private JPanel jpQuestion2 = new JPanel();
 	private JPanel jpQuestion3 = new JPanel();
@@ -112,10 +112,10 @@ public class Stage1QuestionFrame extends JFrame {
 		jpQuestion8.add(new JLabel("Скорость испарения из сварочной ванны каждого элемента (гр/сек): "));
 		jpQuestion9.add(new JLabel("Скорость уменьшения массы расплавленного металла за счет испарения (гр/сек): "));
 
-		// Settings main frame this app
-		jpMain.setLayout(new BorderLayout());
+		jpTitle.add(new JLabel("Задача 1. Расчет процессов испарения металлов при сварке плавлением"));
+		jpTitle.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-		jpTitle.add(new JLabel("Задача 1. Расчет процессов испарения металлов при сварке плавлением."));
+		jpMain.setLayout(new BorderLayout());
 		jpMain.add(jpTitle, BorderLayout.PAGE_START);
 
 		// TODO: 26.05.17 May be remove all elements before load next panel from jpRows
