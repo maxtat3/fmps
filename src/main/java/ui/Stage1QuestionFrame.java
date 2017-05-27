@@ -18,10 +18,12 @@ import java.util.List;
  */
 public class Stage1QuestionFrame extends JFrame {
 
+	private static final String PERCENT_SYM = "%";
 	private static final String ENT_LQ_ALLOY_SYM = "H<sub>L</sub><sup>0</sup>";
 	private static final String ENT_VAPORIZATION_SYM = "&Delta;H<sub>кип</sub>";
 	private static final String ENT_VAPOUR_SYM = "H<sub>g</sub>";
-	private static final String PERCENT_SYM = "%";
+	private static final String VAP_PRES_OVER_ALLOY_SYM = "P<sup>p</sup>";
+	private static final String DECR_MOLTEN_METAL_DUE_VAP_SYM = "&Delta;<i>v</i><sub>m</sub>";
 	private static final String KJOULE_SYM = "кДж/моль";
 	private JPanel jpMain = new JPanel();
 	private JPanel jpTitle = new JPanel();
@@ -50,12 +52,12 @@ public class Stage1QuestionFrame extends JFrame {
 	private JTextField jtfEntVapour = new JTextField();
 	private JLabel jlEntVapourUnits = new JLabel(KJOULE_SYM);
 	// Elements for question 5
-	private JLabel jlVapPresOverAlloy = new JLabel("<html>Давление пара над сплавом P<sup>p</sup>: </html>");
+	private JLabel jlVapPresOverAlloy = new JLabel("<html>Давление пара над сплавом " + VAP_PRES_OVER_ALLOY_SYM + " : </html>");
 	private JTextField jtfVapPresOverAlloy = new JTextField();
 	private JLabel jlVapPresOverAlloyUnits = new JLabel(" Па");
 	// Elements for question 9
 	private JLabel jlDecrMoltenMetalDueVap = new JLabel("<html>Уменьшение массы расплавленного металла за счет " +
-		"испарения &Delta;<i>v</i><sub>m</sub> : </html>");
+		"испарения " + DECR_MOLTEN_METAL_DUE_VAP_SYM + " : </html>");
 	private JTextField jtfDecrMoltenMetalDueVap = new JTextField();
 	private JLabel jlDecrMoltenMetalDueVapUnits = new JLabel(" гр/сек");
 
