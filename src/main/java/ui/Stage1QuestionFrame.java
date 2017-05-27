@@ -18,6 +18,11 @@ import java.util.List;
  */
 public class Stage1QuestionFrame extends JFrame {
 
+	private static final String ENT_LQ_ALLOY_SYM = "H<sub>L</sub><sup>0</sup>";
+	private static final String ENT_VAPORIZATION_SYM = "&Delta;H<sub>кип</sub>";
+	private static final String ENT_VAPOUR_SYM = "H<sub>g</sub>";
+	private static final String PERCENT_SYM = "%";
+	private static final String KJOULE_SYM = "кДж/моль";
 	private JPanel jpMain = new JPanel();
 	private JPanel jpTitle = new JPanel();
 	private JPanel jpQuestion1 = new JPanel();
@@ -33,17 +38,17 @@ public class Stage1QuestionFrame extends JFrame {
 
 	// Elements for question 2
 	// 2.1 Расчет энтальпии жидкого сплава (кДж/моль) Enthalpy liquid alloy
-	private JLabel jlEntLqAll = new JLabel("<html>Расчет энтальпии жидкого сплава H<sub>L</sub><sup>0</sup>: </html>");
+	private JLabel jlEntLqAll = new JLabel("<html>Расчет энтальпии жидкого сплава: " + ENT_LQ_ALLOY_SYM + "</html>");
 	private JTextField jtfEntLqAll = new JTextField();
-	private JLabel jlEntLqAllUnits = new JLabel(" кДж/моль");
+	private JLabel jlEntLqAllUnits = new JLabel(KJOULE_SYM);
 	// 2.2 Расчет энтальпии испарения (кДж/моль) Enthalpy vaporization
-	private JLabel jlEntVaporization = new JLabel("<html>Расчет энтальпии испарения &Delta;H<sub>кип</sub>: </html>");
+	private JLabel jlEntVaporization = new JLabel("<html>Расчет энтальпии испарения: " + ENT_VAPORIZATION_SYM + "</html>");
 	private JTextField jtfEntVaporization = new JTextField();
-	private JLabel jlEntVaporizationUnits = new JLabel(" кДж/моль");
+	private JLabel jlEntVaporizationUnits = new JLabel(KJOULE_SYM);
 	// 2.3 Энтальпия пара для сплава (кДж/моль) Enthalpy vapour
-	private JLabel jlEntVapour = new JLabel("<html>Расчет энтальпии пара для сплава H<sub>g</sub>: </html>");
+	private JLabel jlEntVapour = new JLabel("<html>Расчет энтальпии пара для сплава: " + ENT_VAPOUR_SYM + " </html>");
 	private JTextField jtfEntVapour = new JTextField();
-	private JLabel jlEntVapourUnits = new JLabel(" кДж/моль");
+	private JLabel jlEntVapourUnits = new JLabel(KJOULE_SYM);
 	// Elements for question 5
 	private JLabel jlVapPresOverAlloy = new JLabel("<html>Давление пара над сплавом P<sup>p</sup>: </html>");
 	private JTextField jtfVapPresOverAlloy = new JTextField();
@@ -313,7 +318,7 @@ public class Stage1QuestionFrame extends JFrame {
 		jtfVal.setColumns(4);
 		jtfVal.setName(el.toString());
 		jtfList.add(jtfVal);
-		JLabel jlPercent = new JLabel(" %");
+		JLabel jlPercent = new JLabel(PERCENT_SYM);
 
 		JPanel jpItems = new JPanel();
 		jpItems.add(jlName);
@@ -410,9 +415,9 @@ public class Stage1QuestionFrame extends JFrame {
 		JPanel jpRowQ2p1 = new JPanel();
 		JPanel jpRowQ2p2 = new JPanel();
 		JPanel jpRowQ2p3 = new JPanel();
-		jtfEntLqAll.setName("H<sub>L</sub><sup>0</sup>");
-		jtfEntVaporization.setName("&Delta;H<sub>кип</sub>");
-		jtfEntVapour.setName("H<sub>g</sub>");
+		jtfEntLqAll.setName(ENT_LQ_ALLOY_SYM);
+		jtfEntVaporization.setName(ENT_VAPORIZATION_SYM);
+		jtfEntVapour.setName(ENT_VAPOUR_SYM);
 		jpRowQ2p1.add(jlEntLqAll);
 		jpRowQ2p1.add(jtfEntLqAll);
 		jpRowQ2p1.add(jlEntLqAllUnits);
