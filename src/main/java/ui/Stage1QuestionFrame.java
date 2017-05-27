@@ -462,7 +462,7 @@ public class Stage1QuestionFrame extends JFrame {
 	private void buildQuestion5Panel(){
 		jpQuestion5.setLayout(new BoxLayout(jpQuestion5, BoxLayout.Y_AXIS));
 		JPanel jpRowQ5 = new JPanel();
-		jtfVapPresOverAlloy.setName("P<sup>p</sup>");
+		jtfVapPresOverAlloy.setName(VAP_PRES_OVER_ALLOY_SYM);
 		jpRowQ5.add(jlVapPresOverAlloy);
 		jpRowQ5.add(jtfVapPresOverAlloy);
 		jpRowQ5.add(jlVapPresOverAlloyUnits);
@@ -503,7 +503,7 @@ public class Stage1QuestionFrame extends JFrame {
 	private void buildQuestion9Panel(){
 		jpQuestion9.setLayout(new BoxLayout(jpQuestion9, BoxLayout.Y_AXIS));
 		JPanel jpRowsQ9 = new JPanel();
-		jtfDecrMoltenMetalDueVap.setName("&Delta;<i>v</i><sup>m</sup>");
+		jtfDecrMoltenMetalDueVap.setName(DECR_MOLTEN_METAL_DUE_VAP_SYM);
 		jpRowsQ9.add(jlDecrMoltenMetalDueVap);
 		jpRowsQ9.add(jtfDecrMoltenMetalDueVap);
 		jpRowsQ9.add(jlDecrMoltenMetalDueVapUnits);
