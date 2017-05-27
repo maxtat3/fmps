@@ -316,13 +316,13 @@ public class Stage1QuestionFrame extends JFrame {
 		return true;
 	}
 
-	private void addRowsInputDataToPanel(JPanel jpRows, List<JTextField> jtfList, GeneralElementStage1 el) {
+	private void addRowsInputDataToPanel(JPanel jpRows, List<JTextField> jtfList, GeneralElementStage1 el, String units) {
 		JLabel jlName = new JLabel(el.toString() + " : ");
 		JTextField jtfVal = new JTextField();
 		jtfVal.setColumns(4);
 		jtfVal.setName(el.toString());
 		jtfList.add(jtfVal);
-		JLabel jlPercent = new JLabel(PERCENT_SYM);
+		JLabel jlPercent = new JLabel(units);
 
 		JPanel jpItems = new JPanel();
 		jpItems.add(jlName);
@@ -409,7 +409,7 @@ public class Stage1QuestionFrame extends JFrame {
 		JPanel jpRows = new JPanel();
 		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
 		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
-			addRowsInputDataToPanel(jpRows, jtfInputData, el);
+			addRowsInputDataToPanel(jpRows, jtfInputData, el, PERCENT_SYM);
 		}
 		jpQuestion1.add(jpRows);
 	}
@@ -444,7 +444,7 @@ public class Stage1QuestionFrame extends JFrame {
 		JPanel jpRowsQ3 = new JPanel();
 		jpRowsQ3.setLayout(new BoxLayout(jpRowsQ3, BoxLayout.Y_AXIS));
 		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
-			addRowsInputDataToPanel(jpRowsQ3, jtfInputData, el);
+			addRowsInputDataToPanel(jpRowsQ3, jtfInputData, el, PASCALE_SYM);
 		}
 		jpQuestion3.add(jpRowsQ3);
 	}
@@ -454,7 +454,7 @@ public class Stage1QuestionFrame extends JFrame {
 		JPanel jpRowsQ4 = new JPanel();
 		jpRowsQ4.setLayout(new BoxLayout(jpRowsQ4, BoxLayout.Y_AXIS));
 		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
-			addRowsInputDataToPanel(jpRowsQ4, jtfInputData, el);
+			addRowsInputDataToPanel(jpRowsQ4, jtfInputData, el, PASCALE_SYM);
 		}
 		jpQuestion4.add(jpRowsQ4);
 	}
@@ -475,7 +475,7 @@ public class Stage1QuestionFrame extends JFrame {
 		JPanel jpRowsQ6 = new JPanel();
 		jpRowsQ6.setLayout(new BoxLayout(jpRowsQ6, BoxLayout.Y_AXIS));
 		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
-			addRowsInputDataToPanel(jpRowsQ6, jtfInputData, el);
+			addRowsInputDataToPanel(jpRowsQ6, jtfInputData, el, PERCENT_SYM);
 		}
 		jpQuestion6.add(jpRowsQ6);
 	}
@@ -485,7 +485,7 @@ public class Stage1QuestionFrame extends JFrame {
 		JPanel jpRowsQ7 = new JPanel();
 		jpRowsQ7.setLayout(new BoxLayout(jpRowsQ7, BoxLayout.Y_AXIS));
 		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
-			addRowsInputDataToPanel(jpRowsQ7, jtfInputData, el);
+			addRowsInputDataToPanel(jpRowsQ7, jtfInputData, el, PERCENT_SYM);
 		}
 		jpQuestion7.add(jpRowsQ7);
 	}
@@ -495,7 +495,7 @@ public class Stage1QuestionFrame extends JFrame {
 		JPanel jpRowsQ8 = new JPanel();
 		jpRowsQ8.setLayout(new BoxLayout(jpRowsQ8, BoxLayout.Y_AXIS));
 		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
-			addRowsInputDataToPanel(jpRowsQ8, jtfInputData, el);
+			addRowsInputDataToPanel(jpRowsQ8, jtfInputData, el, GRAM_TO_SEC_SYM);
 		}
 		jpQuestion8.add(jpRowsQ8);
 	}
