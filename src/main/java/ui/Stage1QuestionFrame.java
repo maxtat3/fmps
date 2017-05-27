@@ -102,104 +102,6 @@ public class Stage1QuestionFrame extends JFrame {
 
 		// TODO: 26.05.17 May be remove all elements before load next panel from jpRows
 
-		// ======== Panel 1 =========
-		jpQuestion1.setLayout(new BoxLayout(jpQuestion1, BoxLayout.Y_AXIS));
-		JPanel jpRows = new JPanel();
-		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
-		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
-			addRowsInputDataToPanel(jpRows, jtfInputData, el);
-		}
-		jpQuestion1.add(jpRows);
-
-		// ========= Panel 2 =========
-		jpQuestion2.setLayout(new BoxLayout(jpQuestion2, BoxLayout.Y_AXIS));
-		JPanel jpRowQ2p1 = new JPanel();
-		JPanel jpRowQ2p2 = new JPanel();
-		JPanel jpRowQ2p3 = new JPanel();
-		jtfEntLqAll.setName("H<sub>L</sub><sup>0</sup>");
-		jtfEntVaporization.setName("&Delta;H<sub>кип</sub>");
-		jtfEntVapour.setName("H<sub>g</sub>");
-		jpRowQ2p1.add(jlEntLqAll);
-		jpRowQ2p1.add(jtfEntLqAll);
-		jpRowQ2p1.add(jlEntLqAllUnits);
-		jpRowQ2p2.add(jlEntVaporization);
-		jpRowQ2p2.add(jtfEntVaporization);
-		jpRowQ2p2.add(jlEntVaporizationUnits);
-		jpRowQ2p3.add(jlEntVapour);
-		jpRowQ2p3.add(jtfEntVapour);
-		jpRowQ2p3.add(jlEntVapourUnits);
-		jtfEntLqAll.setColumns(4);
-		jtfEntVaporization.setColumns(4);
-		jtfEntVapour.setColumns(4);
-		jpQuestion2.add(jpRowQ2p1);
-		jpQuestion2.add(jpRowQ2p2);
-		jpQuestion2.add(jpRowQ2p3);
-
-		// ========== Panel 3 ===============
-		jpQuestion3.setLayout(new BoxLayout(jpQuestion3, BoxLayout.Y_AXIS));
-		JPanel jpRowsQ3 = new JPanel();
-		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
-		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
-			addRowsInputDataToPanel(jpRowsQ3, jtfInputData, el);
-		}
-		jpQuestion3.add(jpRows);
-
-		// ========= panel 4 ============
-		jpQuestion4.setLayout(new BoxLayout(jpQuestion4, BoxLayout.Y_AXIS));
-		JPanel jpRowsQ4 = new JPanel();
-		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
-		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
-			addRowsInputDataToPanel(jpRowsQ4, jtfInputData, el);
-		}
-		jpQuestion4.add(jpRows);
-
-		// ========= panel 5 ============
-		jpQuestion5.setLayout(new BoxLayout(jpQuestion5, BoxLayout.Y_AXIS));
-		JPanel jpRowQ5 = new JPanel();
-		jtfVapPresOverAlloy.setName("P<sup>p</sup>");
-		jpRowQ5.add(jlVapPresOverAlloy);
-		jpRowQ5.add(jtfVapPresOverAlloy);
-		jpRowQ5.add(jlVapPresOverAlloyUnits);
-		jtfVapPresOverAlloy.setColumns(4);
-		jpQuestion5.add(jpRowQ5);
-
-		// ========= panel 6 ==========
-		jpQuestion6.setLayout(new BoxLayout(jpQuestion6, BoxLayout.Y_AXIS));
-		JPanel jpRowsQ6 = new JPanel();
-		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
-		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
-			addRowsInputDataToPanel(jpRowsQ6, jtfInputData, el);
-		}
-		jpQuestion6.add(jpRows);
-
-		// ========= panel 7 ==========
-		jpQuestion7.setLayout(new BoxLayout(jpQuestion7, BoxLayout.Y_AXIS));
-		JPanel jpRowsQ7 = new JPanel();
-		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
-		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
-			addRowsInputDataToPanel(jpRowsQ7, jtfInputData, el);
-		}
-		jpQuestion7.add(jpRows);
-
-		// ========= panel 8 ==========
-		jpQuestion8.setLayout(new BoxLayout(jpQuestion8, BoxLayout.Y_AXIS));
-		JPanel jpRowsQ8 = new JPanel();
-		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
-		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
-			addRowsInputDataToPanel(jpRowsQ8, jtfInputData, el);
-		}
-		jpQuestion8.add(jpRows);
-
-		// ========= panel 9 ==========
-		jpQuestion9.setLayout(new BoxLayout(jpQuestion9, BoxLayout.Y_AXIS));
-		JPanel jpRowsQ9 = new JPanel();
-		jtfVapPresOverAlloy.setName("&Delta;<i>v</i><sup>m</sup>");
-		jpRowsQ9.add(jlDecrMoltenMetalDueVap);
-		jpRowsQ9.add(jtfDecrMoltenMetalDueVap);
-		jpRowsQ9.add(jlDecrMoltenMetalDueVapUnits);
-		jtfDecrMoltenMetalDueVap.setColumns(4);
-		jpQuestion9.add(jpRowsQ9);
-
 
 		// Settings for status and directions panel
 		jpStatusAndDirection.setLayout(new BoxLayout(jpStatusAndDirection, BoxLayout.Y_AXIS));
@@ -259,9 +161,10 @@ public class Stage1QuestionFrame extends JFrame {
 
 
 		// show question 1
-		panelsTag = PanelsTag.PANEL_9;
-		showNextPanel();
-		showOtherViewElements();
+		panelsTag = PanelsTag.PANEL_1;
+		switchQuestionPanel();
+		jpMain.add(jpStatusAndDirection, BorderLayout.PAGE_END);
+		System.out.println("jtfInputData.size() = " + jtfInputData.size());
 
 		add(jpMain);
 
@@ -276,42 +179,145 @@ public class Stage1QuestionFrame extends JFrame {
 		jBtnNext.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// validate entered data which chemical elements involved.
-				int correctInputDataCounter = 0;
-				for (JTextField jtf : jtfInputData) {
-					String res = controller.validateInputData(jtf, InputDataController.ValidatorVariant.IS_NUMBER);
-					if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
-						jlStatusMsg.setText(res);
-						return;
-					}
-					correctInputDataCounter++;
-					if (correctInputDataCounter == jtfInputData.size()) {
-						jlStatusMsg.setText("");
-					}
-				}
+				switch (panelsTag) {
+					case PANEL_1:
+						if(generalValidateInputOfEachElem()) {
+							panelsTag = PanelsTag.PANEL_2;
+							switchQuestionPanel();
+						}
+						break;
 
-				// validate entered data for question 2.1, 2.2, 2.3
-				String res = controller.validateInputData(jtfEntLqAll, InputDataController.ValidatorVariant.IS_NUMBER);
-				if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
-					jlStatusMsg.setText(res);
-					return;
-				}
+					case PANEL_2:
+						if (validateInputQuestion2()) {
+							panelsTag = PanelsTag.PANEL_3;
+							switchQuestionPanel();
+						}
+						break;
 
-				res = controller.validateInputData(jtfEntVaporization, InputDataController.ValidatorVariant.IS_NUMBER);
-				if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
-					jlStatusMsg.setText(res);
-					return;
-				}
+					case PANEL_3:
+						if (generalValidateInputOfEachElem()) {
+							panelsTag = PanelsTag.PANEL_4;
+							switchQuestionPanel();
+						}
+						break;
 
-				res = controller.validateInputData(jtfEntVapour, InputDataController.ValidatorVariant.IS_NUMBER);
-				if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
-					jlStatusMsg.setText(res);
-					return;
-				}
+					case PANEL_4:
+						if (generalValidateInputOfEachElem()) {
+							panelsTag = PanelsTag.PANEL_5;
+							switchQuestionPanel();
+						}
+						break;
 
-				jlStatusMsg.setText("");
+					case PANEL_5:
+						if (validateInputQuestion5()) {
+							panelsTag = PanelsTag.PANEL_6;
+							switchQuestionPanel();
+						}
+						break;
+
+					case PANEL_6:
+						if (generalValidateInputOfEachElem()) {
+							panelsTag = PanelsTag.PANEL_7;
+							switchQuestionPanel();
+						}
+						break;
+
+					case PANEL_7:
+						if (generalValidateInputOfEachElem()) {
+							panelsTag = PanelsTag.PANEL_8;
+							switchQuestionPanel();
+						}
+						break;
+
+					case PANEL_8:
+						if (generalValidateInputOfEachElem()) {
+							panelsTag = PanelsTag.PANEL_9;
+							switchQuestionPanel();
+						}
+						break;
+
+					case PANEL_9:
+						if (validateInputQuestion9()) {
+							System.out.println("*** Congratulations ***");
+						}
+						break;
+				}
+				System.out.println("jtfInputData.size() = " + jtfInputData.size());
 			}
 		});
+	}
+
+	/**
+	 * Validate entered data which chemical elements involved.
+	 */
+	private boolean generalValidateInputOfEachElem() {
+		int correctInputDataCounter = 0;
+		for (JTextField jtf : jtfInputData) {
+			String res = controller.validateInputData(jtf, InputDataController.ValidatorVariant.IS_NUMBER);
+			if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
+				jlStatusMsg.setText(res);
+				return false;
+			}
+			correctInputDataCounter++;
+			if (correctInputDataCounter == jtfInputData.size()) {
+				jlStatusMsg.setText("");
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Validate entered data for question 2.1, 2.2, 2.3
+	 */
+	private boolean validateInputQuestion2() {
+		String res = controller.validateInputData(jtfEntLqAll, InputDataController.ValidatorVariant.IS_NUMBER);
+		if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
+			jlStatusMsg.setText(res);
+			return false;
+		}
+
+		res = controller.validateInputData(jtfEntVaporization, InputDataController.ValidatorVariant.IS_NUMBER);
+		if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
+			jlStatusMsg.setText(res);
+			return false;
+		}
+
+		res = controller.validateInputData(jtfEntVapour, InputDataController.ValidatorVariant.IS_NUMBER);
+		if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
+			jlStatusMsg.setText(res);
+			return false;
+		}
+		jlStatusMsg.setText("");
+		return true;
+	}
+
+	/**
+	 * Validate entered data for question 5
+	 */
+	private boolean validateInputQuestion5(){
+		String res = controller.validateInputData(jtfVapPresOverAlloy, InputDataController.ValidatorVariant.IS_NUMBER);
+		if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
+			jlStatusMsg.setText(res);
+			return false;
+		}
+		jlStatusMsg.setText("");
+		return true;
+	}
+
+	/**
+	 * Validate entered data for question 9
+	 */
+	private boolean validateInputQuestion9(){
+		if (jtfDecrMoltenMetalDueVap == null) System.out.println("jtfDecrMoltenMetalDueVap is null !");
+		else System.out.println("jtfDecrMoltenMetalDueVap is NOT null");
+
+		String res = controller.validateInputData(jtfDecrMoltenMetalDueVap, InputDataController.ValidatorVariant.IS_NUMBER);
+		if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
+			jlStatusMsg.setText(res);
+			return false;
+		}
+		jlStatusMsg.setText("");
+		return true;
 	}
 
 	private void addRowsInputDataToPanel(JPanel jpRows, List<JTextField> jtfList, GeneralElementStage1 el) {
@@ -345,59 +351,176 @@ public class Stage1QuestionFrame extends JFrame {
 		else {
 			JOptionPane.showMessageDialog(rootPane, "Не правильный ответ", "Info", JOptionPane.INFORMATION_MESSAGE);
 		}
-		showNextPanel();
+		switchQuestionPanel();
 	}
 
-	private void showNextPanel() {
+	private void switchQuestionPanel() {
 		switch (panelsTag) {
 			case PANEL_1:
+				buildQuestion1Panel();
 				jpMain.add(jpQuestion1, BorderLayout.CENTER);
 				break;
 			case PANEL_2:
+				buildQuestion2Panel();
 				jpMain.remove(jpQuestion1);
 				jpMain.add(jpQuestion2, BorderLayout.CENTER);
 				break;
 			case PANEL_3:
+				buildQuestion3Panel();
 				jpMain.remove(jpQuestion2);
 				jpMain.add(jpQuestion3, BorderLayout.CENTER);
 				break;
 			case PANEL_4:
+				buildQuestion4Panel();
 				jpMain.remove(jpQuestion3);
 				jpMain.add(jpQuestion4, BorderLayout.CENTER);
 				break;
 			case PANEL_5:
+				buildQuestion5Panel();
 				jpMain.remove(jpQuestion4);
 				jpMain.add(jpQuestion5, BorderLayout.CENTER);
 				break;
 			case PANEL_6:
+				buildQuestion6Panel();
 				jpMain.remove(jpQuestion5);
 				jpMain.add(jpQuestion6, BorderLayout.CENTER);
 				break;
 			case PANEL_7:
+				buildQuestion7Panel();
 				jpMain.remove(jpQuestion6);
 				jpMain.add(jpQuestion7, BorderLayout.CENTER);
 				break;
 			case PANEL_8:
+				buildQuestion8Panel();
 				jpMain.remove(jpQuestion7);
 				jpMain.add(jpQuestion8, BorderLayout.CENTER);
 				break;
 			case PANEL_9:
+				buildQuestion9Panel();
 				jpMain.remove(jpQuestion8);
 				jpMain.add(jpQuestion9, BorderLayout.CENTER);
 				break;
 		}
-		showOtherViewElements();
+//		showOtherViewElements();
 		revalidate();
 		repaint();
 		pack();
+		System.out.println("revalidate repaint pack ");
+	}
+
+	private void buildQuestion1Panel() {
+		jpQuestion1.setLayout(new BoxLayout(jpQuestion1, BoxLayout.Y_AXIS));
+		JPanel jpRows = new JPanel();
+		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
+		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
+			addRowsInputDataToPanel(jpRows, jtfInputData, el);
+		}
+		jpQuestion1.add(jpRows);
+	}
+
+	private void buildQuestion2Panel() {
+		jpQuestion2.setLayout(new BoxLayout(jpQuestion2, BoxLayout.Y_AXIS));
+		JPanel jpRowQ2p1 = new JPanel();
+		JPanel jpRowQ2p2 = new JPanel();
+		JPanel jpRowQ2p3 = new JPanel();
+		jtfEntLqAll.setName("H<sub>L</sub><sup>0</sup>");
+		jtfEntVaporization.setName("&Delta;H<sub>кип</sub>");
+		jtfEntVapour.setName("H<sub>g</sub>");
+		jpRowQ2p1.add(jlEntLqAll);
+		jpRowQ2p1.add(jtfEntLqAll);
+		jpRowQ2p1.add(jlEntLqAllUnits);
+		jpRowQ2p2.add(jlEntVaporization);
+		jpRowQ2p2.add(jtfEntVaporization);
+		jpRowQ2p2.add(jlEntVaporizationUnits);
+		jpRowQ2p3.add(jlEntVapour);
+		jpRowQ2p3.add(jtfEntVapour);
+		jpRowQ2p3.add(jlEntVapourUnits);
+		jtfEntLqAll.setColumns(4);
+		jtfEntVaporization.setColumns(4);
+		jtfEntVapour.setColumns(4);
+		jpQuestion2.add(jpRowQ2p1);
+		jpQuestion2.add(jpRowQ2p2);
+		jpQuestion2.add(jpRowQ2p3);
+	}
+
+	private void buildQuestion3Panel() {
+		jpQuestion3.setLayout(new BoxLayout(jpQuestion3, BoxLayout.Y_AXIS));
+		JPanel jpRowsQ3 = new JPanel();
+		jpRowsQ3.setLayout(new BoxLayout(jpRowsQ3, BoxLayout.Y_AXIS));
+		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
+			addRowsInputDataToPanel(jpRowsQ3, jtfInputData, el);
+		}
+		jpQuestion3.add(jpRowsQ3);
+	}
+
+	private void buildQuestion4Panel(){
+		jpQuestion4.setLayout(new BoxLayout(jpQuestion4, BoxLayout.Y_AXIS));
+		JPanel jpRowsQ4 = new JPanel();
+		jpRowsQ4.setLayout(new BoxLayout(jpRowsQ4, BoxLayout.Y_AXIS));
+		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
+			addRowsInputDataToPanel(jpRowsQ4, jtfInputData, el);
+		}
+		jpQuestion4.add(jpRowsQ4);
+	}
+
+	private void buildQuestion5Panel(){
+		jpQuestion5.setLayout(new BoxLayout(jpQuestion5, BoxLayout.Y_AXIS));
+		JPanel jpRowQ5 = new JPanel();
+		jtfVapPresOverAlloy.setName("P<sup>p</sup>");
+		jpRowQ5.add(jlVapPresOverAlloy);
+		jpRowQ5.add(jtfVapPresOverAlloy);
+		jpRowQ5.add(jlVapPresOverAlloyUnits);
+		jtfVapPresOverAlloy.setColumns(4);
+		jpQuestion5.add(jpRowQ5);
+	}
+
+	private void buildQuestion6Panel(){
+		jpQuestion6.setLayout(new BoxLayout(jpQuestion6, BoxLayout.Y_AXIS));
+		JPanel jpRowsQ6 = new JPanel();
+		jpRowsQ6.setLayout(new BoxLayout(jpRowsQ6, BoxLayout.Y_AXIS));
+		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
+			addRowsInputDataToPanel(jpRowsQ6, jtfInputData, el);
+		}
+		jpQuestion6.add(jpRowsQ6);
+	}
+
+	private void buildQuestion7Panel(){
+		jpQuestion7.setLayout(new BoxLayout(jpQuestion7, BoxLayout.Y_AXIS));
+		JPanel jpRowsQ7 = new JPanel();
+		jpRowsQ7.setLayout(new BoxLayout(jpRowsQ7, BoxLayout.Y_AXIS));
+		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
+			addRowsInputDataToPanel(jpRowsQ7, jtfInputData, el);
+		}
+		jpQuestion7.add(jpRowsQ7);
+	}
+
+	private void buildQuestion8Panel(){
+		jpQuestion8.setLayout(new BoxLayout(jpQuestion8, BoxLayout.Y_AXIS));
+		JPanel jpRowsQ8 = new JPanel();
+		jpRowsQ8.setLayout(new BoxLayout(jpRowsQ8, BoxLayout.Y_AXIS));
+		for(GeneralElementStage1 el : controller.receiveAllElementsStage1(InputDataController.AccessElementsStage1.TASK)){
+			addRowsInputDataToPanel(jpRowsQ8, jtfInputData, el);
+		}
+		jpQuestion8.add(jpRowsQ8);
+	}
+
+	private void buildQuestion9Panel(){
+		jpQuestion9.setLayout(new BoxLayout(jpQuestion9, BoxLayout.Y_AXIS));
+		JPanel jpRowsQ9 = new JPanel();
+		jtfDecrMoltenMetalDueVap.setName("&Delta;<i>v</i><sup>m</sup>");
+		jpRowsQ9.add(jlDecrMoltenMetalDueVap);
+		jpRowsQ9.add(jtfDecrMoltenMetalDueVap);
+		jpRowsQ9.add(jlDecrMoltenMetalDueVapUnits);
+		jtfDecrMoltenMetalDueVap.setColumns(4);
+		jpQuestion9.add(jpRowsQ9);
 	}
 
 	private enum PanelsTag {
 		PANEL_1, PANEL_2, PANEL_3, PANEL_4, PANEL_5, PANEL_6, PANEL_7, PANEL_8, PANEL_9
 	}
 
-	private void showOtherViewElements() {
-		jpMain.add(jpStatusAndDirection, BorderLayout.PAGE_END);
-	}
+//	private void showOtherViewElements() {
+//		jpMain.add(jpStatusAndDirection, BorderLayout.PAGE_END);
+//	}
 
 }
