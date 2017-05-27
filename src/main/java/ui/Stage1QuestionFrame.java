@@ -25,6 +25,8 @@ public class Stage1QuestionFrame extends JFrame {
 	private static final String VAP_PRES_OVER_ALLOY_SYM = "P<sup>p</sup>";
 	private static final String DECR_MOLTEN_METAL_DUE_VAP_SYM = "&Delta;<i>v</i><sub>m</sub>";
 	private static final String KJOULE_SYM = "кДж/моль";
+	private static final String PASCALE_SYM = "Па";
+	private static final String GRAM_TO_SEC_SYM = "гр/сек";
 	private JPanel jpMain = new JPanel();
 	private JPanel jpTitle = new JPanel();
 	private JPanel jpQuestion1 = new JPanel();
@@ -40,26 +42,26 @@ public class Stage1QuestionFrame extends JFrame {
 
 	// Elements for question 2
 	// 2.1 Расчет энтальпии жидкого сплава (кДж/моль) Enthalpy liquid alloy
-	private JLabel jlEntLqAll = new JLabel("<html>Расчет энтальпии жидкого сплава: " + ENT_LQ_ALLOY_SYM + "</html>");
+	private JLabel jlEntLqAll = new JLabel("<html>Расчет энтальпии жидкого сплава " + ENT_LQ_ALLOY_SYM + " : </html>");
 	private JTextField jtfEntLqAll = new JTextField();
 	private JLabel jlEntLqAllUnits = new JLabel(KJOULE_SYM);
 	// 2.2 Расчет энтальпии испарения (кДж/моль) Enthalpy vaporization
-	private JLabel jlEntVaporization = new JLabel("<html>Расчет энтальпии испарения: " + ENT_VAPORIZATION_SYM + "</html>");
+	private JLabel jlEntVaporization = new JLabel("<html>Расчет энтальпии испарения " + ENT_VAPORIZATION_SYM + " : </html>");
 	private JTextField jtfEntVaporization = new JTextField();
 	private JLabel jlEntVaporizationUnits = new JLabel(KJOULE_SYM);
 	// 2.3 Энтальпия пара для сплава (кДж/моль) Enthalpy vapour
-	private JLabel jlEntVapour = new JLabel("<html>Расчет энтальпии пара для сплава: " + ENT_VAPOUR_SYM + " </html>");
+	private JLabel jlEntVapour = new JLabel("<html>Расчет энтальпии пара для сплава " + ENT_VAPOUR_SYM + " : </html>");
 	private JTextField jtfEntVapour = new JTextField();
 	private JLabel jlEntVapourUnits = new JLabel(KJOULE_SYM);
 	// Elements for question 5
 	private JLabel jlVapPresOverAlloy = new JLabel("<html>Давление пара над сплавом " + VAP_PRES_OVER_ALLOY_SYM + " : </html>");
 	private JTextField jtfVapPresOverAlloy = new JTextField();
-	private JLabel jlVapPresOverAlloyUnits = new JLabel(" Па");
+	private JLabel jlVapPresOverAlloyUnits = new JLabel(PASCALE_SYM);
 	// Elements for question 9
 	private JLabel jlDecrMoltenMetalDueVap = new JLabel("<html>Уменьшение массы расплавленного металла за счет " +
 		"испарения " + DECR_MOLTEN_METAL_DUE_VAP_SYM + " : </html>");
 	private JTextField jtfDecrMoltenMetalDueVap = new JTextField();
-	private JLabel jlDecrMoltenMetalDueVapUnits = new JLabel(" гр/сек");
+	private JLabel jlDecrMoltenMetalDueVapUnits = new JLabel(GRAM_TO_SEC_SYM);
 
 	private JButton jBtnExit = new JButton("Выход");
 	private JButton jBtnNext = new JButton("Далее >>>");
