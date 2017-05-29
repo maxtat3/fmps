@@ -174,9 +174,15 @@ public class Stage1QuestionFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				switch (panelsTag) {
 					case PANEL_1:
-						if(generalValidateInputOfEachElem()) {
-							panelsTag = PanelsTag.PANEL_2;
-							switchQuestionPanel();
+						String res;
+						if (generalValidateInputOfEachElem()) {
+							res = controller.checkAnswer(jtfInputData, PanelsTag.PANEL_1);
+							if (res.equals(Stage1QuestionFrameController.SUCCESS_ANSWER)) {
+								panelsTag = PanelsTag.PANEL_2;
+								switchQuestionPanel();
+							} else {
+								jlStatusMsg.setText(formWrongAnswerMsg(res));
+							}
 						}
 						break;
 
@@ -312,40 +318,6 @@ public class Stage1QuestionFrame extends JFrame {
 		jlStatusMsg.setText("");
 		return true;
 	}
-
-	private void addRowsInputDataToPanel(JPanel jpRows, List<JTextField> jtfList, GeneralElementStage1 el, String units) {
-		JLabel jlName = new JLabel(el.toString() + " : ");
-		JTextField jtfVal = new JTextField();
-		jtfVal.setColumns(4);
-		jtfVal.setName(el.toString());
-		jtfList.add(jtfVal);
-		JLabel jlPercent = new JLabel(units);
-
-		JPanel jpItems = new JPanel();
-		jpItems.add(jlName);
-		jpItems.add(jtfVal);
-		jpItems.add(jlPercent);
-
-		jpRows.add(jpItems);
-	}
-
-//	private void checkAnswer() {
-//		System.out.println(jtfAnswer2.getText());
-//		if (jtfAnswer1.getText().equals("5") && panelsTag == PanelsTag.PANEL_1) {
-//			panelsTag = PanelsTag.PANEL_2;
-//
-//		} else if (jtfAnswer2.getText().equals("4") && panelsTag == PanelsTag.PANEL_2) {
-//			panelsTag = PanelsTag.PANEL_3;
-//			System.out.println("correct answer 2");
-//
-//		} else if (jtfAnswer3.getText().equals("8") && panelsTag == PanelsTag.PANEL_3){
-//			panelsTag = PanelsTag.PANEL_4;
-//		}
-//		else {
-//			JOptionPane.showMessageDialog(rootPane, "Не правильный ответ", "Info", JOptionPane.INFORMATION_MESSAGE);
-//		}
-//		switchQuestionPanel();
-//	}
 
 	private void switchQuestionPanel() {
 		switch (panelsTag) {
@@ -508,8 +480,31 @@ public class Stage1QuestionFrame extends JFrame {
 		jpQuestion9.add(jpRowsQ9);
 	}
 
-	private enum PanelsTag {
+	private void addRowsInputDataToPanel(JPanel jpRows, List<JTextField> jtfList, GeneralElementStage1 el, String units) {
+		JLabel jlName = new JLabel(el.toString() + " : ");
+		JTextField jtfVal = new JTextField();
+		jtfVal.setColumns(4);
+		jtfVal.setName(el.toString());
+		jtfList.add(jtfVal);
+		JLabel jlPercent = new JLabel(units);
+
+		JPanel jpItems = new JPanel();
+		jpItems.add(jlName);
+		jpItems.add(jtfVal);
+		jpItems.add(jlPercent);
+
+		jpRows.add(jpItems);
+	}
+
+	public enum PanelsTag {
 		PANEL_1, PANEL_2, PANEL_3, PANEL_4, PANEL_5, PANEL_6, PANEL_7, PANEL_8, PANEL_9
+	}
+
+	/**
+	 * Forming formatted massage when user gave a wrong answer.
+	 */
+	private String formWrongAnswerMsg(String elementName) {
+		return "<html><font color=red>Неправильный ответ для " + "<i>" + elementName + "</i>" + " ! </font></html>";
 	}
 
 //	private void showOtherViewElements() {
