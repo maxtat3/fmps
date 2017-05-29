@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,9 +20,9 @@ import java.util.List;
 public class Stage1QuestionFrame extends JFrame {
 
 	private static final String PERCENT_SYM = "%";
-	private static final String ENT_LQ_ALLOY_SYM = "H<sub>L</sub><sup>0</sup>";
-	private static final String ENT_VAPORIZATION_SYM = "&Delta;H<sub>кип</sub>";
-	private static final String ENT_VAPOUR_SYM = "H<sub>g</sub>";
+	public static final String ENT_LQ_ALLOY_SYM = "H<sub>L</sub><sup>0</sup>";
+	public static final String ENT_VAPORIZATION_SYM = "&Delta;H<sub>кип</sub>";
+	public static final String ENT_VAPOUR_SYM = "H<sub>g</sub>";
 	private static final String VAP_PRES_OVER_ALLOY_SYM = "P<sup>p</sup>";
 	private static final String DECR_MOLTEN_METAL_DUE_VAP_SYM = "&Delta;<i>v</i><sub>m</sub>";
 	private static final String KJOULE_SYM = "кДж/моль";
@@ -188,8 +189,15 @@ public class Stage1QuestionFrame extends JFrame {
 
 					case PANEL_2:
 						if (validateInputQuestion2()) {
-							panelsTag = PanelsTag.PANEL_3;
-							switchQuestionPanel();
+							res = controller.checkAnswer(
+								new ArrayList<>(Arrays.asList(jtfEntLqAll, jtfEntVaporization, jtfEntVapour)), PanelsTag.PANEL_2
+							);
+							if (res.equals(Stage1QuestionFrameController.SUCCESS_ANSWER)) {
+								panelsTag = PanelsTag.PANEL_3;
+								switchQuestionPanel();
+							} else {
+								jlStatusMsg.setText(formWrongAnswerMsg(res));
+							}
 						}
 						break;
 

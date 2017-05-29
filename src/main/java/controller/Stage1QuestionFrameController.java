@@ -1,6 +1,7 @@
 package controller;
 
 import app.Accuracy;
+import model.Container;
 import stage1.elements.C;
 import stage1.elements.Fe;
 import stage1.elements.GeneralElementStage1;
@@ -36,9 +37,15 @@ public class Stage1QuestionFrameController extends InputDataController {
 		Fe fe = new Fe();
 		C c = new C();
 		Mn mn = new Mn();
+		// q1
 		fe.setMoleFractionAlloyElem(1);
 		c.setMoleFractionAlloyElem(2);
 		mn.setMoleFractionAlloyElem(5);
+		// q2
+		Container.getInstance().getStage1().getCalcDataStage1().setEnthalpyLiquidAlloy(15);
+		Container.getInstance().getStage1().getCalcDataStage1().setEnthalpyVaporization(11);
+		Container.getInstance().getStage1().getCalcDataStage1().setEnthalpyVapor(5);
+
 		elements.add(fe);
 		elements.add(c);
 		elements.add(mn);
@@ -57,7 +64,40 @@ public class Stage1QuestionFrameController extends InputDataController {
 				break;
 
 			case PANEL_2:
-				//...
+				for (JTextField jtfEl : jtfElements) {
+					switch (jtfEl.getName()) {
+						case Stage1QuestionFrame.ENT_LQ_ALLOY_SYM:
+							if (!Accuracy.checkValueInRange(
+								Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyLiquidAlloy(),
+								Double.parseDouble(jtfEl.getText()),
+								Accuracy.ACCURACY)
+								) {
+								return jtfEl.getName();
+							}
+							break;
+
+						case Stage1QuestionFrame.ENT_VAPORIZATION_SYM:
+							if (!Accuracy.checkValueInRange(
+								Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyVaporization(),
+								Double.parseDouble(jtfEl.getText()),
+								Accuracy.ACCURACY)
+								) {
+								return jtfEl.getName();
+							}
+							break;
+
+						case Stage1QuestionFrame.ENT_VAPOUR_SYM:
+							if (!Accuracy.checkValueInRange(
+								Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyVapor(),
+								Double.parseDouble(jtfEl.getText()),
+								Accuracy.ACCURACY)
+								) {
+								return jtfEl.getName();
+							}
+							break;
+					}
+				}
+
 				break;
 		}
 		System.out.println("Increment user progress in DB from user id.");
