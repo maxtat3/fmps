@@ -172,91 +172,82 @@ public class Stage1QuestionFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				switch (panelsTag) {
 					case PANEL_1:
-						String res;
 						if (generalValidateInputOfEachElem()) {
-							res = controller.checkAnswer(jtfInputData, PanelsTag.PANEL_1);
-							if (res.equals(Stage1QuestionFrameController.SUCCESS_ANSWER)) {
-								panelsTag = PanelsTag.PANEL_2;
-								switchQuestionPanel();
-								formTrueAnswerMsg();
-							} else {
-								jlStatusMsg.setText(formWrongAnswerMsg(res));
-							}
+							checkAnswerAndMakeDirection(jtfInputData, PanelsTag.PANEL_1, PanelsTag.PANEL_2);
 						}
 						break;
 
 					case PANEL_2:
 						if (validateInputQuestion2()) {
-							res = controller.checkAnswer(
-								new ArrayList<>(Arrays.asList(jtfEntLqAll, jtfEntVaporization, jtfEntVapour)), PanelsTag.PANEL_2
+							checkAnswerAndMakeDirection(
+								new ArrayList<>(Arrays.asList(jtfEntLqAll, jtfEntVaporization, jtfEntVapour)),
+								PanelsTag.PANEL_2,
+								PanelsTag.PANEL_3
 							);
-							if (res.equals(Stage1QuestionFrameController.SUCCESS_ANSWER)) {
-								panelsTag = PanelsTag.PANEL_3;
-								switchQuestionPanel();
-								formTrueAnswerMsg();
-							} else {
-								jlStatusMsg.setText(formWrongAnswerMsg(res));
-							}
 						}
 						break;
 
 					case PANEL_3:
 						if (generalValidateInputOfEachElem()) {
-							res = controller.checkAnswer(jtfInputData, PanelsTag.PANEL_3);
-							if (res.equals(Stage1QuestionFrameController.SUCCESS_ANSWER)) {
-								panelsTag = PanelsTag.PANEL_4;
-								switchQuestionPanel();
-								formTrueAnswerMsg();
-							} else {
-								jlStatusMsg.setText(formWrongAnswerMsg(res));
-							}
+							checkAnswerAndMakeDirection(jtfInputData, PanelsTag.PANEL_3, PanelsTag.PANEL_4);
 						}
 						break;
 
 					case PANEL_4:
 						if (generalValidateInputOfEachElem()) {
-							panelsTag = PanelsTag.PANEL_5;
-							switchQuestionPanel();
+							checkAnswerAndMakeDirection(jtfInputData, PanelsTag.PANEL_4, PanelsTag.PANEL_5);
 						}
 						break;
 
 					case PANEL_5:
 						if (validateInputQuestion5()) {
-							panelsTag = PanelsTag.PANEL_6;
-							switchQuestionPanel();
+							checkAnswerAndMakeDirection(
+								new ArrayList<>(Arrays.asList(jtfVapPresOverAlloy)),
+								PanelsTag.PANEL_5,
+								PanelsTag.PANEL_6
+							);
 						}
 						break;
 
 					case PANEL_6:
 						if (generalValidateInputOfEachElem()) {
-							panelsTag = PanelsTag.PANEL_7;
-							switchQuestionPanel();
+							checkAnswerAndMakeDirection(jtfInputData, PanelsTag.PANEL_6, PanelsTag.PANEL_7);
 						}
 						break;
 
 					case PANEL_7:
 						if (generalValidateInputOfEachElem()) {
-							panelsTag = PanelsTag.PANEL_8;
-							switchQuestionPanel();
+							checkAnswerAndMakeDirection(jtfInputData, PanelsTag.PANEL_7, PanelsTag.PANEL_8);
 						}
 						break;
 
 					case PANEL_8:
 						if (generalValidateInputOfEachElem()) {
-							panelsTag = PanelsTag.PANEL_9;
-							switchQuestionPanel();
+							checkAnswerAndMakeDirection(jtfInputData, PanelsTag.PANEL_8, PanelsTag.PANEL_9);
 						}
 						break;
 
 					case PANEL_9:
 						if (validateInputQuestion9()) {
-							System.out.println("*** Congratulations ***");
+							checkAnswerAndMakeDirection(jtfInputData, PanelsTag.PANEL_9, PanelsTag.PANEL_9);
 						}
 						break;
 				}
+				repaintWindow();
 				System.out.println("jtfInputData.size() = " + jtfInputData.size());
 			}
 		});
+	}
+
+	private void checkAnswerAndMakeDirection(List<JTextField> jtfs, PanelsTag currentQuestionPanel, PanelsTag nextQuestionPanel) {
+		String res = controller.checkAnswer(jtfs, currentQuestionPanel);
+		if (res.equals(Stage1QuestionFrameController.SUCCESS_ANSWER)) {
+			panelsTag = nextQuestionPanel;
+			switchQuestionPanel();
+			formTrueAnswerMsg();
+		} else {
+			jlStatusMsg.setText(formWrongAnswerMsg(res));
+		}
 	}
 
 	/**
@@ -380,11 +371,7 @@ public class Stage1QuestionFrame extends JFrame {
 				jpMain.add(jpQuestion9, BorderLayout.CENTER);
 				break;
 		}
-//		showOtherViewElements();
-		revalidate();
-		repaint();
-		pack();
-		System.out.println("revalidate repaint pack ");
+		repaintWindow();
 	}
 
 	private void buildQuestion1Panel() {
@@ -514,6 +501,9 @@ public class Stage1QuestionFrame extends JFrame {
 		PANEL_1, PANEL_2, PANEL_3, PANEL_4, PANEL_5, PANEL_6, PANEL_7, PANEL_8, PANEL_9
 	}
 
+	/**
+	 * Forming formatted massage when user gave a correct answer.
+	 */
 	private void formTrueAnswerMsg() {
 		UIUtils.showAutoClosableMsgDialog("<html><font color=green>Ответ верный</font></html>", 1000);
 	}
@@ -523,6 +513,12 @@ public class Stage1QuestionFrame extends JFrame {
 	 */
 	private String formWrongAnswerMsg(String elementName) {
 		return "<html><font color=red>Неправильный ответ для " + "<i>" + elementName + "</i>" + " ! </font></html>";
+	}
+
+	private void repaintWindow() {
+		revalidate();
+		repaint();
+		pack();
 	}
 
 }
