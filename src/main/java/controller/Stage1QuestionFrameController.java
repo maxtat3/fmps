@@ -45,6 +45,10 @@ public class Stage1QuestionFrameController extends InputDataController {
 		Container.getInstance().getStage1().getCalcDataStage1().setEnthalpyLiquidAlloy(15);
 		Container.getInstance().getStage1().getCalcDataStage1().setEnthalpyVaporization(11);
 		Container.getInstance().getStage1().getCalcDataStage1().setEnthalpyVapor(5);
+		// q3
+		fe.setVaporPressureOfPureComps(11);
+		c.setVaporPressureOfPureComps(15);
+		mn.setVaporPressureOfPureComps(55);
 
 		elements.add(fe);
 		elements.add(c);
@@ -97,7 +101,18 @@ public class Stage1QuestionFrameController extends InputDataController {
 							break;
 					}
 				}
+				break;
 
+			case PANEL_3:
+				for (GeneralElementStage1 calcEl : elements) {
+					for (JTextField jtfEl : jtfElements) {
+						if (calcEl.toString().equals(jtfEl.getName())) {
+							if (!Accuracy.checkValueInRange(calcEl.getVaporPressureOfPureComps(), Double.parseDouble(jtfEl.getText()), Accuracy.ACCURACY)) {
+								return jtfEl.getName();
+							}
+						}
+					}
+				}
 				break;
 		}
 		System.out.println("Increment user progress in DB from user id.");

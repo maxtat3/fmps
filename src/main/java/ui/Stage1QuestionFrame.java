@@ -203,8 +203,13 @@ public class Stage1QuestionFrame extends JFrame {
 
 					case PANEL_3:
 						if (generalValidateInputOfEachElem()) {
-							panelsTag = PanelsTag.PANEL_4;
-							switchQuestionPanel();
+							res = controller.checkAnswer(jtfInputData, PanelsTag.PANEL_3);
+							if (res.equals(Stage1QuestionFrameController.SUCCESS_ANSWER)) {
+								panelsTag = PanelsTag.PANEL_4;
+								switchQuestionPanel();
+							} else {
+								jlStatusMsg.setText(formWrongAnswerMsg(res));
+							}
 						}
 						break;
 
@@ -328,6 +333,7 @@ public class Stage1QuestionFrame extends JFrame {
 	}
 
 	private void switchQuestionPanel() {
+		jtfInputData.clear();
 		switch (panelsTag) {
 			case PANEL_1:
 				buildQuestion1Panel();
