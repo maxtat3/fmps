@@ -128,9 +128,6 @@ public class Stage1QuestionFrame extends JFrame {
 		jpMain.setLayout(new BorderLayout());
 		jpMain.add(jpTitle, BorderLayout.PAGE_START);
 
-		// TODO: 26.05.17 May be remove all elements before load next panel from jpRows
-
-
 		jpStatusAndDirection.setLayout(new BoxLayout(jpStatusAndDirection, BoxLayout.Y_AXIS));
 
 		jBtnExit.setPreferredSize(new Dimension(100, 25));
@@ -181,6 +178,7 @@ public class Stage1QuestionFrame extends JFrame {
 							if (res.equals(Stage1QuestionFrameController.SUCCESS_ANSWER)) {
 								panelsTag = PanelsTag.PANEL_2;
 								switchQuestionPanel();
+								formTrueAnswerMsg();
 							} else {
 								jlStatusMsg.setText(formWrongAnswerMsg(res));
 							}
@@ -195,6 +193,7 @@ public class Stage1QuestionFrame extends JFrame {
 							if (res.equals(Stage1QuestionFrameController.SUCCESS_ANSWER)) {
 								panelsTag = PanelsTag.PANEL_3;
 								switchQuestionPanel();
+								formTrueAnswerMsg();
 							} else {
 								jlStatusMsg.setText(formWrongAnswerMsg(res));
 							}
@@ -207,6 +206,7 @@ public class Stage1QuestionFrame extends JFrame {
 							if (res.equals(Stage1QuestionFrameController.SUCCESS_ANSWER)) {
 								panelsTag = PanelsTag.PANEL_4;
 								switchQuestionPanel();
+								formTrueAnswerMsg();
 							} else {
 								jlStatusMsg.setText(formWrongAnswerMsg(res));
 							}
@@ -514,15 +514,15 @@ public class Stage1QuestionFrame extends JFrame {
 		PANEL_1, PANEL_2, PANEL_3, PANEL_4, PANEL_5, PANEL_6, PANEL_7, PANEL_8, PANEL_9
 	}
 
+	private void formTrueAnswerMsg() {
+		UIUtils.showAutoClosableMsgDialog("<html><font color=green>Ответ верный</font></html>", 1000);
+	}
+
 	/**
 	 * Forming formatted massage when user gave a wrong answer.
 	 */
 	private String formWrongAnswerMsg(String elementName) {
 		return "<html><font color=red>Неправильный ответ для " + "<i>" + elementName + "</i>" + " ! </font></html>";
 	}
-
-//	private void showOtherViewElements() {
-//		jpMain.add(jpStatusAndDirection, BorderLayout.PAGE_END);
-//	}
 
 }
