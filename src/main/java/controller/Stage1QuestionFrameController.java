@@ -54,18 +54,17 @@ public class Stage1QuestionFrameController extends InputDataController {
 		elements.add(c);
 		elements.add(mn);
 
+		String res;
 		switch (question) {
 			case PANEL_1:
-				for (GeneralElementStage1 calcEl : elements) {
-					for (JTextField jtfEl : jtfElements) {
-						if (calcEl.toString().equals(jtfEl.getName())) {
-							if (!Accuracy.checkValueInRange(calcEl.getMoleFractionAlloyElem(), Double.parseDouble(jtfEl.getText()), Accuracy.ACCURACY)) {
-								return jtfEl.getName();
-							}
-						}
-					}
-				}
-				break;
+			case PANEL_3:
+			case PANEL_4:
+			case PANEL_6:
+			case PANEL_7:
+			case PANEL_8:
+				res = checkEachElement(jtfElements, elements, question);
+				if (res.equals(SUCCESS_ANSWER)) break;
+				else return res;
 
 			case PANEL_2:
 				for (JTextField jtfEl : jtfElements) {
@@ -103,19 +102,68 @@ public class Stage1QuestionFrameController extends InputDataController {
 				}
 				break;
 
-			case PANEL_3:
-				for (GeneralElementStage1 calcEl : elements) {
-					for (JTextField jtfEl : jtfElements) {
-						if (calcEl.toString().equals(jtfEl.getName())) {
-							if (!Accuracy.checkValueInRange(calcEl.getVaporPressureOfPureComps(), Double.parseDouble(jtfEl.getText()), Accuracy.ACCURACY)) {
-								return jtfEl.getName();
-							}
-						}
-					}
-				}
+			case PANEL_5:
+				//...
+				break;
+
+			case PANEL_9:
+				//...
 				break;
 		}
 		System.out.println("Increment user progress in DB from user id.");
 		return SUCCESS_ANSWER;
+	}
+
+	/**
+	 * Enumeration and check each of chemical element with using accuracy.
+	 *
+	 * @param jtfs list of user entered values
+	 * @param calcElementsValues reference calculated values
+	 * @return {@link #SUCCESS_ANSWER} if all elements corrected otherwise returned element name
+	 *
+	 * @see Accuracy
+	 */
+	private String checkEachElement(List<JTextField> jtfs,
+	                                List<GeneralElementStage1> calcElementsValues,
+	                                Stage1QuestionFrame.PanelsTag question) {
+		for (GeneralElementStage1 calcElVal : calcElementsValues) {
+			for (JTextField jtfEl : jtfs) {
+				if (calcElVal.toString().equals(jtfEl.getName())) {
+					if (!Accuracy.checkValueInRange(
+						getElementCompareProperty(calcElVal, question),
+						Double.parseDouble(jtfEl.getText()), Accuracy.ACCURACY)
+						) {
+						return jtfEl.getName();
+					}
+				}
+			}
+		}
+		return SUCCESS_ANSWER;
+	}
+
+	// TODO: 31.05.17 may be refactored this mechanism
+	// only for questions 1, 3, 4, 6. 7. 8
+	// if not correct present question panel - returned -1
+	private double getElementCompareProperty(GeneralElementStage1 el, Stage1QuestionFrame.PanelsTag question){
+		switch (question) {
+			case PANEL_1:
+				return el.getMoleFractionAlloyElem();
+
+			case PANEL_3:
+				return el.getVaporPressureOfPureComps();
+
+			case PANEL_4:
+				return el.getPartialPressureCompsOverAlloy();
+
+			case PANEL_6:
+				return el.getMoleFractionEachElemInVapor();
+
+			case PANEL_7:
+				return el.getWeightFractionEachElemInVapor();
+
+			case PANEL_8:
+				return el.getRateVaporizationEachElemOfWeldPool();
+		}
+		return -1;
 	}
 }
