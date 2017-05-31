@@ -7,7 +7,7 @@ public class C extends BaseElementStage1 {
 
 	@Override
 	public boolean isBasic() {
-		return true;
+		return false;
 	}
 
 	@Override
