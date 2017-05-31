@@ -24,7 +24,7 @@ public class Stage1QuestionFrame extends JFrame {
 	public static final String ENT_VAPORIZATION_SYM = "&Delta;H<sub>кип</sub>";
 	public static final String ENT_VAPOUR_SYM = "H<sub>g</sub>";
 	public static final String VAP_PRES_OVER_ALLOY_SYM = "P<sup>p</sup>";
-	private static final String DECR_MOLTEN_METAL_DUE_VAP_SYM = "&Delta;<i>v</i><sub>m</sub>";
+	public static final String DECR_MOLTEN_METAL_DUE_VAP_SYM = "&Delta;<i>v</i><sub>m</sub>";
 	private static final String KJOULE_SYM = "кДж/моль";
 	private static final String PASCALE_SYM = "Па";
 	private static final String GRAM_TO_SEC_SYM = "гр/сек";
@@ -152,7 +152,7 @@ public class Stage1QuestionFrame extends JFrame {
 
 
 		// show question 1
-		panelsTag = PanelsTag.PANEL_1;
+		panelsTag = PanelsTag.PANEL_9;
 		switchQuestionPanel();
 		jpMain.add(jpStatusAndDirection, BorderLayout.PAGE_END);
 		System.out.println("jtfInputData.size() = " + jtfInputData.size());
@@ -229,7 +229,7 @@ public class Stage1QuestionFrame extends JFrame {
 
 					case PANEL_9:
 						if (validateInputQuestion9()) {
-							checkAnswerAndMakeDirection(jtfInputData, PanelsTag.PANEL_9, PanelsTag.PANEL_9);
+							checkAnswerAndMakeDirection(new ArrayList<>(Arrays.asList(jtfDecrMoltenMetalDueVap)), PanelsTag.PANEL_9, PanelsTag.PANEL_9);
 						}
 						break;
 				}

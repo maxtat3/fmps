@@ -51,6 +51,8 @@ public class Stage1QuestionFrameController extends InputDataController {
 		mn.setVaporPressureOfPureComps(55);
 		// q5
 		Container.getInstance().getStage1().getCalcDataStage1().setVaporPressureOverAlloy(12.177);
+		// q9
+		Container.getInstance().getStage1().getCalcDataStage1().setDecreaseMoltenMetalDueVaporization(556.1);
 
 		elements.add(fe);
 		elements.add(c);
@@ -79,8 +81,9 @@ public class Stage1QuestionFrameController extends InputDataController {
 				else return res;
 
 			case PANEL_9:
-				//...
-				break;
+				res = checkAnswerForQuestion9(jtfElements);
+				if (res.equals(SUCCESS_ANSWER)) break;
+				else return res;
 		}
 		System.out.println("Increment user progress in DB from user id.");
 		return SUCCESS_ANSWER;
@@ -142,8 +145,8 @@ public class Stage1QuestionFrameController extends InputDataController {
 	private String checkAnswerForQuestion2(List<JTextField> jtfs){
 		double entLqAlloy = Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyLiquidAlloy(); //2.1
 		double entVaporization = Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyVaporization(); //2.2
-		double entVapor = Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyVapor(); //2.3 
-		
+		double entVapor = Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyVapor(); //2.3
+
 		for (JTextField jtfEl : jtfs) {
 			switch (jtfEl.getName()) {
 				case Stage1QuestionFrame.ENT_LQ_ALLOY_SYM:
@@ -175,6 +178,21 @@ public class Stage1QuestionFrameController extends InputDataController {
 			switch (jtfEl.getName()) {
 				case Stage1QuestionFrame.VAP_PRES_OVER_ALLOY_SYM:
 					if (! Accuracy.checkValueInRange(vapPrOverAlloy, Double.parseDouble(jtfEl.getText()), Accuracy.ACCURACY)) {
+						return jtfEl.getName();
+					}
+					break;
+			}
+		}
+		return SUCCESS_ANSWER;
+	}
+
+	private String checkAnswerForQuestion9(List<JTextField> jtfs) {
+		double decMetalVap = Container.getInstance().getStage1().getCalcDataStage1().getDecreaseMoltenMetalDueVaporization();
+
+		for (JTextField jtfEl : jtfs) {
+			switch (jtfEl.getName()) {
+				case Stage1QuestionFrame.DECR_MOLTEN_METAL_DUE_VAP_SYM:
+					if (! Accuracy.checkValueInRange(decMetalVap, Double.parseDouble(jtfEl.getText()), Accuracy.ACCURACY)) {
 						return jtfEl.getName();
 					}
 					break;
