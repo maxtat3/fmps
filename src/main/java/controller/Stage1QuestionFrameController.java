@@ -67,40 +67,9 @@ public class Stage1QuestionFrameController extends InputDataController {
 				else return res;
 
 			case PANEL_2:
-				for (JTextField jtfEl : jtfElements) {
-					switch (jtfEl.getName()) {
-						case Stage1QuestionFrame.ENT_LQ_ALLOY_SYM:
-							if (!Accuracy.checkValueInRange(
-								Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyLiquidAlloy(),
-								Double.parseDouble(jtfEl.getText()),
-								Accuracy.ACCURACY)
-								) {
-								return jtfEl.getName();
-							}
-							break;
-
-						case Stage1QuestionFrame.ENT_VAPORIZATION_SYM:
-							if (!Accuracy.checkValueInRange(
-								Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyVaporization(),
-								Double.parseDouble(jtfEl.getText()),
-								Accuracy.ACCURACY)
-								) {
-								return jtfEl.getName();
-							}
-							break;
-
-						case Stage1QuestionFrame.ENT_VAPOUR_SYM:
-							if (!Accuracy.checkValueInRange(
-								Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyVapor(),
-								Double.parseDouble(jtfEl.getText()),
-								Accuracy.ACCURACY)
-								) {
-								return jtfEl.getName();
-							}
-							break;
-					}
-				}
-				break;
+				res = checkAnswerForQuestion2(jtfElements);
+				if (res.equals(SUCCESS_ANSWER)) break;
+				else return res;
 
 			case PANEL_5:
 				//...
@@ -165,5 +134,34 @@ public class Stage1QuestionFrameController extends InputDataController {
 				return el.getRateVaporizationEachElemOfWeldPool();
 		}
 		return -1;
+	}
+
+	private String checkAnswerForQuestion2(List<JTextField> jtfs){
+		double entLqAlloy = Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyLiquidAlloy(); //2.1
+		double entVaporization = Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyVaporization(); //2.2
+		double entVapor = Container.getInstance().getStage1().getCalcDataStage1().getEnthalpyVapor(); //2.3 
+		
+		for (JTextField jtfEl : jtfs) {
+			switch (jtfEl.getName()) {
+				case Stage1QuestionFrame.ENT_LQ_ALLOY_SYM:
+					if (! Accuracy.checkValueInRange(entLqAlloy, Double.parseDouble(jtfEl.getText()), Accuracy.ACCURACY)) {
+						return jtfEl.getName();
+					}
+					break;
+
+				case Stage1QuestionFrame.ENT_VAPORIZATION_SYM:
+					if (! Accuracy.checkValueInRange(entVaporization, Double.parseDouble(jtfEl.getText()), Accuracy.ACCURACY)) {
+						return jtfEl.getName();
+					}
+					break;
+
+				case Stage1QuestionFrame.ENT_VAPOUR_SYM:
+					if (! Accuracy.checkValueInRange(entVapor, Double.parseDouble(jtfEl.getText()), Accuracy.ACCURACY)) {
+						return jtfEl.getName();
+					}
+					break;
+			}
+		}
+		return SUCCESS_ANSWER;
 	}
 }
