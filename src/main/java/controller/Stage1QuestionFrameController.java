@@ -49,6 +49,8 @@ public class Stage1QuestionFrameController extends InputDataController {
 		fe.setVaporPressureOfPureComps(11);
 		c.setVaporPressureOfPureComps(15);
 		mn.setVaporPressureOfPureComps(55);
+		// q5
+		Container.getInstance().getStage1().getCalcDataStage1().setVaporPressureOverAlloy(12.177);
 
 		elements.add(fe);
 		elements.add(c);
@@ -72,8 +74,9 @@ public class Stage1QuestionFrameController extends InputDataController {
 				else return res;
 
 			case PANEL_5:
-				//...
-				break;
+				res = checkAnswerForQuestion5(jtfElements);
+				if (res.equals(SUCCESS_ANSWER)) break;
+				else return res;
 
 			case PANEL_9:
 				//...
@@ -157,6 +160,21 @@ public class Stage1QuestionFrameController extends InputDataController {
 
 				case Stage1QuestionFrame.ENT_VAPOUR_SYM:
 					if (! Accuracy.checkValueInRange(entVapor, Double.parseDouble(jtfEl.getText()), Accuracy.ACCURACY)) {
+						return jtfEl.getName();
+					}
+					break;
+			}
+		}
+		return SUCCESS_ANSWER;
+	}
+
+	private String checkAnswerForQuestion5(List<JTextField> jtfs){
+		double vapPrOverAlloy = Container.getInstance().getStage1().getCalcDataStage1().getVaporPressureOverAlloy();
+
+		for (JTextField jtfEl : jtfs) {
+			switch (jtfEl.getName()) {
+				case Stage1QuestionFrame.VAP_PRES_OVER_ALLOY_SYM:
+					if (! Accuracy.checkValueInRange(vapPrOverAlloy, Double.parseDouble(jtfEl.getText()), Accuracy.ACCURACY)) {
 						return jtfEl.getName();
 					}
 					break;

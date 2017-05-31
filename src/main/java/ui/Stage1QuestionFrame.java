@@ -23,7 +23,7 @@ public class Stage1QuestionFrame extends JFrame {
 	public static final String ENT_LQ_ALLOY_SYM = "H<sub>L</sub><sup>0</sup>";
 	public static final String ENT_VAPORIZATION_SYM = "&Delta;H<sub>кип</sub>";
 	public static final String ENT_VAPOUR_SYM = "H<sub>g</sub>";
-	private static final String VAP_PRES_OVER_ALLOY_SYM = "P<sup>p</sup>";
+	public static final String VAP_PRES_OVER_ALLOY_SYM = "P<sup>p</sup>";
 	private static final String DECR_MOLTEN_METAL_DUE_VAP_SYM = "&Delta;<i>v</i><sub>m</sub>";
 	private static final String KJOULE_SYM = "кДж/моль";
 	private static final String PASCALE_SYM = "Па";
