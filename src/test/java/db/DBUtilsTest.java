@@ -100,7 +100,7 @@ public class DBUtilsTest {
 	}
 
 	@Test
-	public void testIsUserExist(){
+	public void testFindUser0(){
 		final String firstName = "TestUserFirstName0";
 		final String middleName = "TestUserMiddleName0";
 		final String lastName = "TestUserLastName0";
@@ -108,8 +108,12 @@ public class DBUtilsTest {
 
 		DBUtils.addNewUser(firstName, middleName, lastName, num);
 
-		boolean isUserExist = DBUtils.isUserExist(firstName, middleName, lastName, num);
-		Assert.assertEquals(true, isUserExist);
+		User user = DBUtils.findUser(lastName, num);
+		assert user != null;
+		Assert.assertEquals(firstName, user.getFirstName());
+		Assert.assertEquals(middleName, user.getMiddleName());
+		Assert.assertEquals(lastName, user.getLastName());
+		Assert.assertEquals(num, user.getNumberOfRecordBook());
 	}
 
 	// TODO: before remove user may be need new user because new user create once before run all test methods !
@@ -245,36 +249,36 @@ public class DBUtilsTest {
 	}
 
 	@Test
-	public void testFindUser(){
+	public void testIsUserExist(){
 		String firstName = "Vitaly";
 		String middleName = "Andreevich";
 		String lastName = "Trifonov";
 		int numOfRecBook = 1553011;
 		DBUtils.addNewUser(firstName, middleName, lastName, numOfRecBook);
-		boolean isUserFound = DBUtils.findUser(lastName, numOfRecBook);
-		Assert.assertEquals(true, isUserFound);
+		boolean isUserExist = DBUtils.isUserExist(lastName, numOfRecBook);
+		Assert.assertEquals(true, isUserExist);
 	}
 
 	@Test
-	public void testFindUserRv1(){
+	public void testIsUserExistRv1(){
 		String firstName = "Vitaly";
 		String middleName = "Andreevich";
 		String lastName = "Trifonov";
 		int numOfRecBook = 1553011;
 		DBUtils.addNewUser(firstName, middleName, lastName, numOfRecBook);
-		boolean isUserFound = DBUtils.findUser(lastName, 711); // other num of rec book
-		Assert.assertEquals(false, isUserFound);
+		boolean isUserExist = DBUtils.isUserExist(lastName, 711); // other num of rec book
+		Assert.assertEquals(false, isUserExist);
 	}
 
 	@Test
-	public void testFindUserRv2(){
+	public void testIsUserExistRv2(){
 		String firstName = "Vitaly";
 		String middleName = "Andreevich";
 		String lastName = "Trifonov";
 		int numOfRecBook = 1553011;
 		DBUtils.addNewUser(firstName, middleName, lastName, numOfRecBook);
-		boolean isUserFound = DBUtils.findUser("Alexandr", numOfRecBook); // other user last name
-		Assert.assertEquals(false, isUserFound);
+		boolean isUserExist = DBUtils.isUserExist("Alexandr", numOfRecBook); // other user last name
+		Assert.assertEquals(false, isUserExist);
 	}
 
 	@Test

@@ -175,13 +175,14 @@ public class DBUtils {
 	}
 
 	/**
-	 * Find is user before registered in this app.
+	 * Check does such is user exist in DB.
+	 * May be called before user registered or sign in this app.
 	 *
 	 * @param lastName user last name
 	 * @param numberOfRecordBook user number of record book
 	 * @return <tt>true</tt> if searched user is present in db
 	 */
-	public static boolean findUser(String lastName, int numberOfRecordBook){
+	public static boolean isUserExist(String lastName, int numberOfRecordBook){
 		String sql = "SELECT "+ LAST_NAME + DLC + NUM_OF_RECORD_BOOK + " FROM " + TABLE_FMPS_MAIN ;
 		Statement stmt = sqlExecutor(SqlAction.PREPARE);
 		if (stmt != null) {
@@ -252,16 +253,13 @@ public class DBUtils {
 		return oldUserField != newUserField && newUserField > 0;
 	}
 
-	//todo - may be changed signature method to pass only User object
 	/**
-	 * Проверка (по ФИО) есть ли уже такой пользователь в БД
+	 * Поиск пользователя в БД по его Фамилии и номеру записной книжки.
 	 *
-	 * @param userFirstName Имя
-	 * @param userMiddleName Отчество
-	 * @param userLastName Фамилия
-	 * @return <tr>true</tr> такой пользователь уже существует, <tr>false</tr> такого пользователя нет в БД
+	 * @param lastName Фамилия
+	 * @return если пользователь есть в БД возвращается найденный пользователь, иначе null
 	 */
-	public static boolean isUserExist(String userFirstName, String userMiddleName, String userLastName, int numOfRecordBook) {
+	public static User findUser(String lastName, int numOfRecordBook) {
 		String sql = "SELECT " + FIRST_NAME + DLC + MIDDLE_NAME + DLC + LAST_NAME  + DLC + NUM_OF_RECORD_BOOK + " FROM " + TABLE_FMPS_MAIN;
 		Statement stmt = sqlExecutor(SqlAction.PREPARE);
 		if (stmt != null) {
@@ -274,11 +272,9 @@ public class DBUtils {
 					allUsers.add(user);
 				}
 				for (User user : allUsers) {
-					if (user.getFirstName().equals(userFirstName) &&
-						user.getMiddleName().equals(userMiddleName) &&
-						user.getLastName().equals(userLastName) &&
+					if (user.getLastName().equals(lastName) &&
 						user.getNumberOfRecordBook() == numOfRecordBook) {
-						return true;
+						return user;
 					}
 				}
 				rs.close();
@@ -287,7 +283,7 @@ public class DBUtils {
 				e.printStackTrace();
 			}
 		}
-		return false;
+		return null;
 	}
 
 	/**

@@ -4,7 +4,6 @@ import app.Utils;
 import db.DBUtils;
 import ui.SignInDialog;
 import ui.StartFrame;
-import ui.StudentCardFrame;
 
 import javax.swing.*;
 
@@ -32,7 +31,7 @@ public class StartFrameController implements SignInDialog.SignInDialogCallback {
 	public void userSignInData(String lastName, char[] numberOfRecordBook) {
 		boolean isCorrectInputData = validateSigInUserInputData(lastName, new String(numberOfRecordBook));
 		if (isCorrectInputData) {
-			boolean isUserPresentInDB = DBUtils.findUser(lastName, Integer.parseInt(new String(numberOfRecordBook)));
+			boolean isUserPresentInDB = DBUtils.isUserExist(lastName, Integer.parseInt(new String(numberOfRecordBook)));
 			if (isUserPresentInDB) {
 				// start stage selector frame
 				uiFrame.closeThisFrame();
