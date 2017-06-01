@@ -1,6 +1,6 @@
 package model;
 
-import stage1.CalcDataStage1;
+import stage1.CommonCalcDataStage1;
 import stage1.ExtraInputDataStage1;
 import stage1.elements.*;
 import stage2.CalcDataStage2;
@@ -59,7 +59,7 @@ public class Container {
 		private Si si;
 		private Ti ti;
 		private ExtraInputDataStage1 extraInputDataStage1;
-		private CalcDataStage1 calcDataStage1;
+		private CommonCalcDataStage1 commonCalcDataStage1;
 
 		public Stage1() {
 			fe = new Fe();
@@ -69,7 +69,7 @@ public class Container {
 			si = new Si();
 			ti = new Ti();
 			extraInputDataStage1 = new ExtraInputDataStage1();
-			calcDataStage1 = new CalcDataStage1();
+			commonCalcDataStage1 = new CommonCalcDataStage1();
 		}
 
 		public Fe getFe() {
@@ -100,8 +100,8 @@ public class Container {
 			return extraInputDataStage1;
 		}
 
-		public CalcDataStage1 getCalcDataStage1() {
-			return calcDataStage1;
+		public CommonCalcDataStage1 getCommonCalcDataStage1() {
+			return commonCalcDataStage1;
 		}
 
 		public List<GeneralElementStage1> getAllElements() {
