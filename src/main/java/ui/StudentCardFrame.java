@@ -37,6 +37,8 @@ public class StudentCardFrame {
 	public static final String TXT_WEIGHT_MOLTEN_METAL = "Масса расплавленного металла (гр.): ";
 	public static final String TXT_TEMPERATURE = "Температура расчета (град. Цельсия °C): ";
 	public static final String TXT_TIME = "Время нахождения сплава в жидком состоянии (c): ";
+	private static final int NUM_OF_ROWS_ACCESSORY_ELEMS = 7;
+	private static final int NUM_OF_COLUMNS_ACCESSORY_ELEMS = 3;
 
 	private JFrame studentCardFrame = new JFrame(TXT_STUDENT_CARD);
 	private StudentCardFrameController controller;
@@ -102,19 +104,17 @@ public class StudentCardFrame {
 		jpUserData.add(jpFirstName);
 		jpUserData.add(jpNumOfRecBook);
 
-
-		// Elements for stage 1 (tab 1)
-		JPanel jpRows = new JPanel();
-		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
-
-		jpRows.add(new JLabel(TXT_MAIN_ELEMENTS));
+ 		// Elements for stage 1 (tab 1)
+		JPanel jpMainElems = new JPanel(new FlowLayout());
 		for (GeneralElementStage1 el : controller.receiveBasicElementsStage1()) {
-			addRowsInputDataToPanelStage1(jpRows, jtfList, el);
+			addRowsInputDataToPanelStage1(jpMainElems, jtfList, el);
 		}
 
-		jpRows.add(new JLabel(TXT_ACCESSORY_ELEMENTS));
+		JPanel jpAccessoryElems = new JPanel();
+		GridLayout gridLay = new GridLayout(NUM_OF_ROWS_ACCESSORY_ELEMS, NUM_OF_COLUMNS_ACCESSORY_ELEMS);
+		jpAccessoryElems.setLayout(gridLay);
 		for (GeneralElementStage1 el : controller.receiveAccessoryElementsStage1()) {
-			addRowsInputDataToPanelStage1(jpRows, jtfList, el);
+			addRowsInputDataToPanelStage1(jpAccessoryElems, jtfList, el);
 		}
 
 		// Extra input data for stage 1 (tab 1)
@@ -156,7 +156,10 @@ public class StudentCardFrame {
 		jpExtraInputData.add(jpTime);
 
 		jpInputDataStage1.setLayout(new FlowLayout());
-		jpInputDataStage1.add(jpRows);
+		jpInputDataStage1.add(new JLabel(TXT_MAIN_ELEMENTS));
+		jpInputDataStage1.add(jpMainElems);
+		jpInputDataStage1.add(new JLabel(TXT_ACCESSORY_ELEMENTS));
+		jpInputDataStage1.add(jpAccessoryElems);
 		jpInputDataStage1.add(jpExtraInputData);
 		jpInputDataStage1.setBorder(BorderFactory.createTitledBorder(
 			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), TXT_TABS_PANEL_NAME
