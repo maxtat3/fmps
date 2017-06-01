@@ -351,25 +351,25 @@ public class DBUtils {
 			try {
 				ResultSet rs = stmt.executeQuery(sql);
 				while (rs.next()) {
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_AL));
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_B));
+					st1.getAl().setAlloyCompWeight(rs.getDouble(ST1_AL));
+					st1.getB().setAlloyCompWeight(rs.getDouble(ST1_B));
 					st1.getC().setAlloyCompWeight(rs.getDouble(ST1_C));
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_CR));
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_CU));
+					st1.getCr().setAlloyCompWeight(rs.getDouble(ST1_CR));
+					st1.getCu().setAlloyCompWeight(rs.getDouble(ST1_CU));
 					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_FE));
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_HF));
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_MG));
+					st1.getHf().setAlloyCompWeight(rs.getDouble(ST1_HF));
+					st1.getMg().setAlloyCompWeight(rs.getDouble(ST1_MG));
 					st1.getMn().setAlloyCompWeight(rs.getDouble(ST1_MN));
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_MO));
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_NB));
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_NI));
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_RE));
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_SI));
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_TA));
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_TI));
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_V));
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_W));
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_ZR));
+					st1.getMo().setAlloyCompWeight(rs.getDouble(ST1_MO));
+					st1.getNb().setAlloyCompWeight(rs.getDouble(ST1_NB));
+					st1.getNi().setAlloyCompWeight(rs.getDouble(ST1_NI));
+					st1.getRe().setAlloyCompWeight(rs.getDouble(ST1_RE));
+					st1.getSi().setAlloyCompWeight(rs.getDouble(ST1_SI));
+					st1.getTa().setAlloyCompWeight(rs.getDouble(ST1_TA));
+					st1.getTi().setAlloyCompWeight(rs.getDouble(ST1_TI));
+					st1.getV().setAlloyCompWeight(rs.getDouble(ST1_V));
+					st1.getW().setAlloyCompWeight(rs.getDouble(ST1_W));
+					st1.getZr().setAlloyCompWeight(rs.getDouble(ST1_ZR));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
