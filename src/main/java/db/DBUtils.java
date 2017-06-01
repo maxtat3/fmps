@@ -25,9 +25,25 @@ public class DBUtils {
 	public static final String ST1_PROGRESS = "st1_progress";
 	public static final String ST2_PROGRESS = "st2_progress";
 	public static final String ST3_PROGRESS = "st3_progress";
-	public static final String ST1_FE = "st1_fe";
+	public static final String ST1_AL = "st1_al";
+	public static final String ST1_B = "st1_b";
 	public static final String ST1_C = "st1_c";
+	public static final String ST1_CR = "st1_cr";
+	public static final String ST1_CU = "st1_cu";
+	public static final String ST1_FE = "st1_fe";
+	public static final String ST1_HF = "st1_hf";
+	public static final String ST1_MG = "st1_mg";
 	public static final String ST1_MN = "st1_mn";
+	public static final String ST1_MO = "st1_mo";
+	public static final String ST1_NB = "st1_nb";
+	public static final String ST1_NI = "st1_ni";
+	public static final String ST1_RE = "st1_re";
+	public static final String ST1_SI = "st1_si";
+	public static final String ST1_TA = "st1_ta";
+	public static final String ST1_TI = "st1_ti";
+	public static final String ST1_V = "st1_v";
+	public static final String ST1_W = "st1_w";
+	public static final String ST1_ZR = "st1_zr";
 	public static final String ST1_P_ENV = "st1_p_env";
 	public static final String ST1_F_SURF_WELD_AREA = "st1_f_surface_area";
 	public static final String ST1_MP_WEIGHT_MOLTEN_METAL = "st1_mp_weight_molten_metal";
@@ -67,9 +83,25 @@ public class DBUtils {
 					ST1_PROGRESS + " INTEGER DEFAULT 0, " +
 					ST2_PROGRESS + " INTEGER DEFAULT 0, " +
 					ST3_PROGRESS + " INTEGER DEFAULT 0, " +
-					ST1_FE + " DOUBLE DEFAULT 0, " +
+					ST1_AL + " DOUBLE DEFAULT 0, " +
+					ST1_B + " DOUBLE DEFAULT 0, " +
 					ST1_C + " DOUBLE DEFAULT 0, " +
+					ST1_CR + " DOUBLE DEFAULT 0, " +
+					ST1_CU + " DOUBLE DEFAULT 0, " +
+					ST1_FE + " DOUBLE DEFAULT 0, " +
+					ST1_HF + " DOUBLE DEFAULT 0, " +
+					ST1_MG + " DOUBLE DEFAULT 0, " +
 					ST1_MN + " DOUBLE DEFAULT 0, " +
+					ST1_MO + " DOUBLE DEFAULT 0, " +
+					ST1_NB + " DOUBLE DEFAULT 0, " +
+					ST1_NI + " DOUBLE DEFAULT 0, " +
+					ST1_RE + " DOUBLE DEFAULT 0, " +
+					ST1_SI + " DOUBLE DEFAULT 0, " +
+					ST1_TA + " DOUBLE DEFAULT 0, " +
+					ST1_TI + " DOUBLE DEFAULT 0, " +
+					ST1_V + " DOUBLE DEFAULT 0, " +
+					ST1_W + " DOUBLE DEFAULT 0, " +
+					ST1_ZR + " DOUBLE DEFAULT 0, " +
 					ST1_P_ENV + " INTEGER , " +
 					ST1_F_SURF_WELD_AREA + " DOUBLE , " +
 					ST1_MP_WEIGHT_MOLTEN_METAL + " DOUBLE , " +
@@ -273,9 +305,25 @@ public class DBUtils {
 	// todo - Для всех методов, которые добавляют/изменяют данные проверять, есть ли данные ФИО пользователя в БД !
 	public static void updMsrDataStage1(int userId, Container.Stage1 st1, ExtraInputDataStage1 extra) {
 		String sql = "UPDATE " + TABLE_FMPS_MAIN + " SET " +
-			ST1_FE + "=" + st1.getFe().getAlloyCompWeight() + DLC +
+			ST1_AL + "=" + st1.getAl().getAlloyCompWeight() + DLC +
+			ST1_B + "=" + st1.getB().getAlloyCompWeight() + DLC +
 			ST1_C + "=" + st1.getC().getAlloyCompWeight() + DLC +
+			ST1_CR + "=" + st1.getCr().getAlloyCompWeight() + DLC +
+			ST1_CU + "=" + st1.getCu().getAlloyCompWeight() + DLC +
+			ST1_FE + "=" + st1.getFe().getAlloyCompWeight() + DLC +
+			ST1_HF + "=" + st1.getHf().getAlloyCompWeight() + DLC +
+			ST1_MG + "=" + st1.getMg().getAlloyCompWeight() + DLC +
 			ST1_MN + "=" + st1.getMn().getAlloyCompWeight() + DLC +
+			ST1_MO + "=" + st1.getMo().getAlloyCompWeight() + DLC +
+			ST1_NB + "=" + st1.getNb().getAlloyCompWeight() + DLC +
+			ST1_NI + "=" + st1.getNi().getAlloyCompWeight() + DLC +
+			ST1_RE + "=" + st1.getRe().getAlloyCompWeight() + DLC +
+			ST1_SI + "=" + st1.getSi().getAlloyCompWeight() + DLC +
+			ST1_TA + "=" + st1.getTa().getAlloyCompWeight() + DLC +
+			ST1_TI + "=" + st1.getTi().getAlloyCompWeight() + DLC +
+			ST1_V + "=" + st1.getV().getAlloyCompWeight() + DLC +
+			ST1_W + "=" + st1.getW().getAlloyCompWeight() + DLC +
+			ST1_ZR + "=" + st1.getZr().getAlloyCompWeight() + DLC +
 			ST1_P_ENV + "=" + extra.getPressureEnv() + DLC +
 			ST1_F_SURF_WELD_AREA + "=" + extra.getSurfaceWeldArea() + DLC +
 			ST1_MP_WEIGHT_MOLTEN_METAL + "=" + extra.getWeightMoltenMetal() + DLC +
@@ -294,16 +342,34 @@ public class DBUtils {
 	public static Container.Stage1 getMainMsrDataStage1(int userId) {
 		Container.Stage1 st1 = new Container().new Stage1();
 
-		String sql = "SELECT " + ST1_FE + DLC + ST1_C + DLC + ST1_MN
+		String sql = "SELECT " + ST1_AL + DLC + ST1_B + DLC + ST1_C + DLC + ST1_CR + DLC + ST1_CU + DLC + ST1_FE
+			+ DLC + ST1_HF + DLC + ST1_MG + DLC + ST1_MN + DLC + ST1_MO + DLC + ST1_NB + DLC + ST1_NI + DLC + ST1_RE
+			+ DLC + ST1_SI + DLC + ST1_TA + DLC + ST1_TI + DLC + ST1_V + DLC + ST1_W + DLC + ST1_ZR
 			+ " FROM " + TABLE_FMPS_MAIN + " WHERE ID = " + userId;
 		Statement stmt = sqlExecutor(SqlAction.PREPARE);
 		if (stmt != null) {
 			try {
 				ResultSet rs = stmt.executeQuery(sql);
 				while (rs.next()) {
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_FE));
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_AL));
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_B));
 					st1.getC().setAlloyCompWeight(rs.getDouble(ST1_C));
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_CR));
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_CU));
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_FE));
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_HF));
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_MG));
 					st1.getMn().setAlloyCompWeight(rs.getDouble(ST1_MN));
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_MO));
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_NB));
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_NI));
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_RE));
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_SI));
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_TA));
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_TI));
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_V));
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_W));
+					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_ZR));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
