@@ -3,6 +3,7 @@ package model;
 import stage1.CommonCalcDataStage1;
 import stage1.ExtraInputDataStage1;
 import stage1.elements.*;
+import stage1.elements.C;
 import stage2.CalcDataStage2;
 import stage2.ExtraInputDataStage2;
 import stage2.elements.*;
@@ -52,48 +53,202 @@ public class Container {
 	}
 
 	public class Stage1 {
-		private Fe fe;
-		private stage1.elements.C c; // todo - may be renamed to cSt2 in order avoid with C element in stage 1
-		private Mn mn;
 		private Al al;
+		private B b;
+		private stage1.elements.C c; // todo - may be renamed to cSt2 in order avoid with C element in stage 1
+		private Cr cr;
+		private Cu cu;
+		private Fe fe;
+		private Hf hf;
+		private Mg mg;
+		private Mn mn;
+		private Mo mo;
+		private Nb nb;
+		private Ni ni;
+		private Re re;
 		private Si si;
+		private Ta ta;
 		private Ti ti;
+		private V v;
+		private W w;
+		private Zr zr;
 		private ExtraInputDataStage1 extraInputDataStage1;
 		private CommonCalcDataStage1 commonCalcDataStage1;
 
 		public Stage1() {
-			fe = new Fe();
-			c = new stage1.elements.C();
-			mn = new Mn();
 			al = new Al();
+			b = new B();
+			c = new stage1.elements.C();
+			cr = new Cr();
+			cu = new Cu();
+			fe = new Fe();
+			hf = new Hf();
+			mg = new Mg();
+			mn = new Mn();
+			mo = new Mo();
+			nb = new Nb();
+			ni = new Ni();
+			re = new Re();
 			si = new Si();
+			ta = new Ta();
 			ti = new Ti();
+			v = new V();
+			w = new W();
+			zr = new Zr();
 			extraInputDataStage1 = new ExtraInputDataStage1();
 			commonCalcDataStage1 = new CommonCalcDataStage1();
-		}
-
-		public Fe getFe() {
-			return fe;
-		}
-
-		public stage1.elements.C getC() {
-			return c;
-		}
-
-		public Mn getMn() {
-			return mn;
 		}
 
 		public Al getAl() {
 			return al;
 		}
 
+		public void setAl(Al al) {
+			this.al = al;
+		}
+
+		public B getB() {
+			return b;
+		}
+
+		public void setB(B b) {
+			this.b = b;
+		}
+
+		public C getC() {
+			return c;
+		}
+
+		public void setC(C c) {
+			this.c = c;
+		}
+
+		public Cr getCr() {
+			return cr;
+		}
+
+		public void setCr(Cr cr) {
+			this.cr = cr;
+		}
+
+		public Cu getCu() {
+			return cu;
+		}
+
+		public void setCu(Cu cu) {
+			this.cu = cu;
+		}
+
+		public Fe getFe() {
+			return fe;
+		}
+
+		public void setFe(Fe fe) {
+			this.fe = fe;
+		}
+
+		public Hf getHf() {
+			return hf;
+		}
+
+		public void setHf(Hf hf) {
+			this.hf = hf;
+		}
+
+		public Mg getMg() {
+			return mg;
+		}
+
+		public void setMg(Mg mg) {
+			this.mg = mg;
+		}
+
+		public Mn getMn() {
+			return mn;
+		}
+
+		public void setMn(Mn mn) {
+			this.mn = mn;
+		}
+
+		public Mo getMo() {
+			return mo;
+		}
+
+		public void setMo(Mo mo) {
+			this.mo = mo;
+		}
+
+		public Nb getNb() {
+			return nb;
+		}
+
+		public void setNb(Nb nb) {
+			this.nb = nb;
+		}
+
+		public Ni getNi() {
+			return ni;
+		}
+
+		public void setNi(Ni ni) {
+			this.ni = ni;
+		}
+
+		public Re getRe() {
+			return re;
+		}
+
+		public void setRe(Re re) {
+			this.re = re;
+		}
+
 		public Si getSi() {
 			return si;
 		}
 
+		public void setSi(Si si) {
+			this.si = si;
+		}
+
+		public Ta getTa() {
+			return ta;
+		}
+
+		public void setTa(Ta ta) {
+			this.ta = ta;
+		}
+
 		public Ti getTi() {
 			return ti;
+		}
+
+		public void setTi(Ti ti) {
+			this.ti = ti;
+		}
+
+		public V getV() {
+			return v;
+		}
+
+		public void setV(V v) {
+			this.v = v;
+		}
+
+		public W getW() {
+			return w;
+		}
+
+		public void setW(W w) {
+			this.w = w;
+		}
+
+		public Zr getZr() {
+			return zr;
+		}
+
+		public void setZr(Zr zr) {
+			this.zr = zr;
 		}
 
 		public ExtraInputDataStage1 getExtraInputDataStage1() {
@@ -106,12 +261,25 @@ public class Container {
 
 		public List<GeneralElementStage1> getAllElements() {
 			ArrayList<GeneralElementStage1> list = new ArrayList<>();
-			list.add(fe);
-			list.add(c);
-			list.add(mn);
 			list.add(al);
+			list.add(b);
+			list.add(c);
+			list.add(cr);
+			list.add(cu);
+			list.add(fe);
+			list.add(hf);
+			list.add(mg);
+			list.add(mn);
+			list.add(mo);
+			list.add(nb);
+			list.add(ni);
+			list.add(re);
 			list.add(si);
+			list.add(ta);
 			list.add(ti);
+			list.add(v);
+			list.add(w);
+			list.add(zr);
 			return list;
 		}
 	}
