@@ -21,7 +21,7 @@ public class StudentCardFrame {
 
 	public static final String TXT_STUDENT_CARD = "Карточка студента";
 	public static final String TXT_MAIN_ELEMENTS = "Основные элементы:";
-	public static final String TXT_ACCESSORY_ELEMENTS = "Дополнительные элементы:";
+	public static final String TXT_ACCESSORY_ELEMENTS = "Дополнительные (легирующие) элементы:";
 	public static final String TXT_GASES_STAGE_2 = "Для защиты сварочной ванны используется смесь газов:";
 	public static final String TXT_USER_FIRST_NAME = "Имя: ";
 	public static final String TXT_USER_MIDDLE_NAME = "Отчество: ";
@@ -68,7 +68,6 @@ public class StudentCardFrame {
 
 	private void addComponentToPane(final Container contentPane) {
 		// User data
-		JPanel jpMsg = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JPanel jpFirstName = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JPanel jpMiddleName = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JPanel jpLastName = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -84,7 +83,6 @@ public class StudentCardFrame {
 		jtfLastName.setName(TXT_USER_LAST_NAME);
 		jtfNumOfRecBook.setName(TXT_USER_NUM_OF_REC_BOOK);
 
-		jpMsg.add(jlMsg);
 		jpFirstName.add(new JLabel(TXT_USER_FIRST_NAME));
 		jpFirstName.add(jtfFirstName);
 		jpMiddleName.add(new JLabel(TXT_USER_MIDDLE_NAME));
@@ -93,6 +91,9 @@ public class StudentCardFrame {
 		jpLastName.add(jtfLastName);
 		jpNumOfRecBook.add(new JLabel(TXT_USER_NUM_OF_REC_BOOK));
 		jpNumOfRecBook.add(jtfNumOfRecBook);
+
+		JPanel jpMsg = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		jpMsg.add(jlMsg);
 
 		jpUserData.setLayout(new BoxLayout(jpUserData, BoxLayout.Y_AXIS));
 		jpUserData.add(jpMsg);
