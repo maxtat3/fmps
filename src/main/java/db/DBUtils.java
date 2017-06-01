@@ -18,6 +18,7 @@ public class DBUtils {
 	public static final String DLC = ", ";
 
 	// Columns
+	public static final String ID = "ID"; // id пользователя в БД
 	public static final String FIRST_NAME = "firstname"; // Имя
 	public static final String MIDDLE_NAME = "middlename"; // Отчество
 	public static final String LAST_NAME = "lastname"; // Фамилия
@@ -260,15 +261,20 @@ public class DBUtils {
 	 * @return если пользователь есть в БД возвращается найденный пользователь, иначе null
 	 */
 	public static User findUser(String lastName, int numOfRecordBook) {
-		String sql = "SELECT " + FIRST_NAME + DLC + MIDDLE_NAME + DLC + LAST_NAME  + DLC + NUM_OF_RECORD_BOOK + " FROM " + TABLE_FMPS_MAIN;
+		String sql = "SELECT " + ID + DLC + FIRST_NAME + DLC + MIDDLE_NAME + DLC + LAST_NAME  + DLC + NUM_OF_RECORD_BOOK + " FROM " + TABLE_FMPS_MAIN;
 		Statement stmt = sqlExecutor(SqlAction.PREPARE);
 		if (stmt != null) {
 			try {
 				ResultSet rs = stmt.executeQuery(sql);
 				List<User> allUsers = new ArrayList<>();
 				while (rs.next()) {
-					User user = new User(rs.getString(FIRST_NAME), rs.getString(MIDDLE_NAME), rs.getString(LAST_NAME),
-						rs.getInt(NUM_OF_RECORD_BOOK));
+					User user = new User(
+						rs.getInt(ID),
+						rs.getString(FIRST_NAME),
+						rs.getString(MIDDLE_NAME),
+						rs.getString(LAST_NAME),
+						rs.getInt(NUM_OF_RECORD_BOOK)
+					);
 					allUsers.add(user);
 				}
 				for (User user : allUsers) {

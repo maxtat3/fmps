@@ -1,6 +1,7 @@
 package domain;
 
 public class User {
+	private int id; // id пользователя в БД
 	private String firstName; // Имя
 	private String middleName; // Отчество
 	private String lastName; // Фамилия
@@ -25,6 +26,23 @@ public class User {
 	/**
 	 * User of this app
 	 *
+	 * @param id id пользователя в БД
+	 * @param firstName Имя
+	 * @param middleName Отчество
+	 * @param lastName Фамилия
+	 * @param numberOfRecordBook Номер зачетной книжки
+	 */
+	public User(int id, String firstName, String middleName, String lastName, int numberOfRecordBook) {
+		this.id = id;
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.numberOfRecordBook = numberOfRecordBook;
+	}
+
+	/**
+	 * User of this app
+	 *
 	 * @param lastName Фамилия
 	 * @param numOfRecBook Номер зачетной книжки
 	 */
@@ -33,6 +51,14 @@ public class User {
 		this.numberOfRecordBook = numOfRecBook;
 	}
 
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getFirstName() {
 		return firstName;
