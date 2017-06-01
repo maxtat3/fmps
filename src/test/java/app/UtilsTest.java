@@ -1,6 +1,5 @@
-package db;
+package app;
 
-import app.Utils;
 import org.junit.Assert;
 import org.junit.Test;
 
