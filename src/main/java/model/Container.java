@@ -17,8 +17,8 @@ import java.util.List;
 public class Container {
 
 	private static Container container;
-	private static Stage1 stage1;
-	private static Stage2 stage2;
+	private  Stage1 stage1;
+	private  Stage2 stage2;
 
 
 	public static Container getInstance() {
@@ -43,6 +43,13 @@ public class Container {
 		return stage2;
 	}
 
+	public void setStage1(Stage1 stage1) {
+		this.stage1 = stage1;
+	}
+
+	public void setStage2(Stage2 stage2) {
+		this.stage2 = stage2;
+	}
 
 	public class Stage1 {
 		private Fe fe;
