@@ -3,6 +3,13 @@ package stage1.elements;
 public abstract class BaseElementStage1 implements GeneralElementStage1 {
 
 	/**
+	 * Значение по умолчанию для массовой доли вещества если элемент не определен.
+	 * Если массовая доля вещества не задана пользователем для конкретного элемента,
+	 * то этот элемент в расчетах не учаввствует.
+	 */
+	public static final int ELEM_NOT_DEFINED = 0;
+
+	/**
 	 * Determine is basic element or not. Used in {@link ui.StudentCardFrame} only.
 	 */
 	private boolean isBasic;
@@ -11,7 +18,7 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	 * Состав элемента по весу (массовая доля вещества), gi (%)
 	 * Величина задается пользователю в задании.
 	 */
-	private double alloyCompWeight;
+	private double alloyCompWeight = ELEM_NOT_DEFINED;
 
 	/**
 	 * Мольная доля элемента сплава, Ni (%)
