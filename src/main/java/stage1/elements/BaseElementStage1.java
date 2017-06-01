@@ -27,20 +27,6 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	private double moleFractionAlloyElem;
 
 	/**
-	 * Высокотемпературная составляющая энтальпии отдельного вещества, (HT0-H2980)
-	 * Временная величина.
-	 * Формула 2.1.t1
-	 */
-	private double highTemperatureCompEnthalpy;
-
-	/**
-	 * Энтальпия испарения для каждого элемента, (HT0-H2980)*Ni
-	 * Временная величина.
-	 * Формула 2.1.t2
-	 */
-	private double enthalpyVaporization;
-
-	/**
 	 * Давление пара чистых компонентов, Pi (Па)
 	 * Формула 3
 	 */
@@ -97,22 +83,6 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	@Override
 	public void setMoleFractionAlloyElem(double val) {
 		moleFractionAlloyElem = val;
-	}
-
-	public double getHighTemperatureCompEnthalpyEachElemTemp() {
-		return highTemperatureCompEnthalpy;
-	}
-
-	public void setHighTemperatureCompEnthalpyEachElemTemp(double val) {
-		highTemperatureCompEnthalpy = val;
-	}
-
-	public double getEnthalpyVaporization() {
-		return enthalpyVaporization;
-	}
-
-	public void setEnthalpyVaporization(double val) {
-		enthalpyVaporization = val;
 	}
 
 	@Override
