@@ -5,7 +5,7 @@ import stage1.elements.GeneralElementStage1;
 import java.util.List;
 
 /**
- * Расчеты для задачи №1
+ * Расчетные формулы для задачи №1
  */
 public class Calc {
 
@@ -143,7 +143,7 @@ public class Calc {
 
 	/**
 	 * Давление пара чистых компонентов (Па).
-	 * Высесленные значения записывабтся по ссылке в каждый элемент.
+	 * Высесленные значения записываются по ссылке в каждый элемент.
 	 * Формула 3
 	 */
 	public void findVaporPressureOfPureComps(List<GeneralElementStage1> userElements, int temperatureTask){
