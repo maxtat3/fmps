@@ -17,7 +17,7 @@ public class Calc {
 	 *
 	 * @param userElements список элементов из задания пользователя
 	 */
-	public void findMoleFractionOfAlloyElems(List<GeneralElementStage1> userElements) {
+	public void findMoleFractionOfAlloyElemsF1(List<GeneralElementStage1> userElements) {
 		double gi; // массовая доля вещества
 		double aiFraction; // атомная доля элемента
 		double[] relGiToAi = new double[userElements.size()]; // отношения массовой доли вещества (%) к атомной массе элемента (кг/моль)
@@ -50,14 +50,14 @@ public class Calc {
 	 * Формула 2.1
 	 *
 	 * Formula dependencies:
-	 *      - {@link #findMoleFractionOfAlloyElems(List)} - formula 1
+	 *      - {@link #findMoleFractionOfAlloyElemsF1(List)} - formula 1
 	 * @param userElements список элементов из задания пользователя
 	 * @param temperatureTask // TODO: 19.05.17 уточнить что за температура ?
 	 * @param temperatureElements // TODO: 19.05.17 уточнить что за температура ?
 	 * @return энтальпия жидкого сплава в КДж/Моль
 	 */
-	public double findEnthalpyLiquidAlloy(List<GeneralElementStage1> userElements, int temperatureTask, int temperatureElements) {
-		findMoleFractionOfAlloyElems(userElements);
+	public double findEnthalpyLiquidAlloyF2p1(List<GeneralElementStage1> userElements, int temperatureTask, int temperatureElements) {
+		findMoleFractionOfAlloyElemsF1(userElements);
 
 		// HT0-H2980 - temp values 1 high temperature component enthalpy of each element
 		double[] ht0minh2980 = new double[userElements.size()];
@@ -96,12 +96,12 @@ public class Calc {
 	 * Формула 2.2
 	 *
 	 * Formula dependencies:
-	 *      - {@link #findMoleFractionOfAlloyElems(List)} - formula 1
+	 *      - {@link #findMoleFractionOfAlloyElemsF1(List)} - formula 1
 	 * @param userElements список элементов из задания пользователя
 	 * @return значение энтальпии испарения в КДж/Моль
 	 */
-	public double findEnthalpyVaporization(List<GeneralElementStage1> userElements){
-		new Calc().findMoleFractionOfAlloyElems(userElements);
+	public double findEnthalpyVaporizationF2p2(List<GeneralElementStage1> userElements){
+		new Calc().findMoleFractionOfAlloyElemsF1(userElements);
 
 		// temp value deHкип0*Ni for find enthalpy of vaporization
 		double[] deHboil0mulNi = new double[userElements.size()];
@@ -128,16 +128,16 @@ public class Calc {
 	 * Энтальпия пара для сплава (КДж/Моль).
 	 * Формула 2.3
 	 * Formula dependencies:
-	 *      - {@link #findEnthalpyLiquidAlloy(List, int, int)} - formula 2.1
-	 *      - {@link #findEnthalpyVaporization(List)} - formula 2.2
+	 *      - {@link #findEnthalpyLiquidAlloyF2p1(List, int, int)} - formula 2.1
+	 *      - {@link #findEnthalpyVaporizationF2p2(List)} - formula 2.2
 	 * @param userElements список элементов из задания пользователя
 	 * @param temperatureTask
 	 * @param temperatureElements
 	 * @return энтальпия пара для сплава
 	 */
-	public double findEnthalpyVapor(List<GeneralElementStage1> userElements, int temperatureTask, int temperatureElements){
-		double enthalpyLiquidAlloy = findEnthalpyLiquidAlloy(userElements, temperatureTask, temperatureElements);
-		double enthalpyVaporization = findEnthalpyVaporization(userElements);
+	public double findEnthalpyVaporF2p3(List<GeneralElementStage1> userElements, int temperatureTask, int temperatureElements){
+		double enthalpyLiquidAlloy = findEnthalpyLiquidAlloyF2p1(userElements, temperatureTask, temperatureElements);
+		double enthalpyVaporization = findEnthalpyVaporizationF2p2(userElements);
 		return enthalpyLiquidAlloy + enthalpyVaporization;
 	}
 
@@ -146,7 +146,7 @@ public class Calc {
 	 * Высесленные значения записываются по ссылке в каждый элемент.
 	 * Формула 3
 	 */
-	public void findVaporPressureOfPureComps(List<GeneralElementStage1> userElements, int temperatureTask){
+	public void findVaporPressureOfPureCompsF3(List<GeneralElementStage1> userElements, int temperatureTask){
 		double divider = 19.15; // общий делитель, коэффициент в формуле нахождения lgPi
 		double lgPi[] = new double[userElements.size()];
 		double pi[] = new double[userElements.size()];
@@ -173,14 +173,14 @@ public class Calc {
 	 * Формула 4
 	 *
 	 * Formula dependencies:
-	 *      - {@link #findMoleFractionOfAlloyElems(List)} - formula 1
-	 *      - {@link #findVaporPressureOfPureComps(List, int)} - formula 3
+	 *      - {@link #findMoleFractionOfAlloyElemsF1(List)} - formula 1
+	 *      - {@link #findVaporPressureOfPureCompsF3(List, int)} - formula 3
 	 * @param userElements список элементов из задания пользователя
 	 * @param temperatureTask температура расчета (град. Цельсия)
 	 */
-	public void findPartialPressureCompsOverAlloy(List<GeneralElementStage1> userElements, int temperatureTask){
-		findMoleFractionOfAlloyElems(userElements);
-		findVaporPressureOfPureComps(userElements, temperatureTask);
+	public void findPartialPressureCompsOverAlloyF4(List<GeneralElementStage1> userElements, int temperatureTask){
+		findMoleFractionOfAlloyElemsF1(userElements);
+		findVaporPressureOfPureCompsF3(userElements, temperatureTask);
 
 		double aGamma, bGamma, ni, pi;
 		double lgGamma[] = new double[userElements.size()];
@@ -208,12 +208,12 @@ public class Calc {
 	 * Формула 5
 	 *
 	 * Formula dependencies:
-	 *      - {@link #findPartialPressureCompsOverAlloy(List, int)} - formula 4
+	 *      - {@link #findPartialPressureCompsOverAlloyF4(List, int)} - formula 4
 	 * @param userElements список элементов из задания пользователя
 	 * @return давление пара над сплавом в Па
 	 */
-	public double findVaporPressureOverAlloy(List<GeneralElementStage1> userElements, int temperatureTask){
-		findPartialPressureCompsOverAlloy(userElements, temperatureTask);
+	public double findVaporPressureOverAlloyF5(List<GeneralElementStage1> userElements, int temperatureTask){
+		findPartialPressureCompsOverAlloyF4(userElements, temperatureTask);
 
 		double vaporPressureOverAlloy = 0;
 		for (GeneralElementStage1 el : userElements) {
@@ -227,11 +227,11 @@ public class Calc {
 	 * Формула 6
 	 *
 	 * Formula dependencies:
-	 *      - {@link #findVaporPressureOverAlloy(List, int)} - formula 5
+	 *      - {@link #findVaporPressureOverAlloyF5(List, int)} - formula 5
 	 * @param userElements список элементов из задания пользователя
 	 */
-	public void findMoleFractionEachElemInVapor(List<GeneralElementStage1> userElements, int temperatureTask){
-		double vaporPressureOverAlloy = findVaporPressureOverAlloy(userElements, temperatureTask);
+	public void findMoleFractionEachElemInVaporF6(List<GeneralElementStage1> userElements, int temperatureTask){
+		double vaporPressureOverAlloy = findVaporPressureOverAlloyF5(userElements, temperatureTask);
 
 		for (GeneralElementStage1 el : userElements) {
 			el.setMoleFractionEachElemInVapor(el.getPartialPressureCompsOverAlloy() / vaporPressureOverAlloy);
@@ -243,11 +243,11 @@ public class Calc {
 	 * Формула 7
 	 *
 	 * Formula dependencies:
-	 *      - {@link #findVaporPressureOverAlloy(List, int)} - formula 6
+	 *      - {@link #findVaporPressureOverAlloyF5(List, int)} - formula 6
 	 * @param userElements список элементов из задания пользователя
 	 */
-	public void findWeightFractionEachElemInVapor(List<GeneralElementStage1> userElements, int temperatureTask){
-		findMoleFractionEachElemInVapor(userElements, temperatureTask);
+	public void findWeightFractionEachElemInVaporF7(List<GeneralElementStage1> userElements, int temperatureTask){
+		findMoleFractionEachElemInVaporF6(userElements, temperatureTask);
 
 		double nvi, ai, nviMulAiSum = 0;
 
@@ -269,14 +269,14 @@ public class Calc {
 	 * Формула 8
 	 *
 	 * Formula dependencies:
-	 *      - {@link #findPartialPressureCompsOverAlloy(List, int)} - formula 4
+	 *      - {@link #findPartialPressureCompsOverAlloyF4(List, int)} - formula 4
 	 * @param userElements список элементов из задания пользователя
 	 * @param temperatureTask температура расчета (град. Цельсия)
 	 * @param surfaceWeldArea площадь свободной поверхности сварочной ванны (см2)
 	 */
-	public void findRateVaporizationEachElemOfWeldPool(List<GeneralElementStage1> userElements,
-	                                                   int temperatureTask, double surfaceWeldArea) {
-		findPartialPressureCompsOverAlloy(userElements, temperatureTask);
+	public void findRateVaporizationEachElemOfWeldPoolF8(List<GeneralElementStage1> userElements,
+	                                                     int temperatureTask, double surfaceWeldArea) {
+		findPartialPressureCompsOverAlloyF4(userElements, temperatureTask);
 
 		double pip, ai, vi;
 
@@ -293,13 +293,13 @@ public class Calc {
 	 * Формула 9
 	 *
 	 * Formula dependencies:
-	 *      - {@link #findRateVaporizationEachElemOfWeldPool(List, int, double)} - formula 8
+	 *      - {@link #findRateVaporizationEachElemOfWeldPoolF8(List, int, double)} - formula 8
 	 * @param userElements список элементов из задания пользователя
 	 * @return значение массы расплавленного металла за счет испарения
 	 */
-	public double findDecreaseMoltenMetalDueVaporization(List<GeneralElementStage1> userElements,
-	                                                     int temperatureTask, double surfaceWeldArea){
-		findRateVaporizationEachElemOfWeldPool(userElements, temperatureTask, surfaceWeldArea);
+	public double findDecreaseMoltenMetalDueVaporizationF9(List<GeneralElementStage1> userElements,
+	                                                       int temperatureTask, double surfaceWeldArea){
+		findRateVaporizationEachElemOfWeldPoolF8(userElements, temperatureTask, surfaceWeldArea);
 		double sum = 0;
 		for (GeneralElementStage1 el : userElements) {
 			sum += el.getRateVaporizationEachElemOfWeldPool();

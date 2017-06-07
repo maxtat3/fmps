@@ -109,7 +109,7 @@ public class CalcStage1Test {
 
 	@Test
 	public void moleFractionOfAlloyElementsStage1Formula1Test() {
-		new Calc().findMoleFractionOfAlloyElems(userElements);
+		new Calc().findMoleFractionOfAlloyElemsF1(userElements);
 
 		for (GeneralElementStage1 uEl : userElements) {
 			for (GeneralElementStage1 eEl : expectedList) {
@@ -130,7 +130,7 @@ public class CalcStage1Test {
 
 	@Test
 	public void findEnthalpyLiquidAlloyFormula2p1Test(){
-		double result = new Calc().findEnthalpyLiquidAlloy(userElements, TEMPERATURE_TASK, TEMPERATURE_ELEMENTS);
+		double result = new Calc().findEnthalpyLiquidAlloyF2p1(userElements, TEMPERATURE_TASK, TEMPERATURE_ELEMENTS);
 
 		double expectedResult = 83.48332;
 		Assert.assertEquals(expectedResult, result, DOUBLE_DELTA);
@@ -142,7 +142,7 @@ public class CalcStage1Test {
 
 	@Test
 	public void findEnthalpyVaporizationFormula2p2Test(){
-		double result = new Calc().findEnthalpyVaporization(userElements);
+		double result = new Calc().findEnthalpyVaporizationF2p2(userElements);
 
 		double expectedValue = 489.373;
 		Assert.assertEquals(expectedValue, result, DOUBLE_DELTA);
@@ -154,7 +154,7 @@ public class CalcStage1Test {
 
 	@Test
 	public void findEnthalpyVaporFormula2p3Test(){
-		double result = new Calc().findEnthalpyVapor(userElements, TEMPERATURE_TASK, TEMPERATURE_ELEMENTS);
+		double result = new Calc().findEnthalpyVaporF2p3(userElements, TEMPERATURE_TASK, TEMPERATURE_ELEMENTS);
 
 		double expectedValue = 572.85648;
 		Assert.assertEquals(expectedValue, result, DOUBLE_DELTA);
@@ -166,7 +166,7 @@ public class CalcStage1Test {
 
 	@Test
 	public void findVaporPressureOfPureCompsFormula3Test(){
-		new Calc().findVaporPressureOfPureComps(userElements, TEMPERATURE_TASK);
+		new Calc().findVaporPressureOfPureCompsF3(userElements, TEMPERATURE_TASK);
 
 		for (GeneralElementStage1 uEl : userElements) {
 			for (GeneralElementStage1 eEl : expectedList) {
@@ -187,7 +187,7 @@ public class CalcStage1Test {
 
 	@Test
 	public void findPartialPressureCompsOverAlloyFormula4Test(){
-		new Calc().findPartialPressureCompsOverAlloy(userElements,  TEMPERATURE_TASK);
+		new Calc().findPartialPressureCompsOverAlloyF4(userElements,  TEMPERATURE_TASK);
 
 		for (GeneralElementStage1 uEl : userElements) {
 			for (GeneralElementStage1 eEl : expectedList) {
@@ -210,7 +210,7 @@ public class CalcStage1Test {
 
 	@Test
 	public void findVaporPressureOverAlloyFormula5Test(){
-		double result = new Calc().findVaporPressureOverAlloy(userElements, TEMPERATURE_TASK);
+		double result = new Calc().findVaporPressureOverAlloyF5(userElements, TEMPERATURE_TASK);
 
 		double expectedValue = 420.26;
 		Assert.assertEquals(expectedValue, result, DOUBLE_DELTA);
@@ -222,7 +222,7 @@ public class CalcStage1Test {
 
 	@Test
 	public void findMoleFractionEachElemInVaporFormula6Test(){
-		new Calc().findMoleFractionEachElemInVapor(userElements,  TEMPERATURE_TASK);
+		new Calc().findMoleFractionEachElemInVaporF6(userElements,  TEMPERATURE_TASK);
 
 		for (GeneralElementStage1 uEl : userElements) {
 			for (GeneralElementStage1 eEl : expectedList) {
@@ -243,7 +243,7 @@ public class CalcStage1Test {
 
 	@Test
 	public void findWeightFractionEachElemInVaporFormula7Test(){
-		new Calc().findWeightFractionEachElemInVapor(userElements,  TEMPERATURE_TASK);
+		new Calc().findWeightFractionEachElemInVaporF7(userElements,  TEMPERATURE_TASK);
 
 		for (GeneralElementStage1 uEl : userElements) {
 			for (GeneralElementStage1 eEl : expectedList) {
@@ -264,7 +264,7 @@ public class CalcStage1Test {
 
 	@Test
 	public void findRateVaporizationEachElemOfWeldPoolFormula8Test(){
-		new Calc().findRateVaporizationEachElemOfWeldPool(userElements, TEMPERATURE_TASK, SURFACE_WELD_AREA);
+		new Calc().findRateVaporizationEachElemOfWeldPoolF8(userElements, TEMPERATURE_TASK, SURFACE_WELD_AREA);
 
 		for (GeneralElementStage1 uEl : userElements) {
 			for (GeneralElementStage1 eEl : expectedList) {
@@ -285,7 +285,7 @@ public class CalcStage1Test {
 
 	@Test
 	public void findDecreaseMoltenMetalDueVaporizationFormula9Test(){
-		double result = new Calc().findDecreaseMoltenMetalDueVaporization(userElements, TEMPERATURE_TASK, SURFACE_WELD_AREA);
+		double result = new Calc().findDecreaseMoltenMetalDueVaporizationF9(userElements, TEMPERATURE_TASK, SURFACE_WELD_AREA);
 
 		double expectedValue = 4.1E-3;
 		Assert.assertEquals(expectedValue, result, DOUBLE_DELTA);
