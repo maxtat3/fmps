@@ -42,17 +42,17 @@ public class Stage1QuestionFrameController extends InputDataController {
 		c.setMoleFractionAlloyElem(2);
 		mn.setMoleFractionAlloyElem(5);
 		// q2
-		Container.getInstance().getStage1().getCommonCalculatedData().setEnthalpyLiquidAlloy(15);
-		Container.getInstance().getStage1().getCommonCalculatedData().setEnthalpyVaporization(11);
-		Container.getInstance().getStage1().getCommonCalculatedData().setEnthalpyVapor(5);
+		Container.getInstance().getStage1().getCommonCalculatedData().setEnthalpyLiquidAlloyF2p1(15);
+		Container.getInstance().getStage1().getCommonCalculatedData().setEnthalpyVaporizationF2p2(11);
+		Container.getInstance().getStage1().getCommonCalculatedData().setEnthalpyVaporF2p3(5);
 		// q3
 		fe.setVaporPressureOfPureComps(11);
 		c.setVaporPressureOfPureComps(15);
 		mn.setVaporPressureOfPureComps(55);
 		// q5
-		Container.getInstance().getStage1().getCommonCalculatedData().setVaporPressureOverAlloy(12.177);
+		Container.getInstance().getStage1().getCommonCalculatedData().setVaporPressureOverAlloyF5(12.177);
 		// q9
-		Container.getInstance().getStage1().getCommonCalculatedData().setDecreaseMoltenMetalDueVaporization(556.1);
+		Container.getInstance().getStage1().getCommonCalculatedData().setDecreaseMoltenMetalDueVaporizationF9(556.1);
 
 		elements.add(fe);
 		elements.add(c);
@@ -143,9 +143,9 @@ public class Stage1QuestionFrameController extends InputDataController {
 	}
 
 	private String checkAnswerForQuestion2(List<JTextField> jtfs){
-		double entLqAlloy = Container.getInstance().getStage1().getCommonCalculatedData().getEnthalpyLiquidAlloy(); //2.1
-		double entVaporization = Container.getInstance().getStage1().getCommonCalculatedData().getEnthalpyVaporization(); //2.2
-		double entVapor = Container.getInstance().getStage1().getCommonCalculatedData().getEnthalpyVapor(); //2.3
+		double entLqAlloy = Container.getInstance().getStage1().getCommonCalculatedData().getEnthalpyLiquidAlloyF2p1(); //2.1
+		double entVaporization = Container.getInstance().getStage1().getCommonCalculatedData().getEnthalpyVaporizationF2p2(); //2.2
+		double entVapor = Container.getInstance().getStage1().getCommonCalculatedData().getEnthalpyVaporF2p3(); //2.3
 
 		for (JTextField jtfEl : jtfs) {
 			switch (jtfEl.getName()) {
@@ -172,7 +172,7 @@ public class Stage1QuestionFrameController extends InputDataController {
 	}
 
 	private String checkAnswerForQuestion5(List<JTextField> jtfs){
-		double vapPrOverAlloy = Container.getInstance().getStage1().getCommonCalculatedData().getVaporPressureOverAlloy();
+		double vapPrOverAlloy = Container.getInstance().getStage1().getCommonCalculatedData().getVaporPressureOverAlloyF5();
 
 		for (JTextField jtfEl : jtfs) {
 			switch (jtfEl.getName()) {
@@ -187,7 +187,7 @@ public class Stage1QuestionFrameController extends InputDataController {
 	}
 
 	private String checkAnswerForQuestion9(List<JTextField> jtfs) {
-		double decMetalVap = Container.getInstance().getStage1().getCommonCalculatedData().getDecreaseMoltenMetalDueVaporization();
+		double decMetalVap = Container.getInstance().getStage1().getCommonCalculatedData().getDecreaseMoltenMetalDueVaporizationF9();
 
 		for (JTextField jtfEl : jtfs) {
 			switch (jtfEl.getName()) {
