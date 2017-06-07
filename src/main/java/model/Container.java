@@ -19,6 +19,7 @@ public class Container {
 
 	private static Container container;
 	private  Stage1 stage1;
+	private ExtraInputDataStage1 extraInputDataStage1;
 	private  Stage2 stage2;
 
 
@@ -52,6 +53,14 @@ public class Container {
 		this.stage2 = stage2;
 	}
 
+	public ExtraInputDataStage1 getExtraInputDataStage1() {
+		return extraInputDataStage1;
+	}
+
+	public void setExtraInputDataStage1(ExtraInputDataStage1 extraInputDataStage1) {
+		this.extraInputDataStage1 = extraInputDataStage1;
+	}
+
 	public class Stage1 {
 		private Al al;
 		private B b;
@@ -72,7 +81,6 @@ public class Container {
 		private V v;
 		private W w;
 		private Zr zr;
-		private ExtraInputDataStage1 extraInputDataStage1;
 		private CommonCalcDataStage1 commonCalcDataStage1;
 
 		public Stage1() {
