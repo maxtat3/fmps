@@ -1,6 +1,7 @@
 package ui;
 
 import app.Utils;
+import controller.InputDataController;
 import controller.StudentCardFrameController;
 import domain.User;
 import stage1.elements.GeneralElementStage1;
@@ -39,6 +40,11 @@ public class StudentCardFrame {
 	public static final String TXT_TIME = "Время нахождения сплава в жидком состоянии (c): ";
 	private static final int NUM_OF_ROWS_ACCESSORY_ELEMS = 7;
 	private static final int NUM_OF_COLUMNS_ACCESSORY_ELEMS = 3;
+	public static final String SYM_TP = ":";
+	public static final String SYM_PERCENT = "%";
+	public static final int VALUE_COLUMN_LENGTH = 4;
+	public static final int USER_DATA_COLUMN_LENGTH_1 = 10;
+	public static final int USER_DATA_COLUMN_LENGTH_2 = 12;
 
 	private JFrame studentCardFrame = new JFrame(TXT_STUDENT_CARD);
 	private StudentCardFrameController controller;
@@ -75,10 +81,10 @@ public class StudentCardFrame {
 		JPanel jpLastName = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JPanel jpNumOfRecBook = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-		final JTextField jtfFirstName = new JTextField(10); // Имя
-		final JTextField jtfMiddleName = new JTextField(12); // Отчество
-		final JTextField jtfLastName = new JTextField(12); // Фамилия
-		final JTextField jtfNumOfRecBook = new JTextField(10);
+		final JTextField jtfFirstName = new JTextField(USER_DATA_COLUMN_LENGTH_1); // Имя
+		final JTextField jtfMiddleName = new JTextField(USER_DATA_COLUMN_LENGTH_2); // Отчество
+		final JTextField jtfLastName = new JTextField(USER_DATA_COLUMN_LENGTH_2); // Фамилия
+		final JTextField jtfNumOfRecBook = new JTextField(USER_DATA_COLUMN_LENGTH_1);
 
 		jtfFirstName.setName(TXT_USER_FIRST_NAME);
 		jtfMiddleName.setName(TXT_USER_MIDDLE_NAME);
@@ -124,11 +130,11 @@ public class StudentCardFrame {
 		JPanel jpTemperature = new JPanel();
 		JPanel jpTime = new JPanel();
 
-		final JTextField jtfPressureEnv = new JTextField(4);
-		final JTextField jtfSurfaceWeldArea = new JTextField(4);
-		final JTextField jtfWeightMoltenMetal = new JTextField(4);
-		final JTextField jtfTemperature = new JTextField(4);
-		final JTextField jtfTime = new JTextField(4);
+		final JTextField jtfPressureEnv = new JTextField(VALUE_COLUMN_LENGTH);
+		final JTextField jtfSurfaceWeldArea = new JTextField(VALUE_COLUMN_LENGTH);
+		final JTextField jtfWeightMoltenMetal = new JTextField(VALUE_COLUMN_LENGTH);
+		final JTextField jtfTemperature = new JTextField(VALUE_COLUMN_LENGTH);
+		final JTextField jtfTime = new JTextField(VALUE_COLUMN_LENGTH);
 
 		jtfPressureEnv.setName(TXT_PRESSURE_ENV);
 		jtfSurfaceWeldArea.setName(TXT_SURFACE_WELD_AREA);
@@ -178,7 +184,7 @@ public class StudentCardFrame {
 		// Extra input data for stage 2 (tab 2)
 		JPanel jpTemperatureStage2 = new JPanel();
 
-		final JTextField jtfTemperatureStage2 = new JTextField(4);
+		final JTextField jtfTemperatureStage2 = new JTextField(VALUE_COLUMN_LENGTH);
 		jtfTemperatureStage2.setName(TXT_TEMPERATURE);
 
 		jpTemperatureStage2.add(new JLabel(TXT_TEMPERATURE));
@@ -269,12 +275,12 @@ public class StudentCardFrame {
 	}
 
 	private void addRowsInputDataToPanelStage1(JPanel jpRows, List<JTextField> jtfList, GeneralElementStage1 el) {
-		JLabel jlElName = new JLabel(el.toString() + " : ");
+		JLabel jlElName = new JLabel(el.toString() + SYM_TP);
 		JTextField jtfElVal = new JTextField();
-		jtfElVal.setColumns(4);
+		jtfElVal.setColumns(VALUE_COLUMN_LENGTH);
 		jtfElVal.setName(el.toString());
 		jtfList.add(jtfElVal);
-		JLabel jlPercent = new JLabel(" %");
+		JLabel jlPercent = new JLabel(SYM_PERCENT);
 
 		JPanel jpItems = new JPanel();
 		jpItems.add(jlElName);
@@ -285,12 +291,12 @@ public class StudentCardFrame {
 	}
 
 	private void addRowsInputDataToPanelStage2(JPanel jpRows, List<JTextField> jtfList, GeneralElementStage2 el) {
-		JLabel jlElName = new JLabel(el.toString() + " : ");
+		JLabel jlElName = new JLabel(el.toString() + SYM_TP);
 		JTextField jtfElVal = new JTextField();
-		jtfElVal.setColumns(4);
+		jtfElVal.setColumns(VALUE_COLUMN_LENGTH);
 		jtfElVal.setName(el.toString());
 		jtfList.add(jtfElVal);
-		JLabel jlPercent = new JLabel(" %");
+		JLabel jlPercent = new JLabel(SYM_PERCENT);
 
 		JPanel jpItems = new JPanel();
 		jpItems.add(jlElName);
@@ -307,7 +313,7 @@ public class StudentCardFrame {
 	 * @return <tt>true</tt> if massage will be shown
 	 */
 	private boolean isShowWarning(String text) {
-		if (!text.equals("0")) {
+		if (!text.equals(InputDataController.SUCCESS_VALIDATE)) {
 			jlMsg.setText(text);
 			studentCardFrame.pack();
 			return true;
