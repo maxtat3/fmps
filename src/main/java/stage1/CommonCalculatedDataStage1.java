@@ -4,7 +4,7 @@ package stage1;
  * Общие искомые данные которые нужно вычислить согласно заданию.
  * Каждая величина является общей для всех элементов сплпва.
  */
-public class CommonCalcDataStage1 {
+public class CommonCalculatedDataStage1 {
 
 	/**
 	 * Энтальпия жидкого сплава H<sub>L</sub><sup>0</sup> (КДж/Моль).

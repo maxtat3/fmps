@@ -1,6 +1,6 @@
 package model;
 
-import stage1.CommonCalcDataStage1;
+import stage1.CommonCalculatedDataStage1;
 import stage1.ExtraInputDataStage1;
 import stage1.elements.*;
 import stage1.elements.C;
@@ -19,7 +19,6 @@ public class Container {
 
 	private static Container container;
 	private  Stage1 stage1;
-	private ExtraInputDataStage1 extraInputDataStage1;
 	private  Stage2 stage2;
 
 
@@ -53,14 +52,6 @@ public class Container {
 		this.stage2 = stage2;
 	}
 
-	public ExtraInputDataStage1 getExtraInputDataStage1() {
-		return extraInputDataStage1;
-	}
-
-	public void setExtraInputDataStage1(ExtraInputDataStage1 extraInputDataStage1) {
-		this.extraInputDataStage1 = extraInputDataStage1;
-	}
-
 	public class Stage1 {
 		private Al al;
 		private B b;
@@ -81,7 +72,8 @@ public class Container {
 		private V v;
 		private W w;
 		private Zr zr;
-		private CommonCalcDataStage1 commonCalcDataStage1;
+		private ExtraInputDataStage1 extraInputData;
+		private CommonCalculatedDataStage1 commonCalculatedData;
 
 		public Stage1() {
 			al = new Al();
@@ -103,8 +95,8 @@ public class Container {
 			v = new V();
 			w = new W();
 			zr = new Zr();
-			extraInputDataStage1 = new ExtraInputDataStage1();
-			commonCalcDataStage1 = new CommonCalcDataStage1();
+			extraInputData = new ExtraInputDataStage1();
+			commonCalculatedData = new CommonCalculatedDataStage1();
 		}
 
 		public Al getAl() {
@@ -259,12 +251,20 @@ public class Container {
 			this.zr = zr;
 		}
 
-		public ExtraInputDataStage1 getExtraInputDataStage1() {
-			return extraInputDataStage1;
+		public ExtraInputDataStage1 getExtraInputData() {
+			return extraInputData;
 		}
 
-		public CommonCalcDataStage1 getCommonCalcDataStage1() {
-			return commonCalcDataStage1;
+		public void setExtraInputData(ExtraInputDataStage1 extraInputData) {
+			this.extraInputData = extraInputData;
+		}
+
+		public CommonCalculatedDataStage1 getCommonCalculatedData() {
+			return commonCalculatedData;
+		}
+
+		public void setCommonCalculatedData(CommonCalculatedDataStage1 commonCalculatedData) {
+			this.commonCalculatedData = commonCalculatedData;
 		}
 
 		public List<GeneralElementStage1> getAllElements() {
@@ -290,6 +290,8 @@ public class Container {
 			list.add(zr);
 			return list;
 		}
+
+		// TODO: 07.06.17 may be add method to return user task elements only (alloy... != 0)
 	}
 
 	public class Stage2 {
