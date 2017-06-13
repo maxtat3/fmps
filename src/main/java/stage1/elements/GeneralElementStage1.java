@@ -221,24 +221,24 @@ public interface GeneralElementStage1 {
 
 			// see table P5, page 41 in methodical book
 			.put(AL, B_GAMMA_FACTOR, -0.00109)
-			.put(B, A_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
+			.put(B, B_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
 			.put(C, B_GAMMA_FACTOR, 0d) // TODO: 07.06.17 - in table
-			.put(CR, A_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
-			.put(CU, A_GAMMA_FACTOR, 0.00155)
+			.put(CR, B_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
+			.put(CU, B_GAMMA_FACTOR, 0.00155)
 			.put(FE, B_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
-			.put(HF, A_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
-			.put(MG, A_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
+			.put(HF, B_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
+			.put(MG, B_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
 			.put(MN, B_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
-			.put(MO, A_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
-			.put(NB, A_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
-			.put(NI, A_GAMMA_FACTOR, 0.4)
-			.put(RE, A_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
+			.put(MO, B_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
+			.put(NB, B_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
+			.put(NI, B_GAMMA_FACTOR, 0.4)
+			.put(RE, B_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
 			.put(SI, B_GAMMA_FACTOR, 0.376)
-			.put(TA, A_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
+			.put(TA, B_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
 			.put(TI, B_GAMMA_FACTOR, 0.015)
-			.put(V, A_GAMMA_FACTOR, 0.0) // TODO: 07.06.17 in methodical book indicated 0.00000 !?
-			.put(W, A_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
-			.put(ZR, A_GAMMA_FACTOR, -0.005)
+			.put(V, B_GAMMA_FACTOR, 0.0) // TODO: 07.06.17 in methodical book indicated 0.00000 !?
+			.put(W, B_GAMMA_FACTOR, 0d)  // TODO: 07.06.17 not presented in table
+			.put(ZR, B_GAMMA_FACTOR, -0.005)
 
 			// write to table
 			.build();
