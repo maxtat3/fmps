@@ -1,6 +1,5 @@
 package ui;
 
-import app.ShowChartSelector;
 import controller.ChartsImporterFrameController;
 
 import javax.swing.*;
@@ -27,6 +26,7 @@ public class ChartsExporterFrame {
 
 	private final JComboBox<String> jcmbSelectChart = new JComboBox<>();
 
+	private Stages stage = Stages.STAGE_1;
 	private JFrame mainFrame = new JFrame();
 
 	private ChartsImporterFrameController controller;
@@ -42,7 +42,7 @@ public class ChartsExporterFrame {
 		mainFrame.setVisible(true);
 	}
 
-	private void addComponentsToPane(Container container){
+	private void addComponentsToPane(final Container container){
 		// stage selector
 		JPanel jpSelectTask = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		ButtonGroup btnGr = new ButtonGroup();
@@ -58,19 +58,23 @@ public class ChartsExporterFrame {
 		jtbtnStage1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("st1");
+				stage = Stages.STAGE_1;
+				updateComboBoxModel(stage);
+//				controller.showChart();
 			}
 		});
 		jtbtnStage2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("st2");
+				stage = Stages.STAGE_2;
+				updateComboBoxModel(stage);
 			}
 		});
 		jtbtnStage3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("st3");
+				stage = Stages.STAGE_3;
+				updateComboBoxModel(stage);
 			}
 		});
 
@@ -79,16 +83,13 @@ public class ChartsExporterFrame {
 		));
 
 		// chart selector
-		ShowChartSelector.Stage1[] chartValues = ShowChartSelector.Stage1.values();
-		String[] chartNames = new String[chartValues.length];
-		for (int i = 0; i < chartValues.length; i++) {
-			chartNames[i] = chartValues[i].getName();
-		}
-		jcmbSelectChart.setModel(new DefaultComboBoxModel<>(chartNames));
+		updateComboBoxModel(Stages.STAGE_1);
 		jcmbSelectChart.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				System.out.println(jcmbSelectChart.getSelectedItem().toString());
+//				System.out.println(jcmbSelectChart.getSelectedItem().toString());
+				// TODO: 12.06.17 пердполагаем что имена всех графиков уникальны для всех этапов. Только при этом условии метод будет корректно работать.
+				controller.showChart(stage, jcmbSelectChart.getSelectedItem().toString());
 			}
 		});
 		jcmbSelectChart.setSelectedIndex(0);
@@ -104,4 +105,25 @@ public class ChartsExporterFrame {
 		container.add(jpChart, BorderLayout.CENTER);
 		container.add(new JButton(TXT_CANCEL), BorderLayout.SOUTH);
 	}
+
+	public void updateComboBoxModel(Stages stages){
+		if (jcmbSelectChart != null) {
+			switch (stages) {
+				case STAGE_1:
+					jcmbSelectChart.setModel(new DefaultComboBoxModel<>(controller.getNamesChartsStage1()));
+					break;
+				case STAGE_2:
+					jcmbSelectChart.setModel(new DefaultComboBoxModel<>(controller.getNamesChartsStage2()));
+					break;
+				case STAGE_3:
+					jcmbSelectChart.setModel(new DefaultComboBoxModel<>(controller.getNamesChartsStage3()));
+					break;
+			}
+		}
+	}
+
+	public enum Stages {
+		STAGE_1, STAGE_2, STAGE_3
+	}
+
 }
