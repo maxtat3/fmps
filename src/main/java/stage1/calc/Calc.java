@@ -164,6 +164,7 @@ public class Calc {
 			lgPi[elemPointer] = -((heatOfVaporization * 1000)/(divider * temperatureTask)) + bfactor;
 			pi[elemPointer] = Math.pow(10, lgPi[elemPointer]);
 
+			el.setLgVaporPressureOfPureComps(lgPi[elemPointer]);
 			el.setVaporPressureOfPureComps(pi[elemPointer]);
 			elemPointer++;
 		}

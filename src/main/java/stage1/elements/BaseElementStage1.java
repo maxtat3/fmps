@@ -33,6 +33,13 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	private double vaporPressureOfPureComps;
 
 	/**
+	 * Догарифм давление пара чистых компонентов, lg Pi
+	 * Формула 3gr
+
+	 */
+	private double lgVaporPressureOfPureComps;
+
+	/**
 	 * Парциальное давление компонент над сплавом, Pip (Па)
 	 * Формула 4
 	 */
@@ -93,6 +100,14 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	@Override
 	public void setVaporPressureOfPureComps(double val) {
 		vaporPressureOfPureComps = val;
+	}
+
+	public double getLgVaporPressureOfPureComps() {
+		return lgVaporPressureOfPureComps;
+	}
+
+	public void setLgVaporPressureOfPureComps(double lgVaporPressureOfPureComps) {
+		this.lgVaporPressureOfPureComps = lgVaporPressureOfPureComps;
 	}
 
 	@Override

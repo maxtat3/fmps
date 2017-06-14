@@ -261,6 +261,10 @@ public interface GeneralElementStage1 {
 	void setVaporPressureOfPureComps(double val);
 	double getVaporPressureOfPureComps();
 
+	// 3gr Логарифм давления пара чистых компонентов, lg Pi
+	void setLgVaporPressureOfPureComps(double val);
+	double getLgVaporPressureOfPureComps();
+
 	// 4. Парциальное давление компонент над сплавом, Pip (Па)
 	void setPartialPressureCompsOverAlloy(double val);
 	double getPartialPressureCompsOverAlloy();
