@@ -24,6 +24,7 @@ public class Stage1QuestionFrameController extends InputDataController {
 	 */
 	public static final String SUCCESS_ANSWER = "0";
 
+	// TODO: 13.06.17 не забыть поуюирать заглушки при проверке правильных ответов, а также добавить все элементы
 	/**
 	 * Check user answer on all questions.
 	 *

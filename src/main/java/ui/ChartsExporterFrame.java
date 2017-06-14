@@ -1,6 +1,6 @@
 package ui;
 
-import controller.ChartsImporterFrameController;
+import controller.ChartsExporterFrameController;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -29,11 +29,11 @@ public class ChartsExporterFrame {
 	private Stages stage = Stages.STAGE_1;
 	private JFrame mainFrame = new JFrame();
 
-	private ChartsImporterFrameController controller;
+	private ChartsExporterFrameController controller;
 
 
 	public ChartsExporterFrame() {
-		controller = new ChartsImporterFrameController();
+		controller = new ChartsExporterFrameController();
 
 		addComponentsToPane(mainFrame.getContentPane());
 		mainFrame.setPreferredSize(new Dimension(500, 300));

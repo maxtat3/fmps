@@ -4,6 +4,7 @@ import stage1.elements.GeneralElementStage1;
 
 import java.util.List;
 
+// TODO: 07.06.17 may be pass all values needed to calculation in class constructor ?
 /**
  * Расчетные формулы для задачи №1
  */

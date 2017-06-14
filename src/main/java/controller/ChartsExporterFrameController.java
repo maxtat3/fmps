@@ -5,7 +5,7 @@ import ui.ChartsExporterFrame;
 /**
  *
  */
-public class ChartsImporterFrameController {
+public class ChartsExporterFrameController {
 
 //	public void showChart(ShowChartSelector.Stage1 selector){
 //		switch (selector.getName()) {
