@@ -95,7 +95,8 @@ public class ChartsExporterFrame {
 		jcmbSelectChart.setSelectedIndex(0);
 
 		JPanel jpChart = new JPanel();
-		jpChart.setLayout(new GridLayout(4, 0));
+		BoxLayout boxLayout = new BoxLayout(jpChart, BoxLayout.PAGE_AXIS);
+		jpChart.setLayout(boxLayout);
 		jpChart.add(jcmbSelectChart);
 		jpChart.add(new JLabel("Displayed chart"));
 		jpChart.add(jbtnPrint);
