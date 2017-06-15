@@ -33,9 +33,10 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	private double vaporPressureOfPureComps;
 
 	/**
-	 * Догарифм давление пара чистых компонентов, lg Pi
+	 * Логарифм давления пара чистых компонентов, lg Pi (Па)
 	 * Формула 3gr
-
+	 * Важно: значение этого поля нужно только для построения графиков,
+	 * в расчетных формулах участия не принимает.
 	 */
 	private double lgVaporPressureOfPureComps;
 
