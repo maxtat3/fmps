@@ -117,33 +117,57 @@ public class ReferenceCalculationsStage1 {
 
 
 	// TODO: 14.06.17 Important - this a crutch approach! Correct way is make a deep copy of user elements to single list and change/rewrite values elements in this list . But current class hierarchy most like not suitable for this.
-
-	private HashMap<GeneralElementStage1, Double> vpopcs = new HashMap<>();
+	/**
+	 * Storage for temporary save chemical elements.
+	 */
+	private HashMap<GeneralElementStage1, GeneralElementStage1> recovery = new HashMap<>();
 
 	/**
-	 * Save values of method {@link BaseElementStage1#getVaporPressureOfPureComps()} before build chart.
+	 * Save all values for all elements received list, expect value {@link BaseElementStage1#getLgVaporPressureOfPureComps()}.
 	 *
-	 * @param elems user elements
+	 * @param elems source user elements list
 	 */
 	private void captureData(List<GeneralElementStage1> elems){
-		for (GeneralElementStage1 el : elems) {
-			vpopcs.put(el, el.getVaporPressureOfPureComps());
+		for (GeneralElementStage1 srcEl : elems) {
+			GeneralElementStage1 destEl = new RecoveryElement();
+			destEl.setAlloyCompWeight(srcEl.getAlloyCompWeight());
+			destEl.setMoleFractionAlloyElem(srcEl.getMoleFractionAlloyElem());
+			destEl.setVaporPressureOfPureComps(srcEl.getVaporPressureOfPureComps());
+			destEl.setPartialPressureCompsOverAlloy(srcEl.getPartialPressureCompsOverAlloy());
+			destEl.setMoleFractionEachElemInVapor(srcEl.getMoleFractionEachElemInVapor());
+			destEl.setWeightFractionEachElemInVapor(srcEl.getWeightFractionEachElemInVapor());
+			destEl.setRateVaporizationEachElemOfWeldPool(srcEl.getRateVaporizationEachElemOfWeldPool());
+			recovery.put(srcEl, destEl);
 		}
 	}
 
 	/**
-	 * Restore values from {@link BaseElementStage1#getVaporPressureOfPureComps()} after build chart.
+	 * Restore values saved by method {@link #captureData(List)}, expect value {@link BaseElementStage1#getLgVaporPressureOfPureComps()}.
 	 *
-	 * @param elems user elements
+	 * @param elems source user elements list
 	 */
 	private void restoreData(List<GeneralElementStage1> elems){
 		for (GeneralElementStage1 el : elems) {
-			for (Map.Entry<GeneralElementStage1, Double> entry : vpopcs.entrySet()) {
+			for (Map.Entry<GeneralElementStage1, GeneralElementStage1> entry : recovery.entrySet()) {
 				if (entry.getKey() == el) {
-					el.setVaporPressureOfPureComps(entry.getValue());
+					el.setAlloyCompWeight(entry.getValue().getAlloyCompWeight());
+					el.setMoleFractionAlloyElem(entry.getValue().getMoleFractionAlloyElem());
+					el.setVaporPressureOfPureComps(entry.getValue().getVaporPressureOfPureComps());
+					el.setPartialPressureCompsOverAlloy(entry.getValue().getPartialPressureCompsOverAlloy());
+					el.setMoleFractionEachElemInVapor(entry.getValue().getMoleFractionEachElemInVapor());
+					el.setWeightFractionEachElemInVapor(entry.getValue().getWeightFractionEachElemInVapor());
+					el.setRateVaporizationEachElemOfWeldPool(entry.getValue().getRateVaporizationEachElemOfWeldPool());
 				}
 			}
 		}
 	}
+
+	/**
+	 * General chemical element for temporary stored element values.
+	 * Used in {@link #captureData(List)} and {@link #restoreData(List)} methods.
+	 */
+	private class RecoveryElement extends BaseElementStage1 {
+	}
+
 
 }
