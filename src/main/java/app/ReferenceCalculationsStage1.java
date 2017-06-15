@@ -11,6 +11,7 @@ import stage1.elements.BaseElementStage1;
 import stage1.elements.GeneralElementStage1;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -81,7 +82,7 @@ public class ReferenceCalculationsStage1 {
 
 	private static final int MIN_TEMPERATURE = 1500;
 	private static final int MAX_TEMPERATURE = 3000;
-	private static final int DELTA_TEMPERATURE = 100;
+	private static final int DELTA_TEMPERATURE = 10;
 
 	/**
 	 * Получение данных для графика - Зависимость паров чистых компонент от температуры Т
@@ -93,26 +94,30 @@ public class ReferenceCalculationsStage1 {
 			.receiveUserTaskElementsStage1(InputDataController.AccessElementsStage1.TASK);
 
 		captureData(elems);
-		double vpopcsBefore = Container.getInstance().getStage1().getFe().getVaporPressureOfPureComps();
-
 		Calc calc = new Calc();
+		HashMap<GeneralElementStage1, LinkedHashMap<Integer, Double>> chData = new HashMap<>();
+		for (GeneralElementStage1 el : elems) {
+			chData.put(el, new LinkedHashMap<Integer, Double>());
+		}
 		for (int temp = MIN_TEMPERATURE; temp < MAX_TEMPERATURE; temp += DELTA_TEMPERATURE) {
 			calc.findVaporPressureOfPureCompsF3(elems, temp);
-			System.out.println("temp = " + temp);
 			for (GeneralElementStage1 el : elems) {
-				double vpopcs = el.getLgVaporPressureOfPureComps();
-				System.out.println(el.toString() + " vpopcs: " + vpopcs);
+				double point = el.getLgVaporPressureOfPureComps();
+				if (chData.containsKey(el)) {
+					chData.get(el).put(temp, point);
+				}
 			}
-			System.out.println("---");
 		}
-
 		restoreData(elems);
 
-		double vpopcsAfter = Container.getInstance().getStage1().getFe().getVaporPressureOfPureComps();
-
-		System.out.println("vp0 = " + vpopcsBefore);
-		System.out.println("vp1 = " + vpopcsAfter);
-
+		for (Map.Entry<GeneralElementStage1, LinkedHashMap<Integer, Double>> entry : chData.entrySet()) {
+			GeneralElementStage1 el = entry.getKey();
+			System.out.println(el.toString() + ": ");
+			for (Map.Entry<Integer, Double> pData : entry.getValue().entrySet()) {
+				System.out.println(pData.getKey() + " °C : " + pData.getValue());
+			}
+			System.out.println();
+		}
 	}
 
 
