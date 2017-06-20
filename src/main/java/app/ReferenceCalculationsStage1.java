@@ -24,6 +24,21 @@ public class ReferenceCalculationsStage1 {
 	public static final int TEMPERATURE_ELEMENTS = 1800; // TODO: 07.06.17 правильно ли указана эта температуа элементов ???
 
 	/**
+	 * Minimum temperature at build chart.
+	 */
+	private static final int MIN_TEMPERATURE = 1500;
+
+	/**
+	 * Maximum temperature at build chart.
+	 */
+	private static final int MAX_TEMPERATURE = 3000;
+
+	/**
+	 * Delta of temperature at build chart.
+	 */
+	private static final int DELTA_TEMPERATURE = 100;
+
+	/**
 	 * Perform reference data - calculations of all formulas for stage 1.
 	 * This results data applied for compare of user answers.
 	 *
@@ -45,7 +60,6 @@ public class ReferenceCalculationsStage1 {
 		double surfaceWeldArea = Container.getInstance().getStage1().getExtraInputData().getSurfaceWeldArea();
 		double weightMoltenMetal = Container.getInstance().getStage1().getExtraInputData().getWeightMoltenMetal();
 		int temperature = Container.getInstance().getStage1().getExtraInputData().getTemperature();
-		System.out.println("temperature = " + temperature);
 		double time = Container.getInstance().getStage1().getExtraInputData().getTime();
 
 
@@ -80,9 +94,6 @@ public class ReferenceCalculationsStage1 {
 		commonData.setDecreaseMoltenMetalDueVaporizationF9(f9Res);
 	}
 
-	private static final int MIN_TEMPERATURE = 1500;
-	private static final int MAX_TEMPERATURE = 3000;
-	private static final int DELTA_TEMPERATURE = 10;
 
 	/**
 	 * Получение данных для графика - Зависимость паров чистых компонент от температуры Т
@@ -109,15 +120,6 @@ public class ReferenceCalculationsStage1 {
 			}
 		}
 		restoreData(elems);
-
-//		for (Map.Entry<GeneralElementStage1, LinkedHashMap<Integer, Double>> entry : chData.entrySet()) {
-//			GeneralElementStage1 el = entry.getKey();
-//			System.out.println(el.toString() + ": ");
-//			for (Map.Entry<Integer, Double> pData : entry.getValue().entrySet()) {
-//				System.out.println(pData.getKey() + " °C : " + pData.getValue());
-//			}
-//			System.out.println();
-//		}
 
 		return chData;
 	}

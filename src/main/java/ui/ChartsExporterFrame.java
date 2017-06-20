@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+
 /**
  * UI для выбора различнеых вариантов сохранения графиков - файл или печать.
  */
@@ -22,6 +23,7 @@ public class ChartsExporterFrame extends ApplicationFrame{
 	 * Positions of chart in chart panel.
 	 */
 	private static final int CHART_POSITION = 1;
+
 	/**
 	 * Dimensions of chart placed in {@link #jpChart} panel.
 	 * This dimensions affected to size chart inside container!
@@ -99,7 +101,6 @@ public class ChartsExporterFrame extends ApplicationFrame{
 		jcmbSelectChart.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-//				System.out.println(jcmbSelectChart.getSelectedItem().toString());
 				// TODO: 12.06.17 пердполагаем что имена всех графиков уникальны для всех этапов. Только при этом условии метод будет корректно работать.
 				displayChart(stage, jcmbSelectChart.getSelectedItem().toString());
 			}

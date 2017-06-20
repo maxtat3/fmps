@@ -18,13 +18,6 @@ import java.util.Map;
  */
 public class ChartsExporterFrameController {
 
-//	public void showChart(ShowChartSelector.Stage1 selector){
-//		switch (selector.getName()) {
-//			case ShowChartSelector.Stage1.CHART_1.getName():
-//
-//		}
-//	}
-
 	private ReferenceCalculationsStage1 resolver;
 
 	public ChartsExporterFrameController() {
@@ -35,14 +28,12 @@ public class ChartsExporterFrameController {
 		if (stage == ChartsExporterFrame.Stages.STAGE_1) {
 			switch (stageAndChartNumber) {
 				case STAGE_1_CHART_1:
-					System.out.println("--- show chart 1.1");
 					HashMap<GeneralElementStage1, LinkedHashMap<Integer, Double>> data = resolver.buildChart1();
 					XYSeriesCollection dataSet = prepareDataToChart(data);
 					SingleWindowLineChart chart = new SingleWindowLineChart();
 					return chart.initChart(dataSet);
 
 				case STAGE_1_CHART_2:
-					System.out.println("--- show chart 1.2");
 					resolver.buildChart1();
 					SingleWindowLineChart chart1 = new SingleWindowLineChart();
 					XYDataset data1 = chart1.createDataSet1();
