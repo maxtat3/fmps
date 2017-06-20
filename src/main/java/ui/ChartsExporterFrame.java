@@ -46,13 +46,13 @@ public class ChartsExporterFrame extends ApplicationFrame{
 
 	private Stages stage = Stages.STAGE_1;
 	private JPanel jpChart = new JPanel();
-	private JFrame mainFrame = new JFrame();
+	private JFrame mainFrame = new JFrame("Графические результаты расчетов");
 
 	private ChartsExporterFrameController controller;
 
 
 	public ChartsExporterFrame() {
-		super("Title");
+		super("");
 		controller = new ChartsExporterFrameController();
 
 		addComponentsToPane(mainFrame.getContentPane());
