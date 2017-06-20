@@ -88,7 +88,7 @@ public class ReferenceCalculationsStage1 {
 	 * Получение данных для графика - Зависимость паров чистых компонент от температуры Т
 	 * Вычисляется согласно формуле 3 {@link Calc#findVaporPressureOfPureCompsF3(List, int)}
 	 */
-	public void buildChart1(){
+	public HashMap<GeneralElementStage1, LinkedHashMap<Integer, Double>> buildChart1(){
 		// TODO: 13.06.17 may be move #receiveUserTaskElementsStage1 method to Container !?
 		List<GeneralElementStage1> elems = new InputDataController()
 			.receiveUserTaskElementsStage1(InputDataController.AccessElementsStage1.TASK);
@@ -110,14 +110,16 @@ public class ReferenceCalculationsStage1 {
 		}
 		restoreData(elems);
 
-		for (Map.Entry<GeneralElementStage1, LinkedHashMap<Integer, Double>> entry : chData.entrySet()) {
-			GeneralElementStage1 el = entry.getKey();
-			System.out.println(el.toString() + ": ");
-			for (Map.Entry<Integer, Double> pData : entry.getValue().entrySet()) {
-				System.out.println(pData.getKey() + " °C : " + pData.getValue());
-			}
-			System.out.println();
-		}
+//		for (Map.Entry<GeneralElementStage1, LinkedHashMap<Integer, Double>> entry : chData.entrySet()) {
+//			GeneralElementStage1 el = entry.getKey();
+//			System.out.println(el.toString() + ": ");
+//			for (Map.Entry<Integer, Double> pData : entry.getValue().entrySet()) {
+//				System.out.println(pData.getKey() + " °C : " + pData.getValue());
+//			}
+//			System.out.println();
+//		}
+
+		return chData;
 	}
 
 
