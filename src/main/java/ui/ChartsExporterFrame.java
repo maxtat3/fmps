@@ -72,6 +72,7 @@ public class ChartsExporterFrame extends ApplicationFrame{
 		btnGr.add(jtbtnStage1);
 		btnGr.add(jtbtnStage2);
 		btnGr.add(jtbtnStage3);
+		btnGr.setSelected(jtbtnStage1.getModel(), true);
 		jpSelectTask.add(jtbtnStage1);
 		jpSelectTask.add(jtbtnStage2);
 		jpSelectTask.add(jtbtnStage3);
