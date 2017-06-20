@@ -47,6 +47,14 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	private double partialPressureCompsOverAlloy;
 
 	/**
+	 * Логарифм парциального давления компонент над сплавом, log(Pip) (Па)
+	 * Формула 4gr
+	 * Важно: значение этого поля нужно только для построения графиков,
+	 * в расчетных формулах участия не принимает.
+	 */
+	private double lgPartialPressureCompsOverAlloy;
+
+	/**
 	 * Мольная доля компонента в паре,
 	 * Формула 6
 	 */
@@ -119,6 +127,16 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	@Override
 	public void setPartialPressureCompsOverAlloy(double val) {
 		partialPressureCompsOverAlloy = val;
+	}
+
+	@Override
+	public void setLgPartialPressureCompsOverAlloy(double val) {
+		lgPartialPressureCompsOverAlloy = val;
+	}
+
+	@Override
+	public double getLgPartialPressureCompsOverAlloy() {
+		return lgPartialPressureCompsOverAlloy;
 	}
 
 	@Override

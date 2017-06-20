@@ -173,6 +173,8 @@ public class Calc {
 	/**
 	 * Парциальное давление компонент над сплавом (Па)
 	 * Формула 4
+	 * Также этот метод вычисляет значение десятичного
+	 * логарифма {@link stage1.elements.BaseElementStage1#lgPartialPressureCompsOverAlloy} для построения графика.
 	 *
 	 * Formula dependencies:
 	 *      - {@link #findMoleFractionOfAlloyElemsF1(List)} - formula 1
@@ -201,6 +203,7 @@ public class Calc {
 
 			pip[elemPointer] = gamma[elemPointer] * ni * pi;
 			el.setPartialPressureCompsOverAlloy(pip[elemPointer]);
+			el.setLgPartialPressureCompsOverAlloy(Math.log10(pip[elemPointer]));
 			elemPointer++;
 		}
 	}
