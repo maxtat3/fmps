@@ -138,6 +138,22 @@ public class ReferenceCalculationsStage1 {
 		return data;
 	}
 
+	public ChartData buildChart4XTemperYValue() {
+		List<GeneralElementStage1> elems = new InputDataController()
+			.receiveUserTaskElementsStage1(InputDataController.AccessElementsStage1.TASK);
+
+		LinkedHashMap<Integer, Double> data = new LinkedHashMap<>();
+		Calc calc = new Calc();
+		for (int temp = MIN_TEMPERATURE; temp < MAX_TEMPERATURE; temp += DELTA_TEMPERATURE) {
+			double val = calc.findEnthalpyLiquidAlloyF2p1(elems, temp, TEMPERATURE_ELEMENTS);
+			data.put(temp, val);
+		}
+		ChartData chartData = new ChartData();
+		chartData.setChart4Formula2p1Data(data);
+
+		return chartData;
+	}
+
 
 	// TODO: 14.06.17 Important - this a crutch approach! Correct way is make a deep copy of user elements to single list and change/rewrite values elements in this list . But current class hierarchy most like not suitable for this.
 	/**

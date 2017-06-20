@@ -23,8 +23,14 @@ public class ChartsExporterFrameController {
 	public ChartsExporterFrameController() {
 		resolver = new ReferenceCalculationsStage1();
 		chartData = resolver.buildChartsXTemperYValues();
+		// copied collection for chart 4 from reference
+		chartData.setChart4Formula2p1Data(resolver.buildChart4XTemperYValue().getChart4Formula2p1Data());
 	}
 
+	// TODO: 20.06.17 may be simplify code in case block, for example ...
+//	    return new SingleWindowLineChart().initChart(
+//		    prepareDataToChart(chartData.getChart1Formula3Data())
+//		);
 	public JFreeChart showChart(ChartsExporterFrame.Stages stage, String stageAndChartNumber){
 		if (stage == ChartsExporterFrame.Stages.STAGE_1) {
 			switch (stageAndChartNumber) {
@@ -44,8 +50,9 @@ public class ChartsExporterFrameController {
 					return chart2.initChart(dataSet2);
 
 				case STAGE_1_CHART_4:
-					//...
-					break;
+					XYSeriesCollection dataSet3 = prepareDataToChart(chartData.getChart4Formula2p1Data());
+					SingleWindowLineChart chart3 = new SingleWindowLineChart();
+					return chart3.initChart(dataSet3);
 
 				case STAGE_1_CHART_5:
 					//...
@@ -121,6 +128,18 @@ public class ChartsExporterFrameController {
 			}
 			dataSet.addSeries(xySeries);
 		}
+
+		return dataSet;
+	}
+
+	private XYSeriesCollection prepareDataToChart(LinkedHashMap<Integer, Double> data) {
+		XYSeriesCollection dataSet = new XYSeriesCollection();
+		XYSeries xySeries = new XYSeries("");
+
+		for (Map.Entry<Integer, Double> pData : data.entrySet()) {
+			xySeries.add(pData.getKey(), pData.getValue());
+		}
+		dataSet.addSeries(xySeries);
 
 		return dataSet;
 	}
