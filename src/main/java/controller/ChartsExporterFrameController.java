@@ -1,9 +1,9 @@
 package controller;
 
 import app.ReferenceCalculationsStage1;
+import chart.ChartData;
 import chart.SingleWindowLineChart;
 import org.jfree.chart.JFreeChart;
-import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import stage1.elements.GeneralElementStage1;
@@ -18,25 +18,30 @@ import java.util.Map;
 public class ChartsExporterFrameController {
 
 	private ReferenceCalculationsStage1 resolver;
+	private ChartData chartData;
 
 	public ChartsExporterFrameController() {
 		resolver = new ReferenceCalculationsStage1();
+		chartData = resolver.buildChartsXTemperYValues();
 	}
 
 	public JFreeChart showChart(ChartsExporterFrame.Stages stage, String stageAndChartNumber){
 		if (stage == ChartsExporterFrame.Stages.STAGE_1) {
 			switch (stageAndChartNumber) {
 				case STAGE_1_CHART_1:
-					Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> data = resolver.buildChart1();
-					XYSeriesCollection dataSet = prepareDataToChart(data);
+					XYSeriesCollection dataSet = prepareDataToChart(chartData.getChart1Formula3Data());
 					SingleWindowLineChart chart = new SingleWindowLineChart();
 					return chart.initChart(dataSet);
 
 				case STAGE_1_CHART_2:
-					resolver.buildChart1();
+					XYSeriesCollection dataSet1 = prepareDataToChart(chartData.getChart2Formula4Data());
 					SingleWindowLineChart chart1 = new SingleWindowLineChart();
-					XYDataset data1 = chart1.createDataSet1();
-					return chart1.initChart(data1);
+					return chart1.initChart(dataSet1);
+
+				case STAGE_1_CHART_3:
+					XYSeriesCollection dataSet2 = prepareDataToChart(chartData.getChart3Formula7Data());
+					SingleWindowLineChart chart2 = new SingleWindowLineChart();
+					return chart2.initChart(dataSet2);
 			}
 		} else if (stage == ChartsExporterFrame.Stages.STAGE_2) {
 
@@ -52,6 +57,7 @@ public class ChartsExporterFrameController {
 	// names of charts for all stages
 	public static final String STAGE_1_CHART_1 = "st1ch1";
 	public static final String STAGE_1_CHART_2 = "st1ch2";
+	public static final String STAGE_1_CHART_3 = "st1ch3";
 
 	public static final String STAGE_2_CHART_1 = "st2 ch1";
 	public static final String STAGE_2_CHART_2 = "st2 ch2";
@@ -63,6 +69,7 @@ public class ChartsExporterFrameController {
 		return new String[]{
 			STAGE_1_CHART_1,
 			STAGE_1_CHART_2,
+			STAGE_1_CHART_3
 		};
 	}
 

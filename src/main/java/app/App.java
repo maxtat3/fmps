@@ -28,7 +28,7 @@ public class App {
 
 		ReferenceCalculationsStage1 ref = new ReferenceCalculationsStage1();
 		ref.performRefCalcStage1(new User(1, "Имя..........", "Отчество.......", "Фамилия......" , 155));
-//		ref.buildChart1();
+//		ref.buildChartsXTemperYValues();
 
 		new ChartsExporterFrame();
 	}

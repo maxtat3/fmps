@@ -1,5 +1,6 @@
 package app;
 
+import chart.ChartData;
 import controller.InputDataController;
 import db.DBUtils;
 import domain.User;
@@ -94,34 +95,47 @@ public class ReferenceCalculationsStage1 {
 		commonData.setDecreaseMoltenMetalDueVaporizationF9(f9Res);
 	}
 
-
 	/**
 	 * Получение данных для графика - Зависимость паров чистых компонент от температуры Т
 	 * Вычисляется согласно формуле 3 {@link Calc#findVaporPressureOfPureCompsF3(List, int)}
 	 */
-	public Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> buildChart1(){
+	public ChartData buildChartsXTemperYValues(){
 		// TODO: 13.06.17 may be move #receiveUserTaskElementsStage1 method to Container !?
 		List<GeneralElementStage1> elems = new InputDataController()
 			.receiveUserTaskElementsStage1(InputDataController.AccessElementsStage1.TASK);
 
 		captureData(elems);
 		Calc calc = new Calc();
-		Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> chData = new LinkedHashMap<>();
+		Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> chart1Formula3Data = new LinkedHashMap<>(); // formula 3
+		Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> chart2Formula4Data = new LinkedHashMap<>(); // formula 4
+		Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> chart3Formula7Data = new LinkedHashMap<>(); // formula 7
 		for (GeneralElementStage1 el : elems) {
-			chData.put(el, new LinkedHashMap<Integer, Double>());
+			chart1Formula3Data.put(el, new LinkedHashMap<Integer, Double>());
+			chart2Formula4Data.put(el, new LinkedHashMap<Integer, Double>());
+			chart3Formula7Data.put(el, new LinkedHashMap<Integer, Double>());
 		}
 		for (int temp = MIN_TEMPERATURE; temp < MAX_TEMPERATURE; temp += DELTA_TEMPERATURE) {
 			calc.findVaporPressureOfPureCompsF3(elems, temp);
+			calc.findPartialPressureCompsOverAlloyF4(elems, temp);
+			calc.findWeightFractionEachElemInVaporF7(elems, temp);
 			for (GeneralElementStage1 el : elems) {
-				double point = el.getLgVaporPressureOfPureComps();
-				if (chData.containsKey(el)) {
-					chData.get(el).put(temp, point);
+				double pCh3 = el.getLgVaporPressureOfPureComps();
+				double pCh4 = el.getLgPartialPressureCompsOverAlloy();
+				double pCh7 = el.getWeightFractionEachElemInVapor();
+				if (chart1Formula3Data.containsKey(el)) {
+					chart1Formula3Data.get(el).put(temp, pCh3);
+					chart2Formula4Data.get(el).put(temp, pCh4);
+					chart3Formula7Data.get(el).put(temp, pCh7);
 				}
 			}
 		}
+		ChartData data = new ChartData();
+		data.setChart1Formula3Data(chart1Formula3Data);
+		data.setChart2Formula4Data(chart2Formula4Data);
+		data.setChart3Formula7Data(chart3Formula7Data);
 		restoreData(elems);
 
-		return chData;
+		return data;
 	}
 
 
