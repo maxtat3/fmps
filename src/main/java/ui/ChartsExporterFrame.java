@@ -26,6 +26,11 @@ public class ChartsExporterFrame extends ApplicationFrame{
 	 * Positions of chart in chart panel.
 	 */
 	private static final int CHART_POSITION = 1;
+	/**
+	 * Dimensions of chart placed in {@link #jpChart} panel.
+	 * This dimensions affected to size chart inside container!
+	 */
+	private final Dimension chartDim = new Dimension(700, 700);
 	public static final String TXT_STAGE_SELECT = "Отображение результатов";
 	public static final String TXT_STAGE_1 = "Задача 1";
 	public static final String TXT_STAGE_2 = "Задача 2";
@@ -106,7 +111,7 @@ public class ChartsExporterFrame extends ApplicationFrame{
 		jcmbSelectChart.setSelectedIndex(0);
 
 		ChartPanel chartPanel = new ChartPanel(controller.showChart(stage, jcmbSelectChart.getSelectedItem().toString()));
-		chartPanel.setPreferredSize(new Dimension(700, 700)); // this dimensions affected to size chart inside container
+		chartPanel.setPreferredSize(chartDim);
 
 		BoxLayout boxLayout = new BoxLayout(jpChart, BoxLayout.PAGE_AXIS);
 		jpChart.setLayout(boxLayout);
@@ -142,7 +147,7 @@ public class ChartsExporterFrame extends ApplicationFrame{
 		JFreeChart jfChart = controller.showChart(stage, chartNum);
 
 		ChartPanel chp = new ChartPanel(jfChart);
-		chp.setPreferredSize(new Dimension(700, 700));
+		chp.setPreferredSize(chartDim);
 
 		jpChart.remove(CHART_POSITION);
 		jpChart.add(chp, CHART_POSITION);
