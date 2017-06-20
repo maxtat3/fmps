@@ -99,14 +99,14 @@ public class ReferenceCalculationsStage1 {
 	 * Получение данных для графика - Зависимость паров чистых компонент от температуры Т
 	 * Вычисляется согласно формуле 3 {@link Calc#findVaporPressureOfPureCompsF3(List, int)}
 	 */
-	public HashMap<GeneralElementStage1, LinkedHashMap<Integer, Double>> buildChart1(){
+	public Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> buildChart1(){
 		// TODO: 13.06.17 may be move #receiveUserTaskElementsStage1 method to Container !?
 		List<GeneralElementStage1> elems = new InputDataController()
 			.receiveUserTaskElementsStage1(InputDataController.AccessElementsStage1.TASK);
 
 		captureData(elems);
 		Calc calc = new Calc();
-		HashMap<GeneralElementStage1, LinkedHashMap<Integer, Double>> chData = new HashMap<>();
+		Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> chData = new LinkedHashMap<>();
 		for (GeneralElementStage1 el : elems) {
 			chData.put(el, new LinkedHashMap<Integer, Double>());
 		}

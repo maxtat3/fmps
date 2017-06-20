@@ -9,7 +9,6 @@ import org.jfree.data.xy.XYSeriesCollection;
 import stage1.elements.GeneralElementStage1;
 import ui.ChartsExporterFrame;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -28,7 +27,7 @@ public class ChartsExporterFrameController {
 		if (stage == ChartsExporterFrame.Stages.STAGE_1) {
 			switch (stageAndChartNumber) {
 				case STAGE_1_CHART_1:
-					HashMap<GeneralElementStage1, LinkedHashMap<Integer, Double>> data = resolver.buildChart1();
+					Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> data = resolver.buildChart1();
 					XYSeriesCollection dataSet = prepareDataToChart(data);
 					SingleWindowLineChart chart = new SingleWindowLineChart();
 					return chart.initChart(dataSet);
@@ -91,7 +90,7 @@ public class ChartsExporterFrameController {
 	 *             point. Point contain x and y coordinates.
 	 * @return prepared collections curves for elements.
 	 */
-	private XYSeriesCollection prepareDataToChart(HashMap<GeneralElementStage1, LinkedHashMap<Integer, Double>> data) {
+	private XYSeriesCollection prepareDataToChart(Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> data) {
 		XYSeriesCollection dataSet = new XYSeriesCollection();
 
 		for (Map.Entry<GeneralElementStage1, LinkedHashMap<Integer, Double>> entry : data.entrySet()) {
