@@ -4,7 +4,6 @@ import controller.ChartsExporterFrameController;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.ui.ApplicationFrame;
-import stage1.elements.GeneralElementStage1;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -13,9 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * UI для выбора различнеых вариантов сохранения графиков - файл или печать.
@@ -153,24 +149,6 @@ public class ChartsExporterFrame extends ApplicationFrame{
 		jpChart.add(chp, CHART_POSITION);
 
 		mainFrame.revalidate();
-	}
-
-
-	private void createDataSet2(HashMap<GeneralElementStage1, LinkedHashMap<Integer, Double>> data) {
-		System.out.println(">>> update chart ");
-
-		for (GeneralElementStage1 el : data.keySet()) {
-			System.out.println("el = " + el);
-		}
-
-		for (Map.Entry<GeneralElementStage1, LinkedHashMap<Integer, Double>> entry : data.entrySet()) {
-			GeneralElementStage1 el = entry.getKey();
-			System.out.println(el.toString() + ": ");
-			for (Map.Entry<Integer, Double> pData : entry.getValue().entrySet()) {
-				System.out.println(pData.getKey() + " °C : " + pData.getValue());
-			}
-			System.out.println();
-		}
 	}
 
 	public enum Stages {

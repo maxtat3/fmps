@@ -3,7 +3,7 @@ package app;
 
 import db.DBUtils;
 import domain.User;
-import ui.Stage1QuestionFrame;
+import ui.ChartsExporterFrame;
 
 import javax.swing.*;
 
@@ -22,7 +22,14 @@ public class App {
 
 	private void startUI() {
 //		new StartFrame();
-		new Stage1QuestionFrame(new User("Имя..........", "Отчество.......", "Фамилия......" , 17554187));
+//		new Stage1QuestionFrame(new User("Имя..........", "Отчество.......", "Фамилия......" , 17554187));
 //		new StudentCardFrame();
+//		new ChartsExporterFrame();
+
+		ReferenceCalculationsStage1 ref = new ReferenceCalculationsStage1();
+		ref.performRefCalcStage1(new User(1, "Имя..........", "Отчество.......", "Фамилия......" , 155));
+//		ref.buildChart1();
+
+		new ChartsExporterFrame();
 	}
 }
