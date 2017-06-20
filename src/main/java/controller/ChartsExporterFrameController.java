@@ -42,6 +42,14 @@ public class ChartsExporterFrameController {
 					XYSeriesCollection dataSet2 = prepareDataToChart(chartData.getChart3Formula7Data());
 					SingleWindowLineChart chart2 = new SingleWindowLineChart();
 					return chart2.initChart(dataSet2);
+
+				case STAGE_1_CHART_4:
+					//...
+					break;
+
+				case STAGE_1_CHART_5:
+					//...
+					break;
 			}
 		} else if (stage == ChartsExporterFrame.Stages.STAGE_2) {
 
@@ -55,9 +63,11 @@ public class ChartsExporterFrameController {
 	}
 
 	// names of charts for all stages
-	public static final String STAGE_1_CHART_1 = "st1ch1";
-	public static final String STAGE_1_CHART_2 = "st1ch2";
-	public static final String STAGE_1_CHART_3 = "st1ch3";
+	public static final String STAGE_1_CHART_1 = "Зависимость паров чистых компонент от температуры";
+	public static final String STAGE_1_CHART_2 = "Зависимость парциального давления компонент от температуры";
+	public static final String STAGE_1_CHART_3 = "Влияние температуры на весовой состав сплава";
+	public static final String STAGE_1_CHART_4 = "Влияние температуры на энтальпию сплава";
+	public static final String STAGE_1_CHART_5 = "Изменение концентрации легирующих элементов сплава за счет испарения";
 
 	public static final String STAGE_2_CHART_1 = "st2 ch1";
 	public static final String STAGE_2_CHART_2 = "st2 ch2";
@@ -69,7 +79,9 @@ public class ChartsExporterFrameController {
 		return new String[]{
 			STAGE_1_CHART_1,
 			STAGE_1_CHART_2,
-			STAGE_1_CHART_3
+			STAGE_1_CHART_3,
+			STAGE_1_CHART_4,
+			STAGE_1_CHART_5
 		};
 	}
 
