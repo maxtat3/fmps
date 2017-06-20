@@ -1,5 +1,9 @@
 package controller;
 
+import app.ReferenceCalculationsStage1;
+import chart.SingleWindowLineChart;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.xy.XYDataset;
 import ui.ChartsExporterFrame;
 
 /**
@@ -14,16 +18,28 @@ public class ChartsExporterFrameController {
 //		}
 //	}
 
-	public void showChart(ChartsExporterFrame.Stages stage, String stageAndChartNumber){
+	private ReferenceCalculationsStage1 resolver;
+
+	public ChartsExporterFrameController() {
+		resolver = new ReferenceCalculationsStage1();
+	}
+
+	public JFreeChart showChart(ChartsExporterFrame.Stages stage, String stageAndChartNumber){
 		if (stage == ChartsExporterFrame.Stages.STAGE_1) {
 			switch (stageAndChartNumber) {
 				case STAGE_1_CHART_1:
 					System.out.println("--- show chart 1.1");
-					break;
+					resolver.buildChart1();
+					SingleWindowLineChart chart = new SingleWindowLineChart();
+					XYDataset data = chart.createDataSet();
+					return chart.initChart(data);
 
 				case STAGE_1_CHART_2:
 					System.out.println("--- show chart 1.2");
-					break;
+					resolver.buildChart1();
+					SingleWindowLineChart chart1 = new SingleWindowLineChart();
+					XYDataset data1 = chart1.createDataSet1();
+					return chart1.initChart(data1);
 			}
 		} else if (stage == ChartsExporterFrame.Stages.STAGE_2) {
 
@@ -33,6 +49,7 @@ public class ChartsExporterFrameController {
 			throw new UnsupportedOperationException("Mismatch stage and chart number !");
 		}
 
+		return null;
 	}
 
 	// names of charts for all stages

@@ -1,6 +1,10 @@
 package ui;
 
 import controller.ChartsExporterFrameController;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.ui.ApplicationFrame;
+import stage1.elements.GeneralElementStage1;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -9,13 +13,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * UI для выбора различнеых вариантов сохранения графиков - файл или печать.
  */
-public class ChartsExporterFrame {
+public class ChartsExporterFrame extends ApplicationFrame{
 
-
+	/**
+	 * Positions of chart in chart panel.
+	 */
+	private static final int CHART_POSITION = 1;
 	public static final String TXT_STAGE_SELECT = "Отображение результатов";
 	public static final String TXT_STAGE_1 = "Задача 1";
 	public static final String TXT_STAGE_2 = "Задача 2";
@@ -27,12 +37,14 @@ public class ChartsExporterFrame {
 	private final JComboBox<String> jcmbSelectChart = new JComboBox<>();
 
 	private Stages stage = Stages.STAGE_1;
+	private JPanel jpChart = new JPanel();
 	private JFrame mainFrame = new JFrame();
 
 	private ChartsExporterFrameController controller;
 
 
 	public ChartsExporterFrame() {
+		super("Title");
 		controller = new ChartsExporterFrameController();
 
 		addComponentsToPane(mainFrame.getContentPane());
@@ -60,7 +72,6 @@ public class ChartsExporterFrame {
 			public void actionPerformed(ActionEvent e) {
 				stage = Stages.STAGE_1;
 				updateComboBoxModel(stage);
-//				controller.showChart();
 			}
 		});
 		jtbtnStage2.addActionListener(new ActionListener() {
@@ -89,16 +100,18 @@ public class ChartsExporterFrame {
 			public void itemStateChanged(ItemEvent e) {
 //				System.out.println(jcmbSelectChart.getSelectedItem().toString());
 				// TODO: 12.06.17 пердполагаем что имена всех графиков уникальны для всех этапов. Только при этом условии метод будет корректно работать.
-				controller.showChart(stage, jcmbSelectChart.getSelectedItem().toString());
+				displayChart(stage, jcmbSelectChart.getSelectedItem().toString());
 			}
 		});
 		jcmbSelectChart.setSelectedIndex(0);
 
-		JPanel jpChart = new JPanel();
+		ChartPanel chartPanel = new ChartPanel(controller.showChart(stage, jcmbSelectChart.getSelectedItem().toString()));
+		chartPanel.setPreferredSize(new Dimension(700, 700)); // this dimensions affected to size chart inside container
+
 		BoxLayout boxLayout = new BoxLayout(jpChart, BoxLayout.PAGE_AXIS);
 		jpChart.setLayout(boxLayout);
 		jpChart.add(jcmbSelectChart);
-		jpChart.add(new JLabel("Displayed chart"));
+		jpChart.add(chartPanel);
 		jpChart.add(jbtnPrint);
 		jpChart.add(jbtnSaveAsImgs);
 
@@ -120,6 +133,38 @@ public class ChartsExporterFrame {
 					jcmbSelectChart.setModel(new DefaultComboBoxModel<>(controller.getNamesChartsStage3()));
 					break;
 			}
+		}
+	}
+
+
+	// TODO: 20.06.17 may be fix 2 calls this method when jcmbSelectChart handles
+	private void displayChart(Stages stage, String chartNum){
+		JFreeChart jfChart = controller.showChart(stage, chartNum);
+
+		ChartPanel chp = new ChartPanel(jfChart);
+		chp.setPreferredSize(new Dimension(700, 700));
+
+		jpChart.remove(CHART_POSITION);
+		jpChart.add(chp, CHART_POSITION);
+
+		mainFrame.revalidate();
+	}
+
+
+	private void createDataSet2(HashMap<GeneralElementStage1, LinkedHashMap<Integer, Double>> data) {
+		System.out.println(">>> update chart ");
+
+		for (GeneralElementStage1 el : data.keySet()) {
+			System.out.println("el = " + el);
+		}
+
+		for (Map.Entry<GeneralElementStage1, LinkedHashMap<Integer, Double>> entry : data.entrySet()) {
+			GeneralElementStage1 el = entry.getKey();
+			System.out.println(el.toString() + ": ");
+			for (Map.Entry<Integer, Double> pData : entry.getValue().entrySet()) {
+				System.out.println(pData.getKey() + " °C : " + pData.getValue());
+			}
+			System.out.println();
 		}
 	}
 
