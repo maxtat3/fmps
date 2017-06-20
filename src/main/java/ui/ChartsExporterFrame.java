@@ -25,6 +25,11 @@ public class ChartsExporterFrame extends ApplicationFrame{
 	private static final int CHART_POSITION = 1;
 
 	/**
+	 * Dimensions of this frame.
+	 */
+	private final Dimension frameDim = new Dimension(950, 700);
+
+	/**
 	 * Dimensions of chart placed in {@link #jpChart} panel.
 	 * This dimensions affected to size chart inside container!
 	 */
@@ -51,7 +56,7 @@ public class ChartsExporterFrame extends ApplicationFrame{
 		controller = new ChartsExporterFrameController();
 
 		addComponentsToPane(mainFrame.getContentPane());
-		mainFrame.setPreferredSize(new Dimension(500, 300));
+		mainFrame.setPreferredSize(frameDim);
 		mainFrame.pack();
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setVisible(true);
