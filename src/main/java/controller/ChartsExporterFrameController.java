@@ -35,24 +35,24 @@ public class ChartsExporterFrameController {
 		if (stage == ChartsExporterFrame.Stages.STAGE_1) {
 			switch (stageAndChartNumber) {
 				case STAGE_1_CHART_1:
-					XYSeriesCollection dataSet = prepareDataToChart(chartData.getChart1Formula3Data());
-					SingleWindowLineChart chart = new SingleWindowLineChart();
-					return chart.initChart(dataSet);
-
-				case STAGE_1_CHART_2:
-					XYSeriesCollection dataSet1 = prepareDataToChart(chartData.getChart2Formula4Data());
+					XYSeriesCollection dataSet1 = prepareDataToChart(chartData.getChart1Formula3Data());
 					SingleWindowLineChart chart1 = new SingleWindowLineChart();
 					return chart1.initChart(dataSet1);
 
-				case STAGE_1_CHART_3:
-					XYSeriesCollection dataSet2 = prepareDataToChart(chartData.getChart3Formula7Data());
+				case STAGE_1_CHART_2:
+					XYSeriesCollection dataSet2 = prepareDataToChart(chartData.getChart2Formula4Data());
 					SingleWindowLineChart chart2 = new SingleWindowLineChart();
 					return chart2.initChart(dataSet2);
 
-				case STAGE_1_CHART_4:
-					XYSeriesCollection dataSet3 = prepareDataToChart(chartData.getChart4Formula2p1Data());
+				case STAGE_1_CHART_3:
+					XYSeriesCollection dataSet3 = prepareDataToChart(chartData.getChart3Formula7Data());
 					SingleWindowLineChart chart3 = new SingleWindowLineChart();
 					return chart3.initChart(dataSet3);
+
+				case STAGE_1_CHART_4:
+					XYSeriesCollection dataSet4 = prepareDataToChart(chartData.getChart4Formula2p1Data());
+					SingleWindowLineChart chart4 = new SingleWindowLineChart();
+					return chart4.initChart(dataSet4);
 
 				case STAGE_1_CHART_5:
 					//...
