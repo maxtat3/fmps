@@ -32,31 +32,24 @@ public class ChartsExporterFrameController {
 //		    prepareDataToChart(chartData.getChart1Formula3Data())
 //		);
 	public JFreeChart showChart(ChartsExporterFrame.Stages stage, String chartNum){
+		XYSeriesCollection dataSet = null;
 		if (stage == ChartsExporterFrame.Stages.STAGE_1) {
 			if (chartNum.equals(ChartsInStage1.CHART_1.getNameOfChart())) {
-				XYSeriesCollection dataSet1 = prepareDataToChart(chartData.getChart1Formula3Data());
-				SingleWindowLineChart chart1 = new SingleWindowLineChart();
-				return chart1.initChart(dataSet1);
+				dataSet = prepareDataToChart(chartData.getChart1Formula3Data());
 
 			} else if (chartNum.equals(ChartsInStage1.CHART_2.getNameOfChart())) {
-				XYSeriesCollection dataSet2 = prepareDataToChart(chartData.getChart2Formula4Data());
-				SingleWindowLineChart chart2 = new SingleWindowLineChart();
-				return chart2.initChart(dataSet2);
+				dataSet = prepareDataToChart(chartData.getChart2Formula4Data());
 
 			} else if (chartNum.equals(ChartsInStage1.CHART_3.getNameOfChart())) {
-				XYSeriesCollection dataSet3 = prepareDataToChart(chartData.getChart3Formula7Data());
-				SingleWindowLineChart chart3 = new SingleWindowLineChart();
-				return chart3.initChart(dataSet3);
+				dataSet = prepareDataToChart(chartData.getChart3Formula7Data());
 
 			} else if (chartNum.equals(ChartsInStage1.CHART_4.getNameOfChart())) {
-				XYSeriesCollection dataSet4 = prepareDataToChart(chartData.getChart4Formula2p1Data());
-				SingleWindowLineChart chart4 = new SingleWindowLineChart();
-				return chart4.initChart(dataSet4);
+				dataSet = prepareDataToChart(chartData.getChart4Formula2p1Data());
 
 			} else if (chartNum.equals(ChartsInStage1.CHART_5.getNameOfChart())) {
 				//...
-
 			}
+			return new SingleWindowLineChart().initChart(dataSet);
 		} else if (stage == ChartsExporterFrame.Stages.STAGE_2) {
 
 		} else if (stage == ChartsExporterFrame.Stages.STAGE_3) {
