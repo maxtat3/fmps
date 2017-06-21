@@ -31,32 +31,31 @@ public class ChartsExporterFrameController {
 //	    return new SingleWindowLineChart().initChart(
 //		    prepareDataToChart(chartData.getChart1Formula3Data())
 //		);
-	public JFreeChart showChart(ChartsExporterFrame.Stages stage, String stageAndChartNumber){
+	public JFreeChart showChart(ChartsExporterFrame.Stages stage, String chartNum){
 		if (stage == ChartsExporterFrame.Stages.STAGE_1) {
-			switch (stageAndChartNumber) {
-				case STAGE_1_CHART_1:
-					XYSeriesCollection dataSet1 = prepareDataToChart(chartData.getChart1Formula3Data());
-					SingleWindowLineChart chart1 = new SingleWindowLineChart();
-					return chart1.initChart(dataSet1);
+			if (chartNum.equals(ChartsInStage1.CHART_1.getNameOfChart())) {
+				XYSeriesCollection dataSet1 = prepareDataToChart(chartData.getChart1Formula3Data());
+				SingleWindowLineChart chart1 = new SingleWindowLineChart();
+				return chart1.initChart(dataSet1);
 
-				case STAGE_1_CHART_2:
-					XYSeriesCollection dataSet2 = prepareDataToChart(chartData.getChart2Formula4Data());
-					SingleWindowLineChart chart2 = new SingleWindowLineChart();
-					return chart2.initChart(dataSet2);
+			} else if (chartNum.equals(ChartsInStage1.CHART_2.getNameOfChart())) {
+				XYSeriesCollection dataSet2 = prepareDataToChart(chartData.getChart2Formula4Data());
+				SingleWindowLineChart chart2 = new SingleWindowLineChart();
+				return chart2.initChart(dataSet2);
 
-				case STAGE_1_CHART_3:
-					XYSeriesCollection dataSet3 = prepareDataToChart(chartData.getChart3Formula7Data());
-					SingleWindowLineChart chart3 = new SingleWindowLineChart();
-					return chart3.initChart(dataSet3);
+			} else if (chartNum.equals(ChartsInStage1.CHART_3.getNameOfChart())) {
+				XYSeriesCollection dataSet3 = prepareDataToChart(chartData.getChart3Formula7Data());
+				SingleWindowLineChart chart3 = new SingleWindowLineChart();
+				return chart3.initChart(dataSet3);
 
-				case STAGE_1_CHART_4:
-					XYSeriesCollection dataSet4 = prepareDataToChart(chartData.getChart4Formula2p1Data());
-					SingleWindowLineChart chart4 = new SingleWindowLineChart();
-					return chart4.initChart(dataSet4);
+			} else if (chartNum.equals(ChartsInStage1.CHART_4.getNameOfChart())) {
+				XYSeriesCollection dataSet4 = prepareDataToChart(chartData.getChart4Formula2p1Data());
+				SingleWindowLineChart chart4 = new SingleWindowLineChart();
+				return chart4.initChart(dataSet4);
 
-				case STAGE_1_CHART_5:
-					//...
-					break;
+			} else if (chartNum.equals(ChartsInStage1.CHART_5.getNameOfChart())) {
+				//...
+
 			}
 		} else if (stage == ChartsExporterFrame.Stages.STAGE_2) {
 
@@ -69,26 +68,57 @@ public class ChartsExporterFrameController {
 		return null;
 	}
 
-	// names of charts for all stages
-	public static final String STAGE_1_CHART_1 = "Зависимость паров чистых компонент от температуры";
-	public static final String STAGE_1_CHART_2 = "Зависимость парциального давления компонент от температуры";
-	public static final String STAGE_1_CHART_3 = "Влияние температуры на весовой состав сплава";
-	public static final String STAGE_1_CHART_4 = "Влияние температуры на энтальпию сплава";
-	public static final String STAGE_1_CHART_5 = "Изменение концентрации легирующих элементов сплава за счет испарения";
-
 	public static final String STAGE_2_CHART_1 = "st2 ch1";
 	public static final String STAGE_2_CHART_2 = "st2 ch2";
 
 	public static final String STAGE_3_CHART_1 = "st3  ch1";
 	public static final String STAGE_3_CHART_2 = "st3  ch2";
 
+	public enum ChartsInStage1 {
+		CHART_1("Зависимость паров чистых компонент от температуры", Axis.TEMPERATURE, Axis.LG_P),
+		CHART_2("Зависимость парциального давления компонент от температуры", Axis.TEMPERATURE, Axis.LG_P_P),
+		CHART_3("Влияние температуры на весовой состав сплава", Axis.TEMPERATURE, Axis.CONCENTRATION),
+		CHART_4("Влияние температуры на энтальпию сплава", Axis.TEMPERATURE, Axis.H),
+		CHART_5("Изменение концентрации легирующих элементов сплава за счет испарения", Axis.TEMPERATURE, Axis.CONCENTRATION);
+
+		private static class Axis {
+			private static final String LG_P = "lg(P), (Па)";
+			private static final String LG_P_P = "lg(Pp), (Па)";
+			private static final String CONCENTRATION = "Концентрация, (%)";
+			private static final String H = "H, (кДж/моль)";
+			private static final String TEMPERATURE = "Температура (°C)";
+		}
+
+		private String nameOfChart;
+		private String xAxisLabel;
+		private String yAxisLabel;
+
+		ChartsInStage1(String nameOfChart, String xAxisLabel, String yAxisLabel) {
+			this.nameOfChart = nameOfChart;
+			this.xAxisLabel = xAxisLabel;
+			this.yAxisLabel = yAxisLabel;
+		}
+
+		public String getNameOfChart() {
+			return nameOfChart;
+		}
+
+		public String getxAxisLabel() {
+			return xAxisLabel;
+		}
+
+		public String getyAxisLabel() {
+			return yAxisLabel;
+		}
+	}
+
 	public String[] getNamesChartsStage1(){
 		return new String[]{
-			STAGE_1_CHART_1,
-			STAGE_1_CHART_2,
-			STAGE_1_CHART_3,
-			STAGE_1_CHART_4,
-			STAGE_1_CHART_5
+			ChartsInStage1.CHART_1.getNameOfChart(),
+			ChartsInStage1.CHART_2.getNameOfChart(),
+			ChartsInStage1.CHART_3.getNameOfChart(),
+			ChartsInStage1.CHART_4.getNameOfChart(),
+			ChartsInStage1.CHART_5.getNameOfChart(),
 		};
 	}
 
