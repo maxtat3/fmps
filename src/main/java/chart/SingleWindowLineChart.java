@@ -16,15 +16,18 @@ public class SingleWindowLineChart {
 	/**
 	 * Creates and init a chart.
 	 *
-	 * @param dataSet the data for the chart.
+	 * @param init the init data for the chart: chart title, names of x and y axis
+	 *             and data set.
 	 * @return a chart.
+	 * @see {@link InitData}
 	 */
-	public JFreeChart initChart(XYDataset dataSet) {
+	public JFreeChart initChart(InitData init) {
+		if (init == null) return null; // if data is not available - do not show chart
 		JFreeChart chart = ChartFactory.createXYLineChart(
-			"Line Chart 2",
-			"Время (с)",
-			"Концентрация (%)",
-			dataSet,
+			init.getTitle(),
+			init.getxAxisLabels(),
+			init.getyAxisLabel(),
+			init.getDataSet(),
 			PlotOrientation.VERTICAL,
 			true, // include legend
 			true, // tooltips
@@ -48,5 +51,36 @@ public class SingleWindowLineChart {
 
 		return chart;
 	}
+
+	public class InitData {
+		private final String title;
+		private final String xAxisLabels;
+		private final String yAxisLabel;
+		private final XYDataset dataSet;
+
+		public InitData(String title, String xAxisLabels, String yAxisLabel, XYDataset dataSet) {
+			this.title = title;
+			this.xAxisLabels = xAxisLabels;
+			this.yAxisLabel = yAxisLabel;
+			this.dataSet = dataSet;
+		}
+
+		public String getTitle() {
+			return title;
+		}
+
+		public String getxAxisLabels() {
+			return xAxisLabels;
+		}
+
+		public String getyAxisLabel() {
+			return yAxisLabel;
+		}
+
+		public XYDataset getDataSet() {
+			return dataSet;
+		}
+	}
+
 
 }

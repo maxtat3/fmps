@@ -33,23 +33,48 @@ public class ChartsExporterFrameController {
 //		);
 	public JFreeChart showChart(ChartsExporterFrame.Stages stage, String chartNum){
 		XYSeriesCollection dataSet = null;
+		SingleWindowLineChart.InitData initData = null;
 		if (stage == ChartsExporterFrame.Stages.STAGE_1) {
 			if (chartNum.equals(ChartsInStage1.CHART_1.getNameOfChart())) {
 				dataSet = prepareDataToChart(chartData.getChart1Formula3Data());
+				initData = new SingleWindowLineChart().new InitData(
+					ChartsInStage1.CHART_1.getNameOfChart(),
+					ChartsInStage1.CHART_1.getxAxisLabel(),
+					ChartsInStage1.CHART_1.getyAxisLabel(),
+					dataSet
+				);
 
 			} else if (chartNum.equals(ChartsInStage1.CHART_2.getNameOfChart())) {
 				dataSet = prepareDataToChart(chartData.getChart2Formula4Data());
+				initData = new SingleWindowLineChart().new InitData(
+					ChartsInStage1.CHART_2.getNameOfChart(),
+					ChartsInStage1.CHART_2.getxAxisLabel(),
+					ChartsInStage1.CHART_2.getyAxisLabel(),
+					dataSet
+				);
 
 			} else if (chartNum.equals(ChartsInStage1.CHART_3.getNameOfChart())) {
 				dataSet = prepareDataToChart(chartData.getChart3Formula7Data());
+				initData = new SingleWindowLineChart().new InitData(
+					ChartsInStage1.CHART_3.getNameOfChart(),
+					ChartsInStage1.CHART_3.getxAxisLabel(),
+					ChartsInStage1.CHART_3.getyAxisLabel(),
+					dataSet
+				);
 
 			} else if (chartNum.equals(ChartsInStage1.CHART_4.getNameOfChart())) {
 				dataSet = prepareDataToChart(chartData.getChart4Formula2p1Data());
+				initData = new SingleWindowLineChart().new InitData(
+					ChartsInStage1.CHART_4.getNameOfChart(),
+					ChartsInStage1.CHART_4.getxAxisLabel(),
+					ChartsInStage1.CHART_4.getyAxisLabel(),
+					dataSet
+				);
 
 			} else if (chartNum.equals(ChartsInStage1.CHART_5.getNameOfChart())) {
 				//...
 			}
-			return new SingleWindowLineChart().initChart(dataSet);
+			return new SingleWindowLineChart().initChart(initData);
 		} else if (stage == ChartsExporterFrame.Stages.STAGE_2) {
 
 		} else if (stage == ChartsExporterFrame.Stages.STAGE_3) {
