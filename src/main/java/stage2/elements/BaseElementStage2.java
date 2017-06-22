@@ -7,6 +7,7 @@ public abstract class BaseElementStage2 implements GeneralElementStage2 {
 
 	/**
 	 * Процентное содержание газа в смеси, Ni (%)
+	 * Величина задается пользователю в задании.
 	 */
 	private double gasMole;
 

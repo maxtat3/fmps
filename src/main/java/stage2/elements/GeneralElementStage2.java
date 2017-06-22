@@ -15,10 +15,19 @@ public interface GeneralElementStage2 {
 	String O = Container.getInstance().getStage2().getO().toString();
 	String C = Container.getInstance().getStage2().getC().toString();
 
+	/**
+	 * Энтальпия (кДж/моль)
+	 */
 	String DT_H_298 = "delta_H_298";
 
+	/**
+	 * Энтропия (Дж/моль К)
+	 */
 	String DT_S_298 = "delta_S_298";
 
+	/**
+	 * Теплоемкость (Дж/моль К)
+	 */
 	String DT_Cp_298 = "delta_cp_298";
 
 	/**
