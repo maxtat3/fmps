@@ -35,6 +35,12 @@ public class ChartData {
 	 */
 	private LinkedHashMap<Integer, Double> chart4Formula2p1Data = new LinkedHashMap<>();
 
+	/**
+	 * Data collection for chart 5. It perform calculated
+	 */
+	private Map<GeneralElementStage1, LinkedHashMap<Double, Double>> chart5Data = new LinkedHashMap<>();
+
+
 
 	public Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> getChart1Formula3Data() {
 		return chart1Formula3Data;
@@ -66,5 +72,13 @@ public class ChartData {
 
 	public void setChart4Formula2p1Data(LinkedHashMap<Integer, Double> chart4Formula2p1Data) {
 		this.chart4Formula2p1Data = chart4Formula2p1Data;
+	}
+
+	public Map<GeneralElementStage1, LinkedHashMap<Double, Double>> getChart5Data() {
+		return chart5Data;
+	}
+
+	public void setChart5Data(Map<GeneralElementStage1, LinkedHashMap<Double, Double>> chart5Data) {
+		this.chart5Data = chart5Data;
 	}
 }

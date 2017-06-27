@@ -25,6 +25,7 @@ public class ChartsExporterFrameController {
 		chartData = resolver.buildChartsXTemperYValues();
 		// copied collection for chart 4 from reference
 		chartData.setChart4Formula2p1Data(resolver.buildChart4XTemperYValue().getChart4Formula2p1Data());
+		chartData.setChart5Data(resolver.buildChart5XTimeYValues().getChart5Data());
 	}
 
 	// TODO: 20.06.17 may be simplify code in case block, for example ...
@@ -72,7 +73,13 @@ public class ChartsExporterFrameController {
 				);
 
 			} else if (chartNum.equals(ChartsInStage1.CHART_5.getNameOfChart())) {
-				//...
+				dataSet = prepareDataToChartXDoubleYDouble(chartData.getChart5Data());
+				initData = new SingleWindowLineChart().new InitData(
+					ChartsInStage1.CHART_5.getNameOfChart(),
+					ChartsInStage1.CHART_5.getxAxisLabel(),
+					ChartsInStage1.CHART_5.getyAxisLabel(),
+					dataSet
+				);
 			}
 			return new SingleWindowLineChart().initChart(initData);
 		} else if (stage == ChartsExporterFrame.Stages.STAGE_2) {
@@ -172,6 +179,23 @@ public class ChartsExporterFrameController {
 			XYSeries xySeries = new XYSeries(el.toString());
 
 			for (Map.Entry<Integer, Double> pData : entry.getValue().entrySet()) {
+				xySeries.add(pData.getKey(), pData.getValue());
+			}
+			dataSet.addSeries(xySeries);
+		}
+
+		return dataSet;
+	}
+
+	// TODO: 27.06.17 merge two methods to one - in LinkedHashMap<Double, Double> embedded list change two Double types to java.lang.Number
+	private XYSeriesCollection prepareDataToChartXDoubleYDouble(Map<GeneralElementStage1, LinkedHashMap<Double, Double>> data) {
+		XYSeriesCollection dataSet = new XYSeriesCollection();
+
+		for (Map.Entry<GeneralElementStage1, LinkedHashMap<Double, Double>> entry : data.entrySet()) {
+			GeneralElementStage1 el = entry.getKey();
+			XYSeries xySeries = new XYSeries(el.toString());
+
+			for (Map.Entry<Double, Double> pData : entry.getValue().entrySet()) {
 				xySeries.add(pData.getKey(), pData.getValue());
 			}
 			dataSet.addSeries(xySeries);

@@ -40,6 +40,22 @@ public class ReferenceCalculationsStage1 {
 	private static final int DELTA_TEMPERATURE = 100;
 
 	/**
+	 * Minimum time at build chart 5.
+	 */
+	private static final double MIN_TIME = 0;
+
+	/**
+	 * Maximum time at build chart 5.
+	 */
+	private static final double MAX_TIME = 20;
+
+	/**
+	 * Delta of time at build chart 5.
+	 */
+	private static final double DELTA_TIME = 1.0;
+
+
+	/**
 	 * Perform reference data - calculations of all formulas for stage 1.
 	 * This results data applied for compare of user answers.
 	 *
@@ -154,6 +170,57 @@ public class ReferenceCalculationsStage1 {
 		return chartData;
 	}
 
+	public ChartData buildChart5XTimeYValues() {
+		List<GeneralElementStage1> elems = new InputDataController()
+			.receiveUserTaskElementsStage1(InputDataController.AccessElementsStage1.TASK);
+
+		Map<GeneralElementStage1, LinkedHashMap<Double, Double>> data = new LinkedHashMap<>();
+		LinkedHashMap<GeneralElementStage1, Double> viElems = new LinkedHashMap<>();
+
+		CommonCalculatedDataStage1 commonData = Container.getInstance().getStage1().getCommonCalculatedData();
+		ExtraInputDataStage1 extraInputData = Container.getInstance().getStage1().getExtraInputData();
+
+		double COEFF = 4.43E-4;
+		double pp = commonData.getVaporPressureOverAlloyF5();
+		int temperature = extraInputData.getTemperature();
+		double surfArea = extraInputData.getSurfaceWeldArea();
+		double m = extraInputData.getWeightMoltenMetal();
+		double sumMMulGi = 0;
+		for (GeneralElementStage1 el : elems) {
+			Double ai = GeneralElementStage1.CONST_ELEMS.get(el.toString(), GeneralElementStage1.ATOMIC_FRACTION);
+			double vi = COEFF * pp * Math.sqrt(ai / temperature) * surfArea;
+			viElems.put(el, vi);
+			sumMMulGi += m * (el.getAlloyCompWeight() / 100.0);
+			data.put(el, new LinkedHashMap<Double, Double>()); // create collection for each element
+		}
+
+		for (double time = MIN_TIME; time < MAX_TIME; time += DELTA_TIME){
+			for (GeneralElementStage1 el : elems) {
+				if (data.containsKey(el)) {
+					Double vi = viElems.get(el);
+					double deltaMi = vi * surfArea * time;
+					double g = el.getAlloyCompWeight();
+					double concentration = ((m * (g / 100.0) - deltaMi) / sumMMulGi - deltaMi);
+					data.get(el).put(time, concentration);
+				}
+			}
+		}
+
+		// log - print chart data
+//		for (Map.Entry<GeneralElementStage1, LinkedHashMap<Double, Double>> el : data.entrySet()) {
+//			System.out.println(el.getKey() + " : ");
+//			for (Map.Entry<Double, Double> p : el.getValue().entrySet()) {
+//				System.out.println(p.getKey() + ", " + p.getValue());
+//			}
+//			System.out.println();
+//		}
+
+		ChartData chartData = new ChartData();
+		chartData.setChart5Data(data);
+
+		return chartData;
+	}
+
 
 	// TODO: 14.06.17 Important - this a crutch approach! Correct way is make a deep copy of user elements to single list and change/rewrite values elements in this list . But current class hierarchy most like not suitable for this.
 	/**
@@ -207,6 +274,4 @@ public class ReferenceCalculationsStage1 {
 	 */
 	private class RecoveryElement extends BaseElementStage1 {
 	}
-
-
 }
