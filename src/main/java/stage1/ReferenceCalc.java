@@ -65,7 +65,7 @@ public class ReferenceCalc {
 		Container.getInstance().setStage1(elements);
 		Container.getInstance().getStage1().setExtraInputData(extra);
 
-		CommonCalculatedDataStage1 commonData = Container.getInstance().getStage1().getCommonCalculatedData();
+		stage1.CommonCalculatedData commonData = Container.getInstance().getStage1().getCommonCalculatedData();
 
 
 		List<GeneralElementStage1> userTaskElements = new InputDataController().receiveUserTaskElementsStage1(InputDataController.AccessElementsStage1.TASK);
@@ -174,7 +174,7 @@ public class ReferenceCalc {
 		Map<GeneralElementStage1, LinkedHashMap<Double, Double>> data = new LinkedHashMap<>();
 		LinkedHashMap<GeneralElementStage1, Double> viElems = new LinkedHashMap<>();
 
-		CommonCalculatedDataStage1 commonData = Container.getInstance().getStage1().getCommonCalculatedData();
+		stage1.CommonCalculatedData commonData = Container.getInstance().getStage1().getCommonCalculatedData();
 		stage1.ExtraInputData extraInputData = Container.getInstance().getStage1().getExtraInputData();
 
 		double COEFF = 4.43E-4;
