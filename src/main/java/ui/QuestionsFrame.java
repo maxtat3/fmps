@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 /**
  *
  */
-public class Stage1QuestionFrame extends JFrame {
+public class QuestionsFrame extends JFrame {
 
 	private JPanel jpMain = new JPanel();
 	private JPanel jpTitle = new JPanel();
@@ -28,7 +28,7 @@ public class Stage1QuestionFrame extends JFrame {
 	private JLabel jlStatusMsg = new JLabel("");
 
 
-	public Stage1QuestionFrame(User user, Stage stage) {
+	public QuestionsFrame(User user, Stage stage) {
 		super("");
 
 		jpTitle.add(new JLabel(stage.getName()));

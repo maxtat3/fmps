@@ -15,7 +15,7 @@ import java.util.List;
 /**
  *
  */
-public class QuestionsStage1 implements Stage1QuestionFrame.QuestionPanel {
+public class QuestionsStage1 implements QuestionsFrame.QuestionPanel {
 
 	private static final String PERCENT_SYM = "%";
 	public static final String ENT_LQ_ALLOY_SYM = "H<sub>L</sub><sup>0</sup>";
@@ -62,7 +62,7 @@ public class QuestionsStage1 implements Stage1QuestionFrame.QuestionPanel {
 
 
 	private final JPanel jpMain;
-	private Stage1QuestionFrame stage1QuestionFrame;
+	private QuestionsFrame questionsFrame;
 	private final JLabel jlStatusMsg;
 
 
@@ -72,9 +72,9 @@ public class QuestionsStage1 implements Stage1QuestionFrame.QuestionPanel {
 	private PanelsTag panelsTag;
 
 
-	public QuestionsStage1(JPanel jpMain, Stage1QuestionFrame stage1QuestionFrame, JLabel jlStatusMsg) {
+	public QuestionsStage1(JPanel jpMain, QuestionsFrame questionsFrame, JLabel jlStatusMsg) {
 		this.jpMain = jpMain;
-		this.stage1QuestionFrame = stage1QuestionFrame;
+		this.questionsFrame = questionsFrame;
 		this.jlStatusMsg = jlStatusMsg;
 
 		jpQuestion1.setBorder(BorderFactory.createTitledBorder(
@@ -320,7 +320,7 @@ public class QuestionsStage1 implements Stage1QuestionFrame.QuestionPanel {
 				jpMain.add(jpQuestion9, BorderLayout.CENTER);
 				break;
 		}
-		stage1QuestionFrame.repaintWindow();
+		questionsFrame.repaintWindow();
 	}
 
 	private void buildQuestion1Panel() {

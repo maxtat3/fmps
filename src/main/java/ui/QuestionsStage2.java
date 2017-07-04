@@ -15,7 +15,7 @@ import java.util.List;
 /**
  *
  */
-public class QuestionsStage2 implements Stage1QuestionFrame.QuestionPanel {
+public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 
 
 	private static final String PERCENT_SYM = "%";
@@ -50,7 +50,7 @@ public class QuestionsStage2 implements Stage1QuestionFrame.QuestionPanel {
 
 
 	private final JPanel jpMain;
-	private Stage1QuestionFrame questionFrame;
+	private QuestionsFrame questionFrame;
 	private final JLabel jlStatusMsg;
 
 
@@ -61,7 +61,7 @@ public class QuestionsStage2 implements Stage1QuestionFrame.QuestionPanel {
 	private PanelsTag panelsTag;
 
 
-	public QuestionsStage2(JPanel jpMain, Stage1QuestionFrame questionFrame, JLabel jlStatusMsg) {
+	public QuestionsStage2(JPanel jpMain, QuestionsFrame questionFrame, JLabel jlStatusMsg) {
 		this.jpMain = jpMain;
 		this.questionFrame = questionFrame;
 		this.jlStatusMsg = jlStatusMsg;
