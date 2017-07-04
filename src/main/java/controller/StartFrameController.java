@@ -1,9 +1,9 @@
 package controller;
 
-import app.Utils;
 import db.DBUtils;
 import ui.SignInDialog;
 import ui.StartFrame;
+import util.Utils;
 
 import javax.swing.*;
 

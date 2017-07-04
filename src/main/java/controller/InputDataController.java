@@ -1,10 +1,10 @@
 package controller;
 
-import app.Utils;
 import model.Container;
 import stage1.elements.BaseElementStage1;
 import stage1.elements.GeneralElementStage1;
 import stage2.elements.GeneralElementStage2;
+import util.Utils;
 
 import javax.swing.*;
 import java.util.ArrayList;

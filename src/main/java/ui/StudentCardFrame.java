@@ -1,11 +1,11 @@
 package ui;
 
-import app.Utils;
 import controller.InputDataController;
 import controller.StudentCardFrameController;
 import domain.User;
 import stage1.elements.GeneralElementStage1;
 import stage2.elements.GeneralElementStage2;
+import util.Utils;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
