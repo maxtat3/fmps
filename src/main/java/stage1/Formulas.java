@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Расчетные формулы для задачи №1
  */
-public class FormulasStage1 {
+public class Formulas {
 
 	/**
 	 * Расчет мольной доли всех элементов сплава.
@@ -102,7 +102,7 @@ public class FormulasStage1 {
 	 * @return значение энтальпии испарения в КДж/Моль
 	 */
 	public double findEnthalpyVaporizationF2p2(List<GeneralElementStage1> userElements){
-		new FormulasStage1().findMoleFractionOfAlloyElemsF1(userElements);
+		new Formulas().findMoleFractionOfAlloyElemsF1(userElements);
 
 		// temp value deHкип0*Ni for find enthalpy of vaporization
 		double[] deHboil0mulNi = new double[userElements.size()];

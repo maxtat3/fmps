@@ -77,7 +77,7 @@ public class ReferenceCalculationsStage1 {
 		double time = Container.getInstance().getStage1().getExtraInputData().getTime();
 
 
-		FormulasStage1 formulas = new FormulasStage1();
+		stage1.Formulas formulas = new stage1.Formulas();
 
 		// f1
 		formulas.findMoleFractionOfAlloyElemsF1(userTaskElements);
@@ -110,7 +110,7 @@ public class ReferenceCalculationsStage1 {
 
 	/**
 	 * Получение данных для графика - Зависимость паров чистых компонент от температуры Т
-	 * Вычисляется согласно формуле 3 {@link FormulasStage1#findVaporPressureOfPureCompsF3(List, int)}
+	 * Вычисляется согласно формуле 3 {@link stage1.Formulas#findVaporPressureOfPureCompsF3(List, int)}
 	 */
 	public ChartData buildChartsXTemperYValues(){
 		// TODO: 13.06.17 may be move #receiveUserTaskElementsStage1 method to Container !?
@@ -118,7 +118,7 @@ public class ReferenceCalculationsStage1 {
 			.receiveUserTaskElementsStage1(InputDataController.AccessElementsStage1.TASK);
 
 		captureData(elems);
-		FormulasStage1 formulas = new FormulasStage1();
+		stage1.Formulas formulas = new stage1.Formulas();
 		Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> chart1Formula3Data = new LinkedHashMap<>(); // formula 3
 		Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> chart2Formula4Data = new LinkedHashMap<>(); // formula 4
 		Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> chart3Formula7Data = new LinkedHashMap<>(); // formula 7
@@ -156,7 +156,7 @@ public class ReferenceCalculationsStage1 {
 			.receiveUserTaskElementsStage1(InputDataController.AccessElementsStage1.TASK);
 
 		LinkedHashMap<Integer, Double> data = new LinkedHashMap<>();
-		FormulasStage1 formulas = new FormulasStage1();
+		stage1.Formulas formulas = new stage1.Formulas();
 		for (int temp = MIN_TEMPERATURE; temp < MAX_TEMPERATURE; temp += DELTA_TEMPERATURE) {
 			double val = formulas.findEnthalpyLiquidAlloyF2p1(elems, temp, TEMPERATURE_ELEMENTS);
 			data.put(temp, val);

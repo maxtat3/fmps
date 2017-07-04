@@ -1,6 +1,5 @@
 package chart;
 
-import stage1.FormulasStage1;
 import stage1.elements.GeneralElementStage1;
 
 import java.util.LinkedHashMap;
@@ -14,25 +13,25 @@ public class ChartData {
 
 	/**
 	 * Data collection for chart 1. It perform calculated
-	 * from {@link FormulasStage1#findVaporPressureOfPureCompsF3(List, int)} formula.
+	 * from {@link stage1.Formulas#findVaporPressureOfPureCompsF3(List, int)} formula.
 	 */
 	private Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> chart1Formula3Data = new LinkedHashMap<>();
 
 	/**
 	 * Data collection for chart 2. It perform calculated
-	 * from {@link FormulasStage1#findPartialPressureCompsOverAlloyF4(List, int)} formula.
+	 * from {@link stage1.Formulas#findPartialPressureCompsOverAlloyF4(List, int)} formula.
 	 */
 	private Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> chart2Formula4Data = new LinkedHashMap<>();
 
 	/**
 	 * Data collection for chart 3. It perform calculated
-	 * from {@link FormulasStage1#findWeightFractionEachElemInVaporF7(List, int)} formula.
+	 * from {@link stage1.Formulas#findWeightFractionEachElemInVaporF7(List, int)} formula.
 	 */
 	private Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> chart3Formula7Data = new LinkedHashMap<>();
 
 	/**
 	 * Data collection for chart 4. It perform calculated
-	 * from {@link FormulasStage1#findEnthalpyLiquidAlloyF2p1(List, int, int)} formula.
+	 * from {@link stage1.Formulas#findEnthalpyLiquidAlloyF2p1(List, int, int)} formula.
 	 */
 	private LinkedHashMap<Integer, Double> chart4Formula2p1Data = new LinkedHashMap<>();
 
