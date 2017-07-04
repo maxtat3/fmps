@@ -1,13 +1,10 @@
-package app;
+package stage1;
 
 import chart.ChartData;
 import controller.InputDataController;
 import db.DBUtils;
 import domain.User;
 import model.Container;
-import stage1.CommonCalculatedDataStage1;
-import stage1.ExtraInputDataStage1;
-import stage1.FormulasStage1;
 import stage1.elements.BaseElementStage1;
 import stage1.elements.GeneralElementStage1;
 

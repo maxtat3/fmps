@@ -1,11 +1,11 @@
 package controller;
 
-import app.ReferenceCalculationsStage1;
 import chart.ChartData;
 import chart.SingleWindowLineChart;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import stage1.ReferenceCalculationsStage1;
 import stage1.elements.GeneralElementStage1;
 import ui.ChartsExporterFrame;
 
