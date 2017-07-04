@@ -6,7 +6,7 @@ import stage1.elements.C;
 import stage1.elements.Fe;
 import stage1.elements.GeneralElementStage1;
 import stage1.elements.Mn;
-import ui.Stage1QuestionFrame;
+import ui.QuestionsStage1;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class Stage1QuestionFrameController extends InputDataController {
 	 * @return {@link #SUCCESS_ANSWER} - if user gave a correct answer otherwise name of chemical element name
 	 * is the answer for which is not correct
 	 */
-	public String checkAnswer(List<JTextField> jtfElements, Stage1QuestionFrame.PanelsTag question) {
+	public String checkAnswer(List<JTextField> jtfElements, QuestionsStage1.PanelsTag question) {
 		ArrayList<GeneralElementStage1> elements = new ArrayList<>();
 		Fe fe = new Fe();
 		C c = new C();
@@ -101,7 +101,7 @@ public class Stage1QuestionFrameController extends InputDataController {
 	 */
 	private String checkEachElement(List<JTextField> jtfs,
 	                                List<GeneralElementStage1> calcElementsValues,
-	                                Stage1QuestionFrame.PanelsTag question) {
+	                                QuestionsStage1.PanelsTag question) {
 		for (GeneralElementStage1 calcElVal : calcElementsValues) {
 			for (JTextField jtfEl : jtfs) {
 				if (calcElVal.toString().equals(jtfEl.getName())) {
@@ -120,7 +120,7 @@ public class Stage1QuestionFrameController extends InputDataController {
 	// TODO: 31.05.17 may be refactored this mechanism
 	// only for questions 1, 3, 4, 6. 7. 8
 	// if not correct present question panel - returned -1
-	private double getElementCompareProperty(GeneralElementStage1 el, Stage1QuestionFrame.PanelsTag question){
+	private double getElementCompareProperty(GeneralElementStage1 el, QuestionsStage1.PanelsTag question){
 		switch (question) {
 			case PANEL_1:
 				return el.getMoleFractionAlloyElem();
@@ -150,19 +150,19 @@ public class Stage1QuestionFrameController extends InputDataController {
 
 		for (JTextField jtfEl : jtfs) {
 			switch (jtfEl.getName()) {
-				case Stage1QuestionFrame.ENT_LQ_ALLOY_SYM:
+				case QuestionsStage1.ENT_LQ_ALLOY_SYM:
 					if (! Accuracy.checkValueInRange(entLqAlloy, Double.parseDouble(jtfEl.getText()), Accuracy.ACCURACY)) {
 						return jtfEl.getName();
 					}
 					break;
 
-				case Stage1QuestionFrame.ENT_VAPORIZATION_SYM:
+				case QuestionsStage1.ENT_VAPORIZATION_SYM:
 					if (! Accuracy.checkValueInRange(entVaporization, Double.parseDouble(jtfEl.getText()), Accuracy.ACCURACY)) {
 						return jtfEl.getName();
 					}
 					break;
 
-				case Stage1QuestionFrame.ENT_VAPOUR_SYM:
+				case QuestionsStage1.ENT_VAPOUR_SYM:
 					if (! Accuracy.checkValueInRange(entVapor, Double.parseDouble(jtfEl.getText()), Accuracy.ACCURACY)) {
 						return jtfEl.getName();
 					}
@@ -177,7 +177,7 @@ public class Stage1QuestionFrameController extends InputDataController {
 
 		for (JTextField jtfEl : jtfs) {
 			switch (jtfEl.getName()) {
-				case Stage1QuestionFrame.VAP_PRES_OVER_ALLOY_SYM:
+				case QuestionsStage1.VAP_PRES_OVER_ALLOY_SYM:
 					if (! Accuracy.checkValueInRange(vapPrOverAlloy, Double.parseDouble(jtfEl.getText()), Accuracy.ACCURACY)) {
 						return jtfEl.getName();
 					}
@@ -192,7 +192,7 @@ public class Stage1QuestionFrameController extends InputDataController {
 
 		for (JTextField jtfEl : jtfs) {
 			switch (jtfEl.getName()) {
-				case Stage1QuestionFrame.DECR_MOLTEN_METAL_DUE_VAP_SYM:
+				case QuestionsStage1.DECR_MOLTEN_METAL_DUE_VAP_SYM:
 					if (! Accuracy.checkValueInRange(decMetalVap, Double.parseDouble(jtfEl.getText()), Accuracy.ACCURACY)) {
 						return jtfEl.getName();
 					}

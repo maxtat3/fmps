@@ -1,5 +1,6 @@
 package controller;
 
+import db.DBUtils;
 import model.Container;
 import stage1.elements.BaseElementStage1;
 import stage1.elements.GeneralElementStage1;
@@ -71,6 +72,9 @@ public class InputDataController {
 	 * @return список элементов полученных иходя из варианта {@link AccessElementsStage1}
 	 */
 	public List<GeneralElementStage1> receiveUserTaskElementsStage1(AccessElementsStage1 access) {
+		Container.Stage1 data = DBUtils.getMainMsrDataStage1(1);
+		Container.getInstance().setStage1(data);
+
 		List<GeneralElementStage1> elements = new ArrayList<>();
 		for(GeneralElementStage1 el : model.Container.getInstance().getStage1().getAllElements()) {
 			if (access == AccessElementsStage1.TASK && el.getAlloyCompWeight() != BaseElementStage1.ELEM_NOT_DEFINED) {
