@@ -3,7 +3,6 @@ package db;
 import app.Stage;
 import domain.User;
 import model.Container;
-import stage2.ExtraInputDataStage2;
 import util.SystemUtils;
 
 import java.io.File;
@@ -440,8 +439,8 @@ public class DBUtils {
 		return st2;
 	}
 
-	public static ExtraInputDataStage2 getExtraMsrDataStage2(int userId) {
-		ExtraInputDataStage2 extData = new ExtraInputDataStage2();
+	public static stage2.ExtraInputData getExtraMsrDataStage2(int userId) {
+		stage2.ExtraInputData extData = new stage2.ExtraInputData();
 
 		String sql = "SELECT " + ST2_TEMPERATURE +
 			" FROM " + TABLE_FMPS_MAIN + " WHERE ID = " + userId;
@@ -460,7 +459,7 @@ public class DBUtils {
 		return extData;
 	}
 
-	public static void updMsrDataStage2(int userId, Container.Stage2 st2, ExtraInputDataStage2 extra){
+	public static void updMsrDataStage2(int userId, Container.Stage2 st2, stage2.ExtraInputData extra){
 		String sql = "UPDATE " + TABLE_FMPS_MAIN + " SET " +
 			ST2_ARGON + "=" + st2.getAr().getGasMole() + DLC +
 			ST2_CO2 + "=" + st2.getCo2().getGasMole() + DLC +

@@ -2,7 +2,6 @@ package model;
 
 import stage1.elements.*;
 import stage1.elements.C;
-import stage2.ExtraInputDataStage2;
 import stage2.elements.*;
 
 import java.util.ArrayList;
@@ -298,7 +297,7 @@ public class Container {
 		private CO co;
 		private O o;
 		private stage2.elements.C c;
-		ExtraInputDataStage2 extraInputData;
+		stage2.ExtraInputData extraInputData;
 		stage2.CommonCalculatedData commonCalculatedData;
 
 		public Stage2() {
@@ -308,7 +307,7 @@ public class Container {
 			co = new CO();
 			o = new O();
 			c = new stage2.elements.C();
-			extraInputData = new ExtraInputDataStage2();
+			extraInputData = new stage2.ExtraInputData();
 			commonCalculatedData = new stage2.CommonCalculatedData();
 		}
 
@@ -336,7 +335,7 @@ public class Container {
 			return c;
 		}
 
-		public ExtraInputDataStage2 getExtraInputData() {
+		public stage2.ExtraInputData getExtraInputData() {
 			return extraInputData;
 		}
 

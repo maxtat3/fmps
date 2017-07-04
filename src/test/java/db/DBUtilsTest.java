@@ -5,7 +5,6 @@ import model.Container;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import stage2.ExtraInputDataStage2;
 
 /**
  * Test SQLite DB methods.
@@ -355,7 +354,7 @@ public class DBUtilsTest {
 		st2.getO().setGasMole(O);
 		st2.getC().setGasMole(C);
 
-		ExtraInputDataStage2 extra = new ExtraInputDataStage2();
+		stage2.ExtraInputData extra = new stage2.ExtraInputData();
 		extra.setTemperature(temperature);
 
 		int id = DBUtils.getLatestUserIdInMainTable();
@@ -379,7 +378,7 @@ public class DBUtilsTest {
 		Assert.assertEquals(C, gmC, delta);
 
 		// check extra data
-		ExtraInputDataStage2 extraMsrDB = DBUtils.getExtraMsrDataStage2(id);
+		stage2.ExtraInputData extraMsrDB = DBUtils.getExtraMsrDataStage2(id);
 		int tmpr = extraMsrDB.getTemperature();
 		Assert.assertEquals(temperature, tmpr);
 	}
