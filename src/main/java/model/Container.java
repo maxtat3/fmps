@@ -1,7 +1,6 @@
 package model;
 
 import stage1.CommonCalculatedDataStage1;
-import stage1.ExtraInputDataStage1;
 import stage1.elements.*;
 import stage1.elements.C;
 import stage2.CalcDataStage2;
@@ -72,7 +71,7 @@ public class Container {
 		private V v;
 		private W w;
 		private Zr zr;
-		private ExtraInputDataStage1 extraInputData;
+		private stage1.ExtraInputData extraInputData;
 		private CommonCalculatedDataStage1 commonCalculatedData;
 
 		public Stage1() {
@@ -95,7 +94,7 @@ public class Container {
 			v = new V();
 			w = new W();
 			zr = new Zr();
-			extraInputData = new ExtraInputDataStage1();
+			extraInputData = new stage1.ExtraInputData();
 			commonCalculatedData = new CommonCalculatedDataStage1();
 		}
 
@@ -251,11 +250,11 @@ public class Container {
 			this.zr = zr;
 		}
 
-		public ExtraInputDataStage1 getExtraInputData() {
+		public stage1.ExtraInputData getExtraInputData() {
 			return extraInputData;
 		}
 
-		public void setExtraInputData(ExtraInputDataStage1 extraInputData) {
+		public void setExtraInputData(stage1.ExtraInputData extraInputData) {
 			this.extraInputData = extraInputData;
 		}
 

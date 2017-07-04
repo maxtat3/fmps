@@ -5,7 +5,6 @@ import model.Container;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import stage1.ExtraInputDataStage1;
 import stage2.ExtraInputDataStage2;
 
 /**
@@ -300,7 +299,7 @@ public class DBUtilsTest {
 		st1.getC().setAlloyCompWeight(c);
 		st1.getMn().setAlloyCompWeight(mn);
 
-		ExtraInputDataStage1 extra = new ExtraInputDataStage1();
+		stage1.ExtraInputData extra = new stage1.ExtraInputData();
 		extra.setPressureEnv(pEnv);
 		extra.setSurfaceWeldArea(weldArea);
 		extra.setWeightMoltenMetal(weightMoltenMetal);
@@ -320,7 +319,7 @@ public class DBUtilsTest {
 		Assert.assertEquals(mn, actualAlloyCompWeightMn, delta);
 
 		// check extra data
-		ExtraInputDataStage1 extraFromDB = DBUtils.getExtraMsrDataStage1(id);
+		stage1.ExtraInputData extraFromDB = DBUtils.getExtraMsrDataStage1(id);
 		int actualPEnv = extraFromDB.getPressureEnv();
 		double actualWeldArea = extraFromDB.getSurfaceWeldArea();
 		double actualWeightMoltenMetal = extraFromDB.getWeightMoltenMetal();

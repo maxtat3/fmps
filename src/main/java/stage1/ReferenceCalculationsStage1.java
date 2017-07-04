@@ -60,7 +60,7 @@ public class ReferenceCalculationsStage1 {
 	 */
 	public void performRefCalcStage1(User user){
 		Container.Stage1 elements = DBUtils.getMainMsrDataStage1(user.getId());
-		ExtraInputDataStage1 extra = DBUtils.getExtraMsrDataStage1(user.getId());
+		stage1.ExtraInputData extra = DBUtils.getExtraMsrDataStage1(user.getId());
 
 		Container.getInstance().setStage1(elements);
 		Container.getInstance().getStage1().setExtraInputData(extra);
@@ -175,7 +175,7 @@ public class ReferenceCalculationsStage1 {
 		LinkedHashMap<GeneralElementStage1, Double> viElems = new LinkedHashMap<>();
 
 		CommonCalculatedDataStage1 commonData = Container.getInstance().getStage1().getCommonCalculatedData();
-		ExtraInputDataStage1 extraInputData = Container.getInstance().getStage1().getExtraInputData();
+		stage1.ExtraInputData extraInputData = Container.getInstance().getStage1().getExtraInputData();
 
 		double COEFF = 4.43E-4;
 		double pp = commonData.getVaporPressureOverAlloyF5();

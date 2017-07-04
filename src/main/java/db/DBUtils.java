@@ -3,7 +3,6 @@ package db;
 import app.Stage;
 import domain.User;
 import model.Container;
-import stage1.ExtraInputDataStage1;
 import stage2.ExtraInputDataStage2;
 import util.SystemUtils;
 
@@ -306,7 +305,7 @@ public class DBUtils {
 
 	// todo - В запросе должны быть добавлены одинарные кавычки, пример ... UPDATE TABLE7 SET st1_fe='791', ...  !
 	// todo - Для всех методов, которые добавляют/изменяют данные проверять, есть ли данные ФИО пользователя в БД !
-	public static void updMsrDataStage1(int userId, Container.Stage1 st1, ExtraInputDataStage1 extra) {
+	public static void updMsrDataStage1(int userId, Container.Stage1 st1, stage1.ExtraInputData extra) {
 		String sql = "UPDATE " + TABLE_FMPS_MAIN + " SET " +
 			ST1_AL + "=" + st1.getAl().getAlloyCompWeight() + DLC +
 			ST1_B + "=" + st1.getB().getAlloyCompWeight() + DLC +
@@ -388,8 +387,8 @@ public class DBUtils {
 	 * @param userId user id which data will be retrieved
 	 * @return additional user input parameters
 	 */
-	public static ExtraInputDataStage1 getExtraMsrDataStage1(int userId) {
-		ExtraInputDataStage1 extData = new ExtraInputDataStage1();
+	public static stage1.ExtraInputData getExtraMsrDataStage1(int userId) {
+		stage1.ExtraInputData extData = new stage1.ExtraInputData();
 
 		String sql = "SELECT " + ST1_P_ENV + DLC +
 			ST1_F_SURF_WELD_AREA + DLC +
