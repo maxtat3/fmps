@@ -298,7 +298,7 @@ public class Container {
 		private CO co;
 		private O o;
 		private stage2.elements.C c;
-		ExtraInputDataStage2 extraInputDataStage2;
+		ExtraInputDataStage2 extraInputData;
 		stage2.CommonCalculatedData commonCalculatedData;
 
 		public Stage2() {
@@ -308,7 +308,7 @@ public class Container {
 			co = new CO();
 			o = new O();
 			c = new stage2.elements.C();
-			extraInputDataStage2 = new ExtraInputDataStage2();
+			extraInputData = new ExtraInputDataStage2();
 			commonCalculatedData = new stage2.CommonCalculatedData();
 		}
 
@@ -336,8 +336,8 @@ public class Container {
 			return c;
 		}
 
-		public ExtraInputDataStage2 getExtraInputDataStage2() {
-			return extraInputDataStage2;
+		public ExtraInputDataStage2 getExtraInputData() {
+			return extraInputData;
 		}
 
 		public stage2.CommonCalculatedData getCommonCalculatedData() {
