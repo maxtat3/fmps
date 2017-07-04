@@ -4,6 +4,7 @@ import controller.InputDataController;
 import controller.Stage1QuestionFrameController;
 import domain.User;
 import stage1.elements.GeneralElementStage1;
+import util.UIUtils;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
