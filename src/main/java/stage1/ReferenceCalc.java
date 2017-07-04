@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  *
  */
-public class ReferenceCalculationsStage1 {
+public class ReferenceCalc {
 
 	public static final int TEMPERATURE_ELEMENTS = 1800; // TODO: 07.06.17 правильно ли указана эта температуа элементов ???
 

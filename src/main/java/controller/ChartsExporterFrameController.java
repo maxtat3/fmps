@@ -5,7 +5,7 @@ import chart.SingleWindowLineChart;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import stage1.ReferenceCalculationsStage1;
+import stage1.ReferenceCalc;
 import stage1.elements.GeneralElementStage1;
 import ui.ChartsExporterFrame;
 
@@ -17,11 +17,11 @@ import java.util.Map;
  */
 public class ChartsExporterFrameController {
 
-	private ReferenceCalculationsStage1 resolver;
+	private ReferenceCalc resolver;
 	private ChartData chartData;
 
 	public ChartsExporterFrameController() {
-		resolver = new ReferenceCalculationsStage1();
+		resolver = new ReferenceCalc();
 		chartData = resolver.buildChartsXTemperYValues();
 		// copied collection for chart 4 from reference
 		chartData.setChart4Formula2p1Data(resolver.buildChart4XTemperYValue().getChart4Formula2p1Data());
