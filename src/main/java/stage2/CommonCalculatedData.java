@@ -3,7 +3,7 @@ package stage2;
 /**
  * Данные которые нужно вычислить согласно заданию.
  */
-public class CalcDataStage2 {
+public class CommonCalculatedData {
 
 	/**
 	 * Изменение энергии Гиббса (КДж/Моль).

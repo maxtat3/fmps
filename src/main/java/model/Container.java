@@ -2,7 +2,6 @@ package model;
 
 import stage1.elements.*;
 import stage1.elements.C;
-import stage2.CalcDataStage2;
 import stage2.ExtraInputDataStage2;
 import stage2.elements.*;
 
@@ -300,7 +299,7 @@ public class Container {
 		private O o;
 		private stage2.elements.C c;
 		ExtraInputDataStage2 extraInputDataStage2;
-		CalcDataStage2 calcDataStage2;
+		stage2.CommonCalculatedData commonCalculatedData;
 
 		public Stage2() {
 			ar = new Ar();
@@ -310,7 +309,7 @@ public class Container {
 			o = new O();
 			c = new stage2.elements.C();
 			extraInputDataStage2 = new ExtraInputDataStage2();
-			calcDataStage2 = new CalcDataStage2();
+			commonCalculatedData = new stage2.CommonCalculatedData();
 		}
 
 		public Ar getAr() {
@@ -341,8 +340,8 @@ public class Container {
 			return extraInputDataStage2;
 		}
 
-		public CalcDataStage2 getCalcDataStage2() {
-			return calcDataStage2;
+		public stage2.CommonCalculatedData getCommonCalculatedData() {
+			return commonCalculatedData;
 		}
 
 		public List<GeneralElementStage2> getAllElements() {
