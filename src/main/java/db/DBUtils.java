@@ -1,5 +1,6 @@
 package db;
 
+import app.Stage;
 import domain.User;
 import model.Container;
 import stage1.ExtraInputDataStage1;
@@ -647,14 +648,6 @@ public class DBUtils {
 			}
 		}
 	}
-
-	/**
-	 * Выбор задачи
-	 */
-	public enum Stage {
-		STAGE_1, STAGE_2, STAGE_3
-	}
-
 
 	/**
 	 * Prepare sql to execute connection.

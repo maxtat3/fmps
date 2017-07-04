@@ -1,5 +1,6 @@
 package ui;
 
+import app.Stage;
 import domain.User;
 
 import javax.swing.*;
@@ -28,9 +29,9 @@ public class Stage1QuestionFrame extends JFrame {
 
 
 	public Stage1QuestionFrame(User user, Stage stage) {
-		super("Stage 1, question n");
+		super("");
 
-		jpTitle.add(new JLabel("Задача 1. Расчет процессов испарения металлов при сварке плавлением"));
+		jpTitle.add(new JLabel(stage.getName()));
 		jpTitle.setLayout(new FlowLayout(FlowLayout.CENTER));
 
 		jpMain.setLayout(new BorderLayout());
@@ -91,11 +92,6 @@ public class Stage1QuestionFrame extends JFrame {
 		revalidate();
 		repaint();
 		pack();
-	}
-
-
-	public enum Stage {
-		STAGE_1, STAGE_2, STAGE_3
 	}
 
 
