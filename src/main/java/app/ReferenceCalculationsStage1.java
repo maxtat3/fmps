@@ -7,7 +7,7 @@ import domain.User;
 import model.Container;
 import stage1.CommonCalculatedDataStage1;
 import stage1.ExtraInputDataStage1;
-import stage1.calc.Calc;
+import stage1.FormulasStage1;
 import stage1.elements.BaseElementStage1;
 import stage1.elements.GeneralElementStage1;
 
@@ -80,40 +80,40 @@ public class ReferenceCalculationsStage1 {
 		double time = Container.getInstance().getStage1().getExtraInputData().getTime();
 
 
-		Calc calc = new Calc();
+		FormulasStage1 formulas = new FormulasStage1();
 
 		// f1
-		calc.findMoleFractionOfAlloyElemsF1(userTaskElements);
+		formulas.findMoleFractionOfAlloyElemsF1(userTaskElements);
 
 		// f2.1, f2.2, f2.3
-		double f2p1Res = calc.findEnthalpyLiquidAlloyF2p1(userTaskElements, temperature, TEMPERATURE_ELEMENTS);
-		double f2p2Res = calc.findEnthalpyVaporizationF2p2(userTaskElements);
-		double f2p3Res = calc.findEnthalpyVaporF2p3(userTaskElements, temperature, TEMPERATURE_ELEMENTS);
+		double f2p1Res = formulas.findEnthalpyLiquidAlloyF2p1(userTaskElements, temperature, TEMPERATURE_ELEMENTS);
+		double f2p2Res = formulas.findEnthalpyVaporizationF2p2(userTaskElements);
+		double f2p3Res = formulas.findEnthalpyVaporF2p3(userTaskElements, temperature, TEMPERATURE_ELEMENTS);
 		commonData.setEnthalpyLiquidAlloyF2p1(f2p1Res);
 		commonData.setEnthalpyVaporizationF2p2(f2p2Res);
 		commonData.setEnthalpyVaporF2p3(f2p3Res);
 
 		// f3, f4
-		calc.findVaporPressureOfPureCompsF3(userTaskElements, temperature);
-		calc.findPartialPressureCompsOverAlloyF4(userTaskElements, temperature);
+		formulas.findVaporPressureOfPureCompsF3(userTaskElements, temperature);
+		formulas.findPartialPressureCompsOverAlloyF4(userTaskElements, temperature);
 
 		// f5
-		double f5Res = calc.findVaporPressureOverAlloyF5(userTaskElements, temperature);
+		double f5Res = formulas.findVaporPressureOverAlloyF5(userTaskElements, temperature);
 		commonData.setVaporPressureOverAlloyF5(f5Res);
 
 		// f6, f7, f8
-		calc.findMoleFractionEachElemInVaporF6(userTaskElements, temperature);
-		calc.findWeightFractionEachElemInVaporF7(userTaskElements, temperature);
-		calc.findRateVaporizationEachElemOfWeldPoolF8(userTaskElements, temperature, surfaceWeldArea);
+		formulas.findMoleFractionEachElemInVaporF6(userTaskElements, temperature);
+		formulas.findWeightFractionEachElemInVaporF7(userTaskElements, temperature);
+		formulas.findRateVaporizationEachElemOfWeldPoolF8(userTaskElements, temperature, surfaceWeldArea);
 
 		// f9
-		double f9Res = calc.findDecreaseMoltenMetalDueVaporizationF9(userTaskElements, temperature, surfaceWeldArea);
+		double f9Res = formulas.findDecreaseMoltenMetalDueVaporizationF9(userTaskElements, temperature, surfaceWeldArea);
 		commonData.setDecreaseMoltenMetalDueVaporizationF9(f9Res);
 	}
 
 	/**
 	 * Получение данных для графика - Зависимость паров чистых компонент от температуры Т
-	 * Вычисляется согласно формуле 3 {@link Calc#findVaporPressureOfPureCompsF3(List, int)}
+	 * Вычисляется согласно формуле 3 {@link FormulasStage1#findVaporPressureOfPureCompsF3(List, int)}
 	 */
 	public ChartData buildChartsXTemperYValues(){
 		// TODO: 13.06.17 may be move #receiveUserTaskElementsStage1 method to Container !?
@@ -121,7 +121,7 @@ public class ReferenceCalculationsStage1 {
 			.receiveUserTaskElementsStage1(InputDataController.AccessElementsStage1.TASK);
 
 		captureData(elems);
-		Calc calc = new Calc();
+		FormulasStage1 formulas = new FormulasStage1();
 		Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> chart1Formula3Data = new LinkedHashMap<>(); // formula 3
 		Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> chart2Formula4Data = new LinkedHashMap<>(); // formula 4
 		Map<GeneralElementStage1, LinkedHashMap<Integer, Double>> chart3Formula7Data = new LinkedHashMap<>(); // formula 7
@@ -131,9 +131,9 @@ public class ReferenceCalculationsStage1 {
 			chart3Formula7Data.put(el, new LinkedHashMap<Integer, Double>());
 		}
 		for (int temp = MIN_TEMPERATURE; temp < MAX_TEMPERATURE; temp += DELTA_TEMPERATURE) {
-			calc.findVaporPressureOfPureCompsF3(elems, temp);
-			calc.findPartialPressureCompsOverAlloyF4(elems, temp);
-			calc.findWeightFractionEachElemInVaporF7(elems, temp);
+			formulas.findVaporPressureOfPureCompsF3(elems, temp);
+			formulas.findPartialPressureCompsOverAlloyF4(elems, temp);
+			formulas.findWeightFractionEachElemInVaporF7(elems, temp);
 			for (GeneralElementStage1 el : elems) {
 				double pCh3 = el.getLgVaporPressureOfPureComps();
 				double pCh4 = el.getLgPartialPressureCompsOverAlloy();
@@ -159,9 +159,9 @@ public class ReferenceCalculationsStage1 {
 			.receiveUserTaskElementsStage1(InputDataController.AccessElementsStage1.TASK);
 
 		LinkedHashMap<Integer, Double> data = new LinkedHashMap<>();
-		Calc calc = new Calc();
+		FormulasStage1 formulas = new FormulasStage1();
 		for (int temp = MIN_TEMPERATURE; temp < MAX_TEMPERATURE; temp += DELTA_TEMPERATURE) {
-			double val = calc.findEnthalpyLiquidAlloyF2p1(elems, temp, TEMPERATURE_ELEMENTS);
+			double val = formulas.findEnthalpyLiquidAlloyF2p1(elems, temp, TEMPERATURE_ELEMENTS);
 			data.put(temp, val);
 		}
 		ChartData chartData = new ChartData();
