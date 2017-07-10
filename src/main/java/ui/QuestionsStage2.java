@@ -2,14 +2,16 @@ package ui;
 
 import controller.InputDataController;
 import controller.Stage1QuestionFrameController;
-import stage1.elements.GeneralElementStage1;
+import stage2.reactions.BasicReaction;
+import stage2.reactions.Rcn2CO2eq2COplO2;
+import stage2.reactions.RcnCOeqCplO;
+import stage2.reactions.RcnO2eq2O;
 import util.UIUtils;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,37 +19,16 @@ import java.util.List;
  */
 public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 
-
 	private static final String PERCENT_SYM = "%";
-	public static final String ENT_LQ_ALLOY_SYM = "H<sub>L</sub><sup>0</sup>";
-	public static final String ENT_VAPORIZATION_SYM = "&Delta;H<sub>кип</sub>";
-	public static final String ENT_VAPOUR_SYM = "H<sub>g</sub>";
-	public static final String VAP_PRES_OVER_ALLOY_SYM = "P<sup>p</sup>";
-	public static final String DECR_MOLTEN_METAL_DUE_VAP_SYM = "&Delta;<i>v</i><sub>m</sub>";
-	private static final String KJOULE_SYM = "кДж/моль";
 	private static final String PASCALE_SYM = "Па";
-	private static final String GRAM_TO_SEC_SYM = "гр/сек";
-
 
 	private JPanel jpQuestion1 = new JPanel();
 	private JPanel jpQuestion2 = new JPanel();
 	private JPanel jpQuestion3 = new JPanel();
+	private JPanel jpQuestion4 = new JPanel();
+	private JPanel jpQuestion5 = new JPanel();
 
-
-	// Elements for question 2
-	// 2.1 Расчет энтальпии жидкого сплава (кДж/моль) Enthalpy liquid alloy
-	private JLabel jlEntLqAll = new JLabel("<html>Расчет энтальпии жидкого сплава " + ENT_LQ_ALLOY_SYM + " : </html>");
-	private JTextField jtfEntLqAll = new JTextField();
-	private JLabel jlEntLqAllUnits = new JLabel(KJOULE_SYM);
-	// 2.2 Расчет энтальпии испарения (кДж/моль) Enthalpy vaporization
-	private JLabel jlEntVaporization = new JLabel("<html>Расчет энтальпии испарения " + ENT_VAPORIZATION_SYM + " : </html>");
-	private JTextField jtfEntVaporization = new JTextField();
-	private JLabel jlEntVaporizationUnits = new JLabel(KJOULE_SYM);
-	// 2.3 Энтальпия пара для сплава (кДж/моль) Enthalpy vapour
-	private JLabel jlEntVapour = new JLabel("<html>Расчет энтальпии пара для сплава " + ENT_VAPOUR_SYM + " : </html>");
-	private JTextField jtfEntVapour = new JTextField();
-	private JLabel jlEntVapourUnits = new JLabel(KJOULE_SYM);
-
+	private List<BasicReaction> reactions = new ArrayList<>();
 
 	private final JPanel jpMain;
 	private QuestionsFrame questionFrame;
@@ -66,26 +47,44 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 		this.questionFrame = questionFrame;
 		this.jlStatusMsg = jlStatusMsg;
 
-
+		fillReactions();
 
 		jpQuestion1.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 1 Задача 2"
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 1"
 		));
 		jpQuestion2.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 2 Задача 2"
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 2"
 		));
 		jpQuestion3.setBorder(BorderFactory.createTitledBorder(
-			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 3 Задача 2"
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 3"
+		));
+		jpQuestion4.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 4"
+		));
+		jpQuestion5.setBorder(BorderFactory.createTitledBorder(
+			BorderFactory.createEtchedBorder(EtchedBorder.RAISED), "Вопрос 5"
 		));
 
-		jpQuestion1.add(new JLabel("question 1: "));
-		jpQuestion2.add(new JLabel("question 2: "));
-		jpQuestion3.add(new JLabel("question 3: "));
-
+		jpQuestion1.add(new JLabel("Изменение энергии Гиббса для следующих реакций: "));
+		jpQuestion2.add(new JLabel("Определение константы равновесия для следующих реакций: "));
+		jpQuestion3.add(new JLabel("Определения коэффициента π состояния в начальный момент: "));
+		jpQuestion4.add(new JLabel("Определение направления протекания реакций: "));
+		JLabel jlQ5TitlePart1 = new JLabel("Определение состава газовой смеси для данной температуры, если изначально она ");
+		JLabel jlQ5TitlePart2 = new JLabel("<html>содержит только углекислый газ, а уравнение диссоциации имеет вид: " +
+			"CO<sub>2</sub> = CO + O :</html>");
+		jpQuestion5.add(jlQ5TitlePart1);
+		jpQuestion5.add(jlQ5TitlePart2);
 
 		panelsTag = PanelsTag.PANEL_1;
 		controller = new Stage1QuestionFrameController();
 		switchQuestionPanel();
+	}
+
+
+	private void fillReactions() {
+		reactions.add(new RcnO2eq2O());
+		reactions.add(new Rcn2CO2eq2COplO2());
+		reactions.add(new RcnCOeqCplO());
 	}
 
 
@@ -98,12 +97,8 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 				break;
 
 			case PANEL_2:
-				if (validateInputQuestion2()) {
-					checkAnswerAndMakeDirection(
-						new ArrayList<>(Arrays.asList(jtfEntLqAll, jtfEntVaporization, jtfEntVapour)),
-						PanelsTag.PANEL_2,
-						PanelsTag.PANEL_3
-					);
+				if (generalValidateInputOfEachElem()) {
+					checkAnswerAndMakeDirection(jtfInputData, PanelsTag.PANEL_1, PanelsTag.PANEL_2);
 				}
 				break;
 
@@ -111,6 +106,14 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 				if (generalValidateInputOfEachElem()) {
 					checkAnswerAndMakeDirection(jtfInputData, PanelsTag.PANEL_3, PanelsTag.PANEL_3);
 				}
+				break;
+
+			case PANEL_4:
+				//...
+				break;
+
+			case PANEL_5:
+				//...
 				break;
 
 		}
@@ -129,7 +132,7 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 	}
 
 	/**
-	 * Validate entered data which chemical elements involved.
+	 * Validate entered data for all reactions field.
 	 */
 	private boolean generalValidateInputOfEachElem() {
 		int correctInputDataCounter = 0;
@@ -147,28 +150,8 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 		return true;
 	}
 
-	/**
-	 * Validate entered data for question 2.1, 2.2, 2.3
-	 */
-	private boolean validateInputQuestion2() {
-		String res = controller.validateInputData(jtfEntLqAll, InputDataController.ValidatorVariant.IS_NUMBER);
-		if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
-			jlStatusMsg.setText(res);
-			return false;
-		}
-
-		res = controller.validateInputData(jtfEntVaporization, InputDataController.ValidatorVariant.IS_NUMBER);
-		if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
-			jlStatusMsg.setText(res);
-			return false;
-		}
-
-		res = controller.validateInputData(jtfEntVapour, InputDataController.ValidatorVariant.IS_NUMBER);
-		if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
-			jlStatusMsg.setText(res);
-			return false;
-		}
-		jlStatusMsg.setText("");
+	private boolean validateInputQuestion5() {
+		// ...
 		return true;
 	}
 
@@ -190,66 +173,64 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 				jpMain.remove(jpQuestion2);
 				jpMain.add(jpQuestion3, BorderLayout.CENTER);
 				break;
+			case PANEL_4:
+				buildQuestion4Panel();
+				jpMain.add(jpQuestion4, BorderLayout.CENTER);
+				break;
+			case PANEL_5:
+				buildQuestion5Panel();
+				jpMain.add(jpQuestion5, BorderLayout.CENTER);
+				break;
 		}
 		questionFrame.repaintWindow();
 	}
-
-
-
 
 	private void buildQuestion1Panel() {
 		jpQuestion1.setLayout(new BoxLayout(jpQuestion1, BoxLayout.Y_AXIS));
 		JPanel jpRows = new JPanel();
 		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
-		for(GeneralElementStage1 el : controller.receiveUserTaskElementsStage1(InputDataController.AccessElementsStage1.TASK)){
-			addRowsInputDataToPanel(jpRows, jtfInputData, el, PERCENT_SYM);
+		for(BasicReaction rcn : reactions){
+			addRowsInputDataToPanel(jpRows, jtfInputData, rcn, PERCENT_SYM);
 		}
 		jpQuestion1.add(jpRows);
 	}
 
 	private void buildQuestion2Panel() {
 		jpQuestion2.setLayout(new BoxLayout(jpQuestion2, BoxLayout.Y_AXIS));
-		JPanel jpRowQ2p1 = new JPanel();
-		JPanel jpRowQ2p2 = new JPanel();
-		JPanel jpRowQ2p3 = new JPanel();
-		jtfEntLqAll.setName(ENT_LQ_ALLOY_SYM);
-		jtfEntVaporization.setName(ENT_VAPORIZATION_SYM);
-		jtfEntVapour.setName(ENT_VAPOUR_SYM);
-		jpRowQ2p1.add(jlEntLqAll);
-		jpRowQ2p1.add(jtfEntLqAll);
-		jpRowQ2p1.add(jlEntLqAllUnits);
-		jpRowQ2p2.add(jlEntVaporization);
-		jpRowQ2p2.add(jtfEntVaporization);
-		jpRowQ2p2.add(jlEntVaporizationUnits);
-		jpRowQ2p3.add(jlEntVapour);
-		jpRowQ2p3.add(jtfEntVapour);
-		jpRowQ2p3.add(jlEntVapourUnits);
-		jtfEntLqAll.setColumns(4);
-		jtfEntVaporization.setColumns(4);
-		jtfEntVapour.setColumns(4);
-		jpQuestion2.add(jpRowQ2p1);
-		jpQuestion2.add(jpRowQ2p2);
-		jpQuestion2.add(jpRowQ2p3);
+		JPanel jpRows = new JPanel();
+		jpRows.setLayout(new BoxLayout(jpRows, BoxLayout.Y_AXIS));
+		for(BasicReaction rcn : reactions){
+			addRowsInputDataToPanel(jpRows, jtfInputData, rcn, PERCENT_SYM);
+		}
+		jpQuestion2.add(jpRows);
 	}
 
 	private void buildQuestion3Panel() {
 		jpQuestion3.setLayout(new BoxLayout(jpQuestion3, BoxLayout.Y_AXIS));
 		JPanel jpRowsQ3 = new JPanel();
 		jpRowsQ3.setLayout(new BoxLayout(jpRowsQ3, BoxLayout.Y_AXIS));
-		for(GeneralElementStage1 el : controller.receiveUserTaskElementsStage1(InputDataController.AccessElementsStage1.TASK)){
-			addRowsInputDataToPanel(jpRowsQ3, jtfInputData, el, PASCALE_SYM);
+		for(BasicReaction rcn : reactions){
+			addRowsInputDataToPanel(jpRowsQ3, jtfInputData, rcn, PASCALE_SYM);
 		}
 		jpQuestion3.add(jpRowsQ3);
 	}
 
+	private void buildQuestion4Panel() {
+		jpQuestion4.setLayout(new BoxLayout(jpQuestion4, BoxLayout.Y_AXIS));
+
+	}
+
+	private void buildQuestion5Panel() {
+		jpQuestion5.setLayout(new BoxLayout(jpQuestion5, BoxLayout.Y_AXIS));
+		// ...
+	}
 
 
-
-	private void addRowsInputDataToPanel(JPanel jpRows, List<JTextField> jtfList, GeneralElementStage1 el, String units) {
-		JLabel jlName = new JLabel(el.toString() + " : ");
+	private void addRowsInputDataToPanel(JPanel jpRows, List<JTextField> jtfList, BasicReaction rcn, String units) {
+		JLabel jlName = new JLabel(rcn.toString());
 		JTextField jtfVal = new JTextField();
 		jtfVal.setColumns(4);
-		jtfVal.setName(el.toString());
+		jtfVal.setName(rcn.toString());
 		jtfList.add(jtfVal);
 		JLabel jlPercent = new JLabel(units);
 
@@ -262,7 +243,7 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 	}
 
 	public enum PanelsTag {
-		PANEL_1, PANEL_2, PANEL_3
+		PANEL_1, PANEL_2, PANEL_3, PANEL_4, PANEL_5
 	}
 
 

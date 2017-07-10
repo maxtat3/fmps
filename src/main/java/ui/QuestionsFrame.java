@@ -65,7 +65,7 @@ public class QuestionsFrame extends JFrame {
 				break;
 
 			case STAGE_2:
-//				qPanel = new QuestionsStage2(jpMain, this,  jlStatusMsg);
+				qPanel = new QuestionsStage2(jpMain, this,  jlStatusMsg);
 		}
 
 		jpMain.add(jpStatusAndDirection, BorderLayout.PAGE_END);

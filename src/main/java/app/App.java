@@ -33,6 +33,6 @@ public class App {
 //		ref.performRefCalcStage1(new User(2, "Имя", "Отчество", "Фамилия" , 834563));
 //		new ChartsExporterFrame();
 
-		new QuestionsFrame(new User(1, "My name", "Отчество", "Фамилия", 834563), Stage.STAGE_1);
+		new QuestionsFrame(new User(1, "My name", "Отчество", "Фамилия", 834563), Stage.STAGE_2);
 	}
 }
