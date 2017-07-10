@@ -39,6 +39,7 @@ public class QuestionsStage1 implements QuestionsFrame.QuestionPanel {
 
 	// Elements for question 2
 	// 2.1 Расчет энтальпии жидкого сплава (кДж/моль) Enthalpy liquid alloy
+	// TODO: 10.07.17 what is all: alloy or all elements ?
 	private JLabel jlEntLqAll = new JLabel("<html>Расчет энтальпии жидкого сплава " + ENT_LQ_ALLOY_SYM + " : </html>");
 	private JTextField jtfEntLqAll = new JTextField();
 	private JLabel jlEntLqAllUnits = new JLabel(KJOULE_SYM);

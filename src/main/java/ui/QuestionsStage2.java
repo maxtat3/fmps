@@ -22,11 +22,28 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 	private static final String PERCENT_SYM = "%";
 	private static final String PASCALE_SYM = "Па";
 
+	public static final String N_O = "N<sub>O</sub>";
+	public static final String N_CO = "N<sub>CO</sub>";
+	public static final String N_CO2 = "N<sub>CO2</sub>";
+
 	private JPanel jpQuestion1 = new JPanel();
 	private JPanel jpQuestion2 = new JPanel();
 	private JPanel jpQuestion3 = new JPanel();
 	private JPanel jpQuestion4 = new JPanel();
 	private JPanel jpQuestion5 = new JPanel();
+
+	// Elements for question 5
+	private JLabel jlNO = new JLabel("<html>" + N_O + " : </html>");
+	private JTextField jtfNO = new JTextField();
+	private JLabel jlNOUnits = new JLabel(PERCENT_SYM);
+
+	private JLabel jlNCO = new JLabel("<html>" + N_CO + " : </html>");
+	private JTextField jtfNCO = new JTextField();
+	private JLabel jlNCOUnits = new JLabel(PERCENT_SYM);
+
+	private JLabel jlNCO2 = new JLabel("<html>" + N_CO2 + " : </html>");
+	private JTextField jtfNCO2 = new JTextField();
+	private JLabel jlNCO2Units = new JLabel(PERCENT_SYM);
 
 	private List<BasicReaction> reactions = new ArrayList<>();
 
@@ -75,7 +92,7 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 		jpQuestion5.add(jlQ5TitlePart1);
 		jpQuestion5.add(jlQ5TitlePart2);
 
-		panelsTag = PanelsTag.PANEL_1;
+		panelsTag = PanelsTag.PANEL_5;
 		controller = new Stage1QuestionFrameController();
 		switchQuestionPanel();
 	}
@@ -113,7 +130,9 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 				break;
 
 			case PANEL_5:
-				//...
+				if (validateInputQuestion5()) {
+					// ...
+				}
 				break;
 
 		}
@@ -151,7 +170,24 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 	}
 
 	private boolean validateInputQuestion5() {
-		// ...
+		String res = controller.validateInputData(jtfNO, InputDataController.ValidatorVariant.IS_NUMBER);
+		if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
+			jlStatusMsg.setText(res);
+			return false;
+		}
+
+		res = controller.validateInputData(jtfNCO, InputDataController.ValidatorVariant.IS_NUMBER);
+		if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
+			jlStatusMsg.setText(res);
+			return false;
+		}
+
+		res = controller.validateInputData(jtfNCO2, InputDataController.ValidatorVariant.IS_NUMBER);
+		if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
+			jlStatusMsg.setText(res);
+			return false;
+		}
+		jlStatusMsg.setText("");
 		return true;
 	}
 
@@ -222,7 +258,27 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 
 	private void buildQuestion5Panel() {
 		jpQuestion5.setLayout(new BoxLayout(jpQuestion5, BoxLayout.Y_AXIS));
-		// ...
+		JPanel jpRowQ5p1 = new JPanel();
+		JPanel jpRowQ5p2 = new JPanel();
+		JPanel jpRowQ5p3 = new JPanel();
+		jtfNO.setName(N_O);
+		jtfNCO.setName(N_CO);
+		jtfNCO2.setName(N_CO2);
+		jpRowQ5p1.add(jlNO);
+		jpRowQ5p1.add(jtfNO);
+		jpRowQ5p1.add(jlNOUnits);
+		jpRowQ5p2.add(jlNCO);
+		jpRowQ5p2.add(jtfNCO);
+		jpRowQ5p2.add(jlNCOUnits);
+		jpRowQ5p3.add(jlNCO2);
+		jpRowQ5p3.add(jtfNCO2);
+		jpRowQ5p3.add(jlNCO2Units);
+		jtfNO.setColumns(4);
+		jtfNCO.setColumns(4);
+		jtfNCO2.setColumns(4);
+		jpQuestion5.add(jpRowQ5p1);
+		jpQuestion5.add(jpRowQ5p2);
+		jpQuestion5.add(jpRowQ5p3);
 	}
 
 
