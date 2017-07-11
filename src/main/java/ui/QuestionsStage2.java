@@ -132,7 +132,7 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 
 			case PANEL_4:
 				// in this question no validation - user must be chosen one of the proposed variant
-				checkAnswer4AndMakeDirection(jcmboxesInputData);
+				checkAnswer4AndMakeDirection(jcmboxesInputData, PanelsTag.PANEL_4, PanelsTag.PANEL_5);
 				break;
 
 			case PANEL_5:
@@ -147,7 +147,7 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 
 	private void checkAnswerAndMakeDirection(List<JTextField> jtfs, PanelsTag currentQuestionPanel, PanelsTag nextQuestionPanel) {
 		String res = controller.checkAnswerJTFs(jtfs, currentQuestionPanel);
-		if (res.equals(Stage1QuestionFrameController.SUCCESS_ANSWER)) {
+		if (res.equals(Stage1QuestionFrameController.SUCCESS_ANSWER)) { // TODO: 11.07.17 taken const from stage 2 !
 			panelsTag = nextQuestionPanel;
 			switchQuestionPanel();
 			formTrueAnswerMsg();
@@ -156,8 +156,16 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 		}
 	}
 
-	private void checkAnswer4AndMakeDirection(List<JComboBox> jcmbox) {
-		// ...
+	private void checkAnswer4AndMakeDirection(List<JComboBox> jcmbox, PanelsTag currentQuestionPanel, PanelsTag nextQuestionPanel) {
+		String res = controller.checkAnswerJCMBs(jcmbox, currentQuestionPanel);
+		if (res.equals(Stage2QuestionFrameController.SUCCESS_ANSWER)) {
+			panelsTag = nextQuestionPanel;
+			jlStatusMsg.setText("");
+			switchQuestionPanel();
+			formTrueAnswerMsg();
+		} else {
+			jlStatusMsg.setText(formWrongAnswerMsg(res));
+		}
 	}
 
 	/**
@@ -221,10 +229,12 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 				break;
 			case PANEL_4:
 				buildQuestion4Panel();
+				jpMain.remove(jpQuestion3);
 				jpMain.add(jpQuestion4, BorderLayout.CENTER);
 				break;
 			case PANEL_5:
 				buildQuestion5Panel();
+				jpMain.remove(jpQuestion4);
 				jpMain.add(jpQuestion5, BorderLayout.CENTER);
 				break;
 		}
@@ -323,6 +333,7 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 			directions.add(d.getName());
 		}
 		jcmb.setModel(new DefaultComboBoxModel<>(directions.toArray(new String[0])));
+		jcmb.setName(rcn.toString());
 		jcmboxList.add(jcmb);
 
 		JLabel jlPercent = new JLabel(units);

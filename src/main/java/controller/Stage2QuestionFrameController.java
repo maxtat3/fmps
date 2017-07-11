@@ -25,7 +25,7 @@ public class Stage2QuestionFrameController extends InputDataController {
 	public static final String SUCCESS_ANSWER = "0";
 
 
-	private List<BasicReaction> correctAnswers = new ArrayList<>();
+	private List<BasicReaction> correctJTFAnswers = new ArrayList<>();
 
 	public Stage2QuestionFrameController() {
 		Rcn2CO2eq2COplO2 rcn1 = new Rcn2CO2eq2COplO2();
@@ -43,30 +43,25 @@ public class Stage2QuestionFrameController extends InputDataController {
 		rcn1.setPi(5);
 		rcn2.setPi(1);
 		rcn3.setPi(7);
+		// q4
+		rcn1.setDirectionOfReactions(QuestionsStage2.DirectionOfReactions.LEFT);
+		rcn2.setDirectionOfReactions(QuestionsStage2.DirectionOfReactions.RIGHT);
+		rcn3.setDirectionOfReactions(QuestionsStage2.DirectionOfReactions.RIGHT);
 
-		correctAnswers.add(rcn1);
-		correctAnswers.add(rcn2);
-		correctAnswers.add(rcn3);
+		correctJTFAnswers.add(rcn1);
+		correctJTFAnswers.add(rcn2);
+		correctJTFAnswers.add(rcn3);
 	}
 
 	public String checkAnswerJTFs(List<JTextField> jtfs, QuestionsStage2.PanelsTag question) {
 		String res;
 		switch (question) {
 			case PANEL_1:
-				res = checkEachInputField(jtfs, correctAnswers, question);
+			case PANEL_2:
+			case PANEL_3:
+				res = checkEachInputField(jtfs, correctJTFAnswers, question);
 				if (res.equals(SUCCESS_ANSWER)) break;
 				else return res;
-//				for (JTextField jtf : jtfs) {
-//					System.out.println(jtf.getName());
-//				}
-
-			case PANEL_2:
-				// ...
-				break;
-
-			case PANEL_3:
-				// ...
-				break;
 
 			case PANEL_5:
 				// ...
@@ -78,14 +73,24 @@ public class Stage2QuestionFrameController extends InputDataController {
 	public String checkAnswerJCMBs(List<JComboBox> jcmbs, QuestionsStage2.PanelsTag question) {
 		switch (question) {
 			case PANEL_4:
-				// ...
-				break;
+				String res = checkAnswerForQuestion4(jcmbs, correctJTFAnswers);
+				if (res.equals(SUCCESS_ANSWER)) break;
+				else return res;
 		}
-		return null;
+		return SUCCESS_ANSWER;
 	}
 
 
-
+	/**
+	 * Проверка каждого значения введенного пользрвателем (jtf) на предмет правильности.
+	 * Если ответ для конкретной реакции правильный: возвращается {@link #SUCCESS_ANSWER} иначе
+	 * имя поля для которого значение не правильное.
+	 *
+	 * @param jtfs список с введенными полями (значениями) пользователя
+	 * @param correctAnswers список с правильными ответами
+	 * @param question вопрос для которого проверятся правильность значений
+	 * @return если ответ праваильный - {@link #SUCCESS_ANSWER} , иначе - реакция для которой ответ не верный
+	 */
 	private String checkEachInputField(List<JTextField> jtfs, List<BasicReaction> correctAnswers, QuestionsStage2.PanelsTag question) {
 		for (BasicReaction correct : correctAnswers) {
 			for (JTextField jtf : jtfs) {
@@ -103,6 +108,13 @@ public class Stage2QuestionFrameController extends InputDataController {
 		return SUCCESS_ANSWER;
 	}
 
+	/**
+	 * Получение искомого значения согласно вопросу для реакциии.
+	 *
+	 * @param rcn реакция
+	 * @param question вопрос
+	 * @return значение
+	 */
 	private double getReactionCompareProperty(BasicReaction rcn, QuestionsStage2.PanelsTag question){
 		switch (question) {
 			case PANEL_1:
@@ -123,10 +135,24 @@ public class Stage2QuestionFrameController extends InputDataController {
 		return -1;
 	}
 
-	private void checkAnswerForQuestion4(List<JComboBox> jcmboxes){
-		for (JComboBox jcmbox : jcmboxes) {
-			System.out.println(jcmbox.getName());
+	/**
+	 * Проверка направления протекания реакций, только для вопроса 4.
+	 *
+	 * @param jcmboxes коллекция с выпадающими списками с установленными пользователем значениями.
+	 * @param correctAnswers правильные ответы
+	 * @return если ответ праваильный - {@link #SUCCESS_ANSWER} , иначе - реакция для которой ответ не верный
+	 */
+	private String checkAnswerForQuestion4(List<JComboBox> jcmboxes, List<BasicReaction> correctAnswers){
+		for (BasicReaction correct : correctAnswers) {
+			for (JComboBox jcmbox : jcmboxes) {
+				if (correct.toString().equals(jcmbox.getName())) {
+					if (!correct.getDirectionOfReactions().getName().equals(jcmbox.getSelectedItem().toString())) {
+						return jcmbox.getName();
+					}
+				}
+			}
 		}
+		return SUCCESS_ANSWER;
 	}
 
 	private void checkAnswerForQuestions5(List<JTextField> jtfs){

@@ -1,5 +1,7 @@
 package stage2.reactions;
 
+import ui.QuestionsStage2;
+
 /**
  *
  */
@@ -29,9 +31,7 @@ public abstract class BasicReaction {
 	private double pi;
 
 	// formula 4
-	private enum ReactionDirection {
-		LEFT, RIGHT, ZERO
-	}
+	private QuestionsStage2.DirectionOfReactions directionOfReactions;
 
 	// formula 5.1
 	private double deltaGTFormula5;
@@ -103,6 +103,14 @@ public abstract class BasicReaction {
 
 	public void setPi(double pi) {
 		this.pi = pi;
+	}
+
+	public QuestionsStage2.DirectionOfReactions getDirectionOfReactions() {
+		return directionOfReactions;
+	}
+
+	public void setDirectionOfReactions(QuestionsStage2.DirectionOfReactions directionOfReactions) {
+		this.directionOfReactions = directionOfReactions;
 	}
 
 	public double getDeltaGTFormula5() {
