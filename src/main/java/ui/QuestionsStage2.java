@@ -120,13 +120,13 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 
 			case PANEL_2:
 				if (generalValidateInputOfEachElem()) {
-					checkAnswerAndMakeDirection(jtfInputData, PanelsTag.PANEL_1, PanelsTag.PANEL_2);
+					checkAnswerAndMakeDirection(jtfInputData, PanelsTag.PANEL_2, PanelsTag.PANEL_3);
 				}
 				break;
 
 			case PANEL_3:
 				if (generalValidateInputOfEachElem()) {
-					checkAnswerAndMakeDirection(jtfInputData, PanelsTag.PANEL_3, PanelsTag.PANEL_3);
+					checkAnswerAndMakeDirection(jtfInputData, PanelsTag.PANEL_3, PanelsTag.PANEL_4);
 				}
 				break;
 
