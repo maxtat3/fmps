@@ -2,6 +2,7 @@ package ui;
 
 import controller.InputDataController;
 import controller.Stage1QuestionFrameController;
+import controller.Stage2QuestionFrameController;
 import stage2.reactions.BasicReaction;
 import stage2.reactions.Rcn2CO2eq2COplO2;
 import stage2.reactions.RcnCOeqCplO;
@@ -52,8 +53,10 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 	private final JLabel jlStatusMsg;
 
 
-	private Stage1QuestionFrameController controller;
+	private InputDataController inputController;
+	private Stage2QuestionFrameController controller;
 	private java.util.List<JTextField> jtfInputData = new ArrayList<>(); //for validate user input data only
+	private List<JComboBox> jcmboxesInputData = new ArrayList<>();
 
 
 	private PanelsTag panelsTag;
@@ -92,8 +95,10 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 		jpQuestion5.add(jlQ5TitlePart1);
 		jpQuestion5.add(jlQ5TitlePart2);
 
-		panelsTag = PanelsTag.PANEL_5;
-		controller = new Stage1QuestionFrameController();
+		panelsTag = PanelsTag.PANEL_1;
+		inputController = new InputDataController();
+		controller = new Stage2QuestionFrameController();
+
 		switchQuestionPanel();
 	}
 
@@ -126,7 +131,8 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 				break;
 
 			case PANEL_4:
-				//...
+				// in this question no validation - user must be chosen one of the proposed variant
+				checkAnswer4AndMakeDirection(jcmboxesInputData);
 				break;
 
 			case PANEL_5:
@@ -140,7 +146,7 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 
 
 	private void checkAnswerAndMakeDirection(List<JTextField> jtfs, PanelsTag currentQuestionPanel, PanelsTag nextQuestionPanel) {
-		String res = "0";
+		String res = controller.checkAnswerJTFs(jtfs, currentQuestionPanel);
 		if (res.equals(Stage1QuestionFrameController.SUCCESS_ANSWER)) {
 			panelsTag = nextQuestionPanel;
 			switchQuestionPanel();
@@ -150,13 +156,17 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 		}
 	}
 
+	private void checkAnswer4AndMakeDirection(List<JComboBox> jcmbox) {
+		// ...
+	}
+
 	/**
 	 * Validate entered data for all reactions field.
 	 */
 	private boolean generalValidateInputOfEachElem() {
 		int correctInputDataCounter = 0;
 		for (JTextField jtf : jtfInputData) {
-			String res = controller.validateInputData(jtf, InputDataController.ValidatorVariant.IS_NUMBER);
+			String res = inputController.validateInputData(jtf, InputDataController.ValidatorVariant.IS_NUMBER);
 			if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
 				jlStatusMsg.setText(res);
 				return false;
@@ -170,19 +180,19 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 	}
 
 	private boolean validateInputQuestion5() {
-		String res = controller.validateInputData(jtfNO, InputDataController.ValidatorVariant.IS_NUMBER);
+		String res = inputController.validateInputData(jtfNO, InputDataController.ValidatorVariant.IS_NUMBER);
 		if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
 			jlStatusMsg.setText(res);
 			return false;
 		}
 
-		res = controller.validateInputData(jtfNCO, InputDataController.ValidatorVariant.IS_NUMBER);
+		res = inputController.validateInputData(jtfNCO, InputDataController.ValidatorVariant.IS_NUMBER);
 		if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
 			jlStatusMsg.setText(res);
 			return false;
 		}
 
-		res = controller.validateInputData(jtfNCO2, InputDataController.ValidatorVariant.IS_NUMBER);
+		res = inputController.validateInputData(jtfNCO2, InputDataController.ValidatorVariant.IS_NUMBER);
 		if (!res.equals(InputDataController.SUCCESS_VALIDATE)) {
 			jlStatusMsg.setText(res);
 			return false;
@@ -253,7 +263,12 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 
 	private void buildQuestion4Panel() {
 		jpQuestion4.setLayout(new BoxLayout(jpQuestion4, BoxLayout.Y_AXIS));
-
+		JPanel jpRowsQ4 = new JPanel();
+		jpRowsQ4.setLayout(new BoxLayout(jpRowsQ4, BoxLayout.Y_AXIS));
+		for(BasicReaction rcn : reactions){
+			addComboBoxesToPanel(jpRowsQ4, jcmboxesInputData, rcn, PASCALE_SYM);
+		}
+		jpQuestion4.add(jpRowsQ4);
 	}
 
 	private void buildQuestion5Panel() {
@@ -296,6 +311,42 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 		jpItems.add(jlPercent);
 
 		jpRows.add(jpItems);
+	}
+
+	private void addComboBoxesToPanel(JPanel jpRows, List<JComboBox> jcmboxList, BasicReaction rcn, String units) {
+		JLabel jlName = new JLabel(rcn.toString());
+
+		@SuppressWarnings("unchecked")
+		JComboBox<String> jcmb = new JComboBox<>();
+		List<String> directions = new ArrayList<>();
+		for(DirectionOfReactions d : DirectionOfReactions.values() ) {
+			directions.add(d.getName());
+		}
+		jcmb.setModel(new DefaultComboBoxModel<>(directions.toArray(new String[0])));
+		jcmboxList.add(jcmb);
+
+		JLabel jlPercent = new JLabel(units);
+
+		JPanel jpItems = new JPanel();
+		jpItems.add(jlName);
+		jpItems.add(jcmb);
+		jpItems.add(jlPercent);
+
+		jpRows.add(jpItems);
+	}
+
+	public enum DirectionOfReactions {
+		LEFT("←"), NOT_CHANGED("0"), RIGHT("→");
+
+		private String name;
+
+		DirectionOfReactions(String name) {
+			this.name = name;
+		}
+
+		public String getName() {
+			return name;
+		}
 	}
 
 	public enum PanelsTag {
