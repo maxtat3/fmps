@@ -121,13 +121,10 @@ public class Stage2QuestionFrameController extends InputDataController {
 				return rcn.getDeltaGT();
 
 			case PANEL_2:
-				return 2;
+				return rcn.getKp();
 
 			case PANEL_3:
-				return 3;
-
-			case PANEL_4:
-				return 4;
+				return rcn.getPi();
 
 			case PANEL_5:
 				return 5;
