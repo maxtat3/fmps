@@ -28,24 +28,24 @@ public class Stage2QuestionFrameController extends InputDataController {
 	private List<BasicReaction> correctAnswers = new ArrayList<>();
 
 	public Stage2QuestionFrameController() {
-		RcnO2eq2O rcn1 = new RcnO2eq2O();
-		Rcn2CO2eq2COplO2 rcn2 = new Rcn2CO2eq2COplO2();
+		Rcn2CO2eq2COplO2 rcn1 = new Rcn2CO2eq2COplO2();
+		RcnO2eq2O rcn2 = new RcnO2eq2O();
 		RcnCOeqCplO rcn3 = new RcnCOeqCplO();
 		// q1
-		rcn1.setDeltaGT(10.2);
-		rcn2.setDeltaGT(20.1);
+		rcn1.setDeltaGT(10.1);
+		rcn2.setDeltaGT(20.2);
 		rcn3.setDeltaGT(29.5);
 		// q2
-		rcn1.setKp(10);
-		rcn2.setKp(11);
+		rcn1.setKp(11);
+		rcn2.setKp(10);
 		rcn3.setKp(12);
 		// q3
-		rcn1.setPi(1);
-		rcn2.setPi(5);
+		rcn1.setPi(5);
+		rcn2.setPi(1);
 		rcn3.setPi(7);
 
-		correctAnswers.add(rcn2);
 		correctAnswers.add(rcn1);
+		correctAnswers.add(rcn2);
 		correctAnswers.add(rcn3);
 	}
 

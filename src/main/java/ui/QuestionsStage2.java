@@ -104,8 +104,8 @@ public class QuestionsStage2 implements QuestionsFrame.QuestionPanel {
 
 
 	private void fillReactions() {
-		reactions.add(new RcnO2eq2O());
 		reactions.add(new Rcn2CO2eq2COplO2());
+		reactions.add(new RcnO2eq2O());
 		reactions.add(new RcnCOeqCplO());
 	}
 
