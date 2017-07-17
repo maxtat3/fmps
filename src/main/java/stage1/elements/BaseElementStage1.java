@@ -15,25 +15,25 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	private boolean isBasic;
 
 	/**
-	 * Состав элемента по весу (массовая доля вещества), gi (%)
+	 * Состав элемента по весу (массовая доля вещества), gi (%)  <br>
 	 * Величина задается пользователю в задании.
 	 */
 	private double alloyCompWeight = ELEM_NOT_DEFINED;
 
 	/**
-	 * Мольная доля элемента сплава, Ni (%)
+	 * Мольная доля элемента сплава, Ni (%) <br>
 	 * Формула 1
 	 */
 	private double moleFractionAlloyElem;
 
 	/**
-	 * Давление пара чистых компонентов, Pi (Па)
+	 * Давление пара чистых компонентов, P<sub>i</sub> (Па) <br>
 	 * Формула 3
 	 */
 	private double vaporPressureOfPureComps;
 
 	/**
-	 * Логарифм давления пара чистых компонентов, lg Pi (Па)
+	 * Логарифм давления пара чистых компонентов, lg(P<sub>i</sub>) (Па) <br>
 	 * Формула 3gr
 	 * Важно: значение этого поля нужно только для построения графиков,
 	 * в расчетных формулах участия не принимает.
@@ -41,13 +41,13 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	private double lgVaporPressureOfPureComps;
 
 	/**
-	 * Парциальное давление компонент над сплавом, Pip (Па)
+	 * Парциальное давление компонент над сплавом, P<sub>i</sub><sup>p</sup> (Па) <br>
 	 * Формула 4
 	 */
 	private double partialPressureCompsOverAlloy;
 
 	/**
-	 * Логарифм парциального давления компонент над сплавом, log(Pip) (Па)
+	 * Логарифм парциального давления компонент над сплавом, log(P<sub>i</sub><sup>p</sup>) (Па) <br>
 	 * Формула 4gr
 	 * Важно: значение этого поля нужно только для построения графиков,
 	 * в расчетных формулах участия не принимает.
@@ -55,19 +55,19 @@ public abstract class BaseElementStage1 implements GeneralElementStage1 {
 	private double lgPartialPressureCompsOverAlloy;
 
 	/**
-	 * Мольная доля компонента в паре,
+	 * Мольная доля компонента в паре, N<sub>Vi</sub> (%) <br>
 	 * Формула 6
 	 */
 	private double moleFractionEachElemInVapor;
 
 	/**
-	 * Весовая доля каждого компонента в паре (%)
+	 * Весовая доля каждого компонента в паре, g<sub>i</sub> (%) <br>
 	 * Формула 7
 	 */
 	private double weightFractionEachElemInVapor;
 
 	/**
-	 * Скорость испарения из сварочной ванны элемента по уравнению Лэнгмюра
+	 * Скорость испарения из сварочной ванны элемента по уравнению Лэнгмюра, V<sub>i</sub> (грамм/сек) <br>
 	 * Формула 8
 	 */
 	private double rateVaporizationEachElemOfWeldPool;

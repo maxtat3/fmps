@@ -247,45 +247,104 @@ public interface GeneralElementStage1 {
 
 	// ******** getters and setters *********
 
-	// defined for user in task
+	/**
+	 * This value defined for user in task.
+	 * {@link BaseElementStage1#alloyCompWeight}.
+	 */
 	void setAlloyCompWeight(double val);
+
+	/**
+	 * This value defined for user in task.
+	 * {@link BaseElementStage1#alloyCompWeight}.
+	 */
 	double getAlloyCompWeight();
 
-	// 1. Мольную долю всех элементов сплава (%)
-	// Mole fraction of the alloy elements
+
+	/**
+	 * {@link BaseElementStage1#moleFractionAlloyElem}.
+	 */
 	void setMoleFractionAlloyElem(double val);
+
+	/**
+	 * {@link BaseElementStage1#moleFractionAlloyElem}.
+	 */
 	double getMoleFractionAlloyElem();
 
 
-	// 3. Давление пара чистых компонентов, Pi (Па)
+	/**
+	 * {@link BaseElementStage1#vaporPressureOfPureComps}.
+	 */
 	void setVaporPressureOfPureComps(double val);
+
+	/**
+	 * {@link BaseElementStage1#vaporPressureOfPureComps}.
+	 */
 	double getVaporPressureOfPureComps();
 
-	// 3gr Логарифм давления пара чистых компонентов, lg Pi
+
+	/**
+	 * {@link BaseElementStage1#lgVaporPressureOfPureComps}.
+	 */
 	void setLgVaporPressureOfPureComps(double val);
+
+	/**
+	 * {@link BaseElementStage1#lgVaporPressureOfPureComps}.
+	 */
 	double getLgVaporPressureOfPureComps();
 
-	// 4. Парциальное давление компонент над сплавом, Pip (Па)
+
+	/**
+	 * {@link BaseElementStage1#partialPressureCompsOverAlloy}.
+	 */
 	void setPartialPressureCompsOverAlloy(double val);
+
+	/**
+	 * {@link BaseElementStage1#partialPressureCompsOverAlloy}.
+	 */
 	double getPartialPressureCompsOverAlloy();
 
-	// 4gr. Логарифм парциального давления компонент над сплавом, log(Pip) (Па)
+
+	/**
+	 * {@link BaseElementStage1#lgPartialPressureCompsOverAlloy}.
+	 */
 	void setLgPartialPressureCompsOverAlloy(double val);
+
+	/**
+	 * {@link BaseElementStage1#lgPartialPressureCompsOverAlloy}.
+	 */
 	double getLgPartialPressureCompsOverAlloy();
 
-	// 6. Мольная доля каждого компонента в паре (%)
-	// moleFractionEachElemInVapor
+
+	/**
+	 * {@link BaseElementStage1#moleFractionEachElemInVapor}.
+	 */
 	void setMoleFractionEachElemInVapor(double val);
+
+	/**
+	 * {@link BaseElementStage1#moleFractionEachElemInVapor}.
+	 */
 	double getMoleFractionEachElemInVapor();
 
-	// 7. Весовая доля каждого компонента в паре (%)
-	// weightFractionEachElemInVapor
+
+	/**
+	 * {@link BaseElementStage1#weightFractionEachElemInVapor}.
+	 */
 	void setWeightFractionEachElemInVapor(double val);
+
+	/**
+	 * {@link BaseElementStage1#weightFractionEachElemInVapor}.
+	 */
 	double getWeightFractionEachElemInVapor();
 
-	// 8. Скорость испарения из сварочной ванны каждого элемента (гр/сек)
-	// rateVaporizationEachElemOfWeldPool
+
+	/**
+	 * {@link BaseElementStage1#rateVaporizationEachElemOfWeldPool}.
+	 */
 	void setRateVaporizationEachElemOfWeldPool(double val);
+
+	/**
+	 * {@link BaseElementStage1#rateVaporizationEachElemOfWeldPool}.
+	 */
 	double getRateVaporizationEachElemOfWeldPool();
 
 }
