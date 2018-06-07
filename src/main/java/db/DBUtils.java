@@ -306,25 +306,25 @@ public class DBUtils {
 	// todo - Для всех методов, которые добавляют/изменяют данные проверять, есть ли данные ФИО пользователя в БД !
 	public static void updMsrDataStage1(int userId, Container.Stage1 st1, stage1.ExtraInputData extra) {
 		String sql = "UPDATE " + TABLE_FMPS_MAIN + " SET " +
-			ST1_AL + "=" + st1.getAl().getAlloyCompWeight() + DLC +
-			ST1_B + "=" + st1.getB().getAlloyCompWeight() + DLC +
-			ST1_C + "=" + st1.getC().getAlloyCompWeight() + DLC +
-			ST1_CR + "=" + st1.getCr().getAlloyCompWeight() + DLC +
-			ST1_CU + "=" + st1.getCu().getAlloyCompWeight() + DLC +
-			ST1_FE + "=" + st1.getFe().getAlloyCompWeight() + DLC +
-			ST1_HF + "=" + st1.getHf().getAlloyCompWeight() + DLC +
-			ST1_MG + "=" + st1.getMg().getAlloyCompWeight() + DLC +
-			ST1_MN + "=" + st1.getMn().getAlloyCompWeight() + DLC +
-			ST1_MO + "=" + st1.getMo().getAlloyCompWeight() + DLC +
-			ST1_NB + "=" + st1.getNb().getAlloyCompWeight() + DLC +
-			ST1_NI + "=" + st1.getNi().getAlloyCompWeight() + DLC +
-			ST1_RE + "=" + st1.getRe().getAlloyCompWeight() + DLC +
-			ST1_SI + "=" + st1.getSi().getAlloyCompWeight() + DLC +
-			ST1_TA + "=" + st1.getTa().getAlloyCompWeight() + DLC +
-			ST1_TI + "=" + st1.getTi().getAlloyCompWeight() + DLC +
-			ST1_V + "=" + st1.getV().getAlloyCompWeight() + DLC +
-			ST1_W + "=" + st1.getW().getAlloyCompWeight() + DLC +
-			ST1_ZR + "=" + st1.getZr().getAlloyCompWeight() + DLC +
+			ST1_AL + "=" + st1.getElements().getAl().getAlloyCompWeight() + DLC +
+			ST1_B + "=" + st1.getElements().getB().getAlloyCompWeight() + DLC +
+			ST1_C + "=" + st1.getElements().getC().getAlloyCompWeight() + DLC +
+			ST1_CR + "=" + st1.getElements().getCr().getAlloyCompWeight() + DLC +
+			ST1_CU + "=" + st1.getElements().getCu().getAlloyCompWeight() + DLC +
+			ST1_FE + "=" + st1.getElements().getFe().getAlloyCompWeight() + DLC +
+			ST1_HF + "=" + st1.getElements().getHf().getAlloyCompWeight() + DLC +
+			ST1_MG + "=" + st1.getElements().getMg().getAlloyCompWeight() + DLC +
+			ST1_MN + "=" + st1.getElements().getMn().getAlloyCompWeight() + DLC +
+			ST1_MO + "=" + st1.getElements().getMo().getAlloyCompWeight() + DLC +
+			ST1_NB + "=" + st1.getElements().getNb().getAlloyCompWeight() + DLC +
+			ST1_NI + "=" + st1.getElements().getNi().getAlloyCompWeight() + DLC +
+			ST1_RE + "=" + st1.getElements().getRe().getAlloyCompWeight() + DLC +
+			ST1_SI + "=" + st1.getElements().getSi().getAlloyCompWeight() + DLC +
+			ST1_TA + "=" + st1.getElements().getTa().getAlloyCompWeight() + DLC +
+			ST1_TI + "=" + st1.getElements().getTi().getAlloyCompWeight() + DLC +
+			ST1_V + "=" + st1.getElements().getV().getAlloyCompWeight() + DLC +
+			ST1_W + "=" + st1.getElements().getW().getAlloyCompWeight() + DLC +
+			ST1_ZR + "=" + st1.getElements().getZr().getAlloyCompWeight() + DLC +
 			ST1_P_ENV + "=" + extra.getPressureEnv() + DLC +
 			ST1_F_SURF_WELD_AREA + "=" + extra.getSurfaceWeldArea() + DLC +
 			ST1_MP_WEIGHT_MOLTEN_METAL + "=" + extra.getWeightMoltenMetal() + DLC +
@@ -340,8 +340,8 @@ public class DBUtils {
 	 * @param userId user id which data will be retrieved
 	 * @return chemical elements
 	 */
-	public static Container.Stage1 getMainMsrDataStage1(int userId) {
-		Container.Stage1 st1 = new Container().new Stage1();
+	public static Container.Stage1.Elements getMainMsrDataStage1(int userId) {
+		Container.Stage1.Elements el = new Container().new Stage1().getElements();
 
 		String sql = "SELECT " + ST1_AL + DLC + ST1_B + DLC + ST1_C + DLC + ST1_CR + DLC + ST1_CU + DLC + ST1_FE
 			+ DLC + ST1_HF + DLC + ST1_MG + DLC + ST1_MN + DLC + ST1_MO + DLC + ST1_NB + DLC + ST1_NI + DLC + ST1_RE
@@ -352,32 +352,32 @@ public class DBUtils {
 			try {
 				ResultSet rs = stmt.executeQuery(sql);
 				while (rs.next()) {
-					st1.getAl().setAlloyCompWeight(rs.getDouble(ST1_AL));
-					st1.getB().setAlloyCompWeight(rs.getDouble(ST1_B));
-					st1.getC().setAlloyCompWeight(rs.getDouble(ST1_C));
-					st1.getCr().setAlloyCompWeight(rs.getDouble(ST1_CR));
-					st1.getCu().setAlloyCompWeight(rs.getDouble(ST1_CU));
-					st1.getFe().setAlloyCompWeight(rs.getDouble(ST1_FE));
-					st1.getHf().setAlloyCompWeight(rs.getDouble(ST1_HF));
-					st1.getMg().setAlloyCompWeight(rs.getDouble(ST1_MG));
-					st1.getMn().setAlloyCompWeight(rs.getDouble(ST1_MN));
-					st1.getMo().setAlloyCompWeight(rs.getDouble(ST1_MO));
-					st1.getNb().setAlloyCompWeight(rs.getDouble(ST1_NB));
-					st1.getNi().setAlloyCompWeight(rs.getDouble(ST1_NI));
-					st1.getRe().setAlloyCompWeight(rs.getDouble(ST1_RE));
-					st1.getSi().setAlloyCompWeight(rs.getDouble(ST1_SI));
-					st1.getTa().setAlloyCompWeight(rs.getDouble(ST1_TA));
-					st1.getTi().setAlloyCompWeight(rs.getDouble(ST1_TI));
-					st1.getV().setAlloyCompWeight(rs.getDouble(ST1_V));
-					st1.getW().setAlloyCompWeight(rs.getDouble(ST1_W));
-					st1.getZr().setAlloyCompWeight(rs.getDouble(ST1_ZR));
+					el.getAl().setAlloyCompWeight(rs.getDouble(ST1_AL));
+					el.getB().setAlloyCompWeight(rs.getDouble(ST1_B));
+					el.getC().setAlloyCompWeight(rs.getDouble(ST1_C));
+					el.getCr().setAlloyCompWeight(rs.getDouble(ST1_CR));
+					el.getCu().setAlloyCompWeight(rs.getDouble(ST1_CU));
+					el.getFe().setAlloyCompWeight(rs.getDouble(ST1_FE));
+					el.getHf().setAlloyCompWeight(rs.getDouble(ST1_HF));
+					el.getMg().setAlloyCompWeight(rs.getDouble(ST1_MG));
+					el.getMn().setAlloyCompWeight(rs.getDouble(ST1_MN));
+					el.getMo().setAlloyCompWeight(rs.getDouble(ST1_MO));
+					el.getNb().setAlloyCompWeight(rs.getDouble(ST1_NB));
+					el.getNi().setAlloyCompWeight(rs.getDouble(ST1_NI));
+					el.getRe().setAlloyCompWeight(rs.getDouble(ST1_RE));
+					el.getSi().setAlloyCompWeight(rs.getDouble(ST1_SI));
+					el.getTa().setAlloyCompWeight(rs.getDouble(ST1_TA));
+					el.getTi().setAlloyCompWeight(rs.getDouble(ST1_TI));
+					el.getV().setAlloyCompWeight(rs.getDouble(ST1_V));
+					el.getW().setAlloyCompWeight(rs.getDouble(ST1_W));
+					el.getZr().setAlloyCompWeight(rs.getDouble(ST1_ZR));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 
-		return st1;
+		return el;
 	}
 
 	/**

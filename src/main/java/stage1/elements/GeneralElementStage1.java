@@ -5,25 +5,25 @@ import model.Container;
 
 public interface GeneralElementStage1 {
 
-	String AL = Container.getInstance().getStage1().getAl().toString();
-	String B = Container.getInstance().getStage1().getB().toString();
-	String C = Container.getInstance().getStage1().getC().toString();
-	String CR = Container.getInstance().getStage1().getCr().toString();
-	String CU = Container.getInstance().getStage1().getCu().toString();
-	String FE = Container.getInstance().getStage1().getFe().toString();
-	String HF = Container.getInstance().getStage1().getHf().toString();
-	String MG = Container.getInstance().getStage1().getMg().toString();
-	String MN = Container.getInstance().getStage1().getMn().toString();
-	String MO = Container.getInstance().getStage1().getMo().toString();
-	String NB = Container.getInstance().getStage1().getNb().toString();
-	String NI = Container.getInstance().getStage1().getNi().toString();
-	String RE = Container.getInstance().getStage1().getRe().toString();
-	String SI = Container.getInstance().getStage1().getSi().toString();
-	String TA = Container.getInstance().getStage1().getTa().toString();
-	String TI = Container.getInstance().getStage1().getTi().toString();
-	String V = Container.getInstance().getStage1().getV().toString();
-	String W = Container.getInstance().getStage1().getW().toString();
-	String ZR = Container.getInstance().getStage1().getZr().toString();
+	String AL = Container.getInstance().getStage1().getElements().getAl().toString();
+	String B = Container.getInstance().getStage1().getElements().getB().toString();
+	String C = Container.getInstance().getStage1().getElements().getC().toString();
+	String CR = Container.getInstance().getStage1().getElements().getCr().toString();
+	String CU = Container.getInstance().getStage1().getElements().getCu().toString();
+	String FE = Container.getInstance().getStage1().getElements().getFe().toString();
+	String HF = Container.getInstance().getStage1().getElements().getHf().toString();
+	String MG = Container.getInstance().getStage1().getElements().getMg().toString();
+	String MN = Container.getInstance().getStage1().getElements().getMn().toString();
+	String MO = Container.getInstance().getStage1().getElements().getMo().toString();
+	String NB = Container.getInstance().getStage1().getElements().getNb().toString();
+	String NI = Container.getInstance().getStage1().getElements().getNi().toString();
+	String RE = Container.getInstance().getStage1().getElements().getRe().toString();
+	String SI = Container.getInstance().getStage1().getElements().getSi().toString();
+	String TA = Container.getInstance().getStage1().getElements().getTa().toString();
+	String TI = Container.getInstance().getStage1().getElements().getTi().toString();
+	String V = Container.getInstance().getStage1().getElements().getV().toString();
+	String W = Container.getInstance().getStage1().getElements().getW().toString();
+	String ZR = Container.getInstance().getStage1().getElements().getZr().toString();
 
 	/**
 	 * Мольная масса (кг/моль)

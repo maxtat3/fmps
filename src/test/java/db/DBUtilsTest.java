@@ -294,9 +294,9 @@ public class DBUtilsTest {
 		int id = DBUtils.getLatestUserIdInMainTable();
 
 		Container.Stage1 st1 = Container.getInstance().getStage1();
-		st1.getFe().setAlloyCompWeight(fe);
-		st1.getC().setAlloyCompWeight(c);
-		st1.getMn().setAlloyCompWeight(mn);
+		st1.getElements().getFe().setAlloyCompWeight(fe);
+		st1.getElements().getC().setAlloyCompWeight(c);
+		st1.getElements().getMn().setAlloyCompWeight(mn);
 
 		stage1.ExtraInputData extra = new stage1.ExtraInputData();
 		extra.setPressureEnv(pEnv);
@@ -309,7 +309,7 @@ public class DBUtilsTest {
 		DBUtils.updMsrDataStage1(id, st1, extra);
 
 		// check main data
-		Container.Stage1 mainFromDB = DBUtils.getMainMsrDataStage1(id);
+		Container.Stage1.Elements mainFromDB = DBUtils.getMainMsrDataStage1(id);
 		double actualAlloyCompWeightFe = mainFromDB.getFe().getAlloyCompWeight();
 		double actualAlloyCompWeightC = mainFromDB.getC().getAlloyCompWeight();
 		double actualAlloyCompWeightMn = mainFromDB.getMn().getAlloyCompWeight();

@@ -38,7 +38,7 @@ public class InputDataController {
 	private void separateElementsStage1(){
 		basicElementsStage1 = new ArrayList<>();
 		accessoryElementsStage1 = new ArrayList<>();
-		for(GeneralElementStage1 el : model.Container.getInstance().getStage1().getAllElements()) {
+		for(GeneralElementStage1 el : model.Container.getInstance().getStage1().getElements().getAllElements()) {
 			if (((BaseElementStage1) el).isBasic()) {
 				basicElementsStage1.add(el);
 			} else {
@@ -72,11 +72,11 @@ public class InputDataController {
 	 * @return список элементов полученных иходя из варианта {@link AccessElementsStage1}
 	 */
 	public List<GeneralElementStage1> receiveUserTaskElementsStage1(AccessElementsStage1 access) {
-		Container.Stage1 data = DBUtils.getMainMsrDataStage1(1);
-		Container.getInstance().setStage1(data);
+		Container.Stage1.Elements data = DBUtils.getMainMsrDataStage1(1);
+		Container.getInstance().getStage1().setElements(data);
 
 		List<GeneralElementStage1> elements = new ArrayList<>();
-		for(GeneralElementStage1 el : model.Container.getInstance().getStage1().getAllElements()) {
+		for(GeneralElementStage1 el : model.Container.getInstance().getStage1().getElements().getAllElements()) {
 			if (access == AccessElementsStage1.TASK && el.getAlloyCompWeight() != BaseElementStage1.ELEM_NOT_DEFINED) {
 				elements.add(el);
 			} else if (access == AccessElementsStage1.ALL) {
